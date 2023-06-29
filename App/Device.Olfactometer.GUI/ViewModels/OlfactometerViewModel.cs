@@ -9,7 +9,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Themes.Fluent;
@@ -19,6 +18,8 @@ using MessageBox.Avalonia.Enums;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
+
+
 
 #endregion
 
@@ -47,7 +48,7 @@ namespace Device.Olfactometer.GUI.ViewModels
         public ReactiveCommand<Unit, Unit> LoadDeviceInformation { get; }
         public ReactiveCommand<Unit, Unit> ConnectAndGetBaseInfoCommand { get; }
         
-        private Bonsai.Harp.Device _dev;
+        private Harp.Olfactometer.AsyncDevice? _olfactometer;
         private readonly IObserver<HarpMessage> _observer;
         private IDisposable _observable;
         private readonly Subject<HarpMessage> _msgsSubject;
@@ -120,131 +121,53 @@ namespace Device.Olfactometer.GUI.ViewModels
                     throw new Exception("invalid parameter");
 
                 configuration = new DeviceConfiguration();
-                if (_dev != null)
+                if (_olfactometer != null)
                 {
+                    _olfactometer.Dispose();
+                    _olfactometer = null;
                     // cleanup variables
                     _observable?.Dispose();
                     _observable = null;
                 }
 
-                _dev = new Bonsai.Harp.Device
+                try
                 {
-                    PortName = SelectedPort,
-                    Heartbeat = EnableFlag.Disable,
-                    IgnoreErrors = false
-                };
+                    _olfactometer = await Harp.Olfactometer.Device.CreateAsync(SelectedPort);
+                }
+                catch (HarpException ex)
+                {
+                    //Log.Error(ex, "Error creating device with exception: {Exception}", ex);
+                    Console.WriteLine($"Error creating device with exception: {ex}");
+                    
+                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
+                        .GetMessageBoxStandardWindow("Unexpected device found",
+                            ex.Message,
+                            icon: Icon.Error);
+                    await messageBoxStandardWindow.Show();
+                    
+                    _olfactometer?.Dispose();
+                    _olfactometer = null;
+                    return;
+                }
 
                 //Log.Information("Attempting connection to port \'{SelectedPort}\'", SelectedPort);
                 Console.WriteLine($"Attempting connection to port \'{SelectedPort}\'");
 
                 HarpMessages.Clear();
 
-                await Task.Delay(300);
-
-                var observable = _dev.Generate()
-                    .Where(MessageType.Read)
-                    .Do(ReadRegister)
-                    .Throttle(TimeSpan.FromSeconds(0.2))
-                    .Timeout(TimeSpan.FromSeconds(5))
-                    .Subscribe(_ => { },
-                                // FIXME: ignore here the connection and perhaps simply return?
-                                (ex) => { HarpMessages.Add($"Error while sending commands to device:{ex.Message}"); });
-
-                await Task.Delay(300);
-
-                //Log.Information("Connection established with the following return information: {Info}", configuration);
-                //Console.WriteLine($"Connection established with the following return information: {configuration}");
-
-                // present messagebox if we are not handling a Pump device
-                // NOTE: for testing connection with a pump
-                if (configuration.WhoAmI != 1140 && configuration.WhoAmI != 1280 && configuration.WhoAmI != 1296)
-                {
-                    // when the configuration.WhoAmI is zero, we are dealing with a non-HARP device, so change message accordingly
-                    var message = $"Found a HARP device: {configuration.DeviceName} ({configuration.WhoAmI}).\n\nThis GUI is only for the SyringePump HARP device.\n\nPlease select another serial port.";
-                    var icon = Icon.Info;
-                    if (configuration.WhoAmI == 0)
-                    {
-                        message =
-                            $"Found a non-HARP device.\n\nThis GUI is only for the SyringePump HARP device.\n\nPlease select another serial port.";
-                        icon = Icon.Error;
-                    }
-
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
-                        .GetMessageBoxStandardWindow("Unexpected device found",
-                            message,
-                            icon: icon);
-                    await messageBoxStandardWindow.Show();
-                    observable.Dispose();
-                    return;
-                }
-
-                DeviceName = configuration.DeviceName;
-                DeviceID = configuration.WhoAmI;
-
-                // convert Hw and Fw version
-                HardwareVersion = configuration.HardwareVersion;
-                FirmwareVersion = configuration.FirmwareVersion;
-
+                DeviceID = await _olfactometer.ReadWhoAmIAsync();
+                DeviceName = await _olfactometer.ReadDeviceNameAsync();
+                HardwareVersion = await _olfactometer.ReadHardwareVersionAsync();
+                FirmwareVersion = await _olfactometer.ReadFirmwareVersionAsync();
+                
                 Connected = true;
 
-                observable.Dispose();
+                //observable.Dispose();
 
                 // generate observable for remaining operations
-                _observable = _dev.Generate(_msgsSubject)
-                    .Subscribe(_observer);
+                // _observable = _olfactometer.Generate(_msgsSubject)
+                //     .Subscribe(_observer);
             });
-        }
-        
-        private void ReadRegister(HarpMessage message)
-        {
-            switch (message.Address)
-            {
-                case WhoAmI.Address:
-                    configuration.WhoAmI = message.GetPayloadUInt16();
-                    break;
-                case HardwareVersionHigh.Address:
-                    configuration.HardwareVersionHigh = message.GetPayloadByte();
-                    break;
-                case HardwareVersionLow.Address:
-                    configuration.HardwareVersionLow = message.GetPayloadByte();
-                    break;
-                case FirmwareVersionHigh.Address:
-                    configuration.FirmwareVersionHigh = message.GetPayloadByte();
-                    break;
-                case FirmwareVersionLow.Address:
-                    configuration.FirmwareVersionLow = message.GetPayloadByte();
-                    break;
-                case CoreVersionHigh.Address:
-                    configuration.CoreVersionHigh = message.GetPayloadByte();
-                    break;
-                case CoreVersionLow.Address:
-                    configuration.CoreVersionLow = message.GetPayloadByte();
-                    break;
-                case AssemblyVersion.Address:
-                    configuration.AssemblyVersion = message.GetPayloadByte();
-                    break;
-                case DeviceRegisters.TimestampSecond:
-                    configuration.Timestamp = message.GetPayloadUInt32();
-                    break;
-                case DeviceRegisters.DeviceName:
-                    var deviceName = nameof(Device);
-                    if (!message.Error)
-                    {
-                        var namePayload = message.GetPayload();
-                        deviceName = Encoding.ASCII.GetString(namePayload.Array, namePayload.Offset, namePayload.Count)
-                            .Trim('\0');
-                    }
-
-                    configuration.DeviceName = deviceName;
-                    break;
-                case SerialNumber.Address:
-                    configuration.SerialNumber = message.GetPayloadUInt16();
-                    break;
-            }
-
-            // Update UI with the remaining registers
-            // if (message.Address >= (int)(PumpRegisters.EnableMotorDriver))
-            //     UpdateUI(message);
         }
     }
 }
