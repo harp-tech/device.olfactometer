@@ -16,8 +16,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectCapability Include="Avalonia" />
     <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-Bold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-BoldItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-ExtraBold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-Italic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-Light.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-LightItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-Regular.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-SemiBold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\OpenSans-SemiBoldItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
