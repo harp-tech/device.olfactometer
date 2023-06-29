@@ -1,8 +1,17 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Device.Olfactometer.GUI.App">
+             xmlns:local="clr-namespace:Device.Olfactometer.GUI"
+             x:Class="Device.Olfactometer.GUI.App"
+             Name="Olfactometer">
+    
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+        <StyleInclude Source="avares://Device.Olfactometer.GUI/Views/Icons.axaml" />
+        <StyleInclude Source="avares://Device.Olfactometer.GUI/Views/AccentColors.axaml" />
     </Application.Styles>
 </Application>

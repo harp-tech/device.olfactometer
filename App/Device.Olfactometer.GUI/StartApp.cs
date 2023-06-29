@@ -1,4 +1,6 @@
 ﻿using Avalonia;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace Device.Olfactometer.GUI;
 
@@ -6,7 +8,12 @@ public class StartApp
 {
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
+    {
+        RxApp.DefaultExceptionHandler = new MyCustomObservableExceptionHandler();
+        
+        return AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .LogToTrace();
+            .LogToTrace()
+            .UseReactiveUI();
+    }
 }
