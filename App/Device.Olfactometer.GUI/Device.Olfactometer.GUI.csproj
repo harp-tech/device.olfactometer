@@ -44,8 +44,36 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.21" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.21" />
     <PackageReference Include="Avalonia.ReactiveUI.Events" Version="0.10.21" />
+    <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.18" />
+    <PackageReference Include="HexIO" Version="3.0.5" />
+    <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
     <PackageReference Include="ReactiveUI.Fody" Version="19.2.1" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\OlfactometerView.axaml.cs">
+      <DependentUpon>OlfactometerView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainWindow.axaml.cs">
+      <DependentUpon>MainWindow.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewModels\MainWindowViewModel.cs">
+      <Link>MainWindowViewModel.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Ports">
+      <HintPath>..\..\..\..\..\.nuget\packages\system.io.ports\6.0.0\lib\netstandard2.0\System.IO.Ports.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interface\Harp.Olfactometer\Harp.Olfactometer.csproj" />
   </ItemGroup>
 </Project>
