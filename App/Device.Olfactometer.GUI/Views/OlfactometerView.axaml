@@ -19,7 +19,7 @@
             <TextBlock Grid.Row="0" Text="OLFACTOMETER" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                        FontWeight="Bold" FontSize="27" />
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="2">
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AppVersion}" HorizontalAlignment="Left"
+                <TextBlock Text="{Binding AppVersion}" HorizontalAlignment="Left"
                            VerticalAlignment="Bottom" FontWeight="Bold"  FontSize="18" Margin="5,0,0,0" />
                 <!-- <Button Grid.Column="1" Background="Transparent" Command="{Binding ShowAboutCommand}"> -->
                 <!--     <PathIcon Height="16" -->
@@ -87,7 +87,7 @@
                 <Panel Height="36">
                     <TextBlock Text="Device connection" VerticalAlignment="Center" FontSize="22" FontWeight="SemiBold" Margin="10,0"/>
                 </Panel>
-                <Grid ColumnDefinitions="*,*,25,30,25,30" RowDefinitions="*,*" Margin="0,0,10,0" MinHeight="60">
+                <Grid ColumnDefinitions="*,*,220,10,30,30" RowDefinitions="*,*" Margin="0,0,50,0" MinHeight="60">
                     <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="10" Orientation="Horizontal" Spacing="20">
                         <TextBlock Text="Select a device" VerticalAlignment="Center"/>
                         <ComboBox Name="Ports" Items="{Binding Ports}" SelectedItem="{Binding SelectedPort}" MinWidth="70"/>
@@ -100,11 +100,11 @@
                         </Button>
                         <Button Content="Connect" Command="{Binding ConnectAndGetBaseInfoCommand}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="30" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Hw " IsVisible="{Binding Connected}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding HardwareVersion}" FontWeight="Bold" />
-                    <TextBlock Grid.Row="1" Grid.Column="4" Text="Fw " IsVisible="{Binding Connected}" />
-                    <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding FirmwareVersion}" FontWeight="Bold" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Hw " IsVisible="{Binding Connected}" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding HardwareVersion}" IsVisible="{Binding Connected}" FontWeight="Bold" VerticalAlignment="Bottom" />
+                    <TextBlock Grid.Row="1" Grid.Column="4" Text="Fw " IsVisible="{Binding Connected}" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding FirmwareVersion}" IsVisible="{Binding Connected}" FontWeight="Bold" VerticalAlignment="Top" />
 
                 </Grid>
                 </StackPanel>
