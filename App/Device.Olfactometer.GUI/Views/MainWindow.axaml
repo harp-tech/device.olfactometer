@@ -5,6 +5,7 @@
         xmlns:viewmodels="clr-namespace:Device.Olfactometer.GUI.ViewModels;assembly=Device.Olfactometer.GUI"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Device.Olfactometer.GUI.Views.MainWindow"
+        Icon="/Assets/cf-logo.ico"
         Title="Olfactometer"
         Content="{Binding Olfactometer}"
         x:DataType="viewmodels:MainWindowViewModel">
