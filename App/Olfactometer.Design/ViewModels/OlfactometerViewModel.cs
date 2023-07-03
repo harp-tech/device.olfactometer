@@ -36,6 +36,8 @@ namespace Olfactometer.Design.ViewModels
         
         [ObservableAsProperty] public bool IsLoadingPorts { get; }
         [ObservableAsProperty] public bool IsConnecting { get; }
+        [ObservableAsProperty] public bool IsResetting { get; }
+        [ObservableAsProperty] public bool IsSaving { get; }
         
         [Reactive] public string DeviceName { get; set; }
         [Reactive] public int DeviceID { get; set; }
@@ -88,8 +90,9 @@ namespace Olfactometer.Design.ViewModels
         public ReactiveCommand<Unit, Unit> ChangeThemeCommand { get; }
         public ReactiveCommand<Unit, Unit> LoadDeviceInformation { get; }
         public ReactiveCommand<Unit, Unit> ConnectAndGetBaseInfoCommand { get; }
-        
         public ReactiveCommand<Unit, Unit> ToggleFlowCommand { get; }
+        public ReactiveCommand<bool, Unit> SaveConfigurationCommand { get; }
+        public ReactiveCommand<Unit, Unit> ResetConfigurationCommand { get; }
         public ReactiveCommand<Unit, Unit> ShowAboutCommand { get; }
         
         private Harp.Olfactometer.AsyncDevice? _olfactometer;
@@ -135,6 +138,19 @@ namespace Olfactometer.Design.ViewModels
                 //Log.Error(ex, "Error starting protocol with error: {Exception}", ex));
                 Console.WriteLine($"Error starting protocol with error: {ex}"));
             
+            SaveConfigurationCommand =
+                ReactiveCommand.CreateFromObservable<bool, Unit>(SaveConfiguration, canChangeConfig);
+            SaveConfigurationCommand.IsExecuting.ToPropertyEx(this, x => x.IsSaving);
+            SaveConfigurationCommand.ThrownExceptions.Subscribe(ex =>
+                //Log.Error(ex, "Error saving configuration with error: {Exception}", ex));
+                Console.WriteLine($"Error saving configuration with error: {ex}"));
+
+            ResetConfigurationCommand = ReactiveCommand.CreateFromObservable(ResetConfiguration, canChangeConfig);
+            ResetConfigurationCommand.IsExecuting.ToPropertyEx(this, x => x.IsResetting);
+            ResetConfigurationCommand.ThrownExceptions.Subscribe(ex =>
+                //Log.Error(ex, "Error resetting device configuration with error: {Exception}", ex));
+                Console.WriteLine($"Error resetting device configuration with error: {ex}"));
+            
             ShowAboutCommand = ReactiveCommand.CreateFromTask(async () =>
                 await new About() { DataContext = new AboutViewModel() }.ShowDialog(
                     (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow));
@@ -142,6 +158,33 @@ namespace Olfactometer.Design.ViewModels
             
             // force initial population of currently connected ports
             LoadUsbInformation();
+        }
+
+        private IObservable<Unit> SaveConfiguration(bool savePermanently)
+        {
+            return Observable.StartAsync(async () =>
+            {
+                if (_olfactometer == null)
+                    throw new Exception("You need to connect to the device first");
+                
+                // TODO: get all configuration values from the UI
+
+                if (savePermanently)
+                {
+                    await _olfactometer.WriteResetDeviceAsync(ResetFlags.Save);
+                }
+            });
+        }
+
+        private IObservable<Unit> ResetConfiguration()
+        {
+            return Observable.StartAsync(async () =>
+            {
+                if (_olfactometer != null)
+                {
+                    await _olfactometer.WriteResetDeviceAsync(ResetFlags.RestoreDefault);
+                }
+            });
         }
 
         private IObservable<Unit> ToggleFlow()
