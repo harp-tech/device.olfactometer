@@ -10,10 +10,12 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
 using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Themes.Fluent;
 using Bonsai.Harp;
 using Harp.Olfactometer;
 using MessageBox.Avalonia.Enums;
+using Olfactometer.Design.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
@@ -88,6 +90,7 @@ namespace Olfactometer.Design.ViewModels
         public ReactiveCommand<Unit, Unit> ConnectAndGetBaseInfoCommand { get; }
         
         public ReactiveCommand<Unit, Unit> ToggleFlowCommand { get; }
+        public ReactiveCommand<Unit, Unit> ShowAboutCommand { get; }
         
         private Harp.Olfactometer.AsyncDevice? _olfactometer;
         private readonly IObserver<HarpMessage> _observer;
@@ -131,6 +134,10 @@ namespace Olfactometer.Design.ViewModels
             ToggleFlowCommand.ThrownExceptions.Subscribe(ex =>
                 //Log.Error(ex, "Error starting protocol with error: {Exception}", ex));
                 Console.WriteLine($"Error starting protocol with error: {ex}"));
+            
+            ShowAboutCommand = ReactiveCommand.CreateFromTask(async () =>
+                await new About() { DataContext = new AboutViewModel() }.ShowDialog(
+                    (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow));
                 
             
             // force initial population of currently connected ports

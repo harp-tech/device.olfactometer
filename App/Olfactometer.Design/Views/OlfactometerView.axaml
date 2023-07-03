@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
-             xmlns:views="clr-namespace:Device.Olfactometer.GUI.Views"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:viewModels1="clr-namespace:Olfactometer.Design.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -21,13 +20,13 @@
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="2">
                 <TextBlock Text="{Binding AppVersion}" HorizontalAlignment="Left"
                            VerticalAlignment="Bottom" FontWeight="Bold"  FontSize="18" Margin="5,0,0,0" />
-                <!-- <Button Grid.Column="1" Background="Transparent" Command="{Binding ShowAboutCommand}"> -->
-                <!--     <PathIcon Height="16" -->
-                <!--               HorizontalAlignment="Center" -->
-                <!--               VerticalAlignment="Center" -->
-                <!--               Data="{StaticResource question_mark}"> -->
-                <!--     </PathIcon> -->
-                <!-- </Button> -->
+                <Button Grid.Column="1" Background="Transparent" Command="{Binding ShowAboutCommand}">
+                    <PathIcon Height="16"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="{StaticResource question_mark}">
+                    </PathIcon>
+                </Button>
             </StackPanel>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Hardware &amp; Software Platform" HorizontalAlignment="Center"
                        Foreground="#009CDF" MaxWidth="240" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="WrapWithOverflow" FontSize="14" />
