@@ -6,7 +6,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    <RootNamespace>Device.Olfactometer.GUI</RootNamespace>
+    <RootNamespace>Olfactometer.Design</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>../bin/Debug/</OutputPath>
@@ -75,5 +75,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Interface\Harp.Olfactometer\Harp.Olfactometer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

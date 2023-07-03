@@ -5,7 +5,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Device.Olfactometer</RootNamespace>
+        <RootNamespace>Olfactometer</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Device.Olfactometer.GUI\Device.Olfactometer.GUI.csproj" />
+      <ProjectReference Include="..\Olfactometer.Design\Olfactometer.Design.csproj" />
     </ItemGroup>
 
     <ItemGroup>

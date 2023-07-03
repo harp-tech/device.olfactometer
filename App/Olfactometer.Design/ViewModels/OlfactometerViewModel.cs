@@ -109,6 +109,7 @@ namespace Device.Olfactometer.GUI.ViewModels
             HarpMessages = new ObservableCollection<string>();
             ChangeThemeCommand = ReactiveCommand.Create(ChangeTheme);
             Channel3RangeOptions = Enum.GetValues<Channel3RangeConfig>().ToList();
+            Ports = new List<string>();
 
             LoadDeviceInformation = ReactiveCommand.CreateFromObservable(LoadUsbInformation);
             LoadDeviceInformation.IsExecuting.ToPropertyEx(this, x => x.IsLoadingPorts);

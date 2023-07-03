@@ -9,7 +9,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Device.Olfactometer.GUI.Views.OlfactometerView"
              x:DataType="viewModels:OlfactometerViewModel"
-             FontFamily="resm:?assembly=Device.Olfactometer.GUI#Open Sans">
+             FontFamily="resm:?assembly=Olfactometer.Design#Open Sans">
     <DockPanel>
         <!-- <views:LogsWindow DockPanel.Dock="Right" -->
         <!--                   IsVisible="{Binding ShowLogs}" -->
