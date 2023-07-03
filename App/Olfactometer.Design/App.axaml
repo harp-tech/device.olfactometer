@@ -1,11 +1,11 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Device.Olfactometer.GUI"
-             x:Class="Device.Olfactometer.GUI.App"
+             xmlns:design="clr-namespace:Olfactometer.Design"
+             x:Class="Olfactometer.Design.App"
              Name="Olfactometer">
     
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <design:ViewLocator/>
     </Application.DataTemplates>
 
 

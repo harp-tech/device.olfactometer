@@ -1,6 +1,4 @@
-using Device.Olfactometer.GUI.ViewModels;
-
-namespace Device.Olfactometer.GUI.ViewModels
+namespace Olfactometer.Design.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

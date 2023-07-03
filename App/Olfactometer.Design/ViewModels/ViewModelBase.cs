@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace Device.Olfactometer.GUI.ViewModels
+namespace Olfactometer.Design.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

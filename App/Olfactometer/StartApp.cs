@@ -1,18 +1,19 @@
 ﻿using Avalonia;
-using Device.Olfactometer.GUI;
+using Olfactometer.Design;
 
-namespace Device.Olfactometer;
-
-internal class Program
+namespace Olfactometer
 {
-    [STAThread]
-    public static void Main(string[] args)
+    internal class Program
     {
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-    }
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
     
-    public static AppBuilder BuildAvaloniaApp()
-    {
-        return StartApp.BuildAvaloniaApp();
+        public static AppBuilder BuildAvaloniaApp()
+        {
+            return StartApp.BuildAvaloniaApp();
+        }
     }
 }

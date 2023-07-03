@@ -6,7 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ReactiveUI;
 
-namespace Device.Olfactometer.GUI
+namespace Olfactometer.Design
 {
     public class ViewLocator : IDataTemplate
     {

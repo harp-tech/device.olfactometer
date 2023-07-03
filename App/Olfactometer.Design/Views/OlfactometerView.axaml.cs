@@ -1,8 +1,8 @@
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using Device.Olfactometer.GUI.ViewModels;
+using Olfactometer.Design.ViewModels;
 
-namespace Device.Olfactometer.GUI.Views
+namespace Olfactometer.Design.Views
 {
     public partial class OlfactometerView : ReactiveUserControl<OlfactometerViewModel>
     {

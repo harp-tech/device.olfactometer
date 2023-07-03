@@ -18,11 +18,9 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
 
-
-
 #endregion
 
-namespace Device.Olfactometer.GUI.ViewModels
+namespace Olfactometer.Design.ViewModels
 {
     public class OlfactometerViewModel : ReactiveValidationObject
     {

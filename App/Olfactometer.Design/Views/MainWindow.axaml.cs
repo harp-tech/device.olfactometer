@@ -1,13 +1,13 @@
-using Avalonia.Controls;
 using Avalonia.ReactiveUI;
-using Device.Olfactometer.GUI.ViewModels;
+using Olfactometer.Design.ViewModels;
 
-namespace Device.Olfactometer.GUI.Views;
-
-public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+namespace Olfactometer.Design.Views
 {
-    public MainWindow()
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
-        InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

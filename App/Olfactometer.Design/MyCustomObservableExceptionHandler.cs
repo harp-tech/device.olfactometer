@@ -2,9 +2,10 @@
 using System.Diagnostics;
 using System.Reactive.Concurrency;
 using ReactiveUI;
+
 //using Serilog;
 
-namespace Device.Olfactometer.GUI
+namespace Olfactometer.Design
 {
     public class MyCustomObservableExceptionHandler : IObserver<Exception>
     {

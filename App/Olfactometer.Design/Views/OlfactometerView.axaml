@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
              xmlns:views="clr-namespace:Device.Olfactometer.GUI.Views"
-             xmlns:viewModels="clr-namespace:Device.Olfactometer.GUI.ViewModels"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:viewModels1="clr-namespace:Olfactometer.Design.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Device.Olfactometer.GUI.Views.OlfactometerView"
-             x:DataType="viewModels:OlfactometerViewModel"
+             x:Class="Olfactometer.Design.Views.OlfactometerView"
+             x:DataType="viewModels1:OlfactometerViewModel"
              FontFamily="resm:?assembly=Olfactometer.Design#Open Sans">
     <DockPanel>
         <!-- <views:LogsWindow DockPanel.Dock="Right" -->
