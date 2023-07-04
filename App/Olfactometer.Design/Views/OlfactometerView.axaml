@@ -121,27 +121,27 @@
                         <TextBlock Grid.Row="0" Grid.Column="3" Text="Range" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                         <!-- Channel 0 -->
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Channel 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel0FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel0FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Channel0FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="1" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <!-- Channel 1 -->
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Channel 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel1FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel1FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Channel1FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="2" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <!-- Channel 2 -->
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Channel 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel2FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel2FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Channel2FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="3" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <!-- Channel 3 -->
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Channel 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel3FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel3FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Channel3FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <ComboBox Grid.Row="4" Grid.Column="3" Items="{Binding Channel3RangeOptions}" SelectedItem="{Binding Channel3Range}" VerticalAlignment="Center" HorizontalAlignment="Center"></ComboBox>
                         <!-- Channel 4 -->
                         <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel4FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel4FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Channel4FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="5" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         

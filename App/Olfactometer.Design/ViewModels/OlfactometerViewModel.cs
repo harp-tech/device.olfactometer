@@ -99,6 +99,8 @@ namespace Olfactometer.Design.ViewModels
         private readonly IObserver<HarpMessage> _observer;
         private IDisposable _observable;
         private readonly Subject<HarpMessage> _msgsSubject;
+        private Valves _valvesState;
+        private Valves _valvesToggle;
 
         public OlfactometerViewModel()
         {
@@ -154,8 +156,24 @@ namespace Olfactometer.Design.ViewModels
             ShowAboutCommand = ReactiveCommand.CreateFromTask(async () =>
                 await new About() { DataContext = new AboutViewModel() }.ShowDialog(
                     (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow));
-                
             
+            this.WhenAnyValue(x => x.Valve0State, x => x.Valve1State, x => x.Valve2State, x => x.Valve3State,
+                    x => x.EndValve0State, x => x.EndValve1State)
+                .Subscribe(async x =>
+                {
+                    if (_olfactometer != null)
+                        await _olfactometer.WriteValvesStateAsync(GetCurrentValvesState());
+                });
+            
+            this.WhenAnyValue(x => x.Valve0Toggle, x => x.Valve1Toggle, x => x.Valve2Toggle, x => x.Valve3Toggle,
+                    x => x.EndValve0Toggle, x => x.EndValve1Toggle)
+                .Subscribe(async x =>
+                {
+                    if (_olfactometer != null)
+                        await _olfactometer.WriteValvesToggleAsync(GetCurrentValvesToggle());
+                });
+
+
             // force initial population of currently connected ports
             LoadUsbInformation();
         }
@@ -318,6 +336,44 @@ namespace Olfactometer.Design.ViewModels
                 // _observable = _olfactometer.Generate(_msgsSubject)
                 //     .Subscribe(_observer);
             });
+        }
+        
+        private Valves GetCurrentValvesToggle()
+        {
+            _valvesToggle = 0;
+            if (Valve0Toggle)
+                _valvesToggle |= Valves.Valve0;
+            if(Valve1Toggle)
+                _valvesToggle |= Valves.Valve1;
+            if (Valve2Toggle)
+                _valvesToggle |= Valves.Valve2;
+            if(Valve3Toggle)
+                _valvesToggle |= Valves.Valve3;
+            if(EndValve0Toggle)
+                _valvesToggle |= Valves.EndValve0;
+            if (EndValve1Toggle)
+                _valvesToggle |= Valves.EndValve1;
+
+            return _valvesToggle;
+        }
+
+        private Valves GetCurrentValvesState()
+        {
+            _valvesState = 0;
+            if (Valve0State)
+                _valvesState |= Valves.Valve0;
+            if(Valve1State)
+                _valvesState |= Valves.Valve1;
+            if(Valve2State)
+                _valvesState |= Valves.Valve2;
+            if(Valve3State)
+                _valvesState |= Valves.Valve3;
+            if(EndValve0State)
+                _valvesState |= Valves.EndValve0;
+            if(EndValve1State)
+                _valvesState |= Valves.EndValve1;
+            
+            return _valvesState;
         }
     }
 }
