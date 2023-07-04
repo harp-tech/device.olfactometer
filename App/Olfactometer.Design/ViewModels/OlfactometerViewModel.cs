@@ -193,7 +193,9 @@ namespace Olfactometer.Design.ViewModels
             {
                 if (_olfactometer == null)
                     throw new Exception("Olfactometer is not connected");
-                await _olfactometer.WriteEnableFlowAsync(EnableFlow);
+                await _olfactometer.WriteEnableFlowAsync(EnableFlow == EnableFlag.Enable ? EnableFlag.Disable : EnableFlag.Enable);
+                // update EnableFlow to the actual value
+                EnableFlow = await _olfactometer.ReadEnableFlowAsync();
             });
         }
 
