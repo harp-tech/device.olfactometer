@@ -40,5 +40,6 @@
 
             As with other Harp devices, the Olfactometer can also be used in [Bonsai](https://bonsai-rx.org/).
         </md:MarkdownScrollViewer>
+        <Button Content="Generate EEPROM" Command="{Binding GenerateEepromCommand}" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

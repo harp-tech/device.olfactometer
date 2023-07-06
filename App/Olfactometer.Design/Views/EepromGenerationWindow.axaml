@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Olfactometer.Design.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="350" Width="420" Height="350"
+        x:Class="Olfactometer.Design.Views.EepromGenerationWindow"
+        Title="Eeprom Generation"
+        x:DataType="viewModels:EepromGenerationViewModel">
+    <StackPanel Margin="20">
+        <Label FontSize="32" FontWeight="Bold" Content="EEPROM Generation"/>
+        <Label Margin="0, 20, 0, 0" FontWeight="SemiBold" Content="Input file"/>
+        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0, 10">
+            <TextBox Text="{Binding Path=InputFileName, Mode=TwoWay}" Width="300"/>
+            <Button Content="Browse" Command="{Binding Path=BrowseOpenCommand}"/>
+        </StackPanel>
+        <Button Content="Generate" Command="{Binding Path=GenerateCommand}"/>
+        <Button
+            Margin="0, 20, 0,0"
+            IsVisible="{Binding IsGenerated}"
+            Content="Save file to disk"
+            Command="{Binding Path=SaveCommand}"
+            Background="{StaticResource BlueAccentColor}"
+            Foreground="White"/>
+    </StackPanel>
+</Window>
