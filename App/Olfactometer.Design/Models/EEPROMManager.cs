@@ -60,7 +60,8 @@ namespace Olfactometer.Design.Models
             
             // create memory stream
             stream = new MemoryStream();
-            var writer = new IntelHexStreamWriter(stream, Encoding.UTF8, 1024, true);
+            Encoding utf8WithoutBom = new UTF8Encoding(false);
+            var writer = new IntelHexStreamWriter(stream, utf8WithoutBom, 1024, true);
             
             // write test data to stream every 0x10 offset until 0x10064000
             for (int i = 0; i < 128; i++)
