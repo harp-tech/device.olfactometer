@@ -82,6 +82,10 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public bool EndValve0Pulse { get; set; }
         [Reactive] public bool EndValve1Pulse { get; set; }
         
+        [Reactive] public int DigitalOutput0Config { get; set; }
+        [Reactive] public int DigitalOutput1Config { get; set; }
+        [Reactive] public int DigitalInput0Config { get; set; }
+        
         
 
         
@@ -186,6 +190,11 @@ namespace Olfactometer.Design.ViewModels
                     throw new Exception("You need to connect to the device first");
                 
                 // TODO: get all configuration values from the UI
+                
+                
+                await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
+                await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
+                await _olfactometer.WriteDI0TriggerAsync((DI0TriggerConfig)DigitalInput0Config);
 
                 if (savePermanently)
                 {
@@ -327,6 +336,16 @@ namespace Olfactometer.Design.ViewModels
                 Valve3Pulse = valvesPulse.HasFlag(Valves.Valve3);
                 EndValve0Pulse = valvesPulse.HasFlag(Valves.EndValve0);
                 EndValve1Pulse = valvesPulse.HasFlag(Valves.EndValve1);
+                
+                // get default values for DO0_SYNC, DO1_SYNC, DI0_TRIGGER
+                var do0Sync = await _olfactometer.ReadDO0SyncAsync();
+                DigitalOutput0Config = (int)do0Sync;
+                
+                var do1Sync = await _olfactometer.ReadDO1SyncAsync();
+                DigitalOutput1Config = (int)do1Sync;
+                
+                var di0Trigger = await _olfactometer.ReadDI0TriggerAsync();
+                DigitalInput0Config = (int)di0Trigger;
 
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
 

@@ -208,7 +208,27 @@
                     </TabItem>
                     <!-- Configuration tab -->
                     <TabItem Header="Configuration" FontWeight="SemiBold" FontSize="22">
-                        
+                        <Grid Margin="10,0,0,0" ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="*,*,*,*">
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16" FontWeight="SemiBold"/>
+                            <StackPanel Grid.Row="1" Grid.Column="2" Spacing="5" Margin="0,20,30,0">
+                                <TextBlock Text="Digital output 0" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=DigitalOutput0Config}">
+                                    <ComboBoxItem>Digital output 0 controlled by software</ComboBoxItem>
+                                    <ComboBoxItem>Mimic Enable Flow</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="Digital output 1" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=DigitalOutput1Config}">
+                                    <ComboBoxItem>Digital output 1 controlled by software</ComboBoxItem>
+                                    <ComboBoxItem>Mimic Enable Flow</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="Digital input" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=DigitalInput0Config}">
+                                    <ComboBoxItem>Use as a regular digital input</ComboBoxItem>
+                                    <ComboBoxItem>Start flowmeter on a rising edge, stop on a falling edge</ComboBoxItem>
+                                    <ComboBoxItem>Toggles the end valves with a rising and falling edge</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
                     </TabItem>
                 </TabControl>
                 
