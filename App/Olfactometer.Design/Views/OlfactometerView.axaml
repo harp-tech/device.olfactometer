@@ -5,15 +5,11 @@
              xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:viewModels1="clr-namespace:Olfactometer.Design.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
              x:Class="Olfactometer.Design.Views.OlfactometerView"
              x:DataType="viewModels1:OlfactometerViewModel"
              FontFamily="resm:?assembly=Olfactometer.Design#Open Sans">
     <DockPanel>
-        <!-- <views:LogsWindow DockPanel.Dock="Right" -->
-        <!--                   IsVisible="{Binding ShowLogs}" -->
-        <!--                   x:Name="LogsPanel" /> -->
-
         <Grid Margin="10" DockPanel.Dock="Top" ColumnDefinitions="Auto,Auto,*,Auto,Auto" RowDefinitions="30,25,*,*">
             <TextBlock Grid.Row="0" Text="OLFACTOMETER" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                        FontWeight="Bold" FontSize="27" />

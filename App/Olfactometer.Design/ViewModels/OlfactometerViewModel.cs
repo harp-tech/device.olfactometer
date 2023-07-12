@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Reactive;
@@ -32,8 +31,6 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public string SelectedPort { get; set; }
         [Reactive] public bool Connected { get; set; }
         
-        [Reactive] public ObservableCollection<string> HarpMessages { get; set; }
-        
         [ObservableAsProperty] public bool IsLoadingPorts { get; }
         [ObservableAsProperty] public bool IsConnecting { get; }
         [ObservableAsProperty] public bool IsResetting { get; }
@@ -45,8 +42,9 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public HarpVersion FirmwareVersion { get; set; }
         
         [Reactive] public EnableFlag EnableFlow { get; set; }
-        [ObservableAsProperty] public bool IsRunningFlow { get; }
-        
+        [Reactive] public bool RunningFlow { get; set; }
+        [ObservableAsProperty] public bool IsStartingFlow { get; }
+
         // device fields
         [Reactive] public float Channel0FlowTarget { get; set; }
         [Reactive] public float Channel0FlowReal { get; set; }
@@ -116,7 +114,6 @@ namespace Olfactometer.Design.ViewModels
             Console.WriteLine(
                 $"Dotnet version: {System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}");
 
-            HarpMessages = new ObservableCollection<string>();
             ChangeThemeCommand = ReactiveCommand.Create(ChangeTheme);
             Channel3RangeOptions = Enum.GetValues<Channel3RangeConfig>().ToList();
             Ports = new List<string>();
@@ -139,7 +136,7 @@ namespace Olfactometer.Design.ViewModels
             
             var canChangeConfig = this.WhenAnyValue(x => x.Connected).Select(connected => connected);
             ToggleFlowCommand = ReactiveCommand.CreateFromObservable(ToggleFlow, canChangeConfig);
-            ToggleFlowCommand.IsExecuting.ToPropertyEx(this, x => x.IsRunningFlow);
+            ToggleFlowCommand.IsExecuting.ToPropertyEx(this, x => x.IsStartingFlow);
             ToggleFlowCommand.ThrownExceptions.Subscribe(ex =>
                 //Log.Error(ex, "Error starting protocol with error: {Exception}", ex));
                 Console.WriteLine($"Error starting protocol with error: {ex}"));
@@ -176,7 +173,9 @@ namespace Olfactometer.Design.ViewModels
                     if (_olfactometer != null)
                         await _olfactometer.WriteEnableValvesPulseAsync(GetCurrentValvesPulse());
                 });
-
+            
+            this.WhenAnyValue(x => x.EnableFlow)
+                .Subscribe(x => RunningFlow = x == EnableFlag.Enable);
 
             // force initial population of currently connected ports
             LoadUsbInformation();
@@ -290,8 +289,6 @@ namespace Olfactometer.Design.ViewModels
 
                 //Log.Information("Attempting connection to port \'{SelectedPort}\'", SelectedPort);
                 Console.WriteLine($"Attempting connection to port \'{SelectedPort}\'");
-
-                HarpMessages.Clear();
 
                 DeviceID = await _olfactometer.ReadWhoAmIAsync();
                 DeviceName = await _olfactometer.ReadDeviceNameAsync();
