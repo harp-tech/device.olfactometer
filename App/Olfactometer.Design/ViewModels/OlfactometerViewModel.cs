@@ -75,12 +75,12 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public bool EndValve0State { get; set; }
         [Reactive] public bool EndValve1State { get; set; }
         
-        [Reactive] public bool Valve0Toggle { get; set; }
-        [Reactive] public bool Valve1Toggle { get; set; }
-        [Reactive] public bool Valve2Toggle { get; set; }
-        [Reactive] public bool Valve3Toggle { get; set; }
-        [Reactive] public bool EndValve0Toggle { get; set; }
-        [Reactive] public bool EndValve1Toggle { get; set; }
+        [Reactive] public bool Valve0Pulse { get; set; }
+        [Reactive] public bool Valve1Pulse { get; set; }
+        [Reactive] public bool Valve2Pulse { get; set; }
+        [Reactive] public bool Valve3Pulse { get; set; }
+        [Reactive] public bool EndValve0Pulse { get; set; }
+        [Reactive] public bool EndValve1Pulse { get; set; }
         
         
 
@@ -100,7 +100,7 @@ namespace Olfactometer.Design.ViewModels
         private IDisposable _observable;
         private readonly Subject<HarpMessage> _msgsSubject;
         private Valves _valvesState;
-        private Valves _valvesToggle;
+        private Valves _valvesPulse;
 
         public OlfactometerViewModel()
         {
@@ -165,12 +165,12 @@ namespace Olfactometer.Design.ViewModels
                         await _olfactometer.WriteValvesStateAsync(GetCurrentValvesState());
                 });
             
-            this.WhenAnyValue(x => x.Valve0Toggle, x => x.Valve1Toggle, x => x.Valve2Toggle, x => x.Valve3Toggle,
-                    x => x.EndValve0Toggle, x => x.EndValve1Toggle)
+            this.WhenAnyValue(x => x.Valve0Pulse, x => x.Valve1Pulse, x => x.Valve2Pulse, x => x.Valve3Pulse,
+                    x => x.EndValve0Pulse, x => x.EndValve1Pulse)
                 .Subscribe(async x =>
                 {
                     if (_olfactometer != null)
-                        await _olfactometer.WriteValvesToggleAsync(GetCurrentValvesToggle());
+                        await _olfactometer.WriteEnableValvesPulseAsync(GetCurrentValvesPulse());
                 });
 
 
@@ -319,14 +319,14 @@ namespace Olfactometer.Design.ViewModels
                 EndValve0State = valvesState.HasFlag(Valves.EndValve0);
                 EndValve1State = valvesState.HasFlag(Valves.EndValve1);
                 
-                // get ValvesToggle
-                var valvesToggle = await _olfactometer.ReadValvesToggleAsync();
-                Valve0Toggle = valvesToggle.HasFlag(Valves.Valve0);
-                Valve1Toggle = valvesToggle.HasFlag(Valves.Valve1);
-                Valve2Toggle = valvesToggle.HasFlag(Valves.Valve2);
-                Valve3Toggle = valvesToggle.HasFlag(Valves.Valve3);
-                EndValve0Toggle = valvesToggle.HasFlag(Valves.EndValve0);
-                EndValve1Toggle = valvesToggle.HasFlag(Valves.EndValve1);
+                // get ValvesPulse
+                var valvesPulse = await _olfactometer.ReadEnableValvesPulseAsync();
+                Valve0Pulse = valvesPulse.HasFlag(Valves.Valve0);
+                Valve1Pulse = valvesPulse.HasFlag(Valves.Valve1);
+                Valve2Pulse = valvesPulse.HasFlag(Valves.Valve2);
+                Valve3Pulse = valvesPulse.HasFlag(Valves.Valve3);
+                EndValve0Pulse = valvesPulse.HasFlag(Valves.EndValve0);
+                EndValve1Pulse = valvesPulse.HasFlag(Valves.EndValve1);
 
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
 
@@ -338,23 +338,23 @@ namespace Olfactometer.Design.ViewModels
             });
         }
         
-        private Valves GetCurrentValvesToggle()
+        private Valves GetCurrentValvesPulse()
         {
-            _valvesToggle = 0;
-            if (Valve0Toggle)
-                _valvesToggle |= Valves.Valve0;
-            if(Valve1Toggle)
-                _valvesToggle |= Valves.Valve1;
-            if (Valve2Toggle)
-                _valvesToggle |= Valves.Valve2;
-            if(Valve3Toggle)
-                _valvesToggle |= Valves.Valve3;
-            if(EndValve0Toggle)
-                _valvesToggle |= Valves.EndValve0;
-            if (EndValve1Toggle)
-                _valvesToggle |= Valves.EndValve1;
+            _valvesPulse = 0;
+            if (Valve0Pulse)
+                _valvesPulse |= Valves.Valve0;
+            if(Valve1Pulse)
+                _valvesPulse |= Valves.Valve1;
+            if (Valve2Pulse)
+                _valvesPulse |= Valves.Valve2;
+            if(Valve3Pulse)
+                _valvesPulse |= Valves.Valve3;
+            if(EndValve0Pulse)
+                _valvesPulse |= Valves.EndValve0;
+            if (EndValve1Pulse)
+                _valvesPulse |= Valves.EndValve1;
 
-            return _valvesToggle;
+            return _valvesPulse;
         }
 
         private Valves GetCurrentValvesState()
