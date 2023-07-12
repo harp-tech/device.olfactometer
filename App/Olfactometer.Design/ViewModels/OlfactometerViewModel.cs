@@ -84,7 +84,9 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public int DigitalOutput1Config { get; set; }
         [Reactive] public int DigitalInput0Config { get; set; }
         
-        
+        [Reactive] public bool FlowmeterAnalogOutputsEvent { get; set; } = true;
+        [Reactive] public bool DI0TriggerEvent { get; set; } = true;
+        [Reactive] public bool ChannelxFlowRealEvent { get; set; } = true;
 
         
         
@@ -189,7 +191,17 @@ namespace Olfactometer.Design.ViewModels
                     throw new Exception("You need to connect to the device first");
                 
                 // TODO: get all configuration values from the UI
-                
+                //Events
+                OlfactometerEvents events = 0;
+                if (FlowmeterAnalogOutputsEvent)
+                    events |= OlfactometerEvents.FlowmeterAnalogOutputs;
+                if(DI0TriggerEvent)
+                    events |= OlfactometerEvents.DI0Trigger;
+                if(ChannelxFlowRealEvent)
+                    events |= OlfactometerEvents.ChannelxFlowReal;
+
+                if(events != 0)
+                    await _olfactometer.WriteEnableEventsAsync(events);
                 
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
@@ -343,6 +355,13 @@ namespace Olfactometer.Design.ViewModels
                 
                 var di0Trigger = await _olfactometer.ReadDI0TriggerAsync();
                 DigitalInput0Config = (int)di0Trigger;
+                
+                // Events
+                var events = await _olfactometer.ReadEnableEventsAsync();
+                FlowmeterAnalogOutputsEvent = events.HasFlag(OlfactometerEvents.FlowmeterAnalogOutputs);
+                DI0TriggerEvent = events.HasFlag(OlfactometerEvents.DI0Trigger);
+                ChannelxFlowRealEvent = events.HasFlag(OlfactometerEvents.ChannelxFlowReal);
+                
 
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
 
