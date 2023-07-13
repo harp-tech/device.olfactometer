@@ -180,6 +180,12 @@ namespace Olfactometer.Design.ViewModels
                     if (_olfactometer != null)
                         await _olfactometer.WriteEnableValvesPulseAsync(GetCurrentValvesPulse());
                 });
+
+            this.WhenAnyValue(x => x.Channel3Range).Subscribe(async x =>
+            {
+                if (_olfactometer != null)
+                    await _olfactometer.WriteChannel3RangeAsync(Channel3Range);
+            });
             
             this.WhenAnyValue(x => x.EnableFlow)
                 .Subscribe(x => RunningFlow = x == EnableFlag.Enable);
