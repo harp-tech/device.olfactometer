@@ -5,7 +5,7 @@
              xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:viewModels1="clr-namespace:Olfactometer.Design.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="750"
              x:Class="Olfactometer.Design.Views.OlfactometerView"
              x:DataType="viewModels1:OlfactometerViewModel"
              FontFamily="resm:?assembly=Olfactometer.Design#Open Sans">
@@ -206,11 +206,50 @@
                     <TabItem Header="Configuration" FontWeight="SemiBold" FontSize="22">
                         <Grid Margin="10,0,0,0" ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="*,*,*,*">
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Events" FontSize="16" FontWeight="SemiBold" />
+							<TextBlock Grid.Row="0" Grid.Column="1" Text="Mimic Valves" FontSize="16" FontWeight="SemiBold"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16" FontWeight="SemiBold"/>
                             <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,20,30,0">
                                 <CheckBox IsChecked="{Binding FlowmeterAnalogOutputsEvent}">Flowmeter analog outputs state</CheckBox>
                                 <CheckBox IsChecked="{Binding DI0TriggerEvent}">Digital Input 0 Trigger state</CheckBox>
                                 <CheckBox IsChecked="{Binding ChannelxFlowRealEvent}">Channels Flow Real state</CheckBox>
+                            </StackPanel>
+							<StackPanel Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,20,30,0">
+                                <TextBlock Text="Valve 0" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicValve0}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="Valve 1" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicValve1}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="Valve 2" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicValve2}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="Valve 3" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicValve3}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="End Valve 0" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicEndValve0}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock Text="End Valve 1" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=MimicEndValve1}">
+                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
+                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
+                                </ComboBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2" Spacing="5" Margin="0,20,30,0">
                                 <TextBlock Text="Digital output 0" FontWeight="SemiBold"/>

@@ -88,7 +88,12 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public bool DI0TriggerEvent { get; set; } = true;
         [Reactive] public bool ChannelxFlowRealEvent { get; set; } = true;
 
-        
+        [Reactive] public int MimicValve0 { get; set; }
+        [Reactive] public int MimicValve1 { get; set; }
+        [Reactive] public int MimicValve2 { get; set; }
+        [Reactive] public int MimicValve3 { get; set; }
+        [Reactive] public int MimicEndValve0 { get; set; }
+        [Reactive] public int MimicEndValve1 { get; set; }
         
         [Reactive] public bool ShowDarkTheme { get; set; }
         public ReactiveCommand<Unit, Unit> ChangeThemeCommand { get; }
@@ -202,6 +207,14 @@ namespace Olfactometer.Design.ViewModels
 
                 if(events != 0)
                     await _olfactometer.WriteEnableEventsAsync(events);
+                
+                // Mimic Valves
+                await _olfactometer.WriteMimicValve0Async((MimicOuputs)MimicValve0);
+                await _olfactometer.WriteMimicValve1Async((MimicOuputs)MimicValve1);
+                await _olfactometer.WriteMimicValve2Async((MimicOuputs)MimicValve2);
+                await _olfactometer.WriteMimicValve3Async((MimicOuputs)MimicValve3);
+                await _olfactometer.WriteMimicEndvalve0Async((MimicOuputs)MimicEndValve0);
+                await _olfactometer.WriteMimicEndvalve1Async((MimicOuputs)MimicEndValve1);
                 
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
@@ -361,6 +374,14 @@ namespace Olfactometer.Design.ViewModels
                 FlowmeterAnalogOutputsEvent = events.HasFlag(OlfactometerEvents.FlowmeterAnalogOutputs);
                 DI0TriggerEvent = events.HasFlag(OlfactometerEvents.DI0Trigger);
                 ChannelxFlowRealEvent = events.HasFlag(OlfactometerEvents.ChannelxFlowReal);
+                
+                // MimicValves
+                MimicValve0 = (int)await _olfactometer.ReadMimicValve0Async();
+                MimicValve1 = (int)await _olfactometer.ReadMimicValve1Async();
+                MimicValve2 = (int)await _olfactometer.ReadMimicValve2Async();
+                MimicValve3 = (int)await _olfactometer.ReadMimicValve3Async();
+                MimicEndValve0 = (int)await _olfactometer.ReadMimicEndvalve0Async();
+                MimicEndValve1 = (int)await _olfactometer.ReadMimicEndvalve1Async();
                 
 
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
