@@ -103,7 +103,7 @@
 
                 </Grid>
 
-                <TabControl SelectedIndex="1">
+                <TabControl>
                     <!-- Flow tab -->
                     <TabItem Header="Flow" FontWeight="SemiBold" FontSize="22">
                         <StackPanel>
@@ -208,6 +208,7 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Events" FontSize="16" FontWeight="SemiBold" />
 							<TextBlock Grid.Row="0" Grid.Column="1" Text="Mimic Valves" FontSize="16" FontWeight="SemiBold"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Other" FontSize="16" FontWeight="SemiBold"/>
                             <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,20,30,0">
                                 <CheckBox IsChecked="{Binding FlowmeterAnalogOutputsEvent}">Flowmeter analog outputs state</CheckBox>
                                 <CheckBox IsChecked="{Binding DI0TriggerEvent}">Digital Input 0 Trigger state</CheckBox>
@@ -267,6 +268,13 @@
                                     <ComboBoxItem>Use as a regular digital input</ComboBoxItem>
                                     <ComboBoxItem>Start flowmeter on a rising edge, stop on a falling edge</ComboBoxItem>
                                     <ComboBoxItem>Toggles the end valves with a rising and falling edge</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="3" Spacing="5" Margin="0,20,30,0">
+                                <TextBlock Text="External Control Valves" FontWeight="SemiBold"/>
+                                <ComboBox SelectedIndex="{Binding Path=ExternalControlValves}">
+                                    <ComboBoxItem>Software control</ComboBoxItem>
+                                    <ComboBoxItem>External control via the screw terminals</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </Grid>

@@ -87,7 +87,9 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public bool FlowmeterAnalogOutputsEvent { get; set; } = true;
         [Reactive] public bool DI0TriggerEvent { get; set; } = true;
         [Reactive] public bool ChannelxFlowRealEvent { get; set; } = true;
-
+        
+        [Reactive] public int ExternalControlValves { get; set; }
+        
         [Reactive] public int MimicValve0 { get; set; }
         [Reactive] public int MimicValve1 { get; set; }
         [Reactive] public int MimicValve2 { get; set; }
@@ -222,9 +224,13 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteMimicEndvalve0Async((MimicOuputs)MimicEndValve0);
                 await _olfactometer.WriteMimicEndvalve1Async((MimicOuputs)MimicEndValve1);
                 
+                // DO0 Sync, DO1 Sync, DI0 Trigger
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
                 await _olfactometer.WriteDI0TriggerAsync((DI0TriggerConfig)DigitalInput0Config);
+                
+                // External control valves
+                await _olfactometer.WriteEnableExternalControlValvesAsync((EnableFlag)ExternalControlValves);
 
                 if (savePermanently)
                 {
@@ -374,6 +380,9 @@ namespace Olfactometer.Design.ViewModels
                 
                 var di0Trigger = await _olfactometer.ReadDI0TriggerAsync();
                 DigitalInput0Config = (int)di0Trigger;
+
+                // External control valves
+                ExternalControlValves = (int)await _olfactometer.ReadEnableExternalControlValvesAsync();
                 
                 // Events
                 var events = await _olfactometer.ReadEnableEventsAsync();
