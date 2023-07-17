@@ -55,8 +55,7 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public float Channel2FlowReal { get; set; }
         [Reactive] public float Channel3FlowTarget { get; set; }
         [Reactive] public float Channel3FlowReal { get; set; }
-        [Reactive] public Channel3RangeConfig Channel3Range { get; set; }
-        [Reactive] public List<Channel3RangeConfig> Channel3RangeOptions { get; set; }
+        [Reactive] public int Channel3Range { get; set; }
         [Reactive] public float Channel4FlowTarget { get; set; }
         [Reactive] public float Channel4FlowReal { get; set; }
         
@@ -126,7 +125,6 @@ namespace Olfactometer.Design.ViewModels
                 $"Dotnet version: {System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}");
 
             ChangeThemeCommand = ReactiveCommand.Create(ChangeTheme);
-            Channel3RangeOptions = Enum.GetValues<Channel3RangeConfig>().ToList();
             Ports = new List<string>();
             const int periodInMilliseconds = 100;
             flowRealObservable = Observable.Interval(TimeSpan.FromMilliseconds(periodInMilliseconds), Scheduler.Default)
@@ -191,7 +189,7 @@ namespace Olfactometer.Design.ViewModels
             this.WhenAnyValue(x => x.Channel3Range).Subscribe(async x =>
             {
                 if (_olfactometer != null)
-                    await _olfactometer.WriteChannel3RangeAsync(Channel3Range);
+                    await _olfactometer.WriteChannel3RangeAsync((Channel3RangeConfig)Channel3Range);
             });
             
             this.WhenAnyValue(x => x.EnableFlow)
@@ -404,6 +402,9 @@ namespace Olfactometer.Design.ViewModels
 
                 // External control valves
                 ExternalControlValves = (int)await _olfactometer.ReadEnableExternalControlValvesAsync();
+                
+                // Channel3Range
+                Channel3Range = (int)await _olfactometer.ReadChannel3RangeAsync();
                 
                 // Events
                 var events = await _olfactometer.ReadEnableEventsAsync();

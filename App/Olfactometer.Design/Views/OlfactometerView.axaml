@@ -132,7 +132,10 @@
                                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Channel 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel3FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Channel3FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ComboBox Grid.Row="4" Grid.Column="3" Items="{Binding Channel3RangeOptions}" SelectedItem="{Binding Channel3Range}" VerticalAlignment="Center" HorizontalAlignment="Center"></ComboBox>
+                                    <ComboBox Grid.Row="4" Grid.Column="3" SelectedIndex="{Binding Path=Channel3Range}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <ComboBoxItem>0-100 ml/min</ComboBoxItem>
+                                        <ComboBoxItem>0-1000 ml/min</ComboBoxItem>
+                                    </ComboBox>
                                     <!-- Channel 4 -->
                                     <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel4FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
