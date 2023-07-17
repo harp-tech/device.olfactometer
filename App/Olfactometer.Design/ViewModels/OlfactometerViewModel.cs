@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
@@ -112,6 +113,7 @@ namespace Olfactometer.Design.ViewModels
         private readonly Subject<HarpMessage> _msgsSubject;
         private Valves _valvesState;
         private Valves _valvesPulse;
+        private IObservable<long> flowRealObservable;
 
         public OlfactometerViewModel()
         {
@@ -126,6 +128,9 @@ namespace Olfactometer.Design.ViewModels
             ChangeThemeCommand = ReactiveCommand.Create(ChangeTheme);
             Channel3RangeOptions = Enum.GetValues<Channel3RangeConfig>().ToList();
             Ports = new List<string>();
+            const int periodInMilliseconds = 100;
+            flowRealObservable = Observable.Interval(TimeSpan.FromMilliseconds(periodInMilliseconds), Scheduler.Default)
+                .TakeUntil(this.WhenAnyValue(x => x.EnableFlow).Where(x => x == EnableFlag.Disable));
 
             LoadDeviceInformation = ReactiveCommand.CreateFromObservable(LoadUsbInformation);
             LoadDeviceInformation.IsExecuting.ToPropertyEx(this, x => x.IsLoadingPorts);
@@ -259,6 +264,22 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteEnableFlowAsync(EnableFlow == EnableFlag.Enable ? EnableFlag.Disable : EnableFlag.Enable);
                 // update EnableFlow to the actual value
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
+
+                if (EnableFlow == EnableFlag.Enable)
+                {
+                    flowRealObservable.Subscribe(async _ =>
+                    {
+                        Console.WriteLine("Reading flow real at time: {0:HH:mm:ss.fff}", DateTime.Now);
+                        if (_olfactometer != null)
+                        {
+                            Channel0FlowReal = await _olfactometer.ReadChannel0FlowRealAsync();
+                            Channel1FlowReal = await _olfactometer.ReadChannel1FlowRealAsync();
+                            Channel2FlowReal = await _olfactometer.ReadChannel2FlowRealAsync();
+                            Channel3FlowReal = await _olfactometer.ReadChannel3FlowRealAsync();
+                            Channel4FlowReal = await _olfactometer.ReadChannel4FlowRealAsync();
+                        }
+                    });
+                }
             });
         }
 
