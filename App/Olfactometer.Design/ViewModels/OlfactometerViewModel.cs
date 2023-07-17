@@ -267,7 +267,6 @@ namespace Olfactometer.Design.ViewModels
                 {
                     flowRealObservable.Subscribe(async _ =>
                     {
-                        Console.WriteLine("Reading flow real at time: {0:HH:mm:ss.fff}", DateTime.Now);
                         if (_olfactometer != null)
                         {
                             Channel0FlowReal = await _olfactometer.ReadChannel0FlowRealAsync();
