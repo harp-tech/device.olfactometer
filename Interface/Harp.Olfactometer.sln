@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{495F7F91-0FC4-4488-A64B-80E958A2D6E6}") = "Harp.Olfactometer", "Harp.Olfactometer\Harp.Olfactometer.csproj", "{E1B42494-E890-4AE7-82B3-E82627922A43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1B42494-E890-4AE7-82B3-E82627922A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B42494-E890-4AE7-82B3-E82627922A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B42494-E890-4AE7-82B3-E82627922A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B42494-E890-4AE7-82B3-E82627922A43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3AF3D0E5-CFDD-4A38-BA3E-8A7807C99E76}
+	EndGlobalSection
+EndGlobal
