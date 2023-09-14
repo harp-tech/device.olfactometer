@@ -38,7 +38,7 @@ namespace Harp.Olfactometer
             (Bonsai.Harp.Device.RegisterMap.ToDictionary(entry => entry.Key, entry => entry.Value))
         {
             { 32, typeof(EnableFlow) },
-            { 33, typeof(FlowmeterAnalogOutputs) },
+            { 33, typeof(Flowmeter) },
             { 34, typeof(DI0State) },
             { 35, typeof(Channel0UserCalibration) },
             { 36, typeof(Channel1UserCalibration) },
@@ -47,16 +47,16 @@ namespace Harp.Olfactometer
             { 39, typeof(Channel4UserCalibration) },
             { 40, typeof(Channel3UserCalibrationAux) },
             { 41, typeof(UserCalibrationEnable) },
-            { 42, typeof(Channel0FlowTarget) },
-            { 43, typeof(Channel1FlowTarget) },
-            { 44, typeof(Channel2FlowTarget) },
-            { 45, typeof(Channel3FlowTarget) },
-            { 46, typeof(Channel4FlowTarget) },
-            { 47, typeof(Channel0FlowReal) },
-            { 48, typeof(Channel1FlowReal) },
-            { 49, typeof(Channel2FlowReal) },
-            { 50, typeof(Channel3FlowReal) },
-            { 51, typeof(Channel4FlowReal) },
+            { 42, typeof(Channel0TargetFlow) },
+            { 43, typeof(Channel1TargetFlow) },
+            { 44, typeof(Channel2TargetFlow) },
+            { 45, typeof(Channel3TargetFlow) },
+            { 46, typeof(Channel4TargetFlow) },
+            { 47, typeof(Channel0ActualFlow) },
+            { 48, typeof(Channel1ActualFlow) },
+            { 49, typeof(Channel2ActualFlow) },
+            { 50, typeof(Channel3ActualFlow) },
+            { 51, typeof(Channel4ActualFlow) },
             { 57, typeof(Channel0DutyCycle) },
             { 58, typeof(Channel1DutyCycle) },
             { 59, typeof(Channel2DutyCycle) },
@@ -71,24 +71,22 @@ namespace Harp.Olfactometer
             { 68, typeof(ValvesClear) },
             { 69, typeof(ValvesToggle) },
             { 70, typeof(ValvesState) },
-            { 71, typeof(PulseValve0) },
-            { 72, typeof(PulseValve1) },
-            { 73, typeof(PulseValve2) },
-            { 74, typeof(PulseValve3) },
-            { 75, typeof(PulseEndvalve0) },
-            { 76, typeof(PulseEndvalve1) },
-            { 77, typeof(PulseDummyvalve) },
+            { 71, typeof(Valve0PulseDuration) },
+            { 72, typeof(Valve1PulseDuration) },
+            { 73, typeof(Valve2PulseDuration) },
+            { 74, typeof(Valve3PulseDuration) },
+            { 75, typeof(EndValve0PulseDuration) },
+            { 76, typeof(EndValve1PulseDuration) },
             { 78, typeof(DO0Sync) },
             { 79, typeof(DO1Sync) },
             { 80, typeof(DI0Trigger) },
-            { 81, typeof(MimicValve0) },
+            { 81, typeof(mimicValve) },
             { 82, typeof(MimicValve1) },
             { 83, typeof(MimicValve2) },
             { 84, typeof(MimicValve3) },
             { 85, typeof(MimicEndvalve0) },
             { 86, typeof(MimicEndvalve1) },
-            { 87, typeof(MimicDummyvalve) },
-            { 88, typeof(EnableExternalControlValves) },
+            { 88, typeof(EnableValveExternalControl) },
             { 89, typeof(Channel3Range) },
             { 93, typeof(EnableEvents) }
         };
@@ -120,7 +118,7 @@ namespace Harp.Olfactometer
     /// reported by the <see cref="Olfactometer"/> device.
     /// </summary>
     /// <seealso cref="EnableFlow"/>
-    /// <seealso cref="FlowmeterAnalogOutputs"/>
+    /// <seealso cref="Flowmeter"/>
     /// <seealso cref="DI0State"/>
     /// <seealso cref="Channel0UserCalibration"/>
     /// <seealso cref="Channel1UserCalibration"/>
@@ -129,16 +127,16 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
     /// <seealso cref="UserCalibrationEnable"/>
-    /// <seealso cref="Channel0FlowTarget"/>
-    /// <seealso cref="Channel1FlowTarget"/>
-    /// <seealso cref="Channel2FlowTarget"/>
-    /// <seealso cref="Channel3FlowTarget"/>
-    /// <seealso cref="Channel4FlowTarget"/>
-    /// <seealso cref="Channel0FlowReal"/>
-    /// <seealso cref="Channel1FlowReal"/>
-    /// <seealso cref="Channel2FlowReal"/>
-    /// <seealso cref="Channel3FlowReal"/>
-    /// <seealso cref="Channel4FlowReal"/>
+    /// <seealso cref="Channel0TargetFlow"/>
+    /// <seealso cref="Channel1TargetFlow"/>
+    /// <seealso cref="Channel2TargetFlow"/>
+    /// <seealso cref="Channel3TargetFlow"/>
+    /// <seealso cref="Channel4TargetFlow"/>
+    /// <seealso cref="Channel0ActualFlow"/>
+    /// <seealso cref="Channel1ActualFlow"/>
+    /// <seealso cref="Channel2ActualFlow"/>
+    /// <seealso cref="Channel3ActualFlow"/>
+    /// <seealso cref="Channel4ActualFlow"/>
     /// <seealso cref="Channel0DutyCycle"/>
     /// <seealso cref="Channel1DutyCycle"/>
     /// <seealso cref="Channel2DutyCycle"/>
@@ -153,28 +151,26 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
     /// <seealso cref="ValvesState"/>
-    /// <seealso cref="PulseValve0"/>
-    /// <seealso cref="PulseValve1"/>
-    /// <seealso cref="PulseValve2"/>
-    /// <seealso cref="PulseValve3"/>
-    /// <seealso cref="PulseEndvalve0"/>
-    /// <seealso cref="PulseEndvalve1"/>
-    /// <seealso cref="PulseDummyvalve"/>
+    /// <seealso cref="Valve0PulseDuration"/>
+    /// <seealso cref="Valve1PulseDuration"/>
+    /// <seealso cref="Valve2PulseDuration"/>
+    /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="EndValve0PulseDuration"/>
+    /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
     /// <seealso cref="DO1Sync"/>
     /// <seealso cref="DI0Trigger"/>
-    /// <seealso cref="MimicValve0"/>
+    /// <seealso cref="mimicValve"/>
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
     /// <seealso cref="MimicEndvalve0"/>
     /// <seealso cref="MimicEndvalve1"/>
-    /// <seealso cref="MimicDummyvalve"/>
-    /// <seealso cref="EnableExternalControlValves"/>
+    /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
-    [XmlInclude(typeof(FlowmeterAnalogOutputs))]
+    [XmlInclude(typeof(Flowmeter))]
     [XmlInclude(typeof(DI0State))]
     [XmlInclude(typeof(Channel0UserCalibration))]
     [XmlInclude(typeof(Channel1UserCalibration))]
@@ -183,16 +179,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
     [XmlInclude(typeof(UserCalibrationEnable))]
-    [XmlInclude(typeof(Channel0FlowTarget))]
-    [XmlInclude(typeof(Channel1FlowTarget))]
-    [XmlInclude(typeof(Channel2FlowTarget))]
-    [XmlInclude(typeof(Channel3FlowTarget))]
-    [XmlInclude(typeof(Channel4FlowTarget))]
-    [XmlInclude(typeof(Channel0FlowReal))]
-    [XmlInclude(typeof(Channel1FlowReal))]
-    [XmlInclude(typeof(Channel2FlowReal))]
-    [XmlInclude(typeof(Channel3FlowReal))]
-    [XmlInclude(typeof(Channel4FlowReal))]
+    [XmlInclude(typeof(Channel0TargetFlow))]
+    [XmlInclude(typeof(Channel1TargetFlow))]
+    [XmlInclude(typeof(Channel2TargetFlow))]
+    [XmlInclude(typeof(Channel3TargetFlow))]
+    [XmlInclude(typeof(Channel4TargetFlow))]
+    [XmlInclude(typeof(Channel0ActualFlow))]
+    [XmlInclude(typeof(Channel1ActualFlow))]
+    [XmlInclude(typeof(Channel2ActualFlow))]
+    [XmlInclude(typeof(Channel3ActualFlow))]
+    [XmlInclude(typeof(Channel4ActualFlow))]
     [XmlInclude(typeof(Channel0DutyCycle))]
     [XmlInclude(typeof(Channel1DutyCycle))]
     [XmlInclude(typeof(Channel2DutyCycle))]
@@ -207,24 +203,22 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
     [XmlInclude(typeof(ValvesState))]
-    [XmlInclude(typeof(PulseValve0))]
-    [XmlInclude(typeof(PulseValve1))]
-    [XmlInclude(typeof(PulseValve2))]
-    [XmlInclude(typeof(PulseValve3))]
-    [XmlInclude(typeof(PulseEndvalve0))]
-    [XmlInclude(typeof(PulseEndvalve1))]
-    [XmlInclude(typeof(PulseDummyvalve))]
+    [XmlInclude(typeof(Valve0PulseDuration))]
+    [XmlInclude(typeof(Valve1PulseDuration))]
+    [XmlInclude(typeof(Valve2PulseDuration))]
+    [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(EndValve0PulseDuration))]
+    [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
     [XmlInclude(typeof(DO1Sync))]
     [XmlInclude(typeof(DI0Trigger))]
-    [XmlInclude(typeof(MimicValve0))]
+    [XmlInclude(typeof(mimicValve))]
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
     [XmlInclude(typeof(MimicEndvalve0))]
     [XmlInclude(typeof(MimicEndvalve1))]
-    [XmlInclude(typeof(MimicDummyvalve))]
-    [XmlInclude(typeof(EnableExternalControlValves))]
+    [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
     [Description("Filters register-specific messages reported by the Olfactometer device.")]
@@ -249,7 +243,7 @@ namespace Harp.Olfactometer
     /// reported by the Olfactometer device.
     /// </summary>
     /// <seealso cref="EnableFlow"/>
-    /// <seealso cref="FlowmeterAnalogOutputs"/>
+    /// <seealso cref="Flowmeter"/>
     /// <seealso cref="DI0State"/>
     /// <seealso cref="Channel0UserCalibration"/>
     /// <seealso cref="Channel1UserCalibration"/>
@@ -258,16 +252,16 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
     /// <seealso cref="UserCalibrationEnable"/>
-    /// <seealso cref="Channel0FlowTarget"/>
-    /// <seealso cref="Channel1FlowTarget"/>
-    /// <seealso cref="Channel2FlowTarget"/>
-    /// <seealso cref="Channel3FlowTarget"/>
-    /// <seealso cref="Channel4FlowTarget"/>
-    /// <seealso cref="Channel0FlowReal"/>
-    /// <seealso cref="Channel1FlowReal"/>
-    /// <seealso cref="Channel2FlowReal"/>
-    /// <seealso cref="Channel3FlowReal"/>
-    /// <seealso cref="Channel4FlowReal"/>
+    /// <seealso cref="Channel0TargetFlow"/>
+    /// <seealso cref="Channel1TargetFlow"/>
+    /// <seealso cref="Channel2TargetFlow"/>
+    /// <seealso cref="Channel3TargetFlow"/>
+    /// <seealso cref="Channel4TargetFlow"/>
+    /// <seealso cref="Channel0ActualFlow"/>
+    /// <seealso cref="Channel1ActualFlow"/>
+    /// <seealso cref="Channel2ActualFlow"/>
+    /// <seealso cref="Channel3ActualFlow"/>
+    /// <seealso cref="Channel4ActualFlow"/>
     /// <seealso cref="Channel0DutyCycle"/>
     /// <seealso cref="Channel1DutyCycle"/>
     /// <seealso cref="Channel2DutyCycle"/>
@@ -282,28 +276,26 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
     /// <seealso cref="ValvesState"/>
-    /// <seealso cref="PulseValve0"/>
-    /// <seealso cref="PulseValve1"/>
-    /// <seealso cref="PulseValve2"/>
-    /// <seealso cref="PulseValve3"/>
-    /// <seealso cref="PulseEndvalve0"/>
-    /// <seealso cref="PulseEndvalve1"/>
-    /// <seealso cref="PulseDummyvalve"/>
+    /// <seealso cref="Valve0PulseDuration"/>
+    /// <seealso cref="Valve1PulseDuration"/>
+    /// <seealso cref="Valve2PulseDuration"/>
+    /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="EndValve0PulseDuration"/>
+    /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
     /// <seealso cref="DO1Sync"/>
     /// <seealso cref="DI0Trigger"/>
-    /// <seealso cref="MimicValve0"/>
+    /// <seealso cref="mimicValve"/>
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
     /// <seealso cref="MimicEndvalve0"/>
     /// <seealso cref="MimicEndvalve1"/>
-    /// <seealso cref="MimicDummyvalve"/>
-    /// <seealso cref="EnableExternalControlValves"/>
+    /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
-    [XmlInclude(typeof(FlowmeterAnalogOutputs))]
+    [XmlInclude(typeof(Flowmeter))]
     [XmlInclude(typeof(DI0State))]
     [XmlInclude(typeof(Channel0UserCalibration))]
     [XmlInclude(typeof(Channel1UserCalibration))]
@@ -312,16 +304,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
     [XmlInclude(typeof(UserCalibrationEnable))]
-    [XmlInclude(typeof(Channel0FlowTarget))]
-    [XmlInclude(typeof(Channel1FlowTarget))]
-    [XmlInclude(typeof(Channel2FlowTarget))]
-    [XmlInclude(typeof(Channel3FlowTarget))]
-    [XmlInclude(typeof(Channel4FlowTarget))]
-    [XmlInclude(typeof(Channel0FlowReal))]
-    [XmlInclude(typeof(Channel1FlowReal))]
-    [XmlInclude(typeof(Channel2FlowReal))]
-    [XmlInclude(typeof(Channel3FlowReal))]
-    [XmlInclude(typeof(Channel4FlowReal))]
+    [XmlInclude(typeof(Channel0TargetFlow))]
+    [XmlInclude(typeof(Channel1TargetFlow))]
+    [XmlInclude(typeof(Channel2TargetFlow))]
+    [XmlInclude(typeof(Channel3TargetFlow))]
+    [XmlInclude(typeof(Channel4TargetFlow))]
+    [XmlInclude(typeof(Channel0ActualFlow))]
+    [XmlInclude(typeof(Channel1ActualFlow))]
+    [XmlInclude(typeof(Channel2ActualFlow))]
+    [XmlInclude(typeof(Channel3ActualFlow))]
+    [XmlInclude(typeof(Channel4ActualFlow))]
     [XmlInclude(typeof(Channel0DutyCycle))]
     [XmlInclude(typeof(Channel1DutyCycle))]
     [XmlInclude(typeof(Channel2DutyCycle))]
@@ -336,28 +328,26 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
     [XmlInclude(typeof(ValvesState))]
-    [XmlInclude(typeof(PulseValve0))]
-    [XmlInclude(typeof(PulseValve1))]
-    [XmlInclude(typeof(PulseValve2))]
-    [XmlInclude(typeof(PulseValve3))]
-    [XmlInclude(typeof(PulseEndvalve0))]
-    [XmlInclude(typeof(PulseEndvalve1))]
-    [XmlInclude(typeof(PulseDummyvalve))]
+    [XmlInclude(typeof(Valve0PulseDuration))]
+    [XmlInclude(typeof(Valve1PulseDuration))]
+    [XmlInclude(typeof(Valve2PulseDuration))]
+    [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(EndValve0PulseDuration))]
+    [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
     [XmlInclude(typeof(DO1Sync))]
     [XmlInclude(typeof(DI0Trigger))]
-    [XmlInclude(typeof(MimicValve0))]
+    [XmlInclude(typeof(mimicValve))]
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
     [XmlInclude(typeof(MimicEndvalve0))]
     [XmlInclude(typeof(MimicEndvalve1))]
-    [XmlInclude(typeof(MimicDummyvalve))]
-    [XmlInclude(typeof(EnableExternalControlValves))]
+    [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
     [XmlInclude(typeof(TimestampedEnableFlow))]
-    [XmlInclude(typeof(TimestampedFlowmeterAnalogOutputs))]
+    [XmlInclude(typeof(TimestampedFlowmeter))]
     [XmlInclude(typeof(TimestampedDI0State))]
     [XmlInclude(typeof(TimestampedChannel0UserCalibration))]
     [XmlInclude(typeof(TimestampedChannel1UserCalibration))]
@@ -366,16 +356,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedChannel4UserCalibration))]
     [XmlInclude(typeof(TimestampedChannel3UserCalibrationAux))]
     [XmlInclude(typeof(TimestampedUserCalibrationEnable))]
-    [XmlInclude(typeof(TimestampedChannel0FlowTarget))]
-    [XmlInclude(typeof(TimestampedChannel1FlowTarget))]
-    [XmlInclude(typeof(TimestampedChannel2FlowTarget))]
-    [XmlInclude(typeof(TimestampedChannel3FlowTarget))]
-    [XmlInclude(typeof(TimestampedChannel4FlowTarget))]
-    [XmlInclude(typeof(TimestampedChannel0FlowReal))]
-    [XmlInclude(typeof(TimestampedChannel1FlowReal))]
-    [XmlInclude(typeof(TimestampedChannel2FlowReal))]
-    [XmlInclude(typeof(TimestampedChannel3FlowReal))]
-    [XmlInclude(typeof(TimestampedChannel4FlowReal))]
+    [XmlInclude(typeof(TimestampedChannel0TargetFlow))]
+    [XmlInclude(typeof(TimestampedChannel1TargetFlow))]
+    [XmlInclude(typeof(TimestampedChannel2TargetFlow))]
+    [XmlInclude(typeof(TimestampedChannel3TargetFlow))]
+    [XmlInclude(typeof(TimestampedChannel4TargetFlow))]
+    [XmlInclude(typeof(TimestampedChannel0ActualFlow))]
+    [XmlInclude(typeof(TimestampedChannel1ActualFlow))]
+    [XmlInclude(typeof(TimestampedChannel2ActualFlow))]
+    [XmlInclude(typeof(TimestampedChannel3ActualFlow))]
+    [XmlInclude(typeof(TimestampedChannel4ActualFlow))]
     [XmlInclude(typeof(TimestampedChannel0DutyCycle))]
     [XmlInclude(typeof(TimestampedChannel1DutyCycle))]
     [XmlInclude(typeof(TimestampedChannel2DutyCycle))]
@@ -390,24 +380,22 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedValvesClear))]
     [XmlInclude(typeof(TimestampedValvesToggle))]
     [XmlInclude(typeof(TimestampedValvesState))]
-    [XmlInclude(typeof(TimestampedPulseValve0))]
-    [XmlInclude(typeof(TimestampedPulseValve1))]
-    [XmlInclude(typeof(TimestampedPulseValve2))]
-    [XmlInclude(typeof(TimestampedPulseValve3))]
-    [XmlInclude(typeof(TimestampedPulseEndvalve0))]
-    [XmlInclude(typeof(TimestampedPulseEndvalve1))]
-    [XmlInclude(typeof(TimestampedPulseDummyvalve))]
+    [XmlInclude(typeof(TimestampedValve0PulseDuration))]
+    [XmlInclude(typeof(TimestampedValve1PulseDuration))]
+    [XmlInclude(typeof(TimestampedValve2PulseDuration))]
+    [XmlInclude(typeof(TimestampedValve3PulseDuration))]
+    [XmlInclude(typeof(TimestampedEndValve0PulseDuration))]
+    [XmlInclude(typeof(TimestampedEndValve1PulseDuration))]
     [XmlInclude(typeof(TimestampedDO0Sync))]
     [XmlInclude(typeof(TimestampedDO1Sync))]
     [XmlInclude(typeof(TimestampedDI0Trigger))]
-    [XmlInclude(typeof(TimestampedMimicValve0))]
+    [XmlInclude(typeof(TimestampedmimicValve))]
     [XmlInclude(typeof(TimestampedMimicValve1))]
     [XmlInclude(typeof(TimestampedMimicValve2))]
     [XmlInclude(typeof(TimestampedMimicValve3))]
     [XmlInclude(typeof(TimestampedMimicEndvalve0))]
     [XmlInclude(typeof(TimestampedMimicEndvalve1))]
-    [XmlInclude(typeof(TimestampedMimicDummyvalve))]
-    [XmlInclude(typeof(TimestampedEnableExternalControlValves))]
+    [XmlInclude(typeof(TimestampedEnableValveExternalControl))]
     [XmlInclude(typeof(TimestampedChannel3Range))]
     [XmlInclude(typeof(TimestampedEnableEvents))]
     [Description("Filters and selects specific messages reported by the Olfactometer device.")]
@@ -429,7 +417,7 @@ namespace Harp.Olfactometer
     /// Olfactometer register messages.
     /// </summary>
     /// <seealso cref="EnableFlow"/>
-    /// <seealso cref="FlowmeterAnalogOutputs"/>
+    /// <seealso cref="Flowmeter"/>
     /// <seealso cref="DI0State"/>
     /// <seealso cref="Channel0UserCalibration"/>
     /// <seealso cref="Channel1UserCalibration"/>
@@ -438,16 +426,16 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
     /// <seealso cref="UserCalibrationEnable"/>
-    /// <seealso cref="Channel0FlowTarget"/>
-    /// <seealso cref="Channel1FlowTarget"/>
-    /// <seealso cref="Channel2FlowTarget"/>
-    /// <seealso cref="Channel3FlowTarget"/>
-    /// <seealso cref="Channel4FlowTarget"/>
-    /// <seealso cref="Channel0FlowReal"/>
-    /// <seealso cref="Channel1FlowReal"/>
-    /// <seealso cref="Channel2FlowReal"/>
-    /// <seealso cref="Channel3FlowReal"/>
-    /// <seealso cref="Channel4FlowReal"/>
+    /// <seealso cref="Channel0TargetFlow"/>
+    /// <seealso cref="Channel1TargetFlow"/>
+    /// <seealso cref="Channel2TargetFlow"/>
+    /// <seealso cref="Channel3TargetFlow"/>
+    /// <seealso cref="Channel4TargetFlow"/>
+    /// <seealso cref="Channel0ActualFlow"/>
+    /// <seealso cref="Channel1ActualFlow"/>
+    /// <seealso cref="Channel2ActualFlow"/>
+    /// <seealso cref="Channel3ActualFlow"/>
+    /// <seealso cref="Channel4ActualFlow"/>
     /// <seealso cref="Channel0DutyCycle"/>
     /// <seealso cref="Channel1DutyCycle"/>
     /// <seealso cref="Channel2DutyCycle"/>
@@ -462,28 +450,26 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
     /// <seealso cref="ValvesState"/>
-    /// <seealso cref="PulseValve0"/>
-    /// <seealso cref="PulseValve1"/>
-    /// <seealso cref="PulseValve2"/>
-    /// <seealso cref="PulseValve3"/>
-    /// <seealso cref="PulseEndvalve0"/>
-    /// <seealso cref="PulseEndvalve1"/>
-    /// <seealso cref="PulseDummyvalve"/>
+    /// <seealso cref="Valve0PulseDuration"/>
+    /// <seealso cref="Valve1PulseDuration"/>
+    /// <seealso cref="Valve2PulseDuration"/>
+    /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="EndValve0PulseDuration"/>
+    /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
     /// <seealso cref="DO1Sync"/>
     /// <seealso cref="DI0Trigger"/>
-    /// <seealso cref="MimicValve0"/>
+    /// <seealso cref="mimicValve"/>
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
     /// <seealso cref="MimicEndvalve0"/>
     /// <seealso cref="MimicEndvalve1"/>
-    /// <seealso cref="MimicDummyvalve"/>
-    /// <seealso cref="EnableExternalControlValves"/>
+    /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
-    [XmlInclude(typeof(FlowmeterAnalogOutputs))]
+    [XmlInclude(typeof(Flowmeter))]
     [XmlInclude(typeof(DI0State))]
     [XmlInclude(typeof(Channel0UserCalibration))]
     [XmlInclude(typeof(Channel1UserCalibration))]
@@ -492,16 +478,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
     [XmlInclude(typeof(UserCalibrationEnable))]
-    [XmlInclude(typeof(Channel0FlowTarget))]
-    [XmlInclude(typeof(Channel1FlowTarget))]
-    [XmlInclude(typeof(Channel2FlowTarget))]
-    [XmlInclude(typeof(Channel3FlowTarget))]
-    [XmlInclude(typeof(Channel4FlowTarget))]
-    [XmlInclude(typeof(Channel0FlowReal))]
-    [XmlInclude(typeof(Channel1FlowReal))]
-    [XmlInclude(typeof(Channel2FlowReal))]
-    [XmlInclude(typeof(Channel3FlowReal))]
-    [XmlInclude(typeof(Channel4FlowReal))]
+    [XmlInclude(typeof(Channel0TargetFlow))]
+    [XmlInclude(typeof(Channel1TargetFlow))]
+    [XmlInclude(typeof(Channel2TargetFlow))]
+    [XmlInclude(typeof(Channel3TargetFlow))]
+    [XmlInclude(typeof(Channel4TargetFlow))]
+    [XmlInclude(typeof(Channel0ActualFlow))]
+    [XmlInclude(typeof(Channel1ActualFlow))]
+    [XmlInclude(typeof(Channel2ActualFlow))]
+    [XmlInclude(typeof(Channel3ActualFlow))]
+    [XmlInclude(typeof(Channel4ActualFlow))]
     [XmlInclude(typeof(Channel0DutyCycle))]
     [XmlInclude(typeof(Channel1DutyCycle))]
     [XmlInclude(typeof(Channel2DutyCycle))]
@@ -516,24 +502,22 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
     [XmlInclude(typeof(ValvesState))]
-    [XmlInclude(typeof(PulseValve0))]
-    [XmlInclude(typeof(PulseValve1))]
-    [XmlInclude(typeof(PulseValve2))]
-    [XmlInclude(typeof(PulseValve3))]
-    [XmlInclude(typeof(PulseEndvalve0))]
-    [XmlInclude(typeof(PulseEndvalve1))]
-    [XmlInclude(typeof(PulseDummyvalve))]
+    [XmlInclude(typeof(Valve0PulseDuration))]
+    [XmlInclude(typeof(Valve1PulseDuration))]
+    [XmlInclude(typeof(Valve2PulseDuration))]
+    [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(EndValve0PulseDuration))]
+    [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
     [XmlInclude(typeof(DO1Sync))]
     [XmlInclude(typeof(DI0Trigger))]
-    [XmlInclude(typeof(MimicValve0))]
+    [XmlInclude(typeof(mimicValve))]
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
     [XmlInclude(typeof(MimicEndvalve0))]
     [XmlInclude(typeof(MimicEndvalve1))]
-    [XmlInclude(typeof(MimicDummyvalve))]
-    [XmlInclude(typeof(EnableExternalControlValves))]
+    [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
     [Description("Formats a sequence of values as specific Olfactometer register messages.")]
@@ -551,9 +535,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that write any value above zero to start the flowmeter and zero to stop.
+    /// Represents a register that starts or stops the flow in all channels.
     /// </summary>
-    [Description("Write any value above zero to start the flowmeter and zero to stop.")]
+    [Description("Starts or stops the flow in all channels.")]
     public partial class EnableFlow
     {
         /// <summary>
@@ -648,98 +632,122 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that value of the flowmeters analog outups.
+    /// Represents a register that value of single ADC read from all flowmeter channels.
     /// </summary>
-    [Description("Value of the flowmeters analog outups.")]
-    public partial class FlowmeterAnalogOutputs
+    [Description("Value of single ADC read from all flowmeter channels.")]
+    public partial class Flowmeter
     {
         /// <summary>
-        /// Represents the address of the <see cref="FlowmeterAnalogOutputs"/> register. This field is constant.
+        /// Represents the address of the <see cref="Flowmeter"/> register. This field is constant.
         /// </summary>
         public const int Address = 33;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="FlowmeterAnalogOutputs"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Flowmeter"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.S16;
 
         /// <summary>
-        /// Represents the length of the <see cref="FlowmeterAnalogOutputs"/> register. This field is constant.
+        /// Represents the length of the <see cref="Flowmeter"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 5;
 
+        static FlowmeterPayload ParsePayload(short[] payload)
+        {
+            FlowmeterPayload result;
+            result.Channel0 = payload[0];
+            result.Channel1 = payload[1];
+            result.Channel2 = payload[2];
+            result.Channel3 = payload[3];
+            result.Channel4 = payload[4];
+            return result;
+        }
+
+        static short[] FormatPayload(FlowmeterPayload value)
+        {
+            short[] result;
+            result = new short[5];
+            result[0] = value.Channel0;
+            result[1] = value.Channel1;
+            result[2] = value.Channel2;
+            result[3] = value.Channel3;
+            result[4] = value.Channel4;
+            return result;
+        }
+
         /// <summary>
-        /// Returns the payload data for <see cref="FlowmeterAnalogOutputs"/> register messages.
+        /// Returns the payload data for <see cref="Flowmeter"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static short[] GetPayload(HarpMessage message)
+        public static FlowmeterPayload GetPayload(HarpMessage message)
         {
-            return message.GetPayloadArray<short>();
+            return ParsePayload(message.GetPayloadArray<short>());
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="FlowmeterAnalogOutputs"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Flowmeter"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<short[]> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<FlowmeterPayload> GetTimestampedPayload(HarpMessage message)
         {
-            return message.GetTimestampedPayloadArray<short>();
+            var payload = message.GetTimestampedPayloadArray<short>();
+            return Timestamped.Create(ParsePayload(payload.Value), payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="FlowmeterAnalogOutputs"/> register.
+        /// Returns a Harp message for the <see cref="Flowmeter"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="FlowmeterAnalogOutputs"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Flowmeter"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, short[] value)
+        public static HarpMessage FromPayload(MessageType messageType, FlowmeterPayload value)
         {
-            return HarpMessage.FromInt16(Address, messageType, value);
+            return HarpMessage.FromInt16(Address, messageType, FormatPayload(value));
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="FlowmeterAnalogOutputs"/>
+        /// Returns a timestamped Harp message for the <see cref="Flowmeter"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="FlowmeterAnalogOutputs"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Flowmeter"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, short[] value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, FlowmeterPayload value)
         {
-            return HarpMessage.FromInt16(Address, timestamp, messageType, value);
+            return HarpMessage.FromInt16(Address, timestamp, messageType, FormatPayload(value));
         }
     }
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// FlowmeterAnalogOutputs register.
+    /// Flowmeter register.
     /// </summary>
-    /// <seealso cref="FlowmeterAnalogOutputs"/>
-    [Description("Filters and selects timestamped messages from the FlowmeterAnalogOutputs register.")]
-    public partial class TimestampedFlowmeterAnalogOutputs
+    /// <seealso cref="Flowmeter"/>
+    [Description("Filters and selects timestamped messages from the Flowmeter register.")]
+    public partial class TimestampedFlowmeter
     {
         /// <summary>
-        /// Represents the address of the <see cref="FlowmeterAnalogOutputs"/> register. This field is constant.
+        /// Represents the address of the <see cref="Flowmeter"/> register. This field is constant.
         /// </summary>
-        public const int Address = FlowmeterAnalogOutputs.Address;
+        public const int Address = Flowmeter.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="FlowmeterAnalogOutputs"/> register messages.
+        /// Returns timestamped payload data for <see cref="Flowmeter"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<short[]> GetPayload(HarpMessage message)
+        public static Timestamped<FlowmeterPayload> GetPayload(HarpMessage message)
         {
-            return FlowmeterAnalogOutputs.GetTimestampedPayload(message);
+            return Flowmeter.GetTimestampedPayload(message);
         }
     }
 
@@ -841,9 +849,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// Represents a register that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class Channel0UserCalibration
     {
         /// <summary>
@@ -937,9 +945,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// Represents a register that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class Channel1UserCalibration
     {
         /// <summary>
@@ -1033,9 +1041,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// Represents a register that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class Channel2UserCalibration
     {
         /// <summary>
@@ -1129,9 +1137,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// Represents a register that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class Channel3UserCalibration
     {
         /// <summary>
@@ -1225,9 +1233,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// Represents a register that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class Channel4UserCalibration
     {
         /// <summary>
@@ -1321,9 +1329,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// Represents a register that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     /// </summary>
-    [Description("Values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.")]
     public partial class Channel3UserCalibrationAux
     {
         /// <summary>
@@ -1442,9 +1450,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static byte GetPayload(HarpMessage message)
+        public static EnableFlag GetPayload(HarpMessage message)
         {
-            return message.GetPayloadByte();
+            return (EnableFlag)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -1452,9 +1460,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<EnableFlag> GetTimestampedPayload(HarpMessage message)
         {
-            return message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((EnableFlag)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -1466,9 +1475,9 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="UserCalibrationEnable"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, byte value)
+        public static HarpMessage FromPayload(MessageType messageType, EnableFlag value)
         {
-            return HarpMessage.FromByte(Address, messageType, value);
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
@@ -1482,9 +1491,9 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="UserCalibrationEnable"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, EnableFlag value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, value);
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
     }
 
@@ -1506,35 +1515,35 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetPayload(HarpMessage message)
+        public static Timestamped<EnableFlag> GetPayload(HarpMessage message)
         {
             return UserCalibrationEnable.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value set for channel 0 - flowmeter 0 [ml/min].
+    /// Represents a register that sets the flow-rate rate for channel 0 [ml/min].
     /// </summary>
-    [Description("Flow value set for channel 0 - flowmeter 0 [ml/min].")]
-    public partial class Channel0FlowTarget
+    [Description("Sets the flow-rate rate for channel 0 [ml/min].")]
+    public partial class Channel0TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel0FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel0TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 42;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel0FlowTarget"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel0TargetFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel0FlowTarget"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel0TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel0FlowTarget"/> register messages.
+        /// Returns the payload data for <see cref="Channel0TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1544,7 +1553,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel0FlowTarget"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel0TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1554,12 +1563,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel0FlowTarget"/> register.
+        /// Returns a Harp message for the <see cref="Channel0TargetFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0TargetFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1568,14 +1577,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel0FlowTarget"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel0TargetFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0TargetFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1586,51 +1595,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel0FlowTarget register.
+    /// Channel0TargetFlow register.
     /// </summary>
-    /// <seealso cref="Channel0FlowTarget"/>
-    [Description("Filters and selects timestamped messages from the Channel0FlowTarget register.")]
-    public partial class TimestampedChannel0FlowTarget
+    /// <seealso cref="Channel0TargetFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel0TargetFlow register.")]
+    public partial class TimestampedChannel0TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel0FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel0TargetFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel0FlowTarget.Address;
+        public const int Address = Channel0TargetFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel0FlowTarget"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel0TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel0FlowTarget.GetTimestampedPayload(message);
+            return Channel0TargetFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value set for channel 1 - flowmeter 1 [ml/min].
+    /// Represents a register that sets the flow-rate rate for channel 1 [ml/min].
     /// </summary>
-    [Description("Flow value set for channel 1 - flowmeter 1 [ml/min].")]
-    public partial class Channel1FlowTarget
+    [Description("Sets the flow-rate rate for channel 1 [ml/min].")]
+    public partial class Channel1TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel1FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel1TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 43;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel1FlowTarget"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel1TargetFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel1FlowTarget"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel1TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel1FlowTarget"/> register messages.
+        /// Returns the payload data for <see cref="Channel1TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1640,7 +1649,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel1FlowTarget"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel1TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1650,12 +1659,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel1FlowTarget"/> register.
+        /// Returns a Harp message for the <see cref="Channel1TargetFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1TargetFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1664,14 +1673,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel1FlowTarget"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel1TargetFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1TargetFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1682,51 +1691,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel1FlowTarget register.
+    /// Channel1TargetFlow register.
     /// </summary>
-    /// <seealso cref="Channel1FlowTarget"/>
-    [Description("Filters and selects timestamped messages from the Channel1FlowTarget register.")]
-    public partial class TimestampedChannel1FlowTarget
+    /// <seealso cref="Channel1TargetFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel1TargetFlow register.")]
+    public partial class TimestampedChannel1TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel1FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel1TargetFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel1FlowTarget.Address;
+        public const int Address = Channel1TargetFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel1FlowTarget"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel1TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel1FlowTarget.GetTimestampedPayload(message);
+            return Channel1TargetFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value set for channel 2 - flowmeter 2 [ml/min].
+    /// Represents a register that sets the flow-rate rate for channel 2 [ml/min].
     /// </summary>
-    [Description("Flow value set for channel 2 - flowmeter 2 [ml/min].")]
-    public partial class Channel2FlowTarget
+    [Description("Sets the flow-rate rate for channel 2 [ml/min].")]
+    public partial class Channel2TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel2FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel2TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 44;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel2FlowTarget"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel2TargetFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel2FlowTarget"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel2TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel2FlowTarget"/> register messages.
+        /// Returns the payload data for <see cref="Channel2TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1736,7 +1745,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel2FlowTarget"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel2TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1746,12 +1755,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel2FlowTarget"/> register.
+        /// Returns a Harp message for the <see cref="Channel2TargetFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2TargetFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1760,14 +1769,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel2FlowTarget"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel2TargetFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2TargetFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1778,51 +1787,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel2FlowTarget register.
+    /// Channel2TargetFlow register.
     /// </summary>
-    /// <seealso cref="Channel2FlowTarget"/>
-    [Description("Filters and selects timestamped messages from the Channel2FlowTarget register.")]
-    public partial class TimestampedChannel2FlowTarget
+    /// <seealso cref="Channel2TargetFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel2TargetFlow register.")]
+    public partial class TimestampedChannel2TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel2FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel2TargetFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel2FlowTarget.Address;
+        public const int Address = Channel2TargetFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel2FlowTarget"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel2TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel2FlowTarget.GetTimestampedPayload(message);
+            return Channel2TargetFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value set for channel 3 - flowmeter 3 [ml/min].
+    /// Represents a register that sets the flow-rate rate for channel 3 [ml/min].
     /// </summary>
-    [Description("Flow value set for channel 3 - flowmeter 3 [ml/min].")]
-    public partial class Channel3FlowTarget
+    [Description("Sets the flow-rate rate for channel 3 [ml/min].")]
+    public partial class Channel3TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel3FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel3TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 45;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel3FlowTarget"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel3TargetFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel3FlowTarget"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel3TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel3FlowTarget"/> register messages.
+        /// Returns the payload data for <see cref="Channel3TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1832,7 +1841,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel3FlowTarget"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel3TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1842,12 +1851,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel3FlowTarget"/> register.
+        /// Returns a Harp message for the <see cref="Channel3TargetFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3TargetFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1856,14 +1865,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel3FlowTarget"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel3TargetFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3TargetFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1874,51 +1883,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel3FlowTarget register.
+    /// Channel3TargetFlow register.
     /// </summary>
-    /// <seealso cref="Channel3FlowTarget"/>
-    [Description("Filters and selects timestamped messages from the Channel3FlowTarget register.")]
-    public partial class TimestampedChannel3FlowTarget
+    /// <seealso cref="Channel3TargetFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel3TargetFlow register.")]
+    public partial class TimestampedChannel3TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel3FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel3TargetFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel3FlowTarget.Address;
+        public const int Address = Channel3TargetFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel3FlowTarget"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel3TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel3FlowTarget.GetTimestampedPayload(message);
+            return Channel3TargetFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value set for channel 4 - flowmeter 4 [ml/min].
+    /// Represents a register that sets the flow-rate rate for channel 4 [ml/min].
     /// </summary>
-    [Description("Flow value set for channel 4 - flowmeter 4 [ml/min].")]
-    public partial class Channel4FlowTarget
+    [Description("Sets the flow-rate rate for channel 4 [ml/min].")]
+    public partial class Channel4TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel4FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel4TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 46;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel4FlowTarget"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel4TargetFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel4FlowTarget"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel4TargetFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel4FlowTarget"/> register messages.
+        /// Returns the payload data for <see cref="Channel4TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1928,7 +1937,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel4FlowTarget"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel4TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1938,12 +1947,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel4FlowTarget"/> register.
+        /// Returns a Harp message for the <see cref="Channel4TargetFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4TargetFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1952,14 +1961,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel4FlowTarget"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel4TargetFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4FlowTarget"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4TargetFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1970,51 +1979,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel4FlowTarget register.
+    /// Channel4TargetFlow register.
     /// </summary>
-    /// <seealso cref="Channel4FlowTarget"/>
-    [Description("Filters and selects timestamped messages from the Channel4FlowTarget register.")]
-    public partial class TimestampedChannel4FlowTarget
+    /// <seealso cref="Channel4TargetFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel4TargetFlow register.")]
+    public partial class TimestampedChannel4TargetFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel4FlowTarget"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel4TargetFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel4FlowTarget.Address;
+        public const int Address = Channel4TargetFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel4FlowTarget"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel4TargetFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel4FlowTarget.GetTimestampedPayload(message);
+            return Channel4TargetFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value read from channel 0 - flowmeter 0 [ml/min].
+    /// Represents a register that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
     /// </summary>
-    [Description("Flow value read from channel 0 - flowmeter 0 [ml/min].")]
-    public partial class Channel0FlowReal
+    [Description("Actual flow-rate read for channel 0 - flowmeter 0 [ml/min].")]
+    public partial class Channel0ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel0FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel0ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 47;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel0FlowReal"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel0ActualFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel0FlowReal"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel0ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel0FlowReal"/> register messages.
+        /// Returns the payload data for <see cref="Channel0ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -2024,7 +2033,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel0FlowReal"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel0ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -2034,12 +2043,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel0FlowReal"/> register.
+        /// Returns a Harp message for the <see cref="Channel0ActualFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0ActualFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -2048,14 +2057,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel0FlowReal"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel0ActualFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel0ActualFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -2066,51 +2075,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel0FlowReal register.
+    /// Channel0ActualFlow register.
     /// </summary>
-    /// <seealso cref="Channel0FlowReal"/>
-    [Description("Filters and selects timestamped messages from the Channel0FlowReal register.")]
-    public partial class TimestampedChannel0FlowReal
+    /// <seealso cref="Channel0ActualFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel0ActualFlow register.")]
+    public partial class TimestampedChannel0ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel0FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel0ActualFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel0FlowReal.Address;
+        public const int Address = Channel0ActualFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel0FlowReal"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel0ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel0FlowReal.GetTimestampedPayload(message);
+            return Channel0ActualFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value read from channel 1 - flowmeter 1 [ml/min].
+    /// Represents a register that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
     /// </summary>
-    [Description("Flow value read from channel 1 - flowmeter 1 [ml/min].")]
-    public partial class Channel1FlowReal
+    [Description("Actual flow-rate read for channel 1 - flowmeter 1 [ml/min].")]
+    public partial class Channel1ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel1FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel1ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 48;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel1FlowReal"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel1ActualFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel1FlowReal"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel1ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel1FlowReal"/> register messages.
+        /// Returns the payload data for <see cref="Channel1ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -2120,7 +2129,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel1FlowReal"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel1ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -2130,12 +2139,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel1FlowReal"/> register.
+        /// Returns a Harp message for the <see cref="Channel1ActualFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1ActualFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -2144,14 +2153,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel1FlowReal"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel1ActualFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel1ActualFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -2162,51 +2171,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel1FlowReal register.
+    /// Channel1ActualFlow register.
     /// </summary>
-    /// <seealso cref="Channel1FlowReal"/>
-    [Description("Filters and selects timestamped messages from the Channel1FlowReal register.")]
-    public partial class TimestampedChannel1FlowReal
+    /// <seealso cref="Channel1ActualFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel1ActualFlow register.")]
+    public partial class TimestampedChannel1ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel1FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel1ActualFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel1FlowReal.Address;
+        public const int Address = Channel1ActualFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel1FlowReal"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel1ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel1FlowReal.GetTimestampedPayload(message);
+            return Channel1ActualFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value read from channel 2 - flowmeter 2 [ml/min].
+    /// Represents a register that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
     /// </summary>
-    [Description("Flow value read from channel 2 - flowmeter 2 [ml/min].")]
-    public partial class Channel2FlowReal
+    [Description("Actual flow-rate read for channel 2 - flowmeter 2 [ml/min].")]
+    public partial class Channel2ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel2FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel2ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 49;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel2FlowReal"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel2ActualFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel2FlowReal"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel2ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel2FlowReal"/> register messages.
+        /// Returns the payload data for <see cref="Channel2ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -2216,7 +2225,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel2FlowReal"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel2ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -2226,12 +2235,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel2FlowReal"/> register.
+        /// Returns a Harp message for the <see cref="Channel2ActualFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2ActualFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -2240,14 +2249,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel2FlowReal"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel2ActualFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel2ActualFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -2258,51 +2267,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel2FlowReal register.
+    /// Channel2ActualFlow register.
     /// </summary>
-    /// <seealso cref="Channel2FlowReal"/>
-    [Description("Filters and selects timestamped messages from the Channel2FlowReal register.")]
-    public partial class TimestampedChannel2FlowReal
+    /// <seealso cref="Channel2ActualFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel2ActualFlow register.")]
+    public partial class TimestampedChannel2ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel2FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel2ActualFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel2FlowReal.Address;
+        public const int Address = Channel2ActualFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel2FlowReal"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel2ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel2FlowReal.GetTimestampedPayload(message);
+            return Channel2ActualFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value read from channel 3 - flowmeter 3 [ml/min].
+    /// Represents a register that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
     /// </summary>
-    [Description("Flow value read from channel 3 - flowmeter 3 [ml/min].")]
-    public partial class Channel3FlowReal
+    [Description("Actual flow-rate read for channel 3 - flowmeter 3 [ml/min].")]
+    public partial class Channel3ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel3FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel3ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 50;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel3FlowReal"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel3ActualFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel3FlowReal"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel3ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel3FlowReal"/> register messages.
+        /// Returns the payload data for <see cref="Channel3ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -2312,7 +2321,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel3FlowReal"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel3ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -2322,12 +2331,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel3FlowReal"/> register.
+        /// Returns a Harp message for the <see cref="Channel3ActualFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3ActualFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -2336,14 +2345,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel3FlowReal"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel3ActualFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel3ActualFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -2354,51 +2363,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel3FlowReal register.
+    /// Channel3ActualFlow register.
     /// </summary>
-    /// <seealso cref="Channel3FlowReal"/>
-    [Description("Filters and selects timestamped messages from the Channel3FlowReal register.")]
-    public partial class TimestampedChannel3FlowReal
+    /// <seealso cref="Channel3ActualFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel3ActualFlow register.")]
+    public partial class TimestampedChannel3ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel3FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel3ActualFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel3FlowReal.Address;
+        public const int Address = Channel3ActualFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel3FlowReal"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel3ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel3FlowReal.GetTimestampedPayload(message);
+            return Channel3ActualFlow.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that flow value read from channel 4 - flowmeter 4 [ml/min].
+    /// Represents a register that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
     /// </summary>
-    [Description("Flow value read from channel 4 - flowmeter 4 [ml/min].")]
-    public partial class Channel4FlowReal
+    [Description("Actual flow-rate read for channel 4 - flowmeter 4 [ml/min].")]
+    public partial class Channel4ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel4FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel4ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int Address = 51;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Channel4FlowReal"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Channel4ActualFlow"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Channel4FlowReal"/> register. This field is constant.
+        /// Represents the length of the <see cref="Channel4ActualFlow"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Channel4FlowReal"/> register messages.
+        /// Returns the payload data for <see cref="Channel4ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -2408,7 +2417,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Channel4FlowReal"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Channel4ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -2418,12 +2427,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Channel4FlowReal"/> register.
+        /// Returns a Harp message for the <see cref="Channel4ActualFlow"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4ActualFlow"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -2432,14 +2441,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Channel4FlowReal"/>
+        /// Returns a timestamped Harp message for the <see cref="Channel4ActualFlow"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4FlowReal"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Channel4ActualFlow"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -2450,25 +2459,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Channel4FlowReal register.
+    /// Channel4ActualFlow register.
     /// </summary>
-    /// <seealso cref="Channel4FlowReal"/>
-    [Description("Filters and selects timestamped messages from the Channel4FlowReal register.")]
-    public partial class TimestampedChannel4FlowReal
+    /// <seealso cref="Channel4ActualFlow"/>
+    [Description("Filters and selects timestamped messages from the Channel4ActualFlow register.")]
+    public partial class TimestampedChannel4ActualFlow
     {
         /// <summary>
-        /// Represents the address of the <see cref="Channel4FlowReal"/> register. This field is constant.
+        /// Represents the address of the <see cref="Channel4ActualFlow"/> register. This field is constant.
         /// </summary>
-        public const int Address = Channel4FlowReal.Address;
+        public const int Address = Channel4ActualFlow.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Channel4FlowReal"/> register messages.
+        /// Returns timestamped payload data for <see cref="Channel4ActualFlow"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Channel4FlowReal.GetTimestampedPayload(message);
+            return Channel4ActualFlow.GetTimestampedPayload(message);
         }
     }
 
@@ -2953,9 +2962,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that set the correspondent output.
+    /// Represents a register that set the specified digital output lines.
     /// </summary>
-    [Description("Set the correspondent output.")]
+    [Description("Set the specified digital output lines.")]
     public partial class DigitalOutputSet
     {
         /// <summary>
@@ -3050,9 +3059,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that clear the correspondent output.
+    /// Represents a register that clears the specified digital output lines.
     /// </summary>
-    [Description("Clear the correspondent output.")]
+    [Description("Clears the specified digital output lines.")]
     public partial class DigitalOutputClear
     {
         /// <summary>
@@ -3147,9 +3156,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that toggle the correspondent output.
+    /// Represents a register that toggles the specified digital output lines.
     /// </summary>
-    [Description("Toggle the correspondent output.")]
+    [Description("Toggles the specified digital output lines.")]
     public partial class DigitalOutputToggle
     {
         /// <summary>
@@ -3244,9 +3253,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that control the correspondent output.
+    /// Represents a register that write the state of all digital output lines.
     /// </summary>
-    [Description("Control the correspondent output.")]
+    [Description("Write the state of all digital output lines.")]
     public partial class DigitalOutputState
     {
         /// <summary>
@@ -3438,9 +3447,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that set the correspondent valve.
+    /// Represents a register that set the specified valve output lines.
     /// </summary>
-    [Description("Set the correspondent valve.")]
+    [Description("Set the specified valve output lines.")]
     public partial class ValvesSet
     {
         /// <summary>
@@ -3535,9 +3544,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that clear the correspondent valve.
+    /// Represents a register that clears the specified valve output lines.
     /// </summary>
-    [Description("Clear the correspondent valve.")]
+    [Description("Clears the specified valve output lines.")]
     public partial class ValvesClear
     {
         /// <summary>
@@ -3632,9 +3641,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that toggle the correspondent valve.
+    /// Represents a register that toggles the specified valve output lines.
     /// </summary>
-    [Description("Toggle the correspondent valve.")]
+    [Description("Toggles the specified valve output lines.")]
     public partial class ValvesToggle
     {
         /// <summary>
@@ -3729,9 +3738,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that control the correspondent valve.
+    /// Represents a register that write the state of all valve output lines.
     /// </summary>
-    [Description("Control the correspondent valve.")]
+    [Description("Write the state of all valve output lines.")]
     public partial class ValvesState
     {
         /// <summary>
@@ -3826,28 +3835,28 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that valve 0 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for Valve0.
     /// </summary>
-    [Description("Valve 0 pulse duration [1:65535] ms.")]
-    public partial class PulseValve0
+    [Description("Sets the pulse duration for Valve0.")]
+    public partial class Valve0PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 71;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseValve0"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Valve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseValve0"/> register. This field is constant.
+        /// Represents the length of the <see cref="Valve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseValve0"/> register messages.
+        /// Returns the payload data for <see cref="Valve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -3857,7 +3866,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseValve0"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Valve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -3867,12 +3876,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseValve0"/> register.
+        /// Returns a Harp message for the <see cref="Valve0PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve0PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -3881,14 +3890,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseValve0"/>
+        /// Returns a timestamped Harp message for the <see cref="Valve0PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve0PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -3899,51 +3908,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseValve0 register.
+    /// Valve0PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseValve0"/>
-    [Description("Filters and selects timestamped messages from the PulseValve0 register.")]
-    public partial class TimestampedPulseValve0
+    /// <seealso cref="Valve0PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the Valve0PulseDuration register.")]
+    public partial class TimestampedValve0PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve0PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseValve0.Address;
+        public const int Address = Valve0PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseValve0"/> register messages.
+        /// Returns timestamped payload data for <see cref="Valve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseValve0.GetTimestampedPayload(message);
+            return Valve0PulseDuration.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that valve 1 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for Valve1.
     /// </summary>
-    [Description("Valve 1 pulse duration [1:65535] ms.")]
-    public partial class PulseValve1
+    [Description("Sets the pulse duration for Valve1.")]
+    public partial class Valve1PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 72;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseValve1"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Valve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseValve1"/> register. This field is constant.
+        /// Represents the length of the <see cref="Valve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseValve1"/> register messages.
+        /// Returns the payload data for <see cref="Valve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -3953,7 +3962,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseValve1"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Valve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -3963,12 +3972,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseValve1"/> register.
+        /// Returns a Harp message for the <see cref="Valve1PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve1PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -3977,14 +3986,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseValve1"/>
+        /// Returns a timestamped Harp message for the <see cref="Valve1PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve1PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -3995,51 +4004,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseValve1 register.
+    /// Valve1PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseValve1"/>
-    [Description("Filters and selects timestamped messages from the PulseValve1 register.")]
-    public partial class TimestampedPulseValve1
+    /// <seealso cref="Valve1PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the Valve1PulseDuration register.")]
+    public partial class TimestampedValve1PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve1PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseValve1.Address;
+        public const int Address = Valve1PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseValve1"/> register messages.
+        /// Returns timestamped payload data for <see cref="Valve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseValve1.GetTimestampedPayload(message);
+            return Valve1PulseDuration.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that valve 2 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for Valve2.
     /// </summary>
-    [Description("Valve 2 pulse duration [1:65535] ms.")]
-    public partial class PulseValve2
+    [Description("Sets the pulse duration for Valve2.")]
+    public partial class Valve2PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve2"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve2PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 73;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseValve2"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Valve2PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseValve2"/> register. This field is constant.
+        /// Represents the length of the <see cref="Valve2PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseValve2"/> register messages.
+        /// Returns the payload data for <see cref="Valve2PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -4049,7 +4058,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseValve2"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Valve2PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -4059,12 +4068,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseValve2"/> register.
+        /// Returns a Harp message for the <see cref="Valve2PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve2"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve2PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -4073,14 +4082,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseValve2"/>
+        /// Returns a timestamped Harp message for the <see cref="Valve2PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve2"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve2PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -4091,51 +4100,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseValve2 register.
+    /// Valve2PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseValve2"/>
-    [Description("Filters and selects timestamped messages from the PulseValve2 register.")]
-    public partial class TimestampedPulseValve2
+    /// <seealso cref="Valve2PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the Valve2PulseDuration register.")]
+    public partial class TimestampedValve2PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve2"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve2PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseValve2.Address;
+        public const int Address = Valve2PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseValve2"/> register messages.
+        /// Returns timestamped payload data for <see cref="Valve2PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseValve2.GetTimestampedPayload(message);
+            return Valve2PulseDuration.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that valve 3 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for Valve3.
     /// </summary>
-    [Description("Valve 3 pulse duration [1:65535] ms.")]
-    public partial class PulseValve3
+    [Description("Sets the pulse duration for Valve3.")]
+    public partial class Valve3PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve3"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve3PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 74;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseValve3"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Valve3PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseValve3"/> register. This field is constant.
+        /// Represents the length of the <see cref="Valve3PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseValve3"/> register messages.
+        /// Returns the payload data for <see cref="Valve3PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -4145,7 +4154,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseValve3"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Valve3PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -4155,12 +4164,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseValve3"/> register.
+        /// Returns a Harp message for the <see cref="Valve3PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve3"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve3PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -4169,14 +4178,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseValve3"/>
+        /// Returns a timestamped Harp message for the <see cref="Valve3PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseValve3"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Valve3PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -4187,51 +4196,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseValve3 register.
+    /// Valve3PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseValve3"/>
-    [Description("Filters and selects timestamped messages from the PulseValve3 register.")]
-    public partial class TimestampedPulseValve3
+    /// <seealso cref="Valve3PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the Valve3PulseDuration register.")]
+    public partial class TimestampedValve3PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseValve3"/> register. This field is constant.
+        /// Represents the address of the <see cref="Valve3PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseValve3.Address;
+        public const int Address = Valve3PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseValve3"/> register messages.
+        /// Returns timestamped payload data for <see cref="Valve3PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseValve3.GetTimestampedPayload(message);
+            return Valve3PulseDuration.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that end valve 0 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for EndValve0.
     /// </summary>
-    [Description("End valve 0 pulse duration [1:65535] ms.")]
-    public partial class PulseEndvalve0
+    [Description("Sets the pulse duration for EndValve0.")]
+    public partial class EndValve0PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseEndvalve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 75;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseEndvalve0"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseEndvalve0"/> register. This field is constant.
+        /// Represents the length of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseEndvalve0"/> register messages.
+        /// Returns the payload data for <see cref="EndValve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -4241,7 +4250,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseEndvalve0"/> register messages.
+        /// Returns the timestamped payload data for <see cref="EndValve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -4251,12 +4260,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseEndvalve0"/> register.
+        /// Returns a Harp message for the <see cref="EndValve0PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseEndvalve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EndValve0PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -4265,14 +4274,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseEndvalve0"/>
+        /// Returns a timestamped Harp message for the <see cref="EndValve0PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseEndvalve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EndValve0PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -4283,51 +4292,51 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseEndvalve0 register.
+    /// EndValve0PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseEndvalve0"/>
-    [Description("Filters and selects timestamped messages from the PulseEndvalve0 register.")]
-    public partial class TimestampedPulseEndvalve0
+    /// <seealso cref="EndValve0PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the EndValve0PulseDuration register.")]
+    public partial class TimestampedEndValve0PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseEndvalve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseEndvalve0.Address;
+        public const int Address = EndValve0PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseEndvalve0"/> register messages.
+        /// Returns timestamped payload data for <see cref="EndValve0PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseEndvalve0.GetTimestampedPayload(message);
+            return EndValve0PulseDuration.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that end valve 1 pulse duration [1:65535] ms.
+    /// Represents a register that sets the pulse duration for EndValve1.
     /// </summary>
-    [Description("End valve 1 pulse duration [1:65535] ms.")]
-    public partial class PulseEndvalve1
+    [Description("Sets the pulse duration for EndValve1.")]
+    public partial class EndValve1PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseEndvalve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int Address = 76;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="PulseEndvalve1"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
-        /// Represents the length of the <see cref="PulseEndvalve1"/> register. This field is constant.
+        /// Represents the length of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="PulseEndvalve1"/> register messages.
+        /// Returns the payload data for <see cref="EndValve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -4337,7 +4346,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseEndvalve1"/> register messages.
+        /// Returns the timestamped payload data for <see cref="EndValve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -4347,12 +4356,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="PulseEndvalve1"/> register.
+        /// Returns a Harp message for the <see cref="EndValve1PulseDuration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseEndvalve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EndValve1PulseDuration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, ushort value)
@@ -4361,14 +4370,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseEndvalve1"/>
+        /// Returns a timestamped Harp message for the <see cref="EndValve1PulseDuration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseEndvalve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EndValve1PulseDuration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
@@ -4379,121 +4388,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// PulseEndvalve1 register.
+    /// EndValve1PulseDuration register.
     /// </summary>
-    /// <seealso cref="PulseEndvalve1"/>
-    [Description("Filters and selects timestamped messages from the PulseEndvalve1 register.")]
-    public partial class TimestampedPulseEndvalve1
+    /// <seealso cref="EndValve1PulseDuration"/>
+    [Description("Filters and selects timestamped messages from the EndValve1PulseDuration register.")]
+    public partial class TimestampedEndValve1PulseDuration
     {
         /// <summary>
-        /// Represents the address of the <see cref="PulseEndvalve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = PulseEndvalve1.Address;
+        public const int Address = EndValve1PulseDuration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseEndvalve1"/> register messages.
+        /// Returns timestamped payload data for <see cref="EndValve1PulseDuration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<ushort> GetPayload(HarpMessage message)
         {
-            return PulseEndvalve1.GetTimestampedPayload(message);
-        }
-    }
-
-    /// <summary>
-    /// Represents a register that dummy valve pulse duration [1:65535] ms.
-    /// </summary>
-    [Description("Dummy valve pulse duration [1:65535] ms.")]
-    public partial class PulseDummyvalve
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="PulseDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int Address = 77;
-
-        /// <summary>
-        /// Represents the payload type of the <see cref="PulseDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const PayloadType RegisterType = PayloadType.U16;
-
-        /// <summary>
-        /// Represents the length of the <see cref="PulseDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="PulseDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static ushort GetPayload(HarpMessage message)
-        {
-            return message.GetPayloadUInt16();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="PulseDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<ushort> GetTimestampedPayload(HarpMessage message)
-        {
-            return message.GetTimestampedPayloadUInt16();
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="PulseDummyvalve"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseDummyvalve"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, ushort value)
-        {
-            return HarpMessage.FromUInt16(Address, messageType, value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="PulseDummyvalve"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="PulseDummyvalve"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
-        {
-            return HarpMessage.FromUInt16(Address, timestamp, messageType, value);
-        }
-    }
-
-    /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// PulseDummyvalve register.
-    /// </summary>
-    /// <seealso cref="PulseDummyvalve"/>
-    [Description("Filters and selects timestamped messages from the PulseDummyvalve register.")]
-    public partial class TimestampedPulseDummyvalve
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="PulseDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int Address = PulseDummyvalve.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="PulseDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<ushort> GetPayload(HarpMessage message)
-        {
-            return PulseDummyvalve.GetTimestampedPayload(message);
+            return EndValve1PulseDuration.GetTimestampedPayload(message);
         }
     }
 
@@ -4789,73 +4702,73 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that mimic valve 0.
+    /// Represents a register that mimic Valve0.
     /// </summary>
-    [Description("Mimic valve 0.")]
-    public partial class MimicValve0
+    [Description("Mimic Valve0.")]
+    public partial class mimicValve
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicValve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="mimicValve"/> register. This field is constant.
         /// </summary>
         public const int Address = 81;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="MimicValve0"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="mimicValve"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="MimicValve0"/> register. This field is constant.
+        /// Represents the length of the <see cref="mimicValve"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="MimicValve0"/> register messages.
+        /// Returns the payload data for <see cref="mimicValve"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="MimicValve0"/> register messages.
+        /// Returns the timestamped payload data for <see cref="mimicValve"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="MimicValve0"/> register.
+        /// Returns a Harp message for the <see cref="mimicValve"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="mimicValve"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MimicValve0"/>
+        /// Returns a timestamped Harp message for the <see cref="mimicValve"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="mimicValve"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -4863,32 +4776,32 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// MimicValve0 register.
+    /// mimicValve register.
     /// </summary>
-    /// <seealso cref="MimicValve0"/>
-    [Description("Filters and selects timestamped messages from the MimicValve0 register.")]
-    public partial class TimestampedMimicValve0
+    /// <seealso cref="mimicValve"/>
+    [Description("Filters and selects timestamped messages from the mimicValve register.")]
+    public partial class TimestampedmimicValve
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicValve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="mimicValve"/> register. This field is constant.
         /// </summary>
-        public const int Address = MimicValve0.Address;
+        public const int Address = mimicValve.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="MimicValve0"/> register messages.
+        /// Returns timestamped payload data for <see cref="mimicValve"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
-            return MimicValve0.GetTimestampedPayload(message);
+            return mimicValve.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic valve 1.
+    /// Represents a register that mimic Valve1.
     /// </summary>
-    [Description("Mimic valve 1.")]
+    [Description("Mimic Valve1.")]
     public partial class MimicValve1
     {
         /// <summary>
@@ -4911,9 +4824,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -4921,10 +4834,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -4936,7 +4849,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve1"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -4952,7 +4865,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve1"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -4976,16 +4889,16 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
             return MimicValve1.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic valve 2.
+    /// Represents a register that mimic Valve2.
     /// </summary>
-    [Description("Mimic valve 2.")]
+    [Description("Mimic Valve2.")]
     public partial class MimicValve2
     {
         /// <summary>
@@ -5008,9 +4921,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -5018,10 +4931,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -5033,7 +4946,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve2"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -5049,7 +4962,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve2"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5073,16 +4986,16 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
             return MimicValve2.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic valve 3.
+    /// Represents a register that mimic Valve3.
     /// </summary>
-    [Description("Mimic valve 3.")]
+    [Description("Mimic Valve3.")]
     public partial class MimicValve3
     {
         /// <summary>
@@ -5105,9 +5018,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -5115,10 +5028,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -5130,7 +5043,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve3"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -5146,7 +5059,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicValve3"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5170,16 +5083,16 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
             return MimicValve3.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic end valve 0.
+    /// Represents a register that mimic EndValve0.
     /// </summary>
-    [Description("Mimic end valve 0.")]
+    [Description("Mimic EndValve0.")]
     public partial class MimicEndvalve0
     {
         /// <summary>
@@ -5202,9 +5115,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -5212,10 +5125,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -5227,7 +5140,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve0"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -5243,7 +5156,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve0"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5267,16 +5180,16 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
             return MimicEndvalve0.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic end valve 1.
+    /// Represents a register that mimic EndValve1.
     /// </summary>
-    [Description("Mimic end valve 1.")]
+    [Description("Mimic EndValve1.")]
     public partial class MimicEndvalve1
     {
         /// <summary>
@@ -5299,9 +5212,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
+        public static MimicOutputs GetPayload(HarpMessage message)
         {
-            return (MimicOuputs)message.GetPayloadByte();
+            return (MimicOutputs)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -5309,10 +5222,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -5324,7 +5237,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve1"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -5340,7 +5253,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve1"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5364,132 +5277,35 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
             return MimicEndvalve1.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that mimic dummy valve.
+    /// Represents a register that enable the valves control via low-level IO screw terminals.
     /// </summary>
-    [Description("Mimic dummy valve.")]
-    public partial class MimicDummyvalve
+    [Description("Enable the valves control via low-level IO screw terminals.")]
+    public partial class EnableValveExternalControl
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int Address = 87;
-
-        /// <summary>
-        /// Represents the payload type of the <see cref="MimicDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const PayloadType RegisterType = PayloadType.U8;
-
-        /// <summary>
-        /// Represents the length of the <see cref="MimicDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="MimicDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static MimicOuputs GetPayload(HarpMessage message)
-        {
-            return (MimicOuputs)message.GetPayloadByte();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="MimicDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetTimestampedPayload(HarpMessage message)
-        {
-            var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((MimicOuputs)payload.Value, payload.Seconds);
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="MimicDummyvalve"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicDummyvalve"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MimicOuputs value)
-        {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MimicDummyvalve"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicDummyvalve"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOuputs value)
-        {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
-        }
-    }
-
-    /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// MimicDummyvalve register.
-    /// </summary>
-    /// <seealso cref="MimicDummyvalve"/>
-    [Description("Filters and selects timestamped messages from the MimicDummyvalve register.")]
-    public partial class TimestampedMimicDummyvalve
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="MimicDummyvalve"/> register. This field is constant.
-        /// </summary>
-        public const int Address = MimicDummyvalve.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="MimicDummyvalve"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MimicOuputs> GetPayload(HarpMessage message)
-        {
-            return MimicDummyvalve.GetTimestampedPayload(message);
-        }
-    }
-
-    /// <summary>
-    /// Represents a register that enable the valves control via the external screw terminals.
-    /// </summary>
-    [Description("Enable the valves control via the external screw terminals.")]
-    public partial class EnableExternalControlValves
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="EnableExternalControlValves"/> register. This field is constant.
+        /// Represents the address of the <see cref="EnableValveExternalControl"/> register. This field is constant.
         /// </summary>
         public const int Address = 88;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="EnableExternalControlValves"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="EnableValveExternalControl"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="EnableExternalControlValves"/> register. This field is constant.
+        /// Represents the length of the <see cref="EnableValveExternalControl"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="EnableExternalControlValves"/> register messages.
+        /// Returns the payload data for <see cref="EnableValveExternalControl"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -5499,7 +5315,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="EnableExternalControlValves"/> register messages.
+        /// Returns the timestamped payload data for <see cref="EnableValveExternalControl"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -5510,12 +5326,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="EnableExternalControlValves"/> register.
+        /// Returns a Harp message for the <see cref="EnableValveExternalControl"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableExternalControlValves"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableValveExternalControl"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, EnableFlag value)
@@ -5524,14 +5340,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="EnableExternalControlValves"/>
+        /// Returns a timestamped Harp message for the <see cref="EnableValveExternalControl"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableExternalControlValves"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableValveExternalControl"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, EnableFlag value)
@@ -5542,32 +5358,32 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// EnableExternalControlValves register.
+    /// EnableValveExternalControl register.
     /// </summary>
-    /// <seealso cref="EnableExternalControlValves"/>
-    [Description("Filters and selects timestamped messages from the EnableExternalControlValves register.")]
-    public partial class TimestampedEnableExternalControlValves
+    /// <seealso cref="EnableValveExternalControl"/>
+    [Description("Filters and selects timestamped messages from the EnableValveExternalControl register.")]
+    public partial class TimestampedEnableValveExternalControl
     {
         /// <summary>
-        /// Represents the address of the <see cref="EnableExternalControlValves"/> register. This field is constant.
+        /// Represents the address of the <see cref="EnableValveExternalControl"/> register. This field is constant.
         /// </summary>
-        public const int Address = EnableExternalControlValves.Address;
+        public const int Address = EnableValveExternalControl.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="EnableExternalControlValves"/> register messages.
+        /// Returns timestamped payload data for <see cref="EnableValveExternalControl"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<EnableFlag> GetPayload(HarpMessage message)
         {
-            return EnableExternalControlValves.GetTimestampedPayload(message);
+            return EnableValveExternalControl.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+    /// Represents a register that selects the flow range for the channel 3.
     /// </summary>
-    [Description("Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+    [Description("Selects the flow range for the channel 3.")]
     public partial class Channel3Range
     {
         /// <summary>
@@ -5763,7 +5579,7 @@ namespace Harp.Olfactometer
     /// Olfactometer device.
     /// </summary>
     /// <seealso cref="CreateEnableFlowPayload"/>
-    /// <seealso cref="CreateFlowmeterAnalogOutputsPayload"/>
+    /// <seealso cref="CreateFlowmeterPayload"/>
     /// <seealso cref="CreateDI0StatePayload"/>
     /// <seealso cref="CreateChannel0UserCalibrationPayload"/>
     /// <seealso cref="CreateChannel1UserCalibrationPayload"/>
@@ -5772,16 +5588,16 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateChannel4UserCalibrationPayload"/>
     /// <seealso cref="CreateChannel3UserCalibrationAuxPayload"/>
     /// <seealso cref="CreateUserCalibrationEnablePayload"/>
-    /// <seealso cref="CreateChannel0FlowTargetPayload"/>
-    /// <seealso cref="CreateChannel1FlowTargetPayload"/>
-    /// <seealso cref="CreateChannel2FlowTargetPayload"/>
-    /// <seealso cref="CreateChannel3FlowTargetPayload"/>
-    /// <seealso cref="CreateChannel4FlowTargetPayload"/>
-    /// <seealso cref="CreateChannel0FlowRealPayload"/>
-    /// <seealso cref="CreateChannel1FlowRealPayload"/>
-    /// <seealso cref="CreateChannel2FlowRealPayload"/>
-    /// <seealso cref="CreateChannel3FlowRealPayload"/>
-    /// <seealso cref="CreateChannel4FlowRealPayload"/>
+    /// <seealso cref="CreateChannel0TargetFlowPayload"/>
+    /// <seealso cref="CreateChannel1TargetFlowPayload"/>
+    /// <seealso cref="CreateChannel2TargetFlowPayload"/>
+    /// <seealso cref="CreateChannel3TargetFlowPayload"/>
+    /// <seealso cref="CreateChannel4TargetFlowPayload"/>
+    /// <seealso cref="CreateChannel0ActualFlowPayload"/>
+    /// <seealso cref="CreateChannel1ActualFlowPayload"/>
+    /// <seealso cref="CreateChannel2ActualFlowPayload"/>
+    /// <seealso cref="CreateChannel3ActualFlowPayload"/>
+    /// <seealso cref="CreateChannel4ActualFlowPayload"/>
     /// <seealso cref="CreateChannel0DutyCyclePayload"/>
     /// <seealso cref="CreateChannel1DutyCyclePayload"/>
     /// <seealso cref="CreateChannel2DutyCyclePayload"/>
@@ -5796,28 +5612,26 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateValvesClearPayload"/>
     /// <seealso cref="CreateValvesTogglePayload"/>
     /// <seealso cref="CreateValvesStatePayload"/>
-    /// <seealso cref="CreatePulseValve0Payload"/>
-    /// <seealso cref="CreatePulseValve1Payload"/>
-    /// <seealso cref="CreatePulseValve2Payload"/>
-    /// <seealso cref="CreatePulseValve3Payload"/>
-    /// <seealso cref="CreatePulseEndvalve0Payload"/>
-    /// <seealso cref="CreatePulseEndvalve1Payload"/>
-    /// <seealso cref="CreatePulseDummyvalvePayload"/>
+    /// <seealso cref="CreateValve0PulseDurationPayload"/>
+    /// <seealso cref="CreateValve1PulseDurationPayload"/>
+    /// <seealso cref="CreateValve2PulseDurationPayload"/>
+    /// <seealso cref="CreateValve3PulseDurationPayload"/>
+    /// <seealso cref="CreateEndValve0PulseDurationPayload"/>
+    /// <seealso cref="CreateEndValve1PulseDurationPayload"/>
     /// <seealso cref="CreateDO0SyncPayload"/>
     /// <seealso cref="CreateDO1SyncPayload"/>
     /// <seealso cref="CreateDI0TriggerPayload"/>
-    /// <seealso cref="CreateMimicValve0Payload"/>
+    /// <seealso cref="CreatemimicValvePayload"/>
     /// <seealso cref="CreateMimicValve1Payload"/>
     /// <seealso cref="CreateMimicValve2Payload"/>
     /// <seealso cref="CreateMimicValve3Payload"/>
     /// <seealso cref="CreateMimicEndvalve0Payload"/>
     /// <seealso cref="CreateMimicEndvalve1Payload"/>
-    /// <seealso cref="CreateMimicDummyvalvePayload"/>
-    /// <seealso cref="CreateEnableExternalControlValvesPayload"/>
+    /// <seealso cref="CreateEnableValveExternalControlPayload"/>
     /// <seealso cref="CreateChannel3RangePayload"/>
     /// <seealso cref="CreateEnableEventsPayload"/>
     [XmlInclude(typeof(CreateEnableFlowPayload))]
-    [XmlInclude(typeof(CreateFlowmeterAnalogOutputsPayload))]
+    [XmlInclude(typeof(CreateFlowmeterPayload))]
     [XmlInclude(typeof(CreateDI0StatePayload))]
     [XmlInclude(typeof(CreateChannel0UserCalibrationPayload))]
     [XmlInclude(typeof(CreateChannel1UserCalibrationPayload))]
@@ -5826,16 +5640,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateChannel4UserCalibrationPayload))]
     [XmlInclude(typeof(CreateChannel3UserCalibrationAuxPayload))]
     [XmlInclude(typeof(CreateUserCalibrationEnablePayload))]
-    [XmlInclude(typeof(CreateChannel0FlowTargetPayload))]
-    [XmlInclude(typeof(CreateChannel1FlowTargetPayload))]
-    [XmlInclude(typeof(CreateChannel2FlowTargetPayload))]
-    [XmlInclude(typeof(CreateChannel3FlowTargetPayload))]
-    [XmlInclude(typeof(CreateChannel4FlowTargetPayload))]
-    [XmlInclude(typeof(CreateChannel0FlowRealPayload))]
-    [XmlInclude(typeof(CreateChannel1FlowRealPayload))]
-    [XmlInclude(typeof(CreateChannel2FlowRealPayload))]
-    [XmlInclude(typeof(CreateChannel3FlowRealPayload))]
-    [XmlInclude(typeof(CreateChannel4FlowRealPayload))]
+    [XmlInclude(typeof(CreateChannel0TargetFlowPayload))]
+    [XmlInclude(typeof(CreateChannel1TargetFlowPayload))]
+    [XmlInclude(typeof(CreateChannel2TargetFlowPayload))]
+    [XmlInclude(typeof(CreateChannel3TargetFlowPayload))]
+    [XmlInclude(typeof(CreateChannel4TargetFlowPayload))]
+    [XmlInclude(typeof(CreateChannel0ActualFlowPayload))]
+    [XmlInclude(typeof(CreateChannel1ActualFlowPayload))]
+    [XmlInclude(typeof(CreateChannel2ActualFlowPayload))]
+    [XmlInclude(typeof(CreateChannel3ActualFlowPayload))]
+    [XmlInclude(typeof(CreateChannel4ActualFlowPayload))]
     [XmlInclude(typeof(CreateChannel0DutyCyclePayload))]
     [XmlInclude(typeof(CreateChannel1DutyCyclePayload))]
     [XmlInclude(typeof(CreateChannel2DutyCyclePayload))]
@@ -5850,28 +5664,26 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateValvesClearPayload))]
     [XmlInclude(typeof(CreateValvesTogglePayload))]
     [XmlInclude(typeof(CreateValvesStatePayload))]
-    [XmlInclude(typeof(CreatePulseValve0Payload))]
-    [XmlInclude(typeof(CreatePulseValve1Payload))]
-    [XmlInclude(typeof(CreatePulseValve2Payload))]
-    [XmlInclude(typeof(CreatePulseValve3Payload))]
-    [XmlInclude(typeof(CreatePulseEndvalve0Payload))]
-    [XmlInclude(typeof(CreatePulseEndvalve1Payload))]
-    [XmlInclude(typeof(CreatePulseDummyvalvePayload))]
+    [XmlInclude(typeof(CreateValve0PulseDurationPayload))]
+    [XmlInclude(typeof(CreateValve1PulseDurationPayload))]
+    [XmlInclude(typeof(CreateValve2PulseDurationPayload))]
+    [XmlInclude(typeof(CreateValve3PulseDurationPayload))]
+    [XmlInclude(typeof(CreateEndValve0PulseDurationPayload))]
+    [XmlInclude(typeof(CreateEndValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateDO0SyncPayload))]
     [XmlInclude(typeof(CreateDO1SyncPayload))]
     [XmlInclude(typeof(CreateDI0TriggerPayload))]
-    [XmlInclude(typeof(CreateMimicValve0Payload))]
+    [XmlInclude(typeof(CreatemimicValvePayload))]
     [XmlInclude(typeof(CreateMimicValve1Payload))]
     [XmlInclude(typeof(CreateMimicValve2Payload))]
     [XmlInclude(typeof(CreateMimicValve3Payload))]
     [XmlInclude(typeof(CreateMimicEndvalve0Payload))]
     [XmlInclude(typeof(CreateMimicEndvalve1Payload))]
-    [XmlInclude(typeof(CreateMimicDummyvalvePayload))]
-    [XmlInclude(typeof(CreateEnableExternalControlValvesPayload))]
+    [XmlInclude(typeof(CreateEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateChannel3RangePayload))]
     [XmlInclude(typeof(CreateEnableEventsPayload))]
     [XmlInclude(typeof(CreateTimestampedEnableFlowPayload))]
-    [XmlInclude(typeof(CreateTimestampedFlowmeterAnalogOutputsPayload))]
+    [XmlInclude(typeof(CreateTimestampedFlowmeterPayload))]
     [XmlInclude(typeof(CreateTimestampedDI0StatePayload))]
     [XmlInclude(typeof(CreateTimestampedChannel0UserCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel1UserCalibrationPayload))]
@@ -5880,16 +5692,16 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedChannel4UserCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel3UserCalibrationAuxPayload))]
     [XmlInclude(typeof(CreateTimestampedUserCalibrationEnablePayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel0FlowTargetPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel1FlowTargetPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel2FlowTargetPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel3FlowTargetPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel4FlowTargetPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel0FlowRealPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel1FlowRealPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel2FlowRealPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel3FlowRealPayload))]
-    [XmlInclude(typeof(CreateTimestampedChannel4FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0TargetFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1TargetFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2TargetFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3TargetFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4TargetFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0ActualFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1ActualFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2ActualFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3ActualFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4ActualFlowPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel0DutyCyclePayload))]
     [XmlInclude(typeof(CreateTimestampedChannel1DutyCyclePayload))]
     [XmlInclude(typeof(CreateTimestampedChannel2DutyCyclePayload))]
@@ -5904,24 +5716,22 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedValvesClearPayload))]
     [XmlInclude(typeof(CreateTimestampedValvesTogglePayload))]
     [XmlInclude(typeof(CreateTimestampedValvesStatePayload))]
-    [XmlInclude(typeof(CreateTimestampedPulseValve0Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseValve1Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseValve2Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseValve3Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseEndvalve0Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseEndvalve1Payload))]
-    [XmlInclude(typeof(CreateTimestampedPulseDummyvalvePayload))]
+    [XmlInclude(typeof(CreateTimestampedValve0PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedValve1PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedValve2PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedValve3PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedEndValve0PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedEndValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedDO0SyncPayload))]
     [XmlInclude(typeof(CreateTimestampedDO1SyncPayload))]
     [XmlInclude(typeof(CreateTimestampedDI0TriggerPayload))]
-    [XmlInclude(typeof(CreateTimestampedMimicValve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedmimicValvePayload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve1Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve2Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve3Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicEndvalve0Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicEndvalve1Payload))]
-    [XmlInclude(typeof(CreateTimestampedMimicDummyvalvePayload))]
-    [XmlInclude(typeof(CreateTimestampedEnableExternalControlValvesPayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel3RangePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableEventsPayload))]
     [Description("Creates standard message payloads for the Olfactometer device.")]
@@ -5940,16 +5750,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that write any value above zero to start the flowmeter and zero to stop.
+    /// that starts or stops the flow in all channels.
     /// </summary>
     [DisplayName("EnableFlowPayload")]
-    [Description("Creates a message payload that write any value above zero to start the flowmeter and zero to stop.")]
+    [Description("Creates a message payload that starts or stops the flow in all channels.")]
     public partial class CreateEnableFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that write any value above zero to start the flowmeter and zero to stop.
+        /// Gets or sets the value that starts or stops the flow in all channels.
         /// </summary>
-        [Description("The value that write any value above zero to start the flowmeter and zero to stop.")]
+        [Description("The value that starts or stops the flow in all channels.")]
         public EnableFlag EnableFlow { get; set; }
 
         /// <summary>
@@ -5962,7 +5772,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that write any value above zero to start the flowmeter and zero to stop.
+        /// Creates a message that starts or stops the flow in all channels.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the EnableFlow register.</returns>
@@ -5974,14 +5784,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that write any value above zero to start the flowmeter and zero to stop.
+    /// that starts or stops the flow in all channels.
     /// </summary>
     [DisplayName("TimestampedEnableFlowPayload")]
-    [Description("Creates a timestamped message payload that write any value above zero to start the flowmeter and zero to stop.")]
+    [Description("Creates a timestamped message payload that starts or stops the flow in all channels.")]
     public partial class CreateTimestampedEnableFlowPayload : CreateEnableFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that write any value above zero to start the flowmeter and zero to stop.
+        /// Creates a timestamped message that starts or stops the flow in all channels.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -5994,55 +5804,85 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that value of the flowmeters analog outups.
+    /// that value of single ADC read from all flowmeter channels.
     /// </summary>
-    [DisplayName("FlowmeterAnalogOutputsPayload")]
-    [Description("Creates a message payload that value of the flowmeters analog outups.")]
-    public partial class CreateFlowmeterAnalogOutputsPayload
+    [DisplayName("FlowmeterPayload")]
+    [Description("Creates a message payload that value of single ADC read from all flowmeter channels.")]
+    public partial class CreateFlowmeterPayload
     {
         /// <summary>
-        /// Gets or sets the value that value of the flowmeters analog outups.
+        /// Gets or sets a value to write on payload member Channel0.
         /// </summary>
-        [Description("The value that value of the flowmeters analog outups.")]
-        public short[] FlowmeterAnalogOutputs { get; set; }
+        [Description("")]
+        public short Channel0 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the FlowmeterAnalogOutputs register.
+        /// Gets or sets a value to write on payload member Channel1.
+        /// </summary>
+        [Description("")]
+        public short Channel1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value to write on payload member Channel2.
+        /// </summary>
+        [Description("")]
+        public short Channel2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value to write on payload member Channel3.
+        /// </summary>
+        [Description("")]
+        public short Channel3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value to write on payload member Channel4.
+        /// </summary>
+        [Description("")]
+        public short Channel4 { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Flowmeter register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public short[] GetPayload()
+        public FlowmeterPayload GetPayload()
         {
-            return FlowmeterAnalogOutputs;
+            FlowmeterPayload value;
+            value.Channel0 = Channel0;
+            value.Channel1 = Channel1;
+            value.Channel2 = Channel2;
+            value.Channel3 = Channel3;
+            value.Channel4 = Channel4;
+            return value;
         }
 
         /// <summary>
-        /// Creates a message that value of the flowmeters analog outups.
+        /// Creates a message that value of single ADC read from all flowmeter channels.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the FlowmeterAnalogOutputs register.</returns>
+        /// <returns>A new message for the Flowmeter register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.FlowmeterAnalogOutputs.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Flowmeter.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that value of the flowmeters analog outups.
+    /// that value of single ADC read from all flowmeter channels.
     /// </summary>
-    [DisplayName("TimestampedFlowmeterAnalogOutputsPayload")]
-    [Description("Creates a timestamped message payload that value of the flowmeters analog outups.")]
-    public partial class CreateTimestampedFlowmeterAnalogOutputsPayload : CreateFlowmeterAnalogOutputsPayload
+    [DisplayName("TimestampedFlowmeterPayload")]
+    [Description("Creates a timestamped message payload that value of single ADC read from all flowmeter channels.")]
+    public partial class CreateTimestampedFlowmeterPayload : CreateFlowmeterPayload
     {
         /// <summary>
-        /// Creates a timestamped message that value of the flowmeters analog outups.
+        /// Creates a timestamped message that value of single ADC read from all flowmeter channels.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the FlowmeterAnalogOutputs register.</returns>
+        /// <returns>A new timestamped message for the Flowmeter register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.FlowmeterAnalogOutputs.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Flowmeter.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -6102,16 +5942,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("Channel0UserCalibrationPayload")]
-    [Description("Creates a message payload that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateChannel0UserCalibrationPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Gets or sets the value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+        [Description("The value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
         public ushort[] Channel0UserCalibration { get; set; }
 
         /// <summary>
@@ -6124,7 +5964,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel0UserCalibration register.</returns>
@@ -6136,14 +5976,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel0UserCalibrationPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a timestamped message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateTimestampedChannel0UserCalibrationPayload : CreateChannel0UserCalibrationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a timestamped message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6156,16 +5996,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("Channel1UserCalibrationPayload")]
-    [Description("Creates a message payload that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateChannel1UserCalibrationPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Gets or sets the value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+        [Description("The value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
         public ushort[] Channel1UserCalibration { get; set; }
 
         /// <summary>
@@ -6178,7 +6018,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel1UserCalibration register.</returns>
@@ -6190,14 +6030,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel1UserCalibrationPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a timestamped message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateTimestampedChannel1UserCalibrationPayload : CreateChannel1UserCalibrationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a timestamped message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6210,16 +6050,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("Channel2UserCalibrationPayload")]
-    [Description("Creates a message payload that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateChannel2UserCalibrationPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Gets or sets the value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+        [Description("The value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
         public ushort[] Channel2UserCalibration { get; set; }
 
         /// <summary>
@@ -6232,7 +6072,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel2UserCalibration register.</returns>
@@ -6244,14 +6084,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel2UserCalibrationPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a timestamped message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateTimestampedChannel2UserCalibrationPayload : CreateChannel2UserCalibrationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a timestamped message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6264,16 +6104,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("Channel3UserCalibrationPayload")]
-    [Description("Creates a message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateChannel3UserCalibrationPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Gets or sets the value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+        [Description("The value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
         public ushort[] Channel3UserCalibration { get; set; }
 
         /// <summary>
@@ -6286,7 +6126,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel3UserCalibration register.</returns>
@@ -6298,14 +6138,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel3UserCalibrationPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    [Description("Creates a timestamped message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateTimestampedChannel3UserCalibrationPayload : CreateChannel3UserCalibrationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a timestamped message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6318,16 +6158,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("Channel4UserCalibrationPayload")]
-    [Description("Creates a message payload that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Creates a message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateChannel4UserCalibrationPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Gets or sets the value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+        [Description("The value that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
         public ushort[] Channel4UserCalibration { get; set; }
 
         /// <summary>
@@ -6340,7 +6180,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel4UserCalibration register.</returns>
@@ -6352,14 +6192,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel4UserCalibrationPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Creates a timestamped message payload that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.")]
     public partial class CreateTimestampedChannel4UserCalibrationPayload : CreateChannel4UserCalibrationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a timestamped message that calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6372,16 +6212,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     /// </summary>
     [DisplayName("Channel3UserCalibrationAuxPayload")]
-    [Description("Creates a message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Creates a message payload that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.")]
     public partial class CreateChannel3UserCalibrationAuxPayload
     {
         /// <summary>
-        /// Gets or sets the value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Gets or sets the value that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
         /// </summary>
-        [Description("The value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+        [Description("The value that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.")]
         public ushort[] Channel3UserCalibrationAux { get; set; }
 
         /// <summary>
@@ -6394,7 +6234,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel3UserCalibrationAux register.</returns>
@@ -6406,14 +6246,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     /// </summary>
     [DisplayName("TimestampedChannel3UserCalibrationAuxPayload")]
-    [Description("Creates a timestamped message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    [Description("Creates a timestamped message payload that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.")]
     public partial class CreateTimestampedChannel3UserCalibrationAuxPayload : CreateChannel3UserCalibrationAuxPayload
     {
         /// <summary>
-        /// Creates a timestamped message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a timestamped message that calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -6436,13 +6276,13 @@ namespace Harp.Olfactometer
         /// Gets or sets the value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
         [Description("The value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-        public byte UserCalibrationEnable { get; set; }
+        public EnableFlag UserCalibrationEnable { get; set; }
 
         /// <summary>
         /// Creates a message payload for the UserCalibrationEnable register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public byte GetPayload()
+        public EnableFlag GetPayload()
         {
             return UserCalibrationEnable;
         }
@@ -6480,541 +6320,551 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value set for channel 0 - flowmeter 0 [ml/min].
+    /// that sets the flow-rate rate for channel 0 [ml/min].
     /// </summary>
-    [DisplayName("Channel0FlowTargetPayload")]
-    [Description("Creates a message payload that flow value set for channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateChannel0FlowTargetPayload
+    [DisplayName("Channel0TargetFlowPayload")]
+    [Description("Creates a message payload that sets the flow-rate rate for channel 0 [ml/min].")]
+    public partial class CreateChannel0TargetFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// Gets or sets the value that sets the flow-rate rate for channel 0 [ml/min].
         /// </summary>
-        [Description("The value that flow value set for channel 0 - flowmeter 0 [ml/min].")]
-        public float Channel0FlowTarget { get; set; }
+        [Range(min: 0, max: 100)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the flow-rate rate for channel 0 [ml/min].")]
+        public float Channel0TargetFlow { get; set; } = 0F;
 
         /// <summary>
-        /// Creates a message payload for the Channel0FlowTarget register.
+        /// Creates a message payload for the Channel0TargetFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel0FlowTarget;
+            return Channel0TargetFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message that sets the flow-rate rate for channel 0 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel0FlowTarget register.</returns>
+        /// <returns>A new message for the Channel0TargetFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel0FlowTarget.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel0TargetFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value set for channel 0 - flowmeter 0 [ml/min].
+    /// that sets the flow-rate rate for channel 0 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel0FlowTargetPayload")]
-    [Description("Creates a timestamped message payload that flow value set for channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateTimestampedChannel0FlowTargetPayload : CreateChannel0FlowTargetPayload
+    [DisplayName("TimestampedChannel0TargetFlowPayload")]
+    [Description("Creates a timestamped message payload that sets the flow-rate rate for channel 0 [ml/min].")]
+    public partial class CreateTimestampedChannel0TargetFlowPayload : CreateChannel0TargetFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// Creates a timestamped message that sets the flow-rate rate for channel 0 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel0FlowTarget register.</returns>
+        /// <returns>A new timestamped message for the Channel0TargetFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel0FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel0TargetFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value set for channel 1 - flowmeter 1 [ml/min].
+    /// that sets the flow-rate rate for channel 1 [ml/min].
     /// </summary>
-    [DisplayName("Channel1FlowTargetPayload")]
-    [Description("Creates a message payload that flow value set for channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateChannel1FlowTargetPayload
+    [DisplayName("Channel1TargetFlowPayload")]
+    [Description("Creates a message payload that sets the flow-rate rate for channel 1 [ml/min].")]
+    public partial class CreateChannel1TargetFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// Gets or sets the value that sets the flow-rate rate for channel 1 [ml/min].
         /// </summary>
-        [Description("The value that flow value set for channel 1 - flowmeter 1 [ml/min].")]
-        public float Channel1FlowTarget { get; set; }
+        [Range(min: 0, max: 100)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the flow-rate rate for channel 1 [ml/min].")]
+        public float Channel1TargetFlow { get; set; } = 0F;
 
         /// <summary>
-        /// Creates a message payload for the Channel1FlowTarget register.
+        /// Creates a message payload for the Channel1TargetFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel1FlowTarget;
+            return Channel1TargetFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message that sets the flow-rate rate for channel 1 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel1FlowTarget register.</returns>
+        /// <returns>A new message for the Channel1TargetFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel1FlowTarget.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel1TargetFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value set for channel 1 - flowmeter 1 [ml/min].
+    /// that sets the flow-rate rate for channel 1 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel1FlowTargetPayload")]
-    [Description("Creates a timestamped message payload that flow value set for channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateTimestampedChannel1FlowTargetPayload : CreateChannel1FlowTargetPayload
+    [DisplayName("TimestampedChannel1TargetFlowPayload")]
+    [Description("Creates a timestamped message payload that sets the flow-rate rate for channel 1 [ml/min].")]
+    public partial class CreateTimestampedChannel1TargetFlowPayload : CreateChannel1TargetFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// Creates a timestamped message that sets the flow-rate rate for channel 1 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel1FlowTarget register.</returns>
+        /// <returns>A new timestamped message for the Channel1TargetFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel1FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel1TargetFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value set for channel 2 - flowmeter 2 [ml/min].
+    /// that sets the flow-rate rate for channel 2 [ml/min].
     /// </summary>
-    [DisplayName("Channel2FlowTargetPayload")]
-    [Description("Creates a message payload that flow value set for channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateChannel2FlowTargetPayload
+    [DisplayName("Channel2TargetFlowPayload")]
+    [Description("Creates a message payload that sets the flow-rate rate for channel 2 [ml/min].")]
+    public partial class CreateChannel2TargetFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// Gets or sets the value that sets the flow-rate rate for channel 2 [ml/min].
         /// </summary>
-        [Description("The value that flow value set for channel 2 - flowmeter 2 [ml/min].")]
-        public float Channel2FlowTarget { get; set; }
+        [Range(min: 0, max: 100)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the flow-rate rate for channel 2 [ml/min].")]
+        public float Channel2TargetFlow { get; set; } = 0F;
 
         /// <summary>
-        /// Creates a message payload for the Channel2FlowTarget register.
+        /// Creates a message payload for the Channel2TargetFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel2FlowTarget;
+            return Channel2TargetFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message that sets the flow-rate rate for channel 2 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel2FlowTarget register.</returns>
+        /// <returns>A new message for the Channel2TargetFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel2FlowTarget.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel2TargetFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value set for channel 2 - flowmeter 2 [ml/min].
+    /// that sets the flow-rate rate for channel 2 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel2FlowTargetPayload")]
-    [Description("Creates a timestamped message payload that flow value set for channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateTimestampedChannel2FlowTargetPayload : CreateChannel2FlowTargetPayload
+    [DisplayName("TimestampedChannel2TargetFlowPayload")]
+    [Description("Creates a timestamped message payload that sets the flow-rate rate for channel 2 [ml/min].")]
+    public partial class CreateTimestampedChannel2TargetFlowPayload : CreateChannel2TargetFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// Creates a timestamped message that sets the flow-rate rate for channel 2 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel2FlowTarget register.</returns>
+        /// <returns>A new timestamped message for the Channel2TargetFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel2FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel2TargetFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value set for channel 3 - flowmeter 3 [ml/min].
+    /// that sets the flow-rate rate for channel 3 [ml/min].
     /// </summary>
-    [DisplayName("Channel3FlowTargetPayload")]
-    [Description("Creates a message payload that flow value set for channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateChannel3FlowTargetPayload
+    [DisplayName("Channel3TargetFlowPayload")]
+    [Description("Creates a message payload that sets the flow-rate rate for channel 3 [ml/min].")]
+    public partial class CreateChannel3TargetFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// Gets or sets the value that sets the flow-rate rate for channel 3 [ml/min].
         /// </summary>
-        [Description("The value that flow value set for channel 3 - flowmeter 3 [ml/min].")]
-        public float Channel3FlowTarget { get; set; }
+        [Range(min: 0, max: 1000)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the flow-rate rate for channel 3 [ml/min].")]
+        public float Channel3TargetFlow { get; set; } = 0F;
 
         /// <summary>
-        /// Creates a message payload for the Channel3FlowTarget register.
+        /// Creates a message payload for the Channel3TargetFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel3FlowTarget;
+            return Channel3TargetFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message that sets the flow-rate rate for channel 3 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel3FlowTarget register.</returns>
+        /// <returns>A new message for the Channel3TargetFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel3FlowTarget.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel3TargetFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value set for channel 3 - flowmeter 3 [ml/min].
+    /// that sets the flow-rate rate for channel 3 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel3FlowTargetPayload")]
-    [Description("Creates a timestamped message payload that flow value set for channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateTimestampedChannel3FlowTargetPayload : CreateChannel3FlowTargetPayload
+    [DisplayName("TimestampedChannel3TargetFlowPayload")]
+    [Description("Creates a timestamped message payload that sets the flow-rate rate for channel 3 [ml/min].")]
+    public partial class CreateTimestampedChannel3TargetFlowPayload : CreateChannel3TargetFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// Creates a timestamped message that sets the flow-rate rate for channel 3 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel3FlowTarget register.</returns>
+        /// <returns>A new timestamped message for the Channel3TargetFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel3FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel3TargetFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value set for channel 4 - flowmeter 4 [ml/min].
+    /// that sets the flow-rate rate for channel 4 [ml/min].
     /// </summary>
-    [DisplayName("Channel4FlowTargetPayload")]
-    [Description("Creates a message payload that flow value set for channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateChannel4FlowTargetPayload
+    [DisplayName("Channel4TargetFlowPayload")]
+    [Description("Creates a message payload that sets the flow-rate rate for channel 4 [ml/min].")]
+    public partial class CreateChannel4TargetFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// Gets or sets the value that sets the flow-rate rate for channel 4 [ml/min].
         /// </summary>
-        [Description("The value that flow value set for channel 4 - flowmeter 4 [ml/min].")]
-        public float Channel4FlowTarget { get; set; }
+        [Range(min: 0, max: 1000)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the flow-rate rate for channel 4 [ml/min].")]
+        public float Channel4TargetFlow { get; set; } = 0F;
 
         /// <summary>
-        /// Creates a message payload for the Channel4FlowTarget register.
+        /// Creates a message payload for the Channel4TargetFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel4FlowTarget;
+            return Channel4TargetFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message that sets the flow-rate rate for channel 4 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel4FlowTarget register.</returns>
+        /// <returns>A new message for the Channel4TargetFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel4FlowTarget.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel4TargetFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value set for channel 4 - flowmeter 4 [ml/min].
+    /// that sets the flow-rate rate for channel 4 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel4FlowTargetPayload")]
-    [Description("Creates a timestamped message payload that flow value set for channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateTimestampedChannel4FlowTargetPayload : CreateChannel4FlowTargetPayload
+    [DisplayName("TimestampedChannel4TargetFlowPayload")]
+    [Description("Creates a timestamped message payload that sets the flow-rate rate for channel 4 [ml/min].")]
+    public partial class CreateTimestampedChannel4TargetFlowPayload : CreateChannel4TargetFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// Creates a timestamped message that sets the flow-rate rate for channel 4 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel4FlowTarget register.</returns>
+        /// <returns>A new timestamped message for the Channel4TargetFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel4FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel4TargetFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value read from channel 0 - flowmeter 0 [ml/min].
+    /// that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
     /// </summary>
-    [DisplayName("Channel0FlowRealPayload")]
-    [Description("Creates a message payload that flow value read from channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateChannel0FlowRealPayload
+    [DisplayName("Channel0ActualFlowPayload")]
+    [Description("Creates a message payload that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateChannel0ActualFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// Gets or sets the value that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
         /// </summary>
-        [Description("The value that flow value read from channel 0 - flowmeter 0 [ml/min].")]
-        public float Channel0FlowReal { get; set; }
+        [Description("The value that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].")]
+        public float Channel0ActualFlow { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Channel0FlowReal register.
+        /// Creates a message payload for the Channel0ActualFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel0FlowReal;
+            return Channel0ActualFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel0FlowReal register.</returns>
+        /// <returns>A new message for the Channel0ActualFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel0FlowReal.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel0ActualFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value read from channel 0 - flowmeter 0 [ml/min].
+    /// that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel0FlowRealPayload")]
-    [Description("Creates a timestamped message payload that flow value read from channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateTimestampedChannel0FlowRealPayload : CreateChannel0FlowRealPayload
+    [DisplayName("TimestampedChannel0ActualFlowPayload")]
+    [Description("Creates a timestamped message payload that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateTimestampedChannel0ActualFlowPayload : CreateChannel0ActualFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// Creates a timestamped message that actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel0FlowReal register.</returns>
+        /// <returns>A new timestamped message for the Channel0ActualFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel0FlowReal.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel0ActualFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value read from channel 1 - flowmeter 1 [ml/min].
+    /// that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
     /// </summary>
-    [DisplayName("Channel1FlowRealPayload")]
-    [Description("Creates a message payload that flow value read from channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateChannel1FlowRealPayload
+    [DisplayName("Channel1ActualFlowPayload")]
+    [Description("Creates a message payload that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateChannel1ActualFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// Gets or sets the value that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
         /// </summary>
-        [Description("The value that flow value read from channel 1 - flowmeter 1 [ml/min].")]
-        public float Channel1FlowReal { get; set; }
+        [Description("The value that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].")]
+        public float Channel1ActualFlow { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Channel1FlowReal register.
+        /// Creates a message payload for the Channel1ActualFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel1FlowReal;
+            return Channel1ActualFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel1FlowReal register.</returns>
+        /// <returns>A new message for the Channel1ActualFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel1FlowReal.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel1ActualFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value read from channel 1 - flowmeter 1 [ml/min].
+    /// that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel1FlowRealPayload")]
-    [Description("Creates a timestamped message payload that flow value read from channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateTimestampedChannel1FlowRealPayload : CreateChannel1FlowRealPayload
+    [DisplayName("TimestampedChannel1ActualFlowPayload")]
+    [Description("Creates a timestamped message payload that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateTimestampedChannel1ActualFlowPayload : CreateChannel1ActualFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// Creates a timestamped message that actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel1FlowReal register.</returns>
+        /// <returns>A new timestamped message for the Channel1ActualFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel1FlowReal.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel1ActualFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value read from channel 2 - flowmeter 2 [ml/min].
+    /// that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
     /// </summary>
-    [DisplayName("Channel2FlowRealPayload")]
-    [Description("Creates a message payload that flow value read from channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateChannel2FlowRealPayload
+    [DisplayName("Channel2ActualFlowPayload")]
+    [Description("Creates a message payload that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateChannel2ActualFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// Gets or sets the value that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
         /// </summary>
-        [Description("The value that flow value read from channel 2 - flowmeter 2 [ml/min].")]
-        public float Channel2FlowReal { get; set; }
+        [Description("The value that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].")]
+        public float Channel2ActualFlow { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Channel2FlowReal register.
+        /// Creates a message payload for the Channel2ActualFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel2FlowReal;
+            return Channel2ActualFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel2FlowReal register.</returns>
+        /// <returns>A new message for the Channel2ActualFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel2FlowReal.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel2ActualFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value read from channel 2 - flowmeter 2 [ml/min].
+    /// that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel2FlowRealPayload")]
-    [Description("Creates a timestamped message payload that flow value read from channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateTimestampedChannel2FlowRealPayload : CreateChannel2FlowRealPayload
+    [DisplayName("TimestampedChannel2ActualFlowPayload")]
+    [Description("Creates a timestamped message payload that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateTimestampedChannel2ActualFlowPayload : CreateChannel2ActualFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// Creates a timestamped message that actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel2FlowReal register.</returns>
+        /// <returns>A new timestamped message for the Channel2ActualFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel2FlowReal.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel2ActualFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value read from channel 3 - flowmeter 3 [ml/min].
+    /// that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
     /// </summary>
-    [DisplayName("Channel3FlowRealPayload")]
-    [Description("Creates a message payload that flow value read from channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateChannel3FlowRealPayload
+    [DisplayName("Channel3ActualFlowPayload")]
+    [Description("Creates a message payload that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateChannel3ActualFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// Gets or sets the value that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
         /// </summary>
-        [Description("The value that flow value read from channel 3 - flowmeter 3 [ml/min].")]
-        public float Channel3FlowReal { get; set; }
+        [Description("The value that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].")]
+        public float Channel3ActualFlow { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Channel3FlowReal register.
+        /// Creates a message payload for the Channel3ActualFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel3FlowReal;
+            return Channel3ActualFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel3FlowReal register.</returns>
+        /// <returns>A new message for the Channel3ActualFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel3FlowReal.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel3ActualFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value read from channel 3 - flowmeter 3 [ml/min].
+    /// that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel3FlowRealPayload")]
-    [Description("Creates a timestamped message payload that flow value read from channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateTimestampedChannel3FlowRealPayload : CreateChannel3FlowRealPayload
+    [DisplayName("TimestampedChannel3ActualFlowPayload")]
+    [Description("Creates a timestamped message payload that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateTimestampedChannel3ActualFlowPayload : CreateChannel3ActualFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// Creates a timestamped message that actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel3FlowReal register.</returns>
+        /// <returns>A new timestamped message for the Channel3ActualFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel3FlowReal.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel3ActualFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that flow value read from channel 4 - flowmeter 4 [ml/min].
+    /// that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
     /// </summary>
-    [DisplayName("Channel4FlowRealPayload")]
-    [Description("Creates a message payload that flow value read from channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateChannel4FlowRealPayload
+    [DisplayName("Channel4ActualFlowPayload")]
+    [Description("Creates a message payload that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateChannel4ActualFlowPayload
     {
         /// <summary>
-        /// Gets or sets the value that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// Gets or sets the value that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
         /// </summary>
-        [Description("The value that flow value read from channel 4 - flowmeter 4 [ml/min].")]
-        public float Channel4FlowReal { get; set; }
+        [Description("The value that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].")]
+        public float Channel4ActualFlow { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Channel4FlowReal register.
+        /// Creates a message payload for the Channel4ActualFlow register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Channel4FlowReal;
+            return Channel4ActualFlow;
         }
 
         /// <summary>
-        /// Creates a message that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Channel4FlowReal register.</returns>
+        /// <returns>A new message for the Channel4ActualFlow register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.Channel4FlowReal.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Channel4ActualFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that flow value read from channel 4 - flowmeter 4 [ml/min].
+    /// that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
     /// </summary>
-    [DisplayName("TimestampedChannel4FlowRealPayload")]
-    [Description("Creates a timestamped message payload that flow value read from channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateTimestampedChannel4FlowRealPayload : CreateChannel4FlowRealPayload
+    [DisplayName("TimestampedChannel4ActualFlowPayload")]
+    [Description("Creates a timestamped message payload that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateTimestampedChannel4ActualFlowPayload : CreateChannel4ActualFlowPayload
     {
         /// <summary>
-        /// Creates a timestamped message that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// Creates a timestamped message that actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Channel4FlowReal register.</returns>
+        /// <returns>A new timestamped message for the Channel4ActualFlow register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.Channel4FlowReal.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Channel4ActualFlow.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -7029,8 +6879,10 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 0 [%].
         /// </summary>
+        [Range(min: 0.1, max: 99.9)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
         [Description("The value that duty cycle for proportional valve 0 [%].")]
-        public float Channel0DutyCycle { get; set; }
+        public float Channel0DutyCycle { get; set; } = 0.1F;
 
         /// <summary>
         /// Creates a message payload for the Channel0DutyCycle register.
@@ -7083,8 +6935,10 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 1 [%].
         /// </summary>
+        [Range(min: 0.1, max: 99.9)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
         [Description("The value that duty cycle for proportional valve 1 [%].")]
-        public float Channel1DutyCycle { get; set; }
+        public float Channel1DutyCycle { get; set; } = 0.1F;
 
         /// <summary>
         /// Creates a message payload for the Channel1DutyCycle register.
@@ -7137,8 +6991,10 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 2 [%].
         /// </summary>
+        [Range(min: 0.1, max: 99.9)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
         [Description("The value that duty cycle for proportional valve 2 [%].")]
-        public float Channel2DutyCycle { get; set; }
+        public float Channel2DutyCycle { get; set; } = 0.1F;
 
         /// <summary>
         /// Creates a message payload for the Channel2DutyCycle register.
@@ -7191,8 +7047,10 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 3 [%].
         /// </summary>
+        [Range(min: 0.1, max: 99.9)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
         [Description("The value that duty cycle for proportional valve 3 [%].")]
-        public float Channel3DutyCycle { get; set; }
+        public float Channel3DutyCycle { get; set; } = 0.1F;
 
         /// <summary>
         /// Creates a message payload for the Channel3DutyCycle register.
@@ -7245,8 +7103,10 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 4 [%].
         /// </summary>
+        [Range(min: 0.1, max: 99.9)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
         [Description("The value that duty cycle for proportional valve 4 [%].")]
-        public float Channel4DutyCycle { get; set; }
+        public float Channel4DutyCycle { get; set; } = 0.1F;
 
         /// <summary>
         /// Creates a message payload for the Channel4DutyCycle register.
@@ -7290,16 +7150,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that set the correspondent output.
+    /// that set the specified digital output lines.
     /// </summary>
     [DisplayName("DigitalOutputSetPayload")]
-    [Description("Creates a message payload that set the correspondent output.")]
+    [Description("Creates a message payload that set the specified digital output lines.")]
     public partial class CreateDigitalOutputSetPayload
     {
         /// <summary>
-        /// Gets or sets the value that set the correspondent output.
+        /// Gets or sets the value that set the specified digital output lines.
         /// </summary>
-        [Description("The value that set the correspondent output.")]
+        [Description("The value that set the specified digital output lines.")]
         public DigitalOutputs DigitalOutputSet { get; set; }
 
         /// <summary>
@@ -7312,7 +7172,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that set the correspondent output.
+        /// Creates a message that set the specified digital output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the DigitalOutputSet register.</returns>
@@ -7324,14 +7184,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that set the correspondent output.
+    /// that set the specified digital output lines.
     /// </summary>
     [DisplayName("TimestampedDigitalOutputSetPayload")]
-    [Description("Creates a timestamped message payload that set the correspondent output.")]
+    [Description("Creates a timestamped message payload that set the specified digital output lines.")]
     public partial class CreateTimestampedDigitalOutputSetPayload : CreateDigitalOutputSetPayload
     {
         /// <summary>
-        /// Creates a timestamped message that set the correspondent output.
+        /// Creates a timestamped message that set the specified digital output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7344,16 +7204,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that clear the correspondent output.
+    /// that clears the specified digital output lines.
     /// </summary>
     [DisplayName("DigitalOutputClearPayload")]
-    [Description("Creates a message payload that clear the correspondent output.")]
+    [Description("Creates a message payload that clears the specified digital output lines.")]
     public partial class CreateDigitalOutputClearPayload
     {
         /// <summary>
-        /// Gets or sets the value that clear the correspondent output.
+        /// Gets or sets the value that clears the specified digital output lines.
         /// </summary>
-        [Description("The value that clear the correspondent output.")]
+        [Description("The value that clears the specified digital output lines.")]
         public DigitalOutputs DigitalOutputClear { get; set; }
 
         /// <summary>
@@ -7366,7 +7226,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that clear the correspondent output.
+        /// Creates a message that clears the specified digital output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the DigitalOutputClear register.</returns>
@@ -7378,14 +7238,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that clear the correspondent output.
+    /// that clears the specified digital output lines.
     /// </summary>
     [DisplayName("TimestampedDigitalOutputClearPayload")]
-    [Description("Creates a timestamped message payload that clear the correspondent output.")]
+    [Description("Creates a timestamped message payload that clears the specified digital output lines.")]
     public partial class CreateTimestampedDigitalOutputClearPayload : CreateDigitalOutputClearPayload
     {
         /// <summary>
-        /// Creates a timestamped message that clear the correspondent output.
+        /// Creates a timestamped message that clears the specified digital output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7398,16 +7258,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that toggle the correspondent output.
+    /// that toggles the specified digital output lines.
     /// </summary>
     [DisplayName("DigitalOutputTogglePayload")]
-    [Description("Creates a message payload that toggle the correspondent output.")]
+    [Description("Creates a message payload that toggles the specified digital output lines.")]
     public partial class CreateDigitalOutputTogglePayload
     {
         /// <summary>
-        /// Gets or sets the value that toggle the correspondent output.
+        /// Gets or sets the value that toggles the specified digital output lines.
         /// </summary>
-        [Description("The value that toggle the correspondent output.")]
+        [Description("The value that toggles the specified digital output lines.")]
         public DigitalOutputs DigitalOutputToggle { get; set; }
 
         /// <summary>
@@ -7420,7 +7280,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that toggle the correspondent output.
+        /// Creates a message that toggles the specified digital output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the DigitalOutputToggle register.</returns>
@@ -7432,14 +7292,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that toggle the correspondent output.
+    /// that toggles the specified digital output lines.
     /// </summary>
     [DisplayName("TimestampedDigitalOutputTogglePayload")]
-    [Description("Creates a timestamped message payload that toggle the correspondent output.")]
+    [Description("Creates a timestamped message payload that toggles the specified digital output lines.")]
     public partial class CreateTimestampedDigitalOutputTogglePayload : CreateDigitalOutputTogglePayload
     {
         /// <summary>
-        /// Creates a timestamped message that toggle the correspondent output.
+        /// Creates a timestamped message that toggles the specified digital output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7452,16 +7312,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that control the correspondent output.
+    /// that write the state of all digital output lines.
     /// </summary>
     [DisplayName("DigitalOutputStatePayload")]
-    [Description("Creates a message payload that control the correspondent output.")]
+    [Description("Creates a message payload that write the state of all digital output lines.")]
     public partial class CreateDigitalOutputStatePayload
     {
         /// <summary>
-        /// Gets or sets the value that control the correspondent output.
+        /// Gets or sets the value that write the state of all digital output lines.
         /// </summary>
-        [Description("The value that control the correspondent output.")]
+        [Description("The value that write the state of all digital output lines.")]
         public DigitalOutputs DigitalOutputState { get; set; }
 
         /// <summary>
@@ -7474,7 +7334,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that control the correspondent output.
+        /// Creates a message that write the state of all digital output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the DigitalOutputState register.</returns>
@@ -7486,14 +7346,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that control the correspondent output.
+    /// that write the state of all digital output lines.
     /// </summary>
     [DisplayName("TimestampedDigitalOutputStatePayload")]
-    [Description("Creates a timestamped message payload that control the correspondent output.")]
+    [Description("Creates a timestamped message payload that write the state of all digital output lines.")]
     public partial class CreateTimestampedDigitalOutputStatePayload : CreateDigitalOutputStatePayload
     {
         /// <summary>
-        /// Creates a timestamped message that control the correspondent output.
+        /// Creates a timestamped message that write the state of all digital output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7560,16 +7420,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that set the correspondent valve.
+    /// that set the specified valve output lines.
     /// </summary>
     [DisplayName("ValvesSetPayload")]
-    [Description("Creates a message payload that set the correspondent valve.")]
+    [Description("Creates a message payload that set the specified valve output lines.")]
     public partial class CreateValvesSetPayload
     {
         /// <summary>
-        /// Gets or sets the value that set the correspondent valve.
+        /// Gets or sets the value that set the specified valve output lines.
         /// </summary>
-        [Description("The value that set the correspondent valve.")]
+        [Description("The value that set the specified valve output lines.")]
         public Valves ValvesSet { get; set; }
 
         /// <summary>
@@ -7582,7 +7442,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that set the correspondent valve.
+        /// Creates a message that set the specified valve output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the ValvesSet register.</returns>
@@ -7594,14 +7454,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that set the correspondent valve.
+    /// that set the specified valve output lines.
     /// </summary>
     [DisplayName("TimestampedValvesSetPayload")]
-    [Description("Creates a timestamped message payload that set the correspondent valve.")]
+    [Description("Creates a timestamped message payload that set the specified valve output lines.")]
     public partial class CreateTimestampedValvesSetPayload : CreateValvesSetPayload
     {
         /// <summary>
-        /// Creates a timestamped message that set the correspondent valve.
+        /// Creates a timestamped message that set the specified valve output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7614,16 +7474,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that clear the correspondent valve.
+    /// that clears the specified valve output lines.
     /// </summary>
     [DisplayName("ValvesClearPayload")]
-    [Description("Creates a message payload that clear the correspondent valve.")]
+    [Description("Creates a message payload that clears the specified valve output lines.")]
     public partial class CreateValvesClearPayload
     {
         /// <summary>
-        /// Gets or sets the value that clear the correspondent valve.
+        /// Gets or sets the value that clears the specified valve output lines.
         /// </summary>
-        [Description("The value that clear the correspondent valve.")]
+        [Description("The value that clears the specified valve output lines.")]
         public Valves ValvesClear { get; set; }
 
         /// <summary>
@@ -7636,7 +7496,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that clear the correspondent valve.
+        /// Creates a message that clears the specified valve output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the ValvesClear register.</returns>
@@ -7648,14 +7508,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that clear the correspondent valve.
+    /// that clears the specified valve output lines.
     /// </summary>
     [DisplayName("TimestampedValvesClearPayload")]
-    [Description("Creates a timestamped message payload that clear the correspondent valve.")]
+    [Description("Creates a timestamped message payload that clears the specified valve output lines.")]
     public partial class CreateTimestampedValvesClearPayload : CreateValvesClearPayload
     {
         /// <summary>
-        /// Creates a timestamped message that clear the correspondent valve.
+        /// Creates a timestamped message that clears the specified valve output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7668,16 +7528,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that toggle the correspondent valve.
+    /// that toggles the specified valve output lines.
     /// </summary>
     [DisplayName("ValvesTogglePayload")]
-    [Description("Creates a message payload that toggle the correspondent valve.")]
+    [Description("Creates a message payload that toggles the specified valve output lines.")]
     public partial class CreateValvesTogglePayload
     {
         /// <summary>
-        /// Gets or sets the value that toggle the correspondent valve.
+        /// Gets or sets the value that toggles the specified valve output lines.
         /// </summary>
-        [Description("The value that toggle the correspondent valve.")]
+        [Description("The value that toggles the specified valve output lines.")]
         public Valves ValvesToggle { get; set; }
 
         /// <summary>
@@ -7690,7 +7550,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that toggle the correspondent valve.
+        /// Creates a message that toggles the specified valve output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the ValvesToggle register.</returns>
@@ -7702,14 +7562,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that toggle the correspondent valve.
+    /// that toggles the specified valve output lines.
     /// </summary>
     [DisplayName("TimestampedValvesTogglePayload")]
-    [Description("Creates a timestamped message payload that toggle the correspondent valve.")]
+    [Description("Creates a timestamped message payload that toggles the specified valve output lines.")]
     public partial class CreateTimestampedValvesTogglePayload : CreateValvesTogglePayload
     {
         /// <summary>
-        /// Creates a timestamped message that toggle the correspondent valve.
+        /// Creates a timestamped message that toggles the specified valve output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7722,16 +7582,16 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that control the correspondent valve.
+    /// that write the state of all valve output lines.
     /// </summary>
     [DisplayName("ValvesStatePayload")]
-    [Description("Creates a message payload that control the correspondent valve.")]
+    [Description("Creates a message payload that write the state of all valve output lines.")]
     public partial class CreateValvesStatePayload
     {
         /// <summary>
-        /// Gets or sets the value that control the correspondent valve.
+        /// Gets or sets the value that write the state of all valve output lines.
         /// </summary>
-        [Description("The value that control the correspondent valve.")]
+        [Description("The value that write the state of all valve output lines.")]
         public Valves ValvesState { get; set; }
 
         /// <summary>
@@ -7744,7 +7604,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that control the correspondent valve.
+        /// Creates a message that write the state of all valve output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the ValvesState register.</returns>
@@ -7756,14 +7616,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that control the correspondent valve.
+    /// that write the state of all valve output lines.
     /// </summary>
     [DisplayName("TimestampedValvesStatePayload")]
-    [Description("Creates a timestamped message payload that control the correspondent valve.")]
+    [Description("Creates a timestamped message payload that write the state of all valve output lines.")]
     public partial class CreateTimestampedValvesStatePayload : CreateValvesStatePayload
     {
         /// <summary>
-        /// Creates a timestamped message that control the correspondent valve.
+        /// Creates a timestamped message that write the state of all valve output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -7776,379 +7636,337 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that valve 0 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve0.
     /// </summary>
-    [DisplayName("PulseValve0Payload")]
-    [Description("Creates a message payload that valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve0Payload
+    [DisplayName("Valve0PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for Valve0.")]
+    public partial class CreateValve0PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that valve 0 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for Valve0.
         /// </summary>
-        [Description("The value that valve 0 pulse duration [1:65535] ms.")]
-        public ushort PulseValve0 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for Valve0.")]
+        public ushort Valve0PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseValve0 register.
+        /// Creates a message payload for the Valve0PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseValve0;
+            return Valve0PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that valve 0 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for Valve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseValve0 register.</returns>
+        /// <returns>A new message for the Valve0PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve0.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Valve0PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that valve 0 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve0.
     /// </summary>
-    [DisplayName("TimestampedPulseValve0Payload")]
-    [Description("Creates a timestamped message payload that valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseValve0Payload : CreatePulseValve0Payload
+    [DisplayName("TimestampedValve0PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for Valve0.")]
+    public partial class CreateTimestampedValve0PulseDurationPayload : CreateValve0PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that valve 0 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for Valve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseValve0 register.</returns>
+        /// <returns>A new timestamped message for the Valve0PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve0.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Valve0PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that valve 1 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve1.
     /// </summary>
-    [DisplayName("PulseValve1Payload")]
-    [Description("Creates a message payload that valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve1Payload
+    [DisplayName("Valve1PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for Valve1.")]
+    public partial class CreateValve1PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that valve 1 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for Valve1.
         /// </summary>
-        [Description("The value that valve 1 pulse duration [1:65535] ms.")]
-        public ushort PulseValve1 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for Valve1.")]
+        public ushort Valve1PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseValve1 register.
+        /// Creates a message payload for the Valve1PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseValve1;
+            return Valve1PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that valve 1 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for Valve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseValve1 register.</returns>
+        /// <returns>A new message for the Valve1PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve1.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Valve1PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that valve 1 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve1.
     /// </summary>
-    [DisplayName("TimestampedPulseValve1Payload")]
-    [Description("Creates a timestamped message payload that valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseValve1Payload : CreatePulseValve1Payload
+    [DisplayName("TimestampedValve1PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for Valve1.")]
+    public partial class CreateTimestampedValve1PulseDurationPayload : CreateValve1PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that valve 1 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for Valve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseValve1 register.</returns>
+        /// <returns>A new timestamped message for the Valve1PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve1.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Valve1PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that valve 2 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve2.
     /// </summary>
-    [DisplayName("PulseValve2Payload")]
-    [Description("Creates a message payload that valve 2 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve2Payload
+    [DisplayName("Valve2PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for Valve2.")]
+    public partial class CreateValve2PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that valve 2 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for Valve2.
         /// </summary>
-        [Description("The value that valve 2 pulse duration [1:65535] ms.")]
-        public ushort PulseValve2 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for Valve2.")]
+        public ushort Valve2PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseValve2 register.
+        /// Creates a message payload for the Valve2PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseValve2;
+            return Valve2PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that valve 2 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for Valve2.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseValve2 register.</returns>
+        /// <returns>A new message for the Valve2PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve2.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Valve2PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that valve 2 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve2.
     /// </summary>
-    [DisplayName("TimestampedPulseValve2Payload")]
-    [Description("Creates a timestamped message payload that valve 2 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseValve2Payload : CreatePulseValve2Payload
+    [DisplayName("TimestampedValve2PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for Valve2.")]
+    public partial class CreateTimestampedValve2PulseDurationPayload : CreateValve2PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that valve 2 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for Valve2.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseValve2 register.</returns>
+        /// <returns>A new timestamped message for the Valve2PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve2.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Valve2PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that valve 3 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve3.
     /// </summary>
-    [DisplayName("PulseValve3Payload")]
-    [Description("Creates a message payload that valve 3 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve3Payload
+    [DisplayName("Valve3PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for Valve3.")]
+    public partial class CreateValve3PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that valve 3 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for Valve3.
         /// </summary>
-        [Description("The value that valve 3 pulse duration [1:65535] ms.")]
-        public ushort PulseValve3 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for Valve3.")]
+        public ushort Valve3PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseValve3 register.
+        /// Creates a message payload for the Valve3PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseValve3;
+            return Valve3PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that valve 3 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for Valve3.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseValve3 register.</returns>
+        /// <returns>A new message for the Valve3PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve3.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.Valve3PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that valve 3 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for Valve3.
     /// </summary>
-    [DisplayName("TimestampedPulseValve3Payload")]
-    [Description("Creates a timestamped message payload that valve 3 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseValve3Payload : CreatePulseValve3Payload
+    [DisplayName("TimestampedValve3PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for Valve3.")]
+    public partial class CreateTimestampedValve3PulseDurationPayload : CreateValve3PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that valve 3 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for Valve3.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseValve3 register.</returns>
+        /// <returns>A new timestamped message for the Valve3PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseValve3.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.Valve3PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that end valve 0 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for EndValve0.
     /// </summary>
-    [DisplayName("PulseEndvalve0Payload")]
-    [Description("Creates a message payload that end valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseEndvalve0Payload
+    [DisplayName("EndValve0PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for EndValve0.")]
+    public partial class CreateEndValve0PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that end valve 0 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for EndValve0.
         /// </summary>
-        [Description("The value that end valve 0 pulse duration [1:65535] ms.")]
-        public ushort PulseEndvalve0 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for EndValve0.")]
+        public ushort EndValve0PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseEndvalve0 register.
+        /// Creates a message payload for the EndValve0PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseEndvalve0;
+            return EndValve0PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that end valve 0 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for EndValve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseEndvalve0 register.</returns>
+        /// <returns>A new message for the EndValve0PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseEndvalve0.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.EndValve0PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that end valve 0 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for EndValve0.
     /// </summary>
-    [DisplayName("TimestampedPulseEndvalve0Payload")]
-    [Description("Creates a timestamped message payload that end valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseEndvalve0Payload : CreatePulseEndvalve0Payload
+    [DisplayName("TimestampedEndValve0PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for EndValve0.")]
+    public partial class CreateTimestampedEndValve0PulseDurationPayload : CreateEndValve0PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that end valve 0 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for EndValve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseEndvalve0 register.</returns>
+        /// <returns>A new timestamped message for the EndValve0PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseEndvalve0.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.EndValve0PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that end valve 1 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for EndValve1.
     /// </summary>
-    [DisplayName("PulseEndvalve1Payload")]
-    [Description("Creates a message payload that end valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseEndvalve1Payload
+    [DisplayName("EndValve1PulseDurationPayload")]
+    [Description("Creates a message payload that sets the pulse duration for EndValve1.")]
+    public partial class CreateEndValve1PulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that end valve 1 pulse duration [1:65535] ms.
+        /// Gets or sets the value that sets the pulse duration for EndValve1.
         /// </summary>
-        [Description("The value that end valve 1 pulse duration [1:65535] ms.")]
-        public ushort PulseEndvalve1 { get; set; }
+        [Range(min: 1, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the pulse duration for EndValve1.")]
+        public ushort EndValve1PulseDuration { get; set; } = 1;
 
         /// <summary>
-        /// Creates a message payload for the PulseEndvalve1 register.
+        /// Creates a message payload for the EndValve1PulseDuration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public ushort GetPayload()
         {
-            return PulseEndvalve1;
+            return EndValve1PulseDuration;
         }
 
         /// <summary>
-        /// Creates a message that end valve 1 pulse duration [1:65535] ms.
+        /// Creates a message that sets the pulse duration for EndValve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseEndvalve1 register.</returns>
+        /// <returns>A new message for the EndValve1PulseDuration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.PulseEndvalve1.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.EndValve1PulseDuration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that end valve 1 pulse duration [1:65535] ms.
+    /// that sets the pulse duration for EndValve1.
     /// </summary>
-    [DisplayName("TimestampedPulseEndvalve1Payload")]
-    [Description("Creates a timestamped message payload that end valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseEndvalve1Payload : CreatePulseEndvalve1Payload
+    [DisplayName("TimestampedEndValve1PulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the pulse duration for EndValve1.")]
+    public partial class CreateTimestampedEndValve1PulseDurationPayload : CreateEndValve1PulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that end valve 1 pulse duration [1:65535] ms.
+        /// Creates a timestamped message that sets the pulse duration for EndValve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseEndvalve1 register.</returns>
+        /// <returns>A new timestamped message for the EndValve1PulseDuration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.PulseEndvalve1.FromPayload(timestamp, messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a message payload
-    /// that dummy valve pulse duration [1:65535] ms.
-    /// </summary>
-    [DisplayName("PulseDummyvalvePayload")]
-    [Description("Creates a message payload that dummy valve pulse duration [1:65535] ms.")]
-    public partial class CreatePulseDummyvalvePayload
-    {
-        /// <summary>
-        /// Gets or sets the value that dummy valve pulse duration [1:65535] ms.
-        /// </summary>
-        [Description("The value that dummy valve pulse duration [1:65535] ms.")]
-        public ushort PulseDummyvalve { get; set; }
-
-        /// <summary>
-        /// Creates a message payload for the PulseDummyvalve register.
-        /// </summary>
-        /// <returns>The created message payload value.</returns>
-        public ushort GetPayload()
-        {
-            return PulseDummyvalve;
-        }
-
-        /// <summary>
-        /// Creates a message that dummy valve pulse duration [1:65535] ms.
-        /// </summary>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the PulseDummyvalve register.</returns>
-        public HarpMessage GetMessage(MessageType messageType)
-        {
-            return Harp.Olfactometer.PulseDummyvalve.FromPayload(messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a timestamped message payload
-    /// that dummy valve pulse duration [1:65535] ms.
-    /// </summary>
-    [DisplayName("TimestampedPulseDummyvalvePayload")]
-    [Description("Creates a timestamped message payload that dummy valve pulse duration [1:65535] ms.")]
-    public partial class CreateTimestampedPulseDummyvalvePayload : CreatePulseDummyvalvePayload
-    {
-        /// <summary>
-        /// Creates a timestamped message that dummy valve pulse duration [1:65535] ms.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the PulseDummyvalve register.</returns>
-        public HarpMessage GetMessage(double timestamp, MessageType messageType)
-        {
-            return Harp.Olfactometer.PulseDummyvalve.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.EndValve1PulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -8316,83 +8134,83 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic valve 0.
+    /// that mimic Valve0.
     /// </summary>
-    [DisplayName("MimicValve0Payload")]
-    [Description("Creates a message payload that mimic valve 0.")]
-    public partial class CreateMimicValve0Payload
+    [DisplayName("mimicValvePayload")]
+    [Description("Creates a message payload that mimic Valve0.")]
+    public partial class CreatemimicValvePayload
     {
         /// <summary>
-        /// Gets or sets the value that mimic valve 0.
+        /// Gets or sets the value that mimic Valve0.
         /// </summary>
-        [Description("The value that mimic valve 0.")]
-        public MimicOuputs MimicValve0 { get; set; }
+        [Description("The value that mimic Valve0.")]
+        public MimicOutputs mimicValve { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MimicValve0 register.
+        /// Creates a message payload for the mimicValve register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
-            return MimicValve0;
+            return mimicValve;
         }
 
         /// <summary>
-        /// Creates a message that mimic valve 0.
+        /// Creates a message that mimic Valve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MimicValve0 register.</returns>
+        /// <returns>A new message for the mimicValve register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.MimicValve0.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.mimicValve.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic valve 0.
+    /// that mimic Valve0.
     /// </summary>
-    [DisplayName("TimestampedMimicValve0Payload")]
-    [Description("Creates a timestamped message payload that mimic valve 0.")]
-    public partial class CreateTimestampedMimicValve0Payload : CreateMimicValve0Payload
+    [DisplayName("TimestampedmimicValvePayload")]
+    [Description("Creates a timestamped message payload that mimic Valve0.")]
+    public partial class CreateTimestampedmimicValvePayload : CreatemimicValvePayload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic valve 0.
+        /// Creates a timestamped message that mimic Valve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MimicValve0 register.</returns>
+        /// <returns>A new timestamped message for the mimicValve register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.MimicValve0.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.mimicValve.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic valve 1.
+    /// that mimic Valve1.
     /// </summary>
     [DisplayName("MimicValve1Payload")]
-    [Description("Creates a message payload that mimic valve 1.")]
+    [Description("Creates a message payload that mimic Valve1.")]
     public partial class CreateMimicValve1Payload
     {
         /// <summary>
-        /// Gets or sets the value that mimic valve 1.
+        /// Gets or sets the value that mimic Valve1.
         /// </summary>
-        [Description("The value that mimic valve 1.")]
-        public MimicOuputs MimicValve1 { get; set; }
+        [Description("The value that mimic Valve1.")]
+        public MimicOutputs MimicValve1 { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MimicValve1 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
             return MimicValve1;
         }
 
         /// <summary>
-        /// Creates a message that mimic valve 1.
+        /// Creates a message that mimic Valve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MimicValve1 register.</returns>
@@ -8404,14 +8222,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic valve 1.
+    /// that mimic Valve1.
     /// </summary>
     [DisplayName("TimestampedMimicValve1Payload")]
-    [Description("Creates a timestamped message payload that mimic valve 1.")]
+    [Description("Creates a timestamped message payload that mimic Valve1.")]
     public partial class CreateTimestampedMimicValve1Payload : CreateMimicValve1Payload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic valve 1.
+        /// Creates a timestamped message that mimic Valve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8424,29 +8242,29 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic valve 2.
+    /// that mimic Valve2.
     /// </summary>
     [DisplayName("MimicValve2Payload")]
-    [Description("Creates a message payload that mimic valve 2.")]
+    [Description("Creates a message payload that mimic Valve2.")]
     public partial class CreateMimicValve2Payload
     {
         /// <summary>
-        /// Gets or sets the value that mimic valve 2.
+        /// Gets or sets the value that mimic Valve2.
         /// </summary>
-        [Description("The value that mimic valve 2.")]
-        public MimicOuputs MimicValve2 { get; set; }
+        [Description("The value that mimic Valve2.")]
+        public MimicOutputs MimicValve2 { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MimicValve2 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
             return MimicValve2;
         }
 
         /// <summary>
-        /// Creates a message that mimic valve 2.
+        /// Creates a message that mimic Valve2.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MimicValve2 register.</returns>
@@ -8458,14 +8276,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic valve 2.
+    /// that mimic Valve2.
     /// </summary>
     [DisplayName("TimestampedMimicValve2Payload")]
-    [Description("Creates a timestamped message payload that mimic valve 2.")]
+    [Description("Creates a timestamped message payload that mimic Valve2.")]
     public partial class CreateTimestampedMimicValve2Payload : CreateMimicValve2Payload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic valve 2.
+        /// Creates a timestamped message that mimic Valve2.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8478,29 +8296,29 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic valve 3.
+    /// that mimic Valve3.
     /// </summary>
     [DisplayName("MimicValve3Payload")]
-    [Description("Creates a message payload that mimic valve 3.")]
+    [Description("Creates a message payload that mimic Valve3.")]
     public partial class CreateMimicValve3Payload
     {
         /// <summary>
-        /// Gets or sets the value that mimic valve 3.
+        /// Gets or sets the value that mimic Valve3.
         /// </summary>
-        [Description("The value that mimic valve 3.")]
-        public MimicOuputs MimicValve3 { get; set; }
+        [Description("The value that mimic Valve3.")]
+        public MimicOutputs MimicValve3 { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MimicValve3 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
             return MimicValve3;
         }
 
         /// <summary>
-        /// Creates a message that mimic valve 3.
+        /// Creates a message that mimic Valve3.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MimicValve3 register.</returns>
@@ -8512,14 +8330,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic valve 3.
+    /// that mimic Valve3.
     /// </summary>
     [DisplayName("TimestampedMimicValve3Payload")]
-    [Description("Creates a timestamped message payload that mimic valve 3.")]
+    [Description("Creates a timestamped message payload that mimic Valve3.")]
     public partial class CreateTimestampedMimicValve3Payload : CreateMimicValve3Payload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic valve 3.
+        /// Creates a timestamped message that mimic Valve3.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8532,29 +8350,29 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic end valve 0.
+    /// that mimic EndValve0.
     /// </summary>
     [DisplayName("MimicEndvalve0Payload")]
-    [Description("Creates a message payload that mimic end valve 0.")]
+    [Description("Creates a message payload that mimic EndValve0.")]
     public partial class CreateMimicEndvalve0Payload
     {
         /// <summary>
-        /// Gets or sets the value that mimic end valve 0.
+        /// Gets or sets the value that mimic EndValve0.
         /// </summary>
-        [Description("The value that mimic end valve 0.")]
-        public MimicOuputs MimicEndvalve0 { get; set; }
+        [Description("The value that mimic EndValve0.")]
+        public MimicOutputs MimicEndvalve0 { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MimicEndvalve0 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
             return MimicEndvalve0;
         }
 
         /// <summary>
-        /// Creates a message that mimic end valve 0.
+        /// Creates a message that mimic EndValve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MimicEndvalve0 register.</returns>
@@ -8566,14 +8384,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic end valve 0.
+    /// that mimic EndValve0.
     /// </summary>
     [DisplayName("TimestampedMimicEndvalve0Payload")]
-    [Description("Creates a timestamped message payload that mimic end valve 0.")]
+    [Description("Creates a timestamped message payload that mimic EndValve0.")]
     public partial class CreateTimestampedMimicEndvalve0Payload : CreateMimicEndvalve0Payload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic end valve 0.
+        /// Creates a timestamped message that mimic EndValve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8586,29 +8404,29 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic end valve 1.
+    /// that mimic EndValve1.
     /// </summary>
     [DisplayName("MimicEndvalve1Payload")]
-    [Description("Creates a message payload that mimic end valve 1.")]
+    [Description("Creates a message payload that mimic EndValve1.")]
     public partial class CreateMimicEndvalve1Payload
     {
         /// <summary>
-        /// Gets or sets the value that mimic end valve 1.
+        /// Gets or sets the value that mimic EndValve1.
         /// </summary>
-        [Description("The value that mimic end valve 1.")]
-        public MimicOuputs MimicEndvalve1 { get; set; }
+        [Description("The value that mimic EndValve1.")]
+        public MimicOutputs MimicEndvalve1 { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MimicEndvalve1 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
+        public MimicOutputs GetPayload()
         {
             return MimicEndvalve1;
         }
 
         /// <summary>
-        /// Creates a message that mimic end valve 1.
+        /// Creates a message that mimic EndValve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MimicEndvalve1 register.</returns>
@@ -8620,14 +8438,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that mimic end valve 1.
+    /// that mimic EndValve1.
     /// </summary>
     [DisplayName("TimestampedMimicEndvalve1Payload")]
-    [Description("Creates a timestamped message payload that mimic end valve 1.")]
+    [Description("Creates a timestamped message payload that mimic EndValve1.")]
     public partial class CreateTimestampedMimicEndvalve1Payload : CreateMimicEndvalve1Payload
     {
         /// <summary>
-        /// Creates a timestamped message that mimic end valve 1.
+        /// Creates a timestamped message that mimic EndValve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8640,124 +8458,70 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that mimic dummy valve.
+    /// that enable the valves control via low-level IO screw terminals.
     /// </summary>
-    [DisplayName("MimicDummyvalvePayload")]
-    [Description("Creates a message payload that mimic dummy valve.")]
-    public partial class CreateMimicDummyvalvePayload
+    [DisplayName("EnableValveExternalControlPayload")]
+    [Description("Creates a message payload that enable the valves control via low-level IO screw terminals.")]
+    public partial class CreateEnableValveExternalControlPayload
     {
         /// <summary>
-        /// Gets or sets the value that mimic dummy valve.
+        /// Gets or sets the value that enable the valves control via low-level IO screw terminals.
         /// </summary>
-        [Description("The value that mimic dummy valve.")]
-        public MimicOuputs MimicDummyvalve { get; set; }
+        [Description("The value that enable the valves control via low-level IO screw terminals.")]
+        public EnableFlag EnableValveExternalControl { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MimicDummyvalve register.
-        /// </summary>
-        /// <returns>The created message payload value.</returns>
-        public MimicOuputs GetPayload()
-        {
-            return MimicDummyvalve;
-        }
-
-        /// <summary>
-        /// Creates a message that mimic dummy valve.
-        /// </summary>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MimicDummyvalve register.</returns>
-        public HarpMessage GetMessage(MessageType messageType)
-        {
-            return Harp.Olfactometer.MimicDummyvalve.FromPayload(messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a timestamped message payload
-    /// that mimic dummy valve.
-    /// </summary>
-    [DisplayName("TimestampedMimicDummyvalvePayload")]
-    [Description("Creates a timestamped message payload that mimic dummy valve.")]
-    public partial class CreateTimestampedMimicDummyvalvePayload : CreateMimicDummyvalvePayload
-    {
-        /// <summary>
-        /// Creates a timestamped message that mimic dummy valve.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MimicDummyvalve register.</returns>
-        public HarpMessage GetMessage(double timestamp, MessageType messageType)
-        {
-            return Harp.Olfactometer.MimicDummyvalve.FromPayload(timestamp, messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a message payload
-    /// that enable the valves control via the external screw terminals.
-    /// </summary>
-    [DisplayName("EnableExternalControlValvesPayload")]
-    [Description("Creates a message payload that enable the valves control via the external screw terminals.")]
-    public partial class CreateEnableExternalControlValvesPayload
-    {
-        /// <summary>
-        /// Gets or sets the value that enable the valves control via the external screw terminals.
-        /// </summary>
-        [Description("The value that enable the valves control via the external screw terminals.")]
-        public EnableFlag EnableExternalControlValves { get; set; }
-
-        /// <summary>
-        /// Creates a message payload for the EnableExternalControlValves register.
+        /// Creates a message payload for the EnableValveExternalControl register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public EnableFlag GetPayload()
         {
-            return EnableExternalControlValves;
+            return EnableValveExternalControl;
         }
 
         /// <summary>
-        /// Creates a message that enable the valves control via the external screw terminals.
+        /// Creates a message that enable the valves control via low-level IO screw terminals.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the EnableExternalControlValves register.</returns>
+        /// <returns>A new message for the EnableValveExternalControl register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.EnableExternalControlValves.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.EnableValveExternalControl.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that enable the valves control via the external screw terminals.
+    /// that enable the valves control via low-level IO screw terminals.
     /// </summary>
-    [DisplayName("TimestampedEnableExternalControlValvesPayload")]
-    [Description("Creates a timestamped message payload that enable the valves control via the external screw terminals.")]
-    public partial class CreateTimestampedEnableExternalControlValvesPayload : CreateEnableExternalControlValvesPayload
+    [DisplayName("TimestampedEnableValveExternalControlPayload")]
+    [Description("Creates a timestamped message payload that enable the valves control via low-level IO screw terminals.")]
+    public partial class CreateTimestampedEnableValveExternalControlPayload : CreateEnableValveExternalControlPayload
     {
         /// <summary>
-        /// Creates a timestamped message that enable the valves control via the external screw terminals.
+        /// Creates a timestamped message that enable the valves control via low-level IO screw terminals.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the EnableExternalControlValves register.</returns>
+        /// <returns>A new timestamped message for the EnableValveExternalControl register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.EnableExternalControlValves.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.EnableValveExternalControl.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+    /// that selects the flow range for the channel 3.
     /// </summary>
     [DisplayName("Channel3RangePayload")]
-    [Description("Creates a message payload that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+    [Description("Creates a message payload that selects the flow range for the channel 3.")]
     public partial class CreateChannel3RangePayload
     {
         /// <summary>
-        /// Gets or sets the value that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// Gets or sets the value that selects the flow range for the channel 3.
         /// </summary>
-        [Description("The value that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+        [Description("The value that selects the flow range for the channel 3.")]
         public Channel3RangeConfig Channel3Range { get; set; }
 
         /// <summary>
@@ -8770,7 +8534,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// Creates a message that selects the flow range for the channel 3.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Channel3Range register.</returns>
@@ -8782,14 +8546,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+    /// that selects the flow range for the channel 3.
     /// </summary>
     [DisplayName("TimestampedChannel3RangePayload")]
-    [Description("Creates a timestamped message payload that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+    [Description("Creates a timestamped message payload that selects the flow range for the channel 3.")]
     public partial class CreateTimestampedChannel3RangePayload : CreateChannel3RangePayload
     {
         /// <summary>
-        /// Creates a timestamped message that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// Creates a timestamped message that selects the flow range for the channel 3.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -8855,6 +8619,59 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents the payload of the Flowmeter register.
+    /// </summary>
+    public struct FlowmeterPayload
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FlowmeterPayload"/> structure.
+        /// </summary>
+        /// <param name="channel0"></param>
+        /// <param name="channel1"></param>
+        /// <param name="channel2"></param>
+        /// <param name="channel3"></param>
+        /// <param name="channel4"></param>
+        public FlowmeterPayload(
+            short channel0,
+            short channel1,
+            short channel2,
+            short channel3,
+            short channel4)
+        {
+            Channel0 = channel0;
+            Channel1 = channel1;
+            Channel2 = channel2;
+            Channel3 = channel3;
+            Channel4 = channel4;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short Channel0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short Channel1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short Channel2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short Channel3;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short Channel4;
+    }
+
+    /// <summary>
     /// Specifies the states of the digital outputs.
     /// </summary>
     [Flags]
@@ -8888,9 +8705,9 @@ namespace Harp.Olfactometer
     public enum OlfactometerEvents : byte
     {
         None = 0x0,
-        FlowmeterAnalogOutputs = 0x1,
+        Flowmeter = 0x1,
         DI0Trigger = 0x2,
-        ChannelxFlowReal = 0x4
+        ChannelActualFlow = 0x4
     }
 
     /// <summary>
@@ -8933,7 +8750,7 @@ namespace Harp.Olfactometer
     /// <summary>
     /// Specifies the target IO on which to mimic the specified register.
     /// </summary>
-    public enum MimicOuputs : byte
+    public enum MimicOutputs : byte
     {
         None = 0,
         DO0 = 1,
@@ -8945,7 +8762,7 @@ namespace Harp.Olfactometer
     /// </summary>
     public enum Channel3RangeConfig : byte
     {
-        Flow100 = 0,
-        Flow1000 = 1
+        FlowRate100 = 0,
+        FlowRate1000 = 1
     }
 }
