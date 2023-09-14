@@ -228,12 +228,12 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
     [Description("Filters register-specific messages reported by the Olfactometer device.")]
-    public class FilterMessage : FilterMessageBuilder, INamedElement
+    public class FilterRegister : FilterRegisterBuilder, INamedElement
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FilterMessage"/> class.
+        /// Initializes a new instance of the <see cref="FilterRegister"/> class.
         /// </summary>
-        public FilterMessage()
+        public FilterRegister()
         {
             Register = new EnableFlow();
         }
@@ -5870,6 +5870,60 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateEnableExternalControlValvesPayload))]
     [XmlInclude(typeof(CreateChannel3RangePayload))]
     [XmlInclude(typeof(CreateEnableEventsPayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableFlowPayload))]
+    [XmlInclude(typeof(CreateTimestampedFlowmeterAnalogOutputsPayload))]
+    [XmlInclude(typeof(CreateTimestampedDI0StatePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0UserCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1UserCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2UserCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3UserCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4UserCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3UserCalibrationAuxPayload))]
+    [XmlInclude(typeof(CreateTimestampedUserCalibrationEnablePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0FlowTargetPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1FlowTargetPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2FlowTargetPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3FlowTargetPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4FlowTargetPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4FlowRealPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel0DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel1DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel2DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel4DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedDigitalOutputSetPayload))]
+    [XmlInclude(typeof(CreateTimestampedDigitalOutputClearPayload))]
+    [XmlInclude(typeof(CreateTimestampedDigitalOutputTogglePayload))]
+    [XmlInclude(typeof(CreateTimestampedDigitalOutputStatePayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableValvesPulsePayload))]
+    [XmlInclude(typeof(CreateTimestampedValvesSetPayload))]
+    [XmlInclude(typeof(CreateTimestampedValvesClearPayload))]
+    [XmlInclude(typeof(CreateTimestampedValvesTogglePayload))]
+    [XmlInclude(typeof(CreateTimestampedValvesStatePayload))]
+    [XmlInclude(typeof(CreateTimestampedPulseValve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseValve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseValve2Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseValve3Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseEndvalve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseEndvalve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedPulseDummyvalvePayload))]
+    [XmlInclude(typeof(CreateTimestampedDO0SyncPayload))]
+    [XmlInclude(typeof(CreateTimestampedDO1SyncPayload))]
+    [XmlInclude(typeof(CreateTimestampedDI0TriggerPayload))]
+    [XmlInclude(typeof(CreateTimestampedMimicValve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicValve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicValve2Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicValve3Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicEndvalve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicEndvalve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicDummyvalvePayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableExternalControlValvesPayload))]
+    [XmlInclude(typeof(CreateTimestampedChannel3RangePayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableEventsPayload))]
     [Description("Creates standard message payloads for the Olfactometer device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
     {
@@ -5885,2594 +5939,2918 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a message payload
     /// that write any value above zero to start the flowmeter and zero to stop.
     /// </summary>
     [DisplayName("EnableFlowPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that write any value above zero to start the flowmeter and zero to stop.")]
-    public partial class CreateEnableFlowPayload : HarpCombinator
+    [Description("Creates a message payload that write any value above zero to start the flowmeter and zero to stop.")]
+    public partial class CreateEnableFlowPayload
     {
         /// <summary>
         /// Gets or sets the value that write any value above zero to start the flowmeter and zero to stop.
         /// </summary>
         [Description("The value that write any value above zero to start the flowmeter and zero to stop.")]
-        public EnableFlag Value { get; set; }
+        public EnableFlag EnableFlow { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that write any value above zero to start the flowmeter and zero to stop.
+        /// Creates a message payload for the EnableFlow register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public EnableFlag GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return EnableFlow;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that write any value above zero to start the flowmeter and zero to stop.
+        /// Creates a message that write any value above zero to start the flowmeter and zero to stop.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the EnableFlow register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => EnableFlow.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.EnableFlow.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that write any value above zero to start the flowmeter and zero to stop.
+    /// </summary>
+    [DisplayName("TimestampedEnableFlowPayload")]
+    [Description("Creates a timestamped message payload that write any value above zero to start the flowmeter and zero to stop.")]
+    public partial class CreateTimestampedEnableFlowPayload : CreateEnableFlowPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that write any value above zero to start the flowmeter and zero to stop.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the EnableFlow register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableFlow.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that value of the flowmeters analog outups.
     /// </summary>
     [DisplayName("FlowmeterAnalogOutputsPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that value of the flowmeters analog outups.")]
-    public partial class CreateFlowmeterAnalogOutputsPayload : HarpCombinator
+    [Description("Creates a message payload that value of the flowmeters analog outups.")]
+    public partial class CreateFlowmeterAnalogOutputsPayload
     {
         /// <summary>
         /// Gets or sets the value that value of the flowmeters analog outups.
         /// </summary>
         [Description("The value that value of the flowmeters analog outups.")]
-        public short[] Value { get; set; }
+        public short[] FlowmeterAnalogOutputs { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that value of the flowmeters analog outups.
+        /// Creates a message payload for the FlowmeterAnalogOutputs register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public short[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return FlowmeterAnalogOutputs;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that value of the flowmeters analog outups.
+        /// Creates a message that value of the flowmeters analog outups.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the FlowmeterAnalogOutputs register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => FlowmeterAnalogOutputs.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.FlowmeterAnalogOutputs.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that value of the flowmeters analog outups.
+    /// </summary>
+    [DisplayName("TimestampedFlowmeterAnalogOutputsPayload")]
+    [Description("Creates a timestamped message payload that value of the flowmeters analog outups.")]
+    public partial class CreateTimestampedFlowmeterAnalogOutputsPayload : CreateFlowmeterAnalogOutputsPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that value of the flowmeters analog outups.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the FlowmeterAnalogOutputs register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.FlowmeterAnalogOutputs.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that state of the digital input pin 0.
     /// </summary>
     [DisplayName("DI0StatePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that state of the digital input pin 0.")]
-    public partial class CreateDI0StatePayload : HarpCombinator
+    [Description("Creates a message payload that state of the digital input pin 0.")]
+    public partial class CreateDI0StatePayload
     {
         /// <summary>
         /// Gets or sets the value that state of the digital input pin 0.
         /// </summary>
         [Description("The value that state of the digital input pin 0.")]
-        public DigitalState Value { get; set; }
+        public DigitalState DI0State { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that state of the digital input pin 0.
+        /// Creates a message payload for the DI0State register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DigitalState GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DI0State;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that state of the digital input pin 0.
+        /// Creates a message that state of the digital input pin 0.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DI0State register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DI0State.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DI0State.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that state of the digital input pin 0.
+    /// </summary>
+    [DisplayName("TimestampedDI0StatePayload")]
+    [Description("Creates a timestamped message payload that state of the digital input pin 0.")]
+    public partial class CreateTimestampedDI0StatePayload : CreateDI0StatePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that state of the digital input pin 0.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DI0State register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DI0State.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
     /// </summary>
     [DisplayName("Channel0UserCalibrationPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-    public partial class CreateChannel0UserCalibrationPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateChannel0UserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
         [Description("The value that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel0UserCalibration { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message payload for the Channel0UserCalibration register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel0UserCalibration;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel0UserCalibration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel0UserCalibration.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel0UserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// </summary>
+    [DisplayName("TimestampedChannel0UserCalibrationPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateTimestampedChannel0UserCalibrationPayload : CreateChannel0UserCalibrationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel0UserCalibration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel0UserCalibration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
     /// </summary>
     [DisplayName("Channel1UserCalibrationPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-    public partial class CreateChannel1UserCalibrationPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateChannel1UserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
         [Description("The value that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel1UserCalibration { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message payload for the Channel1UserCalibration register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel1UserCalibration;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel1UserCalibration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel1UserCalibration.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel1UserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// </summary>
+    [DisplayName("TimestampedChannel1UserCalibrationPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateTimestampedChannel1UserCalibrationPayload : CreateChannel1UserCalibrationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel1UserCalibration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel1UserCalibration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
     /// </summary>
     [DisplayName("Channel2UserCalibrationPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-    public partial class CreateChannel2UserCalibrationPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateChannel2UserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
         [Description("The value that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel2UserCalibration { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message payload for the Channel2UserCalibration register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel2UserCalibration;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel2UserCalibration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel2UserCalibration.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel2UserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// </summary>
+    [DisplayName("TimestampedChannel2UserCalibrationPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateTimestampedChannel2UserCalibrationPayload : CreateChannel2UserCalibrationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel2UserCalibration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel2UserCalibration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
     /// </summary>
     [DisplayName("Channel3UserCalibrationPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-    public partial class CreateChannel3UserCalibrationPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateChannel3UserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
         [Description("The value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel3UserCalibration { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message payload for the Channel3UserCalibration register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3UserCalibration;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// Creates a message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3UserCalibration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3UserCalibration.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3UserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    /// </summary>
+    [DisplayName("TimestampedChannel3UserCalibrationPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].")]
+    public partial class CreateTimestampedChannel3UserCalibrationPayload : CreateChannel3UserCalibrationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3UserCalibration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3UserCalibration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
     /// </summary>
     [DisplayName("Channel4UserCalibrationPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
-    public partial class CreateChannel4UserCalibrationPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    public partial class CreateChannel4UserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
         /// </summary>
         [Description("The value that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel4UserCalibration { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message payload for the Channel4UserCalibration register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel4UserCalibration;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel4UserCalibration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel4UserCalibration.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel4UserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// </summary>
+    [DisplayName("TimestampedChannel4UserCalibrationPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    public partial class CreateTimestampedChannel4UserCalibrationPayload : CreateChannel4UserCalibrationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel4UserCalibration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel4UserCalibration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
     /// </summary>
     [DisplayName("Channel3UserCalibrationAuxPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
-    public partial class CreateChannel3UserCalibrationAuxPayload : HarpCombinator
+    [Description("Creates a message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    public partial class CreateChannel3UserCalibrationAuxPayload
     {
         /// <summary>
         /// Gets or sets the value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
         /// </summary>
         [Description("The value that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
-        public ushort[] Value { get; set; }
+        public ushort[] Channel3UserCalibrationAux { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message payload for the Channel3UserCalibrationAux register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort[] GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3UserCalibrationAux;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// Creates a message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3UserCalibrationAux register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3UserCalibrationAux.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3UserCalibrationAux.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+    /// </summary>
+    [DisplayName("TimestampedChannel3UserCalibrationAuxPayload")]
+    [Description("Creates a timestamped message payload that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].")]
+    public partial class CreateTimestampedChannel3UserCalibrationAuxPayload : CreateChannel3UserCalibrationAuxPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3UserCalibrationAux register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3UserCalibrationAux.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
     /// </summary>
     [DisplayName("UserCalibrationEnablePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-    public partial class CreateUserCalibrationEnablePayload : HarpCombinator
+    [Description("Creates a message payload that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
+    public partial class CreateUserCalibrationEnablePayload
     {
         /// <summary>
         /// Gets or sets the value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
         [Description("The value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-        public byte Value { get; set; }
+        public byte UserCalibrationEnable { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
+        /// Creates a message payload for the UserCalibrationEnable register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public byte GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return UserCalibrationEnable;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
+        /// Creates a message that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the UserCalibrationEnable register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => UserCalibrationEnable.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.UserCalibrationEnable.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
+    /// </summary>
+    [DisplayName("TimestampedUserCalibrationEnablePayload")]
+    [Description("Creates a timestamped message payload that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
+    public partial class CreateTimestampedUserCalibrationEnablePayload : CreateUserCalibrationEnablePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the UserCalibrationEnable register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.UserCalibrationEnable.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value set for channel 0 - flowmeter 0 [ml/min].
     /// </summary>
     [DisplayName("Channel0FlowTargetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value set for channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateChannel0FlowTargetPayload : HarpCombinator
+    [Description("Creates a message payload that flow value set for channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateChannel0FlowTargetPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value set for channel 0 - flowmeter 0 [ml/min].
         /// </summary>
         [Description("The value that flow value set for channel 0 - flowmeter 0 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel0FlowTarget { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message payload for the Channel0FlowTarget register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel0FlowTarget;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message that flow value set for channel 0 - flowmeter 0 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel0FlowTarget register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel0FlowTarget.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel0FlowTarget.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value set for channel 0 - flowmeter 0 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel0FlowTargetPayload")]
+    [Description("Creates a timestamped message payload that flow value set for channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateTimestampedChannel0FlowTargetPayload : CreateChannel0FlowTargetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value set for channel 0 - flowmeter 0 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel0FlowTarget register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel0FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value set for channel 1 - flowmeter 1 [ml/min].
     /// </summary>
     [DisplayName("Channel1FlowTargetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value set for channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateChannel1FlowTargetPayload : HarpCombinator
+    [Description("Creates a message payload that flow value set for channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateChannel1FlowTargetPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value set for channel 1 - flowmeter 1 [ml/min].
         /// </summary>
         [Description("The value that flow value set for channel 1 - flowmeter 1 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel1FlowTarget { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message payload for the Channel1FlowTarget register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel1FlowTarget;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message that flow value set for channel 1 - flowmeter 1 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel1FlowTarget register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel1FlowTarget.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel1FlowTarget.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value set for channel 1 - flowmeter 1 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel1FlowTargetPayload")]
+    [Description("Creates a timestamped message payload that flow value set for channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateTimestampedChannel1FlowTargetPayload : CreateChannel1FlowTargetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value set for channel 1 - flowmeter 1 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel1FlowTarget register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel1FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value set for channel 2 - flowmeter 2 [ml/min].
     /// </summary>
     [DisplayName("Channel2FlowTargetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value set for channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateChannel2FlowTargetPayload : HarpCombinator
+    [Description("Creates a message payload that flow value set for channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateChannel2FlowTargetPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value set for channel 2 - flowmeter 2 [ml/min].
         /// </summary>
         [Description("The value that flow value set for channel 2 - flowmeter 2 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel2FlowTarget { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message payload for the Channel2FlowTarget register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel2FlowTarget;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message that flow value set for channel 2 - flowmeter 2 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel2FlowTarget register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel2FlowTarget.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel2FlowTarget.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value set for channel 2 - flowmeter 2 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel2FlowTargetPayload")]
+    [Description("Creates a timestamped message payload that flow value set for channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateTimestampedChannel2FlowTargetPayload : CreateChannel2FlowTargetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value set for channel 2 - flowmeter 2 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel2FlowTarget register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel2FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value set for channel 3 - flowmeter 3 [ml/min].
     /// </summary>
     [DisplayName("Channel3FlowTargetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value set for channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateChannel3FlowTargetPayload : HarpCombinator
+    [Description("Creates a message payload that flow value set for channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateChannel3FlowTargetPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value set for channel 3 - flowmeter 3 [ml/min].
         /// </summary>
         [Description("The value that flow value set for channel 3 - flowmeter 3 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel3FlowTarget { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message payload for the Channel3FlowTarget register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3FlowTarget;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message that flow value set for channel 3 - flowmeter 3 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3FlowTarget register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3FlowTarget.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3FlowTarget.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value set for channel 3 - flowmeter 3 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel3FlowTargetPayload")]
+    [Description("Creates a timestamped message payload that flow value set for channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateTimestampedChannel3FlowTargetPayload : CreateChannel3FlowTargetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value set for channel 3 - flowmeter 3 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3FlowTarget register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value set for channel 4 - flowmeter 4 [ml/min].
     /// </summary>
     [DisplayName("Channel4FlowTargetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value set for channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateChannel4FlowTargetPayload : HarpCombinator
+    [Description("Creates a message payload that flow value set for channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateChannel4FlowTargetPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value set for channel 4 - flowmeter 4 [ml/min].
         /// </summary>
         [Description("The value that flow value set for channel 4 - flowmeter 4 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel4FlowTarget { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message payload for the Channel4FlowTarget register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel4FlowTarget;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message that flow value set for channel 4 - flowmeter 4 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel4FlowTarget register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel4FlowTarget.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel4FlowTarget.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value set for channel 4 - flowmeter 4 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel4FlowTargetPayload")]
+    [Description("Creates a timestamped message payload that flow value set for channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateTimestampedChannel4FlowTargetPayload : CreateChannel4FlowTargetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value set for channel 4 - flowmeter 4 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel4FlowTarget register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel4FlowTarget.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value read from channel 0 - flowmeter 0 [ml/min].
     /// </summary>
     [DisplayName("Channel0FlowRealPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value read from channel 0 - flowmeter 0 [ml/min].")]
-    public partial class CreateChannel0FlowRealPayload : HarpCombinator
+    [Description("Creates a message payload that flow value read from channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateChannel0FlowRealPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value read from channel 0 - flowmeter 0 [ml/min].
         /// </summary>
         [Description("The value that flow value read from channel 0 - flowmeter 0 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel0FlowReal { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message payload for the Channel0FlowReal register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel0FlowReal;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// Creates a message that flow value read from channel 0 - flowmeter 0 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel0FlowReal register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel0FlowReal.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel0FlowReal.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value read from channel 0 - flowmeter 0 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel0FlowRealPayload")]
+    [Description("Creates a timestamped message payload that flow value read from channel 0 - flowmeter 0 [ml/min].")]
+    public partial class CreateTimestampedChannel0FlowRealPayload : CreateChannel0FlowRealPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value read from channel 0 - flowmeter 0 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel0FlowReal register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel0FlowReal.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value read from channel 1 - flowmeter 1 [ml/min].
     /// </summary>
     [DisplayName("Channel1FlowRealPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value read from channel 1 - flowmeter 1 [ml/min].")]
-    public partial class CreateChannel1FlowRealPayload : HarpCombinator
+    [Description("Creates a message payload that flow value read from channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateChannel1FlowRealPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value read from channel 1 - flowmeter 1 [ml/min].
         /// </summary>
         [Description("The value that flow value read from channel 1 - flowmeter 1 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel1FlowReal { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message payload for the Channel1FlowReal register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel1FlowReal;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// Creates a message that flow value read from channel 1 - flowmeter 1 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel1FlowReal register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel1FlowReal.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel1FlowReal.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value read from channel 1 - flowmeter 1 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel1FlowRealPayload")]
+    [Description("Creates a timestamped message payload that flow value read from channel 1 - flowmeter 1 [ml/min].")]
+    public partial class CreateTimestampedChannel1FlowRealPayload : CreateChannel1FlowRealPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value read from channel 1 - flowmeter 1 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel1FlowReal register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel1FlowReal.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value read from channel 2 - flowmeter 2 [ml/min].
     /// </summary>
     [DisplayName("Channel2FlowRealPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value read from channel 2 - flowmeter 2 [ml/min].")]
-    public partial class CreateChannel2FlowRealPayload : HarpCombinator
+    [Description("Creates a message payload that flow value read from channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateChannel2FlowRealPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value read from channel 2 - flowmeter 2 [ml/min].
         /// </summary>
         [Description("The value that flow value read from channel 2 - flowmeter 2 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel2FlowReal { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message payload for the Channel2FlowReal register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel2FlowReal;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// Creates a message that flow value read from channel 2 - flowmeter 2 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel2FlowReal register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel2FlowReal.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel2FlowReal.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value read from channel 2 - flowmeter 2 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel2FlowRealPayload")]
+    [Description("Creates a timestamped message payload that flow value read from channel 2 - flowmeter 2 [ml/min].")]
+    public partial class CreateTimestampedChannel2FlowRealPayload : CreateChannel2FlowRealPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value read from channel 2 - flowmeter 2 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel2FlowReal register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel2FlowReal.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value read from channel 3 - flowmeter 3 [ml/min].
     /// </summary>
     [DisplayName("Channel3FlowRealPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value read from channel 3 - flowmeter 3 [ml/min].")]
-    public partial class CreateChannel3FlowRealPayload : HarpCombinator
+    [Description("Creates a message payload that flow value read from channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateChannel3FlowRealPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value read from channel 3 - flowmeter 3 [ml/min].
         /// </summary>
         [Description("The value that flow value read from channel 3 - flowmeter 3 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel3FlowReal { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message payload for the Channel3FlowReal register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3FlowReal;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// Creates a message that flow value read from channel 3 - flowmeter 3 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3FlowReal register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3FlowReal.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3FlowReal.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value read from channel 3 - flowmeter 3 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel3FlowRealPayload")]
+    [Description("Creates a timestamped message payload that flow value read from channel 3 - flowmeter 3 [ml/min].")]
+    public partial class CreateTimestampedChannel3FlowRealPayload : CreateChannel3FlowRealPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value read from channel 3 - flowmeter 3 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3FlowReal register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3FlowReal.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that flow value read from channel 4 - flowmeter 4 [ml/min].
     /// </summary>
     [DisplayName("Channel4FlowRealPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that flow value read from channel 4 - flowmeter 4 [ml/min].")]
-    public partial class CreateChannel4FlowRealPayload : HarpCombinator
+    [Description("Creates a message payload that flow value read from channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateChannel4FlowRealPayload
     {
         /// <summary>
         /// Gets or sets the value that flow value read from channel 4 - flowmeter 4 [ml/min].
         /// </summary>
         [Description("The value that flow value read from channel 4 - flowmeter 4 [ml/min].")]
-        public float Value { get; set; }
+        public float Channel4FlowReal { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message payload for the Channel4FlowReal register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel4FlowReal;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// Creates a message that flow value read from channel 4 - flowmeter 4 [ml/min].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel4FlowReal register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel4FlowReal.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel4FlowReal.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that flow value read from channel 4 - flowmeter 4 [ml/min].
+    /// </summary>
+    [DisplayName("TimestampedChannel4FlowRealPayload")]
+    [Description("Creates a timestamped message payload that flow value read from channel 4 - flowmeter 4 [ml/min].")]
+    public partial class CreateTimestampedChannel4FlowRealPayload : CreateChannel4FlowRealPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that flow value read from channel 4 - flowmeter 4 [ml/min].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel4FlowReal register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel4FlowReal.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that duty cycle for proportional valve 0 [%].
     /// </summary>
     [DisplayName("Channel0DutyCyclePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that duty cycle for proportional valve 0 [%].")]
-    public partial class CreateChannel0DutyCyclePayload : HarpCombinator
+    [Description("Creates a message payload that duty cycle for proportional valve 0 [%].")]
+    public partial class CreateChannel0DutyCyclePayload
     {
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 0 [%].
         /// </summary>
         [Description("The value that duty cycle for proportional valve 0 [%].")]
-        public float Value { get; set; }
+        public float Channel0DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that duty cycle for proportional valve 0 [%].
+        /// Creates a message payload for the Channel0DutyCycle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel0DutyCycle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that duty cycle for proportional valve 0 [%].
+        /// Creates a message that duty cycle for proportional valve 0 [%].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel0DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel0DutyCycle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel0DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that duty cycle for proportional valve 0 [%].
+    /// </summary>
+    [DisplayName("TimestampedChannel0DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that duty cycle for proportional valve 0 [%].")]
+    public partial class CreateTimestampedChannel0DutyCyclePayload : CreateChannel0DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that duty cycle for proportional valve 0 [%].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel0DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel0DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that duty cycle for proportional valve 1 [%].
     /// </summary>
     [DisplayName("Channel1DutyCyclePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that duty cycle for proportional valve 1 [%].")]
-    public partial class CreateChannel1DutyCyclePayload : HarpCombinator
+    [Description("Creates a message payload that duty cycle for proportional valve 1 [%].")]
+    public partial class CreateChannel1DutyCyclePayload
     {
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 1 [%].
         /// </summary>
         [Description("The value that duty cycle for proportional valve 1 [%].")]
-        public float Value { get; set; }
+        public float Channel1DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that duty cycle for proportional valve 1 [%].
+        /// Creates a message payload for the Channel1DutyCycle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel1DutyCycle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that duty cycle for proportional valve 1 [%].
+        /// Creates a message that duty cycle for proportional valve 1 [%].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel1DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel1DutyCycle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel1DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that duty cycle for proportional valve 1 [%].
+    /// </summary>
+    [DisplayName("TimestampedChannel1DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that duty cycle for proportional valve 1 [%].")]
+    public partial class CreateTimestampedChannel1DutyCyclePayload : CreateChannel1DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that duty cycle for proportional valve 1 [%].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel1DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel1DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that duty cycle for proportional valve 2 [%].
     /// </summary>
     [DisplayName("Channel2DutyCyclePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that duty cycle for proportional valve 2 [%].")]
-    public partial class CreateChannel2DutyCyclePayload : HarpCombinator
+    [Description("Creates a message payload that duty cycle for proportional valve 2 [%].")]
+    public partial class CreateChannel2DutyCyclePayload
     {
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 2 [%].
         /// </summary>
         [Description("The value that duty cycle for proportional valve 2 [%].")]
-        public float Value { get; set; }
+        public float Channel2DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that duty cycle for proportional valve 2 [%].
+        /// Creates a message payload for the Channel2DutyCycle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel2DutyCycle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that duty cycle for proportional valve 2 [%].
+        /// Creates a message that duty cycle for proportional valve 2 [%].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel2DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel2DutyCycle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel2DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that duty cycle for proportional valve 2 [%].
+    /// </summary>
+    [DisplayName("TimestampedChannel2DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that duty cycle for proportional valve 2 [%].")]
+    public partial class CreateTimestampedChannel2DutyCyclePayload : CreateChannel2DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that duty cycle for proportional valve 2 [%].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel2DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel2DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that duty cycle for proportional valve 3 [%].
     /// </summary>
     [DisplayName("Channel3DutyCyclePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that duty cycle for proportional valve 3 [%].")]
-    public partial class CreateChannel3DutyCyclePayload : HarpCombinator
+    [Description("Creates a message payload that duty cycle for proportional valve 3 [%].")]
+    public partial class CreateChannel3DutyCyclePayload
     {
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 3 [%].
         /// </summary>
         [Description("The value that duty cycle for proportional valve 3 [%].")]
-        public float Value { get; set; }
+        public float Channel3DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that duty cycle for proportional valve 3 [%].
+        /// Creates a message payload for the Channel3DutyCycle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3DutyCycle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that duty cycle for proportional valve 3 [%].
+        /// Creates a message that duty cycle for proportional valve 3 [%].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3DutyCycle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that duty cycle for proportional valve 3 [%].
+    /// </summary>
+    [DisplayName("TimestampedChannel3DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that duty cycle for proportional valve 3 [%].")]
+    public partial class CreateTimestampedChannel3DutyCyclePayload : CreateChannel3DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that duty cycle for proportional valve 3 [%].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that duty cycle for proportional valve 4 [%].
     /// </summary>
     [DisplayName("Channel4DutyCyclePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that duty cycle for proportional valve 4 [%].")]
-    public partial class CreateChannel4DutyCyclePayload : HarpCombinator
+    [Description("Creates a message payload that duty cycle for proportional valve 4 [%].")]
+    public partial class CreateChannel4DutyCyclePayload
     {
         /// <summary>
         /// Gets or sets the value that duty cycle for proportional valve 4 [%].
         /// </summary>
         [Description("The value that duty cycle for proportional valve 4 [%].")]
-        public float Value { get; set; }
+        public float Channel4DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that duty cycle for proportional valve 4 [%].
+        /// Creates a message payload for the Channel4DutyCycle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel4DutyCycle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that duty cycle for proportional valve 4 [%].
+        /// Creates a message that duty cycle for proportional valve 4 [%].
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel4DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel4DutyCycle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel4DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that duty cycle for proportional valve 4 [%].
+    /// </summary>
+    [DisplayName("TimestampedChannel4DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that duty cycle for proportional valve 4 [%].")]
+    public partial class CreateTimestampedChannel4DutyCyclePayload : CreateChannel4DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that duty cycle for proportional valve 4 [%].
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel4DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel4DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that set the correspondent output.
     /// </summary>
     [DisplayName("DigitalOutputSetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that set the correspondent output.")]
-    public partial class CreateDigitalOutputSetPayload : HarpCombinator
+    [Description("Creates a message payload that set the correspondent output.")]
+    public partial class CreateDigitalOutputSetPayload
     {
         /// <summary>
         /// Gets or sets the value that set the correspondent output.
         /// </summary>
         [Description("The value that set the correspondent output.")]
-        public DigitalOutputs Value { get; set; }
+        public DigitalOutputs DigitalOutputSet { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that set the correspondent output.
+        /// Creates a message payload for the DigitalOutputSet register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DigitalOutputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DigitalOutputSet;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that set the correspondent output.
+        /// Creates a message that set the correspondent output.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DigitalOutputSet register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DigitalOutputSet.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DigitalOutputSet.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that set the correspondent output.
+    /// </summary>
+    [DisplayName("TimestampedDigitalOutputSetPayload")]
+    [Description("Creates a timestamped message payload that set the correspondent output.")]
+    public partial class CreateTimestampedDigitalOutputSetPayload : CreateDigitalOutputSetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that set the correspondent output.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DigitalOutputSet register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DigitalOutputSet.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that clear the correspondent output.
     /// </summary>
     [DisplayName("DigitalOutputClearPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that clear the correspondent output.")]
-    public partial class CreateDigitalOutputClearPayload : HarpCombinator
+    [Description("Creates a message payload that clear the correspondent output.")]
+    public partial class CreateDigitalOutputClearPayload
     {
         /// <summary>
         /// Gets or sets the value that clear the correspondent output.
         /// </summary>
         [Description("The value that clear the correspondent output.")]
-        public DigitalOutputs Value { get; set; }
+        public DigitalOutputs DigitalOutputClear { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that clear the correspondent output.
+        /// Creates a message payload for the DigitalOutputClear register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DigitalOutputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DigitalOutputClear;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that clear the correspondent output.
+        /// Creates a message that clear the correspondent output.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DigitalOutputClear register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DigitalOutputClear.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DigitalOutputClear.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that clear the correspondent output.
+    /// </summary>
+    [DisplayName("TimestampedDigitalOutputClearPayload")]
+    [Description("Creates a timestamped message payload that clear the correspondent output.")]
+    public partial class CreateTimestampedDigitalOutputClearPayload : CreateDigitalOutputClearPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that clear the correspondent output.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DigitalOutputClear register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DigitalOutputClear.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that toggle the correspondent output.
     /// </summary>
     [DisplayName("DigitalOutputTogglePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that toggle the correspondent output.")]
-    public partial class CreateDigitalOutputTogglePayload : HarpCombinator
+    [Description("Creates a message payload that toggle the correspondent output.")]
+    public partial class CreateDigitalOutputTogglePayload
     {
         /// <summary>
         /// Gets or sets the value that toggle the correspondent output.
         /// </summary>
         [Description("The value that toggle the correspondent output.")]
-        public DigitalOutputs Value { get; set; }
+        public DigitalOutputs DigitalOutputToggle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that toggle the correspondent output.
+        /// Creates a message payload for the DigitalOutputToggle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DigitalOutputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DigitalOutputToggle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that toggle the correspondent output.
+        /// Creates a message that toggle the correspondent output.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DigitalOutputToggle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DigitalOutputToggle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DigitalOutputToggle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that toggle the correspondent output.
+    /// </summary>
+    [DisplayName("TimestampedDigitalOutputTogglePayload")]
+    [Description("Creates a timestamped message payload that toggle the correspondent output.")]
+    public partial class CreateTimestampedDigitalOutputTogglePayload : CreateDigitalOutputTogglePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that toggle the correspondent output.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DigitalOutputToggle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DigitalOutputToggle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that control the correspondent output.
     /// </summary>
     [DisplayName("DigitalOutputStatePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that control the correspondent output.")]
-    public partial class CreateDigitalOutputStatePayload : HarpCombinator
+    [Description("Creates a message payload that control the correspondent output.")]
+    public partial class CreateDigitalOutputStatePayload
     {
         /// <summary>
         /// Gets or sets the value that control the correspondent output.
         /// </summary>
         [Description("The value that control the correspondent output.")]
-        public DigitalOutputs Value { get; set; }
+        public DigitalOutputs DigitalOutputState { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that control the correspondent output.
+        /// Creates a message payload for the DigitalOutputState register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DigitalOutputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DigitalOutputState;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that control the correspondent output.
+        /// Creates a message that control the correspondent output.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DigitalOutputState register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DigitalOutputState.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DigitalOutputState.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that control the correspondent output.
+    /// </summary>
+    [DisplayName("TimestampedDigitalOutputStatePayload")]
+    [Description("Creates a timestamped message payload that control the correspondent output.")]
+    public partial class CreateTimestampedDigitalOutputStatePayload : CreateDigitalOutputStatePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that control the correspondent output.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DigitalOutputState register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DigitalOutputState.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that enable pulse mode for valves.
     /// </summary>
     [DisplayName("EnableValvesPulsePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that enable pulse mode for valves.")]
-    public partial class CreateEnableValvesPulsePayload : HarpCombinator
+    [Description("Creates a message payload that enable pulse mode for valves.")]
+    public partial class CreateEnableValvesPulsePayload
     {
         /// <summary>
         /// Gets or sets the value that enable pulse mode for valves.
         /// </summary>
         [Description("The value that enable pulse mode for valves.")]
-        public Valves Value { get; set; }
+        public Valves EnableValvesPulse { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that enable pulse mode for valves.
+        /// Creates a message payload for the EnableValvesPulse register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return EnableValvesPulse;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that enable pulse mode for valves.
+        /// Creates a message that enable pulse mode for valves.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the EnableValvesPulse register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => EnableValvesPulse.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.EnableValvesPulse.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that enable pulse mode for valves.
+    /// </summary>
+    [DisplayName("TimestampedEnableValvesPulsePayload")]
+    [Description("Creates a timestamped message payload that enable pulse mode for valves.")]
+    public partial class CreateTimestampedEnableValvesPulsePayload : CreateEnableValvesPulsePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that enable pulse mode for valves.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the EnableValvesPulse register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableValvesPulse.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that set the correspondent valve.
     /// </summary>
     [DisplayName("ValvesSetPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that set the correspondent valve.")]
-    public partial class CreateValvesSetPayload : HarpCombinator
+    [Description("Creates a message payload that set the correspondent valve.")]
+    public partial class CreateValvesSetPayload
     {
         /// <summary>
         /// Gets or sets the value that set the correspondent valve.
         /// </summary>
         [Description("The value that set the correspondent valve.")]
-        public Valves Value { get; set; }
+        public Valves ValvesSet { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that set the correspondent valve.
+        /// Creates a message payload for the ValvesSet register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return ValvesSet;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that set the correspondent valve.
+        /// Creates a message that set the correspondent valve.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the ValvesSet register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => ValvesSet.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.ValvesSet.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that set the correspondent valve.
+    /// </summary>
+    [DisplayName("TimestampedValvesSetPayload")]
+    [Description("Creates a timestamped message payload that set the correspondent valve.")]
+    public partial class CreateTimestampedValvesSetPayload : CreateValvesSetPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that set the correspondent valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the ValvesSet register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.ValvesSet.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that clear the correspondent valve.
     /// </summary>
     [DisplayName("ValvesClearPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that clear the correspondent valve.")]
-    public partial class CreateValvesClearPayload : HarpCombinator
+    [Description("Creates a message payload that clear the correspondent valve.")]
+    public partial class CreateValvesClearPayload
     {
         /// <summary>
         /// Gets or sets the value that clear the correspondent valve.
         /// </summary>
         [Description("The value that clear the correspondent valve.")]
-        public Valves Value { get; set; }
+        public Valves ValvesClear { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that clear the correspondent valve.
+        /// Creates a message payload for the ValvesClear register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return ValvesClear;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that clear the correspondent valve.
+        /// Creates a message that clear the correspondent valve.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the ValvesClear register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => ValvesClear.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.ValvesClear.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that clear the correspondent valve.
+    /// </summary>
+    [DisplayName("TimestampedValvesClearPayload")]
+    [Description("Creates a timestamped message payload that clear the correspondent valve.")]
+    public partial class CreateTimestampedValvesClearPayload : CreateValvesClearPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that clear the correspondent valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the ValvesClear register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.ValvesClear.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that toggle the correspondent valve.
     /// </summary>
     [DisplayName("ValvesTogglePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that toggle the correspondent valve.")]
-    public partial class CreateValvesTogglePayload : HarpCombinator
+    [Description("Creates a message payload that toggle the correspondent valve.")]
+    public partial class CreateValvesTogglePayload
     {
         /// <summary>
         /// Gets or sets the value that toggle the correspondent valve.
         /// </summary>
         [Description("The value that toggle the correspondent valve.")]
-        public Valves Value { get; set; }
+        public Valves ValvesToggle { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that toggle the correspondent valve.
+        /// Creates a message payload for the ValvesToggle register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return ValvesToggle;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that toggle the correspondent valve.
+        /// Creates a message that toggle the correspondent valve.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the ValvesToggle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => ValvesToggle.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.ValvesToggle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that toggle the correspondent valve.
+    /// </summary>
+    [DisplayName("TimestampedValvesTogglePayload")]
+    [Description("Creates a timestamped message payload that toggle the correspondent valve.")]
+    public partial class CreateTimestampedValvesTogglePayload : CreateValvesTogglePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that toggle the correspondent valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the ValvesToggle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.ValvesToggle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that control the correspondent valve.
     /// </summary>
     [DisplayName("ValvesStatePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that control the correspondent valve.")]
-    public partial class CreateValvesStatePayload : HarpCombinator
+    [Description("Creates a message payload that control the correspondent valve.")]
+    public partial class CreateValvesStatePayload
     {
         /// <summary>
         /// Gets or sets the value that control the correspondent valve.
         /// </summary>
         [Description("The value that control the correspondent valve.")]
-        public Valves Value { get; set; }
+        public Valves ValvesState { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that control the correspondent valve.
+        /// Creates a message payload for the ValvesState register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return ValvesState;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that control the correspondent valve.
+        /// Creates a message that control the correspondent valve.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the ValvesState register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => ValvesState.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.ValvesState.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that control the correspondent valve.
+    /// </summary>
+    [DisplayName("TimestampedValvesStatePayload")]
+    [Description("Creates a timestamped message payload that control the correspondent valve.")]
+    public partial class CreateTimestampedValvesStatePayload : CreateValvesStatePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that control the correspondent valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the ValvesState register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.ValvesState.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that valve 0 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseValve0Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve0Payload : HarpCombinator
+    [Description("Creates a message payload that valve 0 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseValve0Payload
     {
         /// <summary>
         /// Gets or sets the value that valve 0 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that valve 0 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseValve0 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that valve 0 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseValve0 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseValve0;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that valve 0 pulse duration [1:65535] ms.
+        /// Creates a message that valve 0 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseValve0 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseValve0.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseValve0.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that valve 0 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseValve0Payload")]
+    [Description("Creates a timestamped message payload that valve 0 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseValve0Payload : CreatePulseValve0Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that valve 0 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseValve0 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseValve0.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that valve 1 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseValve1Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve1Payload : HarpCombinator
+    [Description("Creates a message payload that valve 1 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseValve1Payload
     {
         /// <summary>
         /// Gets or sets the value that valve 1 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that valve 1 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseValve1 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that valve 1 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseValve1 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseValve1;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that valve 1 pulse duration [1:65535] ms.
+        /// Creates a message that valve 1 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseValve1 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseValve1.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseValve1.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that valve 1 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseValve1Payload")]
+    [Description("Creates a timestamped message payload that valve 1 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseValve1Payload : CreatePulseValve1Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that valve 1 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseValve1 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseValve1.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that valve 2 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseValve2Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that valve 2 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve2Payload : HarpCombinator
+    [Description("Creates a message payload that valve 2 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseValve2Payload
     {
         /// <summary>
         /// Gets or sets the value that valve 2 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that valve 2 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseValve2 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that valve 2 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseValve2 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseValve2;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that valve 2 pulse duration [1:65535] ms.
+        /// Creates a message that valve 2 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseValve2 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseValve2.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseValve2.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that valve 2 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseValve2Payload")]
+    [Description("Creates a timestamped message payload that valve 2 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseValve2Payload : CreatePulseValve2Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that valve 2 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseValve2 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseValve2.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that valve 3 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseValve3Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that valve 3 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseValve3Payload : HarpCombinator
+    [Description("Creates a message payload that valve 3 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseValve3Payload
     {
         /// <summary>
         /// Gets or sets the value that valve 3 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that valve 3 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseValve3 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that valve 3 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseValve3 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseValve3;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that valve 3 pulse duration [1:65535] ms.
+        /// Creates a message that valve 3 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseValve3 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseValve3.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseValve3.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that valve 3 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseValve3Payload")]
+    [Description("Creates a timestamped message payload that valve 3 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseValve3Payload : CreatePulseValve3Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that valve 3 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseValve3 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseValve3.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that end valve 0 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseEndvalve0Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that end valve 0 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseEndvalve0Payload : HarpCombinator
+    [Description("Creates a message payload that end valve 0 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseEndvalve0Payload
     {
         /// <summary>
         /// Gets or sets the value that end valve 0 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that end valve 0 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseEndvalve0 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that end valve 0 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseEndvalve0 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseEndvalve0;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that end valve 0 pulse duration [1:65535] ms.
+        /// Creates a message that end valve 0 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseEndvalve0 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseEndvalve0.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseEndvalve0.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that end valve 0 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseEndvalve0Payload")]
+    [Description("Creates a timestamped message payload that end valve 0 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseEndvalve0Payload : CreatePulseEndvalve0Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that end valve 0 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseEndvalve0 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseEndvalve0.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that end valve 1 pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseEndvalve1Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that end valve 1 pulse duration [1:65535] ms.")]
-    public partial class CreatePulseEndvalve1Payload : HarpCombinator
+    [Description("Creates a message payload that end valve 1 pulse duration [1:65535] ms.")]
+    public partial class CreatePulseEndvalve1Payload
     {
         /// <summary>
         /// Gets or sets the value that end valve 1 pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that end valve 1 pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseEndvalve1 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that end valve 1 pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseEndvalve1 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseEndvalve1;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that end valve 1 pulse duration [1:65535] ms.
+        /// Creates a message that end valve 1 pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseEndvalve1 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseEndvalve1.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseEndvalve1.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that end valve 1 pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseEndvalve1Payload")]
+    [Description("Creates a timestamped message payload that end valve 1 pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseEndvalve1Payload : CreatePulseEndvalve1Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that end valve 1 pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseEndvalve1 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseEndvalve1.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that dummy valve pulse duration [1:65535] ms.
     /// </summary>
     [DisplayName("PulseDummyvalvePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that dummy valve pulse duration [1:65535] ms.")]
-    public partial class CreatePulseDummyvalvePayload : HarpCombinator
+    [Description("Creates a message payload that dummy valve pulse duration [1:65535] ms.")]
+    public partial class CreatePulseDummyvalvePayload
     {
         /// <summary>
         /// Gets or sets the value that dummy valve pulse duration [1:65535] ms.
         /// </summary>
         [Description("The value that dummy valve pulse duration [1:65535] ms.")]
-        public ushort Value { get; set; }
+        public ushort PulseDummyvalve { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that dummy valve pulse duration [1:65535] ms.
+        /// Creates a message payload for the PulseDummyvalve register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return PulseDummyvalve;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that dummy valve pulse duration [1:65535] ms.
+        /// Creates a message that dummy valve pulse duration [1:65535] ms.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PulseDummyvalve register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => PulseDummyvalve.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.PulseDummyvalve.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that dummy valve pulse duration [1:65535] ms.
+    /// </summary>
+    [DisplayName("TimestampedPulseDummyvalvePayload")]
+    [Description("Creates a timestamped message payload that dummy valve pulse duration [1:65535] ms.")]
+    public partial class CreateTimestampedPulseDummyvalvePayload : CreatePulseDummyvalvePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that dummy valve pulse duration [1:65535] ms.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PulseDummyvalve register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.PulseDummyvalve.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that configuration of the digital output 0 (DOUT0).
     /// </summary>
     [DisplayName("DO0SyncPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that configuration of the digital output 0 (DOUT0).")]
-    public partial class CreateDO0SyncPayload : HarpCombinator
+    [Description("Creates a message payload that configuration of the digital output 0 (DOUT0).")]
+    public partial class CreateDO0SyncPayload
     {
         /// <summary>
         /// Gets or sets the value that configuration of the digital output 0 (DOUT0).
         /// </summary>
         [Description("The value that configuration of the digital output 0 (DOUT0).")]
-        public DO0SyncConfig Value { get; set; }
+        public DO0SyncConfig DO0Sync { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that configuration of the digital output 0 (DOUT0).
+        /// Creates a message payload for the DO0Sync register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DO0SyncConfig GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DO0Sync;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that configuration of the digital output 0 (DOUT0).
+        /// Creates a message that configuration of the digital output 0 (DOUT0).
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DO0Sync register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DO0Sync.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DO0Sync.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that configuration of the digital output 0 (DOUT0).
+    /// </summary>
+    [DisplayName("TimestampedDO0SyncPayload")]
+    [Description("Creates a timestamped message payload that configuration of the digital output 0 (DOUT0).")]
+    public partial class CreateTimestampedDO0SyncPayload : CreateDO0SyncPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that configuration of the digital output 0 (DOUT0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DO0Sync register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DO0Sync.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that configuration of the digital output 1 (DOUT1).
     /// </summary>
     [DisplayName("DO1SyncPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that configuration of the digital output 1 (DOUT1).")]
-    public partial class CreateDO1SyncPayload : HarpCombinator
+    [Description("Creates a message payload that configuration of the digital output 1 (DOUT1).")]
+    public partial class CreateDO1SyncPayload
     {
         /// <summary>
         /// Gets or sets the value that configuration of the digital output 1 (DOUT1).
         /// </summary>
         [Description("The value that configuration of the digital output 1 (DOUT1).")]
-        public DO1SyncConfig Value { get; set; }
+        public DO1SyncConfig DO1Sync { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that configuration of the digital output 1 (DOUT1).
+        /// Creates a message payload for the DO1Sync register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DO1SyncConfig GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DO1Sync;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that configuration of the digital output 1 (DOUT1).
+        /// Creates a message that configuration of the digital output 1 (DOUT1).
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DO1Sync register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DO1Sync.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DO1Sync.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that configuration of the digital output 1 (DOUT1).
+    /// </summary>
+    [DisplayName("TimestampedDO1SyncPayload")]
+    [Description("Creates a timestamped message payload that configuration of the digital output 1 (DOUT1).")]
+    public partial class CreateTimestampedDO1SyncPayload : CreateDO1SyncPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that configuration of the digital output 1 (DOUT1).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DO1Sync register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DO1Sync.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that configuration of the digital input pin 0 (DIN0).
     /// </summary>
     [DisplayName("DI0TriggerPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that configuration of the digital input pin 0 (DIN0).")]
-    public partial class CreateDI0TriggerPayload : HarpCombinator
+    [Description("Creates a message payload that configuration of the digital input pin 0 (DIN0).")]
+    public partial class CreateDI0TriggerPayload
     {
         /// <summary>
         /// Gets or sets the value that configuration of the digital input pin 0 (DIN0).
         /// </summary>
         [Description("The value that configuration of the digital input pin 0 (DIN0).")]
-        public DI0TriggerConfig Value { get; set; }
+        public DI0TriggerConfig DI0Trigger { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that configuration of the digital input pin 0 (DIN0).
+        /// Creates a message payload for the DI0Trigger register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public DI0TriggerConfig GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return DI0Trigger;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that configuration of the digital input pin 0 (DIN0).
+        /// Creates a message that configuration of the digital input pin 0 (DIN0).
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the DI0Trigger register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => DI0Trigger.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.DI0Trigger.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that configuration of the digital input pin 0 (DIN0).
+    /// </summary>
+    [DisplayName("TimestampedDI0TriggerPayload")]
+    [Description("Creates a timestamped message payload that configuration of the digital input pin 0 (DIN0).")]
+    public partial class CreateTimestampedDI0TriggerPayload : CreateDI0TriggerPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that configuration of the digital input pin 0 (DIN0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the DI0Trigger register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.DI0Trigger.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic valve 0.
     /// </summary>
     [DisplayName("MimicValve0Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic valve 0.")]
-    public partial class CreateMimicValve0Payload : HarpCombinator
+    [Description("Creates a message payload that mimic valve 0.")]
+    public partial class CreateMimicValve0Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic valve 0.
         /// </summary>
         [Description("The value that mimic valve 0.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicValve0 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic valve 0.
+        /// Creates a message payload for the MimicValve0 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicValve0;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic valve 0.
+        /// Creates a message that mimic valve 0.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicValve0 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicValve0.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicValve0.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic valve 0.
+    /// </summary>
+    [DisplayName("TimestampedMimicValve0Payload")]
+    [Description("Creates a timestamped message payload that mimic valve 0.")]
+    public partial class CreateTimestampedMimicValve0Payload : CreateMimicValve0Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic valve 0.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicValve0 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicValve0.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic valve 1.
     /// </summary>
     [DisplayName("MimicValve1Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic valve 1.")]
-    public partial class CreateMimicValve1Payload : HarpCombinator
+    [Description("Creates a message payload that mimic valve 1.")]
+    public partial class CreateMimicValve1Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic valve 1.
         /// </summary>
         [Description("The value that mimic valve 1.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicValve1 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic valve 1.
+        /// Creates a message payload for the MimicValve1 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicValve1;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic valve 1.
+        /// Creates a message that mimic valve 1.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicValve1 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicValve1.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicValve1.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic valve 1.
+    /// </summary>
+    [DisplayName("TimestampedMimicValve1Payload")]
+    [Description("Creates a timestamped message payload that mimic valve 1.")]
+    public partial class CreateTimestampedMimicValve1Payload : CreateMimicValve1Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic valve 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicValve1 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicValve1.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic valve 2.
     /// </summary>
     [DisplayName("MimicValve2Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic valve 2.")]
-    public partial class CreateMimicValve2Payload : HarpCombinator
+    [Description("Creates a message payload that mimic valve 2.")]
+    public partial class CreateMimicValve2Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic valve 2.
         /// </summary>
         [Description("The value that mimic valve 2.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicValve2 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic valve 2.
+        /// Creates a message payload for the MimicValve2 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicValve2;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic valve 2.
+        /// Creates a message that mimic valve 2.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicValve2 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicValve2.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicValve2.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic valve 2.
+    /// </summary>
+    [DisplayName("TimestampedMimicValve2Payload")]
+    [Description("Creates a timestamped message payload that mimic valve 2.")]
+    public partial class CreateTimestampedMimicValve2Payload : CreateMimicValve2Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic valve 2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicValve2 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicValve2.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic valve 3.
     /// </summary>
     [DisplayName("MimicValve3Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic valve 3.")]
-    public partial class CreateMimicValve3Payload : HarpCombinator
+    [Description("Creates a message payload that mimic valve 3.")]
+    public partial class CreateMimicValve3Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic valve 3.
         /// </summary>
         [Description("The value that mimic valve 3.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicValve3 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic valve 3.
+        /// Creates a message payload for the MimicValve3 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicValve3;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic valve 3.
+        /// Creates a message that mimic valve 3.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicValve3 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicValve3.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicValve3.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic valve 3.
+    /// </summary>
+    [DisplayName("TimestampedMimicValve3Payload")]
+    [Description("Creates a timestamped message payload that mimic valve 3.")]
+    public partial class CreateTimestampedMimicValve3Payload : CreateMimicValve3Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic valve 3.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicValve3 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicValve3.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic end valve 0.
     /// </summary>
     [DisplayName("MimicEndvalve0Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic end valve 0.")]
-    public partial class CreateMimicEndvalve0Payload : HarpCombinator
+    [Description("Creates a message payload that mimic end valve 0.")]
+    public partial class CreateMimicEndvalve0Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic end valve 0.
         /// </summary>
         [Description("The value that mimic end valve 0.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicEndvalve0 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic end valve 0.
+        /// Creates a message payload for the MimicEndvalve0 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicEndvalve0;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic end valve 0.
+        /// Creates a message that mimic end valve 0.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicEndvalve0 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicEndvalve0.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicEndvalve0.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic end valve 0.
+    /// </summary>
+    [DisplayName("TimestampedMimicEndvalve0Payload")]
+    [Description("Creates a timestamped message payload that mimic end valve 0.")]
+    public partial class CreateTimestampedMimicEndvalve0Payload : CreateMimicEndvalve0Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic end valve 0.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicEndvalve0 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicEndvalve0.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic end valve 1.
     /// </summary>
     [DisplayName("MimicEndvalve1Payload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic end valve 1.")]
-    public partial class CreateMimicEndvalve1Payload : HarpCombinator
+    [Description("Creates a message payload that mimic end valve 1.")]
+    public partial class CreateMimicEndvalve1Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic end valve 1.
         /// </summary>
         [Description("The value that mimic end valve 1.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicEndvalve1 { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic end valve 1.
+        /// Creates a message payload for the MimicEndvalve1 register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicEndvalve1;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic end valve 1.
+        /// Creates a message that mimic end valve 1.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicEndvalve1 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicEndvalve1.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicEndvalve1.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic end valve 1.
+    /// </summary>
+    [DisplayName("TimestampedMimicEndvalve1Payload")]
+    [Description("Creates a timestamped message payload that mimic end valve 1.")]
+    public partial class CreateTimestampedMimicEndvalve1Payload : CreateMimicEndvalve1Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic end valve 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicEndvalve1 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicEndvalve1.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic dummy valve.
     /// </summary>
     [DisplayName("MimicDummyvalvePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that mimic dummy valve.")]
-    public partial class CreateMimicDummyvalvePayload : HarpCombinator
+    [Description("Creates a message payload that mimic dummy valve.")]
+    public partial class CreateMimicDummyvalvePayload
     {
         /// <summary>
         /// Gets or sets the value that mimic dummy valve.
         /// </summary>
         [Description("The value that mimic dummy valve.")]
-        public MimicOuputs Value { get; set; }
+        public MimicOuputs MimicDummyvalve { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that mimic dummy valve.
+        /// Creates a message payload for the MimicDummyvalve register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public MimicOuputs GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return MimicDummyvalve;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that mimic dummy valve.
+        /// Creates a message that mimic dummy valve.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicDummyvalve register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => MimicDummyvalve.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.MimicDummyvalve.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic dummy valve.
+    /// </summary>
+    [DisplayName("TimestampedMimicDummyvalvePayload")]
+    [Description("Creates a timestamped message payload that mimic dummy valve.")]
+    public partial class CreateTimestampedMimicDummyvalvePayload : CreateMimicDummyvalvePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic dummy valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicDummyvalve register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicDummyvalve.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that enable the valves control via the external screw terminals.
     /// </summary>
     [DisplayName("EnableExternalControlValvesPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that enable the valves control via the external screw terminals.")]
-    public partial class CreateEnableExternalControlValvesPayload : HarpCombinator
+    [Description("Creates a message payload that enable the valves control via the external screw terminals.")]
+    public partial class CreateEnableExternalControlValvesPayload
     {
         /// <summary>
         /// Gets or sets the value that enable the valves control via the external screw terminals.
         /// </summary>
         [Description("The value that enable the valves control via the external screw terminals.")]
-        public EnableFlag Value { get; set; }
+        public EnableFlag EnableExternalControlValves { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that enable the valves control via the external screw terminals.
+        /// Creates a message payload for the EnableExternalControlValves register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public EnableFlag GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return EnableExternalControlValves;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that enable the valves control via the external screw terminals.
+        /// Creates a message that enable the valves control via the external screw terminals.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the EnableExternalControlValves register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => EnableExternalControlValves.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.EnableExternalControlValves.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that enable the valves control via the external screw terminals.
+    /// </summary>
+    [DisplayName("TimestampedEnableExternalControlValvesPayload")]
+    [Description("Creates a timestamped message payload that enable the valves control via the external screw terminals.")]
+    public partial class CreateTimestampedEnableExternalControlValvesPayload : CreateEnableExternalControlValvesPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that enable the valves control via the external screw terminals.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the EnableExternalControlValves register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableExternalControlValves.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
     /// </summary>
     [DisplayName("Channel3RangePayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
-    public partial class CreateChannel3RangePayload : HarpCombinator
+    [Description("Creates a message payload that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+    public partial class CreateChannel3RangePayload
     {
         /// <summary>
         /// Gets or sets the value that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
         /// </summary>
         [Description("The value that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
-        public Channel3RangeConfig Value { get; set; }
+        public Channel3RangeConfig Channel3Range { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// Creates a message payload for the Channel3Range register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public Channel3RangeConfig GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return Channel3Range;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// Creates a message that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Channel3Range register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => Channel3Range.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.Channel3Range.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
-    /// Represents an operator that creates a sequence of message payloads
+    /// Represents an operator that creates a timestamped message payload
+    /// that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+    /// </summary>
+    [DisplayName("TimestampedChannel3RangePayload")]
+    [Description("Creates a timestamped message payload that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).")]
+    public partial class CreateTimestampedChannel3RangePayload : CreateChannel3RangePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Channel3Range register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.Channel3Range.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that specifies the active events in the device.
     /// </summary>
     [DisplayName("EnableEventsPayload")]
-    [WorkflowElementCategory(ElementCategory.Transform)]
-    [Description("Creates a sequence of message payloads that specifies the active events in the device.")]
-    public partial class CreateEnableEventsPayload : HarpCombinator
+    [Description("Creates a message payload that specifies the active events in the device.")]
+    public partial class CreateEnableEventsPayload
     {
         /// <summary>
         /// Gets or sets the value that specifies the active events in the device.
         /// </summary>
         [Description("The value that specifies the active events in the device.")]
-        public OlfactometerEvents Value { get; set; }
+        public OlfactometerEvents EnableEvents { get; set; }
 
         /// <summary>
-        /// Creates an observable sequence that contains a single message
-        /// that specifies the active events in the device.
+        /// Creates a message payload for the EnableEvents register.
         /// </summary>
-        /// <returns>
-        /// A sequence containing a single <see cref="HarpMessage"/> object
-        /// representing the created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process()
+        /// <returns>The created message payload value.</returns>
+        public OlfactometerEvents GetPayload()
         {
-            return Process(Observable.Return(System.Reactive.Unit.Default));
+            return EnableEvents;
         }
 
         /// <summary>
-        /// Creates an observable sequence of message payloads
-        /// that specifies the active events in the device.
+        /// Creates a message that specifies the active events in the device.
         /// </summary>
-        /// <typeparam name="TSource">
-        /// The type of the elements in the <paramref name="source"/> sequence.
-        /// </typeparam>
-        /// <param name="source">
-        /// The sequence containing the notifications used for emitting message payloads.
-        /// </param>
-        /// <returns>
-        /// A sequence of <see cref="HarpMessage"/> objects representing each
-        /// created message payload.
-        /// </returns>
-        public IObservable<HarpMessage> Process<TSource>(IObservable<TSource> source)
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the EnableEvents register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
         {
-            return source.Select(_ => EnableEvents.FromPayload(MessageType, Value));
+            return Harp.Olfactometer.EnableEvents.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that specifies the active events in the device.
+    /// </summary>
+    [DisplayName("TimestampedEnableEventsPayload")]
+    [Description("Creates a timestamped message payload that specifies the active events in the device.")]
+    public partial class CreateTimestampedEnableEventsPayload : CreateEnableEventsPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that specifies the active events in the device.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the EnableEvents register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableEvents.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -8482,6 +8860,7 @@ namespace Harp.Olfactometer
     [Flags]
     public enum DigitalOutputs : byte
     {
+        None = 0x0,
         DO0 = 0x1,
         DO1 = 0x2
     }
@@ -8492,6 +8871,7 @@ namespace Harp.Olfactometer
     [Flags]
     public enum Valves : byte
     {
+        None = 0x0,
         Valve0 = 0x1,
         Valve1 = 0x2,
         Valve2 = 0x4,
@@ -8507,6 +8887,7 @@ namespace Harp.Olfactometer
     [Flags]
     public enum OlfactometerEvents : byte
     {
+        None = 0x0,
         FlowmeterAnalogOutputs = 0x1,
         DI0Trigger = 0x2,
         ChannelxFlowReal = 0x4
