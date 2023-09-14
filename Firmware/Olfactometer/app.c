@@ -318,6 +318,10 @@ void closed_loop_control(uint8_t flow)
 	switch (flowmeter)
 	{
 		case 0: 
+			
+			if(app_regs.REG_CHANNEL0_FLOW_TARGET == 0)
+				break;
+			
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[0]; // raw ADC analog output signal [2^16]
 			
 			// create calibration array
@@ -356,21 +360,23 @@ void closed_loop_control(uint8_t flow)
 		
 		
 		case 1:
+			if(app_regs.REG_CHANNEL1_FLOW_TARGET == 0)
+				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[1]; // raw analog output signal [2^16]
 			
-				// create calibration array
-				index = 0;
-				while(index < calibration_size){
-					if(!user_calibration){
-						calibration_values[index*2+2] = CH1_calibration_values[index];
-						calibration_values[index*2+3] = CH100_flows[index+1];
-					}
-					else{
-						calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index];
-						calibration_values[index*2+3] = CH100_flows[index+1];
-					}
-					index = index + 1;
+			// create calibration array
+			index = 0;
+			while(index < calibration_size){
+				if(!user_calibration){
+					calibration_values[index*2+2] = CH1_calibration_values[index];
+					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
+				else{
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index];
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				index = index + 1;
+			}
 									
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
@@ -394,6 +400,8 @@ void closed_loop_control(uint8_t flow)
 		
 		
 		case 2:
+			if(app_regs.REG_CHANNEL2_FLOW_TARGET == 0)
+				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[2]; // raw ADC analog output signal [2^16]
 		
 			// create calibration array
@@ -432,6 +440,8 @@ void closed_loop_control(uint8_t flow)
 		
 				
 		case 3:
+			if(app_regs.REG_CHANNEL3_FLOW_TARGET == 0)
+				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[3]; // raw ADC analog output signal [2^16]
 			
 			// create calibration array
@@ -501,6 +511,8 @@ void closed_loop_control(uint8_t flow)
 		
 			
 		case 4: // flow meter 1000ml/min 
+			if(app_regs.REG_CHANNEL4_FLOW_TARGET == 0)
+				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[4]; // raw analog output signal [2^16]
 			
 			// create calibration array

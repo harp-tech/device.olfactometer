@@ -409,11 +409,14 @@ bool app_write_REG_CHANNEL0_FLOW_TARGET(void *a)
 {
 	float reg = *((float*)a);
 	
+	if (reg == 0)
+		hwbp_app_pwm_gen_stop_ch0();
+		
 	if (reg > 110)
 		app_regs.REG_CHANNEL0_FLOW_TARGET = 110;
 	else
 		app_regs.REG_CHANNEL0_FLOW_TARGET = reg;
-	
+		
 	return true;
 }
 
@@ -430,6 +433,9 @@ void app_read_REG_CHANNEL1_FLOW_TARGET(void)
 bool app_write_REG_CHANNEL1_FLOW_TARGET(void *a)
 {
 	float reg = *((float*)a);
+	
+	if (reg == 0)
+		hwbp_app_pwm_gen_stop_ch1();
 	
 	if (reg > 110)
 		app_regs.REG_CHANNEL1_FLOW_TARGET = 110;
@@ -453,6 +459,9 @@ bool app_write_REG_CHANNEL2_FLOW_TARGET(void *a)
 {
 	float reg = *((float*)a);
 
+	if (reg == 0)
+		hwbp_app_pwm_gen_stop_ch2();
+	
 	if (reg > 110)
 		app_regs.REG_CHANNEL2_FLOW_TARGET = 110;
 	else
@@ -474,6 +483,9 @@ void app_read_REG_CHANNEL3_FLOW_TARGET(void)
 bool app_write_REG_CHANNEL3_FLOW_TARGET(void *a)
 {
 	float reg = *((float*)a);
+	
+	if (reg == 0)
+		hwbp_app_pwm_gen_stop_ch3();
 	
 	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
 		if (reg > 110)
@@ -505,6 +517,9 @@ bool app_write_REG_CHANNEL4_FLOW_TARGET(void *a)
 {
 	float reg = *((float*)a);
 
+	if (reg == 0)
+		hwbp_app_pwm_gen_stop_ch4();
+	
 	if (reg > 1100)
 		app_regs.REG_CHANNEL4_FLOW_TARGET = 1100;
 	else
