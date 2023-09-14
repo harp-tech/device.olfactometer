@@ -11,13 +11,24 @@ registers:
     access: Write
     type: U8
     maskType: EnableFlag
-    description: Write any value above zero to start the flowmeter and zero to stop.
-  FlowmeterAnalogOutputs:
+    description: Starts or stops the flow in all channels.
+  Flowmeter:
     address: 33
-    access: [Read, Event]
+    access: Event
     length: 5
     type: S16
-    description: Value of the flowmeters analog outups.
+    description: Value of single ADC read from all flowmeter channels.
+    payloadSpec:
+      Channel0:
+        offset: 0
+      Channel1:
+        offset: 1
+      Channel2:
+        offset: 2
+      Channel3:
+        offset: 3
+      Channel4:
+        offset: 4
   DI0State:
     address: 34
     access: Event
@@ -29,100 +40,105 @@ registers:
     access: Write
     length: 11
     type: U16
-    description: Values of calibration for channel 0 - flowmeter 0 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
+    description: Calibration values for a single channel [x0,...xn], where x= ADC raw value for 0:10:100 ml/min.
   Channel1UserCalibration:
     <<: *channel0UserCalibration
     address: 36
-    description: Values of calibration for channel 1 - flowmeter 1 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
   Channel2UserCalibration:
     <<: *channel0UserCalibration
     address: 37
-    description: Values of calibration for channel 2 - flowmeter 2 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
   Channel3UserCalibration:
     <<: *channel0UserCalibration
     address: 38
-    description: Values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-100 ml/min, step 10].
   Channel4UserCalibration:
     <<: *channel0UserCalibration
     address: 39
-    description: Values of calibration for channel 4 - flowmeter 4 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
   Channel3UserCalibrationAux:
     <<: *channel0UserCalibration
+    description: Calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     address: 40
-    description: Values of calibration for channel 3 - flowmeter 3 [x0,x1, ..., x10] [x= ADC raw value for 0-1000 ml/min, step 100].
   UserCalibrationEnable:
     address: 41
     access: Write
     type: U8
+    maskType: EnableFlag
     description: Override the factory calibration values, replacing with CHX_USER_CALIBRATION.
-  Channel0FlowTarget: &channel0FlowTarget
+  Channel0TargetFlow: &channel0FlowTarget
     address: 42
     access: Write
     type: Float
-    description: Flow value set for channel 0 - flowmeter 0 [ml/min].
-  Channel1FlowTarget:
+    minValue: 0
+    maxValue: 100
+    description: Sets the flow-rate rate for channel 0 [ml/min].
+  Channel1TargetFlow:
     <<: *channel0FlowTarget
     address: 43
-    description: Flow value set for channel 1 - flowmeter 1 [ml/min].
-  Channel2FlowTarget:
+    description: Sets the flow-rate rate for channel 1 [ml/min].
+  Channel2TargetFlow:
     <<: *channel0FlowTarget
     address: 44
-    description: Flow value set for channel 2 - flowmeter 2 [ml/min].
-  Channel3FlowTarget:
+    description: Sets the flow-rate rate for channel 2 [ml/min].
+  Channel3TargetFlow:
     <<: *channel0FlowTarget
     address: 45
-    description: Flow value set for channel 3 - flowmeter 3 [ml/min].
-  Channel4FlowTarget:
+    minValue: 0
+    maxValue: 1000
+    description: Sets the flow-rate rate for channel 3 [ml/min].
+  Channel4TargetFlow:
     <<: *channel0FlowTarget
     address: 46
-    description: Flow value set for channel 4 - flowmeter 4 [ml/min].
-  Channel0FlowReal: &channel0FlowReal
+    minValue: 0
+    maxValue: 1000
+    description: Sets the flow-rate rate for channel 4 [ml/min].
+  Channel0ActualFlow: &actualFlow
     address: 47
-    access: [Read, Event]
+    access: Event
     type: Float
-    description: Flow value read from channel 0 - flowmeter 0 [ml/min].
-  Channel1FlowReal:
-    <<: *channel0FlowReal
+    description: Actual flow-rate read for channel 0 - flowmeter 0 [ml/min].
+  Channel1ActualFlow:
+    <<: *actualFlow
     address: 48
-    description: Flow value read from channel 1 - flowmeter 1 [ml/min].
-  Channel2FlowReal:
-    <<: *channel0FlowReal
+    description: Actual flow-rate read for channel 1 - flowmeter 1 [ml/min].
+  Channel2ActualFlow:
+    <<: *actualFlow
     address: 49
-    description: Flow value read from channel 2 - flowmeter 2 [ml/min].
-  Channel3FlowReal:
-    <<: *channel0FlowReal
+    description: Actual flow-rate read for channel 2 - flowmeter 2 [ml/min].
+  Channel3ActualFlow:
+    <<: *actualFlow
     address: 50
-    description: Flow value read from channel 3 - flowmeter 3 [ml/min].
-  Channel4FlowReal:
-    <<: *channel0FlowReal
+    description: Actual flow-rate read for channel 3 - flowmeter 3 [ml/min].
+  Channel4ActualFlow:
+    <<: *actualFlow
     address: 51
-    description: Flow value read from channel 4 - flowmeter 4 [ml/min].
-  Channel0Frequency: &channel0Frequency
+    description: Actual flow-rate read for channel 4 - flowmeter 4 [ml/min].
+  channelFrequency: &channelFrequency
     address: 52
     access: Write
     type: U16
     visibility: private
     description: Switching frequency for proportional valve 0 - DO NOT CHANGE [Hz].
   Channel1Frequency:
-    <<: *channel0Frequency
+    <<: *channelFrequency
     address: 53
     description: Switching frequency for proportional valve 1 - DO NOT CHANGE [Hz].
   Channel2Frequency:
-    <<: *channel0Frequency
+    <<: *channelFrequency
     address: 54
     description: Switching frequency for proportional valve 2 - DO NOT CHANGE [Hz].
   Channel3Frequency:
-    <<: *channel0Frequency
+    <<: *channelFrequency
     address: 55
     description: Switching frequency for proportional valve 3 - DO NOT CHANGE [Hz].
   Channel4Frequency:
-    <<: *channel0Frequency
+    <<: *channelFrequency
     address: 56
     description: Switching frequency for proportional valve 4 - DO NOT CHANGE [Hz].
   Channel0DutyCycle: &channel0DutyCycle
     address: 57
     access: Write
     type: Float
+    minValue: 0.1
+    maxValue: 99.9
     description: Duty cycle for proportional valve 0 [%].
   Channel1DutyCycle:
     <<: *channel0DutyCycle
@@ -145,21 +161,21 @@ registers:
     access: Write
     type: U8
     maskType: DigitalOutputs
-    description: Set the correspondent output.
+    description: Set the specified digital output lines.
   DigitalOutputClear:
     <<: *outputs
     address: 63
-    description: Clear the correspondent output.
+    description: Clears the specified digital output lines.
   DigitalOutputToggle:
     <<: *outputs
     address: 64
-    description: Toggle the correspondent output.
-  DigitalOutputState:  
+    description: Toggles the specified digital output lines.
+  DigitalOutputState:
     address: 65
     access: Write
     type: U8
     maskType: DigitalOutputs
-    description: Control the correspondent output.
+    description: Write the state of all digital output lines.
   EnableValvesPulse:
     address: 66
     access: Write
@@ -171,53 +187,57 @@ registers:
     access: Write
     type: U8
     maskType: Valves
-    description: Set the correspondent valve.
+    description: Set the specified valve output lines.
   ValvesClear:
     address: 68
     access: Write
     type: U8
     maskType: Valves
-    description: Clear the correspondent valve.
+    description: Clears the specified valve output lines.
   ValvesToggle:
     address: 69
     access: Write
     type: U8
     maskType: Valves
-    description: Toggle the correspondent valve.
+    description: Toggles the specified valve output lines.
   ValvesState:
     address: 70
     access: Write
     type: U8
     maskType: Valves
-    description: Control the correspondent valve.
-  PulseValve0: &pulseValve0
+    description: Write the state of all valve output lines.
+  Valve0PulseDuration: &valvepulseduration
     address: 71
     access: Write
     type: U16
-    description: Valve 0 pulse duration [1:65535] ms.
-  PulseValve1:
-    <<: *pulseValve0
+    minValue: 1
+    maxValue: 65535
+    description: Sets the pulse duration for Valve0.
+  Valve1PulseDuration:
+    <<: *valvepulseduration
     address: 72
-    description: Valve 1 pulse duration [1:65535] ms.
-  PulseValve2:
-    <<: *pulseValve0
+    description: Sets the pulse duration for Valve1.
+  Valve2PulseDuration:
+    <<: *valvepulseduration
     address: 73
-    description: Valve 2 pulse duration [1:65535] ms.
-  PulseValve3:
-    <<: *pulseValve0
+    description: Sets the pulse duration for Valve2.
+  Valve3PulseDuration:
+    <<: *valvepulseduration
     address: 74
-    description: Valve 3 pulse duration [1:65535] ms.
-  PulseEndvalve0:
-    <<: *pulseValve0
+    description: Sets the pulse duration for Valve3.
+  EndValve0PulseDuration:
+    <<: *valvepulseduration
     address: 75
-    description: End valve 0 pulse duration [1:65535] ms.
-  PulseEndvalve1:
-    <<: *pulseValve0
+    description: Sets the pulse duration for EndValve0.
+  EndValve1PulseDuration:
+    <<: *valvepulseduration
     address: 76
-    description: End valve 1 pulse duration [1:65535] ms.
-  PulseDummyvalve:
-    <<: *pulseValve0
+    description: Sets the pulse duration for EndValve1.
+  PulseDummyValve:
+    <<: *valvepulseduration
     address: 77
+    access: Read
+    visibility: private
     description: Dummy valve pulse duration [1:65535] ms.
   DO0Sync:
       address: 78
@@ -230,55 +250,57 @@ registers:
       access: Write
       type: U8
       maskType: DO1SyncConfig
-      description: Configuration of the digital output 1 (DOUT1).    
+      description: Configuration of the digital output 1 (DOUT1).
   DI0Trigger:
       address: 80
       access: Write
       type: U8
       maskType: DI0TriggerConfig
       description: Configuration of the digital input pin 0 (DIN0).
-  MimicValve0: &mimicValve0
+  mimicValve: &mimicValve
     address: 81
     access: Write
     type: U8
-    maskType: MimicOuputs
-    description: Mimic valve 0.
+    maskType: MimicOutputs
+    description: Mimic Valve0.
   MimicValve1:
-    <<: *mimicValve0
+    <<: *mimicValve
     address: 82
-    description: Mimic valve 1.
+    description: Mimic Valve1.
   MimicValve2:
-    <<: *mimicValve0
+    <<: *mimicValve
     address: 83
-    description: Mimic valve 2.
+    description: Mimic Valve2.
   MimicValve3:
-    <<: *mimicValve0
+    <<: *mimicValve
     address: 84
-    description: Mimic valve 3.
+    description: Mimic Valve3.
   MimicEndvalve0:
-    <<: *mimicValve0
+    <<: *mimicValve
     address: 85
-    description: Mimic end valve 0.
+    description: Mimic EndValve0.
   MimicEndvalve1:
-    <<: *mimicValve0
+    <<: *mimicValve
     address: 86
-    description: Mimic end valve 1.
-  MimicDummyvalve:
-    <<: *mimicValve0
+    description: Mimic EndValve1.
+  MimicDummyValve:
+    <<: *mimicValve
     address: 87
-    description: Mimic dummy valve.
-  EnableExternalControlValves:
+    access: Read
+    visibility: private
+    description: Mimic DummyValve.
+  EnableValveExternalControl:
     address: 88
     type: U8
     access: Write
     maskType: EnableFlag
-    description: Enable the valves control via the external screw terminals.
+    description: Enable the valves control via low-level IO screw terminals.
   Channel3Range:
     address: 89
     type: U8
     access: Write
     maskType: Channel3RangeConfig
-    description: Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min).
+    description: Selects the flow range for the channel 3.
   Reserved0: &reserved
     address: 90
     type: U8
@@ -301,12 +323,12 @@ bitMasks:
   DigitalOutputs:
     description: Specifies the states of the digital outputs.
     bits:
-      DO0: 0x1        
+      DO0: 0x1
       DO1: 0x2
   Valves:
     description: Specifies the states of the valves.
     bits:
-      Valve0: 0x1 
+      Valve0: 0x1
       Valve1: 0x2
       Valve2: 0x4
       Valve3: 0x8
@@ -316,9 +338,9 @@ bitMasks:
   OlfactometerEvents:
     description: The events that can be enabled/disabled.
     bits:
-      FlowmeterAnalogOutputs: 0x1     
+      Flowmeter: 0x1
       DI0Trigger: 0x2
-      ChannelxFlowReal: 0x4
+      ChannelActualFlow: 0x4
 groupMasks:
   DigitalState:
     description: The state of a digital pin.
@@ -341,7 +363,7 @@ groupMasks:
       Sync: 0x0
       StartOnRisingEdgeStopOnFallingEdge: 0x1
       ValveToggle: 0x2
-  MimicOuputs:
+  MimicOutputs:
     description: Specifies the target IO on which to mimic the specified register.
     values:
       None: 0x0
@@ -350,6 +372,6 @@ groupMasks:
   Channel3RangeConfig:
     description: Available flow ranges for channel 3 (ml/min).
     values:
-      Flow100: 0x0
-      Flow1000: 0x1
+      FlowRate100: 0x0
+      FlowRate1000: 0x1
 
