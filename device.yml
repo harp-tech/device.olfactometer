@@ -222,13 +222,13 @@ registers:
     address: 71
     access: Write
     type: U8
-    maskType: Valves
+    maskType: OdorValves
     description: Write the state of all odor valve output lines.
   EndValvesState:
     address: 72
     access: Write
     type: U8
-    maskType: Valves
+    maskType: EndValves
     description: Write the state of all end valve output lines.
   Valve0PulseDuration: &valvePulseDuration
     address: 73
