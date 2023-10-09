@@ -3899,9 +3899,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static Valves GetPayload(HarpMessage message)
+        public static OdorValves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (OdorValves)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -3909,10 +3909,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<OdorValves> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((Valves)payload.Value, payload.Seconds);
+            return Timestamped.Create((OdorValves)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -3924,7 +3924,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="OdorValvesState"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, Valves value)
+        public static HarpMessage FromPayload(MessageType messageType, OdorValves value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -3940,7 +3940,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="OdorValvesState"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, OdorValves value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -3964,7 +3964,7 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<Valves> GetPayload(HarpMessage message)
+        public static Timestamped<OdorValves> GetPayload(HarpMessage message)
         {
             return OdorValvesState.GetTimestampedPayload(message);
         }
@@ -3996,9 +3996,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static Valves GetPayload(HarpMessage message)
+        public static EndValves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (EndValves)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -4006,10 +4006,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<EndValves> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((Valves)payload.Value, payload.Seconds);
+            return Timestamped.Create((EndValves)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -4021,7 +4021,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="EndValvesState"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, Valves value)
+        public static HarpMessage FromPayload(MessageType messageType, EndValves value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
@@ -4037,7 +4037,7 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="EndValvesState"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, EndValves value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -4061,7 +4061,7 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<Valves> GetPayload(HarpMessage message)
+        public static Timestamped<EndValves> GetPayload(HarpMessage message)
         {
             return EndValvesState.GetTimestampedPayload(message);
         }
@@ -7915,13 +7915,13 @@ namespace Harp.Olfactometer
         /// Gets or sets the value that write the state of all odor valve output lines.
         /// </summary>
         [Description("The value that write the state of all odor valve output lines.")]
-        public Valves OdorValvesState { get; set; }
+        public OdorValves OdorValvesState { get; set; }
 
         /// <summary>
         /// Creates a message payload for the OdorValvesState register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public Valves GetPayload()
+        public OdorValves GetPayload()
         {
             return OdorValvesState;
         }
@@ -7969,13 +7969,13 @@ namespace Harp.Olfactometer
         /// Gets or sets the value that write the state of all end valve output lines.
         /// </summary>
         [Description("The value that write the state of all end valve output lines.")]
-        public Valves EndValvesState { get; set; }
+        public EndValves EndValvesState { get; set; }
 
         /// <summary>
         /// Creates a message payload for the EndValvesState register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public Valves GetPayload()
+        public EndValves GetPayload()
         {
             return EndValvesState;
         }
@@ -9149,7 +9149,8 @@ namespace Harp.Olfactometer
     {
         None = 0x0,
         EndValve0 = 0x10,
-        EndValve1 = 0x20
+        EndValve1 = 0x20,
+        ValveDummy = 0x40
     }
 
     /// <summary>
