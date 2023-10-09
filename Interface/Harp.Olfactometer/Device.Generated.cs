@@ -71,7 +71,7 @@ namespace Harp.Olfactometer
             { 68, typeof(ValvesSet) },
             { 69, typeof(ValvesClear) },
             { 70, typeof(ValvesToggle) },
-            { 71, typeof(IsolationValvesState) },
+            { 71, typeof(OdorValvesState) },
             { 72, typeof(EndValvesState) },
             { 73, typeof(Valve0PulseDuration) },
             { 74, typeof(Valve1PulseDuration) },
@@ -153,7 +153,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesSet"/>
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
-    /// <seealso cref="IsolationValvesState"/>
+    /// <seealso cref="OdorValvesState"/>
     /// <seealso cref="EndValvesState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
@@ -207,7 +207,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesSet))]
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
-    [XmlInclude(typeof(IsolationValvesState))]
+    [XmlInclude(typeof(OdorValvesState))]
     [XmlInclude(typeof(EndValvesState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
@@ -282,7 +282,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesSet"/>
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
-    /// <seealso cref="IsolationValvesState"/>
+    /// <seealso cref="OdorValvesState"/>
     /// <seealso cref="EndValvesState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
@@ -336,7 +336,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesSet))]
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
-    [XmlInclude(typeof(IsolationValvesState))]
+    [XmlInclude(typeof(OdorValvesState))]
     [XmlInclude(typeof(EndValvesState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
@@ -390,7 +390,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedValvesSet))]
     [XmlInclude(typeof(TimestampedValvesClear))]
     [XmlInclude(typeof(TimestampedValvesToggle))]
-    [XmlInclude(typeof(TimestampedIsolationValvesState))]
+    [XmlInclude(typeof(TimestampedOdorValvesState))]
     [XmlInclude(typeof(TimestampedEndValvesState))]
     [XmlInclude(typeof(TimestampedValve0PulseDuration))]
     [XmlInclude(typeof(TimestampedValve1PulseDuration))]
@@ -462,7 +462,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValvesSet"/>
     /// <seealso cref="ValvesClear"/>
     /// <seealso cref="ValvesToggle"/>
-    /// <seealso cref="IsolationValvesState"/>
+    /// <seealso cref="OdorValvesState"/>
     /// <seealso cref="EndValvesState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
@@ -516,7 +516,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValvesSet))]
     [XmlInclude(typeof(ValvesClear))]
     [XmlInclude(typeof(ValvesToggle))]
-    [XmlInclude(typeof(IsolationValvesState))]
+    [XmlInclude(typeof(OdorValvesState))]
     [XmlInclude(typeof(EndValvesState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
@@ -3874,28 +3874,28 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that write the state of all isolation valve output lines.
+    /// Represents a register that write the state of all odor valve output lines.
     /// </summary>
-    [Description("Write the state of all isolation valve output lines.")]
-    public partial class IsolationValvesState
+    [Description("Write the state of all odor valve output lines.")]
+    public partial class OdorValvesState
     {
         /// <summary>
-        /// Represents the address of the <see cref="IsolationValvesState"/> register. This field is constant.
+        /// Represents the address of the <see cref="OdorValvesState"/> register. This field is constant.
         /// </summary>
         public const int Address = 71;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="IsolationValvesState"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="OdorValvesState"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="IsolationValvesState"/> register. This field is constant.
+        /// Represents the length of the <see cref="OdorValvesState"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="IsolationValvesState"/> register messages.
+        /// Returns the payload data for <see cref="OdorValvesState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -3905,7 +3905,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="IsolationValvesState"/> register messages.
+        /// Returns the timestamped payload data for <see cref="OdorValvesState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -3916,12 +3916,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="IsolationValvesState"/> register.
+        /// Returns a Harp message for the <see cref="OdorValvesState"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="IsolationValvesState"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="OdorValvesState"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Valves value)
@@ -3930,14 +3930,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="IsolationValvesState"/>
+        /// Returns a timestamped Harp message for the <see cref="OdorValvesState"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="IsolationValvesState"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="OdorValvesState"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
@@ -3948,25 +3948,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// IsolationValvesState register.
+    /// OdorValvesState register.
     /// </summary>
-    /// <seealso cref="IsolationValvesState"/>
-    [Description("Filters and selects timestamped messages from the IsolationValvesState register.")]
-    public partial class TimestampedIsolationValvesState
+    /// <seealso cref="OdorValvesState"/>
+    [Description("Filters and selects timestamped messages from the OdorValvesState register.")]
+    public partial class TimestampedOdorValvesState
     {
         /// <summary>
-        /// Represents the address of the <see cref="IsolationValvesState"/> register. This field is constant.
+        /// Represents the address of the <see cref="OdorValvesState"/> register. This field is constant.
         /// </summary>
-        public const int Address = IsolationValvesState.Address;
+        public const int Address = OdorValvesState.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="IsolationValvesState"/> register messages.
+        /// Returns timestamped payload data for <see cref="OdorValvesState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Valves> GetPayload(HarpMessage message)
         {
-            return IsolationValvesState.GetTimestampedPayload(message);
+            return OdorValvesState.GetTimestampedPayload(message);
         }
     }
 
@@ -5845,7 +5845,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateValvesSetPayload"/>
     /// <seealso cref="CreateValvesClearPayload"/>
     /// <seealso cref="CreateValvesTogglePayload"/>
-    /// <seealso cref="CreateIsolationValvesStatePayload"/>
+    /// <seealso cref="CreateOdorValvesStatePayload"/>
     /// <seealso cref="CreateEndValvesStatePayload"/>
     /// <seealso cref="CreateValve0PulseDurationPayload"/>
     /// <seealso cref="CreateValve1PulseDurationPayload"/>
@@ -5899,7 +5899,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateValvesSetPayload))]
     [XmlInclude(typeof(CreateValvesClearPayload))]
     [XmlInclude(typeof(CreateValvesTogglePayload))]
-    [XmlInclude(typeof(CreateIsolationValvesStatePayload))]
+    [XmlInclude(typeof(CreateOdorValvesStatePayload))]
     [XmlInclude(typeof(CreateEndValvesStatePayload))]
     [XmlInclude(typeof(CreateValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateValve1PulseDurationPayload))]
@@ -5953,7 +5953,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedValvesSetPayload))]
     [XmlInclude(typeof(CreateTimestampedValvesClearPayload))]
     [XmlInclude(typeof(CreateTimestampedValvesTogglePayload))]
-    [XmlInclude(typeof(CreateTimestampedIsolationValvesStatePayload))]
+    [XmlInclude(typeof(CreateTimestampedOdorValvesStatePayload))]
     [XmlInclude(typeof(CreateTimestampedEndValvesStatePayload))]
     [XmlInclude(typeof(CreateTimestampedValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedValve1PulseDurationPayload))]
@@ -7905,55 +7905,55 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that write the state of all isolation valve output lines.
+    /// that write the state of all odor valve output lines.
     /// </summary>
-    [DisplayName("IsolationValvesStatePayload")]
-    [Description("Creates a message payload that write the state of all isolation valve output lines.")]
-    public partial class CreateIsolationValvesStatePayload
+    [DisplayName("OdorValvesStatePayload")]
+    [Description("Creates a message payload that write the state of all odor valve output lines.")]
+    public partial class CreateOdorValvesStatePayload
     {
         /// <summary>
-        /// Gets or sets the value that write the state of all isolation valve output lines.
+        /// Gets or sets the value that write the state of all odor valve output lines.
         /// </summary>
-        [Description("The value that write the state of all isolation valve output lines.")]
-        public Valves IsolationValvesState { get; set; }
+        [Description("The value that write the state of all odor valve output lines.")]
+        public Valves OdorValvesState { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the IsolationValvesState register.
+        /// Creates a message payload for the OdorValvesState register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public Valves GetPayload()
         {
-            return IsolationValvesState;
+            return OdorValvesState;
         }
 
         /// <summary>
-        /// Creates a message that write the state of all isolation valve output lines.
+        /// Creates a message that write the state of all odor valve output lines.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the IsolationValvesState register.</returns>
+        /// <returns>A new message for the OdorValvesState register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.IsolationValvesState.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.OdorValvesState.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that write the state of all isolation valve output lines.
+    /// that write the state of all odor valve output lines.
     /// </summary>
-    [DisplayName("TimestampedIsolationValvesStatePayload")]
-    [Description("Creates a timestamped message payload that write the state of all isolation valve output lines.")]
-    public partial class CreateTimestampedIsolationValvesStatePayload : CreateIsolationValvesStatePayload
+    [DisplayName("TimestampedOdorValvesStatePayload")]
+    [Description("Creates a timestamped message payload that write the state of all odor valve output lines.")]
+    public partial class CreateTimestampedOdorValvesStatePayload : CreateOdorValvesStatePayload
     {
         /// <summary>
-        /// Creates a timestamped message that write the state of all isolation valve output lines.
+        /// Creates a timestamped message that write the state of all odor valve output lines.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the IsolationValvesState register.</returns>
+        /// <returns>A new timestamped message for the OdorValvesState register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.IsolationValvesState.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.OdorValvesState.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -9126,6 +9126,30 @@ namespace Harp.Olfactometer
         EndValve0 = 0x10,
         EndValve1 = 0x20,
         ValveDummy = 0x40
+    }
+
+    /// <summary>
+    /// Specifies the states of the odor valves.
+    /// </summary>
+    [Flags]
+    public enum OdorValves : byte
+    {
+        None = 0x0,
+        Valve0 = 0x1,
+        Valve1 = 0x2,
+        Valve2 = 0x4,
+        Valve3 = 0x8
+    }
+
+    /// <summary>
+    /// Specifies the states of the end valves.
+    /// </summary>
+    [Flags]
+    public enum EndValves : byte
+    {
+        None = 0x0,
+        EndValve0 = 0x10,
+        EndValve1 = 0x20
     }
 
     /// <summary>

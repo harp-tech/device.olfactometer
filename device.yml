@@ -218,12 +218,12 @@ registers:
     type: U8
     maskType: Valves
     description: Toggles the specified valve output lines.
-  IsolationValvesState:
+  OdorValvesState:
     address: 71
     access: Write
     type: U8
     maskType: Valves
-    description: Write the state of all isolation valve output lines.
+    description: Write the state of all odor valve output lines.
   EndValvesState:
     address: 72
     access: Write
@@ -359,6 +359,18 @@ bitMasks:
       EndValve0: 0x10
       EndValve1: 0x20
       ValveDummy: 0x40
+  OdorValves:
+    description: Specifies the states of the odor valves.
+    bits:
+      Valve0: 0x1
+      Valve1: 0x2
+      Valve2: 0x4
+      Valve3: 0x8
+  EndValves:
+    description: Specifies the states of the end valves.
+    bits:
+      EndValve0: 0x10
+      EndValve1: 0x20
   OlfactometerEvents:
     description: The events that can be enabled/disabled.
     bits:
