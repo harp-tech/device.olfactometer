@@ -10,7 +10,8 @@
 /************************************************************************/
 extern AppRegs app_regs;
 
-uint8_t aux = 0;
+uint8_t aux_isolation = 0;
+uint8_t aux_end = 0;
 
 /************************************************************************/
 /* Interrupts from Timers                                               */
@@ -36,11 +37,13 @@ uint8_t aux = 0;
 ISR(PORTA_INT0_vect, ISR_NAKED)
 {
 	// add equal to 
-	if (app_regs.REG_EXT_CTRL_VALVES == B_EXT_CTRL_ENABLED){
+	if (app_regs.REG_ENABLE_VALVE_EXT_CTRL == B_EXT_CTRL_ENABLED){
 		
-		aux = ( ((read_ENDVALVECTRL) & 0x20) | ((read_ENDVALVECTRL) & 0x10) | ((read_VALVE3CTRL) & 0x08) | ((read_VALVE2CTRL) & 0x04) | ((read_VALVE1CTRL) & 0x02) | ((read_VALVE0CTRL) & 0x01) );
+		aux_isolation = ( ((read_VALVE3CTRL) & 0x08) | ((read_VALVE2CTRL) & 0x04) | ((read_VALVE1CTRL) & 0x02) | ((read_VALVE0CTRL) & 0x01) );
+		aux_end = ( ((read_ENDVALVECTRL) & 0x20) | ((read_ENDVALVECTRL) & 0x10) );
 		
-		app_write_REG_VALVES_STATE(&aux);
+		app_write_REG_ISOLATION_VALVES_STATE(&aux_isolation);
+		app_write_REG_END_VALVES_STATE(&aux_end);
 		
 	}
 	
