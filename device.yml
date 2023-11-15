@@ -194,37 +194,37 @@ registers:
     type: U8
     maskType: DigitalOutputs
     description: Write the state of all digital output lines.
-  EnableValvesPulse:
+  EnableValvePulse:
     address: 67
     access: Write
     type: U8
     maskType: Valves
     description: Enable pulse mode for valves.
-  ValvesSet:
+  ValveSet:
     address: 68
     access: Write
     type: U8
     maskType: Valves
     description: Set the specified valve output lines.
-  ValvesClear:
+  ValveClear:
     address: 69
     access: Write
     type: U8
     maskType: Valves
     description: Clears the specified valve output lines.
-  ValvesToggle:
+  ValveToggle:
     address: 70
     access: Write
     type: U8
     maskType: Valves
     description: Toggles the specified valve output lines.
-  OdorValvesState:
+  OdorValveState:
     address: 71
     access: Write
     type: U8
     maskType: OdorValves
     description: Write the state of all odor valve output lines.
-  EndValvesState:
+  EndValveState:
     address: 72
     access: Write
     type: U8
