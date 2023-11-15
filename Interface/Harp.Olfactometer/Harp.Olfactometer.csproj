@@ -2,25 +2,33 @@
 
   <PropertyGroup>
     <Title>Harp.Olfactometer</Title>
-    <Authors></Authors>
-    <Copyright>Copyright ©  2023</Copyright>
+    <Authors>Artur Silva, Bruno Cruz, Gonçalo Lopes</Authors>
+    <Copyright>Copyright © harp-tech and Contributors 2023</Copyright>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Description>Bonsai Library containing interfaces for data acquisition and control of Harp Olfactometer devices.</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>Harp Olfactometer Bonsai Rx</PackageTags>
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageIcon></PackageIcon>
-    <PackageOutputPath></PackageOutputPath>
+    <PackageProjectUrl>https://harp-tech.org</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/harp-tech/device.olfactometer.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageOutputPath>..\bin\$(Configuration)</PackageOutputPath>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
     <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Bonsai.Harp" Version="3.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\LICENSE" PackagePath="/" />
+    <Content Include="..\icon.png" PackagePath="/" />
   </ItemGroup>
 
 </Project>
