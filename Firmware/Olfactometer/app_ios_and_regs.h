@@ -157,21 +157,21 @@ void mimic_valves (uint8_t reg, uint8_t function);
 #define read_DUMMY0 read_io(PORTJ, 0)
 
 /* DUMMYVALVE */
-#define set_DUMMYVALVE do { set_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMYVALVE, _SET_IO_); } while(0)
-#define clr_DUMMYVALVE do { clear_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMYVALVE, _CLR_IO_); } while(0)
-#define tgl_DUMMYVALVE do { toggle_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMYVALVE, _TGL_IO_); } while(0)
+#define set_DUMMYVALVE do { set_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMY_VALVE, _SET_IO_); } while(0)
+#define clr_DUMMYVALVE do { clear_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMY_VALVE, _CLR_IO_); } while(0)
+#define tgl_DUMMYVALVE do { toggle_io(PORTJ, 1); mimic_valves(app_regs.REG_MIMIC_DUMMY_VALVE, _TGL_IO_); } while(0)
 #define read_DUMMYVALVE read_io(PORTJ, 1)
 
 /* ENDVALVE0 */
-#define set_ENDVALVE0 do { set_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_ENDVALVE0, _SET_IO_); } while(0)
-#define clr_ENDVALVE0 do { clear_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_ENDVALVE0, _CLR_IO_); } while(0)
-#define tgl_ENDVALVE0 do { toggle_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_ENDVALVE0, _TGL_IO_); } while(0)
+#define set_ENDVALVE0 do { set_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_END_VALVE0, _SET_IO_); } while(0)
+#define clr_ENDVALVE0 do { clear_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_END_VALVE0, _CLR_IO_); } while(0)
+#define tgl_ENDVALVE0 do { toggle_io(PORTD, 2); mimic_valves(app_regs.REG_MIMIC_END_VALVE0, _TGL_IO_); } while(0)
 #define read_ENDVALVE0 read_io(PORTD, 2)
 
 /* ENDVALVE1 */
-#define set_ENDVALVE1 do { set_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_ENDVALVE1, _SET_IO_); } while(0)
-#define clr_ENDVALVE1 do { clear_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_ENDVALVE1, _CLR_IO_); } while(0)
-#define tgl_ENDVALVE1 do { toggle_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_ENDVALVE1, _TGL_IO_); } while(0)
+#define set_ENDVALVE1 do { set_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_END_VALVE1, _SET_IO_); } while(0)
+#define clr_ENDVALVE1 do { clear_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_END_VALVE1, _CLR_IO_); } while(0)
+#define tgl_ENDVALVE1 do { toggle_io(PORTD, 3); mimic_valves(app_regs.REG_MIMIC_END_VALVE1, _TGL_IO_); } while(0)
 #define read_ENDVALVE1 read_io(PORTD, 3)
 
 /* RANGE */
@@ -196,16 +196,17 @@ typedef struct
 	uint16_t REG_CHANNEL4_USER_CALIBRATION[11];
 	uint16_t REG_CHANNEL3_USER_CALIBRATION_AUX[11];
 	uint8_t REG_USER_CALIBRATION_ENABLE;
-	float REG_CHANNEL0_FLOW_TARGET;
-	float REG_CHANNEL1_FLOW_TARGET;
-	float REG_CHANNEL2_FLOW_TARGET;
-	float REG_CHANNEL3_FLOW_TARGET;
-	float REG_CHANNEL4_FLOW_TARGET;
-	float REG_CHANNEL0_FLOW_REAL;
-	float REG_CHANNEL1_FLOW_REAL;
-	float REG_CHANNEL2_FLOW_REAL;
-	float REG_CHANNEL3_FLOW_REAL;
-	float REG_CHANNEL4_FLOW_REAL;
+	float REG_CHANNEL0_TARGET_FLOW;
+	float REG_CHANNEL1_TARGET_FLOW;
+	float REG_CHANNEL2_TARGET_FLOW;
+	float REG_CHANNEL3_TARGET_FLOW;
+	float REG_CHANNEL4_TARGET_FLOW;
+	float REG_CHANNELS_TARGET_FLOW[5];
+	float REG_CHANNEL0_ACTUAL_FLOW;
+	float REG_CHANNEL1_ACTUAL_FLOW;
+	float REG_CHANNEL2_ACTUAL_FLOW;
+	float REG_CHANNEL3_ACTUAL_FLOW;
+	float REG_CHANNEL4_ACTUAL_FLOW;
 	uint16_t REG_CHANNEL0_FREQUENCY;
 	uint16_t REG_CHANNEL1_FREQUENCY;
 	uint16_t REG_CHANNEL2_FREQUENCY;
@@ -224,14 +225,15 @@ typedef struct
 	uint8_t REG_VALVES_SET;
 	uint8_t REG_VALVES_CLEAR;
 	uint8_t REG_VALVES_TOGGLE;
-	uint8_t REG_VALVES_STATE;
-	uint16_t REG_PULSE_VALVE0;
-	uint16_t REG_PULSE_VALVE1;
-	uint16_t REG_PULSE_VALVE2;
-	uint16_t REG_PULSE_VALVE3;
-	uint16_t REG_PULSE_ENDVALVE0;
-	uint16_t REG_PULSE_ENDVALVE1;
-	uint16_t REG_PULSE_DUMMYVALVE;
+	uint8_t REG_ISOLATION_VALVES_STATE;
+	uint8_t REG_END_VALVES_STATE;
+	uint16_t REG_VALVE0_PULSE_DURATION;
+	uint16_t REG_VALVE1_PULSE_DURATION;
+	uint16_t REG_VALVE2_PULSE_DURATION;
+	uint16_t REG_VALVE3_PULSE_DURATION;
+	uint16_t REG_END_VALVE0_PULSE_DURATION;
+	uint16_t REG_END_VALVE1_PULSE_DURATION;
+	uint16_t REG_DUMMY_VALVE_PULSE_DURATION;
 	uint8_t REG_DO0_SYNC;
 	uint8_t REG_DO1_SYNC;
 	uint8_t REG_DI0_TRIGGER;
@@ -239,10 +241,10 @@ typedef struct
 	uint8_t REG_MIMIC_VALVE1;
 	uint8_t REG_MIMIC_VALVE2;
 	uint8_t REG_MIMIC_VALVE3;
-	uint8_t REG_MIMIC_ENDVALVE0;
-	uint8_t REG_MIMIC_ENDVALVE1;
-	uint8_t REG_MIMIC_DUMMYVALVE;
-	uint8_t REG_EXT_CTRL_VALVES;
+	uint8_t REG_MIMIC_END_VALVE0;
+	uint8_t REG_MIMIC_END_VALVE1;
+	uint8_t REG_MIMIC_DUMMY_VALVE;
+	uint8_t REG_ENABLE_VALVE_EXT_CTRL;
 	uint8_t REG_CHANNEL3_RANGE;
 	uint8_t REG_RESERVED0;
 	uint8_t REG_RESERVED1;
@@ -264,69 +266,71 @@ typedef struct
 #define ADD_REG_CHANNEL4_USER_CALIBRATION   39 // U16    Values of calibration for channel 4 - flowmeter 4 [x0,x1, …, x10] [x= ADC raw value for 0-1000 ml/min, step 100]
 #define ADD_REG_CHANNEL3_USER_CALIBRATION_AUX 40 // U16    Values of calibration for channel 3 - flowmeter 3 [x0,x1, …, x10] [x= ADC raw value for 0-1000 ml/min, step 100]
 #define ADD_REG_USER_CALIBRATION_ENABLE     41 // U8     Override the factory calibration values, replacing with CHX_USER_CALIBRATION
-#define ADD_REG_CHANNEL0_FLOW_TARGET        42 // FLOAT  Flow value set for channel 0 - flowmeter 0 [ml/min]
-#define ADD_REG_CHANNEL1_FLOW_TARGET        43 // FLOAT  Flow value set for channel 1 - flowmeter 1 [ml/min]
-#define ADD_REG_CHANNEL2_FLOW_TARGET        44 // FLOAT  Flow value set for channel 2 - flowmeter 2 [ml/min]
-#define ADD_REG_CHANNEL3_FLOW_TARGET        45 // FLOAT  Flow value set for channel 3 - flowmeter 3 [ml/min]
-#define ADD_REG_CHANNEL4_FLOW_TARGET        46 // FLOAT  Flow value set for channel 4 - flowmeter 4 [ml/min]
-#define ADD_REG_CHANNEL0_FLOW_REAL          47 // FLOAT  Flow value read from channel 0 - flowmeter 0 [ml/min]
-#define ADD_REG_CHANNEL1_FLOW_REAL          48 // FLOAT  Flow value read from channel 1 - flowmeter 1 [ml/min]
-#define ADD_REG_CHANNEL2_FLOW_REAL          49 // FLOAT  Flow value read from channel 2 - flowmeter 2 [ml/min]
-#define ADD_REG_CHANNEL3_FLOW_REAL          50 // FLOAT  Flow value read from channel 3 - flowmeter 3 [ml/min]
-#define ADD_REG_CHANNEL4_FLOW_REAL          51 // FLOAT  Flow value read from channel 4 - flowmeter 4 [ml/min]
-#define ADD_REG_CHANNEL0_FREQUENCY          52 // U16    Switching frequency for proportional valve 0 - DO NOT CHANGE [Hz]
-#define ADD_REG_CHANNEL1_FREQUENCY          53 // U16    Switching frequency for proportional valve 1 - DO NOT CHANGE [Hz]
-#define ADD_REG_CHANNEL2_FREQUENCY          54 // U16    Switching frequency for proportional valve 2 - DO NOT CHANGE [Hz]
-#define ADD_REG_CHANNEL3_FREQUENCY          55 // U16    Switching frequency for proportional valve 3 - DO NOT CHANGE [Hz]
-#define ADD_REG_CHANNEL4_FREQUENCY          56 // U16    Switching frequency for proportional valve 4 - DO NOT CHANGE [Hz]
-#define ADD_REG_CHANNEL0_DUTY_CYCLE         57 // FLOAT  Duty cycle for proportional valve 0 [%]
-#define ADD_REG_CHANNEL1_DUTY_CYCLE         58 // FLOAT  Duty cycle for proportional valve 1 [%]
-#define ADD_REG_CHANNEL2_DUTY_CYCLE         59 // FLOAT  Duty cycle for proportional valve 2 [%]
-#define ADD_REG_CHANNEL3_DUTY_CYCLE         60 // FLOAT  Duty cycle for proportional valve 3 [%]
-#define ADD_REG_CHANNEL4_DUTY_CYCLE         61 // FLOAT  Duty cycle for proportional valve 4 [%]
-#define ADD_REG_OUTPUT_SET                  62 // U8     Set the correspondent output
-#define ADD_REG_OUTPUT_CLEAR                63 // U8     Clear the correspondent output
-#define ADD_REG_OUTPUT_TOGGLE               64 // U8     Toggle the correspondent output
-#define ADD_REG_OUTPUT_STATE                65 // U8     Control the correspondent output
-#define ADD_REG_ENABLE_VALVES_PULSE         66 // U8     Enable pulse mode for valves
-#define ADD_REG_VALVES_SET                  67 // U8     Set the correspondent valve
-#define ADD_REG_VALVES_CLEAR                68 // U8     Clear the correspondent valve
-#define ADD_REG_VALVES_TOGGLE               69 // U8     Toggle the correspondent valve
-#define ADD_REG_VALVES_STATE                70 // U8     Control the correspondent valve
-#define ADD_REG_PULSE_VALVE0                71 // U16    Valve 0 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_VALVE1                72 // U16    Valve 1 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_VALVE2                73 // U16    Valve 2 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_VALVE3                74 // U16    Valve 3 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_ENDVALVE0             75 // U16    End valve 0 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_ENDVALVE1             76 // U16    End valve 1 pulse duration [1:65535] ms
-#define ADD_REG_PULSE_DUMMYVALVE            77 // U16    Dummy valve pulse duration [1:65535] ms
-#define ADD_REG_DO0_SYNC                    78 // U8     Configuration of digital output 0 (DOUT0)
-#define ADD_REG_DO1_SYNC                    79 // U8     Configuration of digital output 1 (DOUT1)
-#define ADD_REG_DI0_TRIGGER                 80 // U8     Configuration of the digital input 0 (DIN0)
-#define ADD_REG_MIMIC_VALVE0                81 // U8
-#define ADD_REG_MIMIC_VALVE1                82 // U8
-#define ADD_REG_MIMIC_VALVE2                83 // U8
-#define ADD_REG_MIMIC_VALVE3                84 // U8
-#define ADD_REG_MIMIC_ENDVALVE0             85 // U8
-#define ADD_REG_MIMIC_ENDVALVE1             86 // U8
-#define ADD_REG_MIMIC_DUMMYVALVE            87 // U8
-#define ADD_REG_EXT_CTRL_VALVES             88 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
-#define ADD_REG_CHANNEL3_RANGE              89 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
-#define ADD_REG_RESERVED0                   90 // U8     Reserved register for future use
-#define ADD_REG_RESERVED1                   91 // U8     Reserved register for future use
-#define ADD_REG_RESERVED2                   92 // U8     Reserved register for future use
-#define ADD_REG_ENABLE_EVENTS               93 // U8     Enable the Events
+#define ADD_REG_CHANNEL0_TARGET_FLOW        42 // FLOAT  Flow value set for channel 0 - flowmeter 0 [ml/min]
+#define ADD_REG_CHANNEL1_TARGET_FLOW        43 // FLOAT  Flow value set for channel 1 - flowmeter 1 [ml/min]
+#define ADD_REG_CHANNEL2_TARGET_FLOW        44 // FLOAT  Flow value set for channel 2 - flowmeter 2 [ml/min]
+#define ADD_REG_CHANNEL3_TARGET_FLOW        45 // FLOAT  Flow value set for channel 3 - flowmeter 3 [ml/min]
+#define ADD_REG_CHANNEL4_TARGET_FLOW        46 // FLOAT  Flow value set for channel 4 - flowmeter 4 [ml/min]
+#define ADD_REG_CHANNELS_TARGET_FLOW        47 // FLOAT  Flow value set for all channels [ml/min]
+#define ADD_REG_CHANNEL0_ACTUAL_FLOW        48 // FLOAT  Flow value read from channel 0 - flowmeter 0 [ml/min]
+#define ADD_REG_CHANNEL1_ACTUAL_FLOW        49 // FLOAT  Flow value read from channel 1 - flowmeter 1 [ml/min]
+#define ADD_REG_CHANNEL2_ACTUAL_FLOW        50 // FLOAT  Flow value read from channel 2 - flowmeter 2 [ml/min]
+#define ADD_REG_CHANNEL3_ACTUAL_FLOW        51 // FLOAT  Flow value read from channel 3 - flowmeter 3 [ml/min]
+#define ADD_REG_CHANNEL4_ACTUAL_FLOW        52 // FLOAT  Flow value read from channel 4 - flowmeter 4 [ml/min]
+#define ADD_REG_CHANNEL0_FREQUENCY          53 // U16    Switching frequency for proportional valve 0 - DO NOT CHANGE [Hz]
+#define ADD_REG_CHANNEL1_FREQUENCY          54 // U16    Switching frequency for proportional valve 1 - DO NOT CHANGE [Hz]
+#define ADD_REG_CHANNEL2_FREQUENCY          55 // U16    Switching frequency for proportional valve 2 - DO NOT CHANGE [Hz]
+#define ADD_REG_CHANNEL3_FREQUENCY          56 // U16    Switching frequency for proportional valve 3 - DO NOT CHANGE [Hz]
+#define ADD_REG_CHANNEL4_FREQUENCY          57 // U16    Switching frequency for proportional valve 4 - DO NOT CHANGE [Hz]
+#define ADD_REG_CHANNEL0_DUTY_CYCLE         58 // FLOAT  Duty cycle for proportional valve 0 [%]
+#define ADD_REG_CHANNEL1_DUTY_CYCLE         59 // FLOAT  Duty cycle for proportional valve 1 [%]
+#define ADD_REG_CHANNEL2_DUTY_CYCLE         60 // FLOAT  Duty cycle for proportional valve 2 [%]
+#define ADD_REG_CHANNEL3_DUTY_CYCLE         61 // FLOAT  Duty cycle for proportional valve 3 [%]
+#define ADD_REG_CHANNEL4_DUTY_CYCLE         62 // FLOAT  Duty cycle for proportional valve 4 [%]
+#define ADD_REG_OUTPUT_SET                  63 // U8     Set the correspondent output
+#define ADD_REG_OUTPUT_CLEAR                64 // U8     Clear the correspondent output
+#define ADD_REG_OUTPUT_TOGGLE               65 // U8     Toggle the correspondent output
+#define ADD_REG_OUTPUT_STATE                66 // U8     Control the correspondent output
+#define ADD_REG_ENABLE_VALVES_PULSE         67 // U8     Enable pulse mode for valves
+#define ADD_REG_VALVES_SET                  68 // U8     Set the correspondent valve
+#define ADD_REG_VALVES_CLEAR                69 // U8     Clear the correspondent valve
+#define ADD_REG_VALVES_TOGGLE               70 // U8     Toggle the correspondent valve
+#define ADD_REG_ISOLATION_VALVES_STATE      71 // U8     Control the correspondent isolation valve
+#define ADD_REG_END_VALVES_STATE            72 // U8     Control the correspondent end valve
+#define ADD_REG_VALVE0_PULSE_DURATION       73 // U16    Valve 0 pulse duration [1:65535] ms
+#define ADD_REG_VALVE1_PULSE_DURATION       74 // U16    Valve 1 pulse duration [1:65535] ms
+#define ADD_REG_VALVE2_PULSE_DURATION       75 // U16    Valve 2 pulse duration [1:65535] ms
+#define ADD_REG_VALVE3_PULSE_DURATION       76 // U16    Valve 3 pulse duration [1:65535] ms
+#define ADD_REG_END_VALVE0_PULSE_DURATION   77 // U16    End valve 0 pulse duration [1:65535] ms
+#define ADD_REG_END_VALVE1_PULSE_DURATION   78 // U16    End valve 1 pulse duration [1:65535] ms
+#define ADD_REG_DUMMY_VALVE_PULSE_DURATION  79 // U16    Dummy valve pulse duration [1:65535] ms
+#define ADD_REG_DO0_SYNC                    80 // U8     Configuration of digital output 0 (DOUT0)
+#define ADD_REG_DO1_SYNC                    81 // U8     Configuration of digital output 1 (DOUT1)
+#define ADD_REG_DI0_TRIGGER                 82 // U8     Configuration of the digital input 0 (DIN0)
+#define ADD_REG_MIMIC_VALVE0                83 // U8
+#define ADD_REG_MIMIC_VALVE1                84 // U8
+#define ADD_REG_MIMIC_VALVE2                85 // U8
+#define ADD_REG_MIMIC_VALVE3                86 // U8
+#define ADD_REG_MIMIC_END_VALVE0            87 // U8
+#define ADD_REG_MIMIC_END_VALVE1            88 // U8
+#define ADD_REG_MIMIC_DUMMY_VALVE           89 // U8
+#define ADD_REG_ENABLE_VALVE_EXT_CTRL       90 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
+#define ADD_REG_CHANNEL3_RANGE              91 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
+#define ADD_REG_RESERVED0                   92 // U8     Reserved register for future use
+#define ADD_REG_RESERVED1                   93 // U8     Reserved register for future use
+#define ADD_REG_RESERVED2                   94 // U8     Reserved register for future use
+#define ADD_REG_ENABLE_EVENTS               95 // U8     Enable the Events
 
 /************************************************************************/
-/* Olfactometer registers' memory limits                               */
+/* PWM Generator registers' memory limits                               */
 /*                                                                      */
 /* DON'T change the APP_REGS_ADD_MIN value !!!                          */
 /* DON'T change these names !!!                                         */
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x5D
-#define APP_NBYTES_OF_REG_BANK              254
+#define APP_REGS_ADD_MAX                    0x5F
+#define APP_NBYTES_OF_REG_BANK              275
 
 /************************************************************************/
 /* Registers' bits                                                      */
@@ -360,8 +364,8 @@ typedef struct
 #define MSK_CHANNEL3_RANGE_CONFIG          (3<<0)       // Available flow ranges for channel 3 (ml/min)
 #define GM_FLOW_100                        (0<<0)       // Range is 0-100ml/min
 #define GM_FLOW_1000                       (1<<0)       // Range is 0-1000ml/min
-#define B_EVT0                             (1<<0)       // Events of register ANALOG_INPUTS
-#define B_EVT1                             (1<<1)       // Events of register DI0
-#define B_EVT2                             (1<<2)       // Events of registers CHx_FLOW_REAL
+#define B_EVT0                             (1<<0)       // Events of register FLOWMETER_ANALOG_OUTPUTS
+#define B_EVT1                             (1<<1)       // Events of register DI0_STATE
+#define B_EVT2                             (1<<2)       // Events of register CHANNELS_ACTUAL_FLOW
 
 #endif /* _APP_REGS_H_ */

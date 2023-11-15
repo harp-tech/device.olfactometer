@@ -60,7 +60,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 1;
     uint8_t hwL = 0;
     uint8_t fwH = 1;
-    uint8_t fwL = 0;
+    uint8_t fwL = 1;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -319,7 +319,7 @@ void closed_loop_control(uint8_t flow)
 	{
 		case 0: 
 			
-			if(app_regs.REG_CHANNEL0_FLOW_TARGET == 0)
+			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0)
 				break;
 			
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[0]; // raw ADC analog output signal [2^16]
@@ -345,13 +345,13 @@ void closed_loop_control(uint8_t flow)
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			
-			app_regs.REG_CHANNEL0_FLOW_REAL = flow_real;
+			app_regs.REG_CHANNEL0_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
-				core_func_send_event(ADD_REG_CHANNEL0_FLOW_REAL, true);
+				core_func_send_event(ADD_REG_CHANNEL0_ACTUAL_FLOW, true);
 			}
 			
 			// P control
-			error = (app_regs.REG_CHANNEL0_FLOW_TARGET-app_regs.REG_CHANNEL0_FLOW_REAL);
+			error = (app_regs.REG_CHANNEL0_TARGET_FLOW-app_regs.REG_CHANNEL0_ACTUAL_FLOW);
 			calc_dutycycle = app_regs.REG_CHANNEL0_DUTY_CYCLE + error/32; 
 			
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL0_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
@@ -360,7 +360,7 @@ void closed_loop_control(uint8_t flow)
 		
 		
 		case 1:
-			if(app_regs.REG_CHANNEL1_FLOW_TARGET == 0)
+			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0)
 				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[1]; // raw analog output signal [2^16]
 			
@@ -385,13 +385,13 @@ void closed_loop_control(uint8_t flow)
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			
-			app_regs.REG_CHANNEL1_FLOW_REAL = flow_real;
+			app_regs.REG_CHANNEL1_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
-				core_func_send_event(ADD_REG_CHANNEL1_FLOW_REAL, true);
+				core_func_send_event(ADD_REG_CHANNEL1_ACTUAL_FLOW, true);
 			}
 						
 			// P control
-			error = (app_regs.REG_CHANNEL1_FLOW_TARGET-app_regs.REG_CHANNEL1_FLOW_REAL);
+			error = (app_regs.REG_CHANNEL1_TARGET_FLOW-app_regs.REG_CHANNEL1_ACTUAL_FLOW);
 			calc_dutycycle = app_regs.REG_CHANNEL1_DUTY_CYCLE + error/32; 
 			
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL1_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
@@ -400,7 +400,7 @@ void closed_loop_control(uint8_t flow)
 		
 		
 		case 2:
-			if(app_regs.REG_CHANNEL2_FLOW_TARGET == 0)
+			if(app_regs.REG_CHANNEL2_TARGET_FLOW == 0)
 				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[2]; // raw ADC analog output signal [2^16]
 		
@@ -425,13 +425,13 @@ void closed_loop_control(uint8_t flow)
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 				
-			app_regs.REG_CHANNEL2_FLOW_REAL = flow_real;
+			app_regs.REG_CHANNEL2_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
-				core_func_send_event(ADD_REG_CHANNEL2_FLOW_REAL, true);
+				core_func_send_event(ADD_REG_CHANNEL2_ACTUAL_FLOW, true);
 			}
 		
 			// P control
-			error = (app_regs.REG_CHANNEL2_FLOW_TARGET-app_regs.REG_CHANNEL2_FLOW_REAL);
+			error = (app_regs.REG_CHANNEL2_TARGET_FLOW-app_regs.REG_CHANNEL2_ACTUAL_FLOW);
 			calc_dutycycle = app_regs.REG_CHANNEL2_DUTY_CYCLE + error/32; 
 						
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL2_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
@@ -440,7 +440,7 @@ void closed_loop_control(uint8_t flow)
 		
 				
 		case 3:
-			if(app_regs.REG_CHANNEL3_FLOW_TARGET == 0)
+			if(app_regs.REG_CHANNEL3_TARGET_FLOW == 0)
 				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[3]; // raw ADC analog output signal [2^16]
 			
@@ -496,13 +496,13 @@ void closed_loop_control(uint8_t flow)
 			
 			}
 			
-			app_regs.REG_CHANNEL3_FLOW_REAL = flow_real;
+			app_regs.REG_CHANNEL3_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
-				core_func_send_event(ADD_REG_CHANNEL3_FLOW_REAL, true);
+				core_func_send_event(ADD_REG_CHANNEL3_ACTUAL_FLOW, true);
 			}
 		
 			// P control
-			error = (app_regs.REG_CHANNEL3_FLOW_TARGET-app_regs.REG_CHANNEL3_FLOW_REAL);
+			error = (app_regs.REG_CHANNEL3_TARGET_FLOW-app_regs.REG_CHANNEL3_ACTUAL_FLOW);
 			calc_dutycycle = app_regs.REG_CHANNEL3_DUTY_CYCLE + error/256; 
 						
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL3_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
@@ -511,7 +511,7 @@ void closed_loop_control(uint8_t flow)
 		
 			
 		case 4: // flow meter 1000ml/min 
-			if(app_regs.REG_CHANNEL4_FLOW_TARGET == 0)
+			if(app_regs.REG_CHANNEL4_TARGET_FLOW == 0)
 				break;
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[4]; // raw analog output signal [2^16]
 			
@@ -536,13 +536,13 @@ void closed_loop_control(uint8_t flow)
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values_1000[index-2], calibration_values_1000[index], calibration_values_1000[index-1], calibration_values_1000[index+1]);
 				
-			app_regs.REG_CHANNEL4_FLOW_REAL = flow_real;
+			app_regs.REG_CHANNEL4_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
-				core_func_send_event(ADD_REG_CHANNEL4_FLOW_REAL, true);
+				core_func_send_event(ADD_REG_CHANNEL4_ACTUAL_FLOW, true);
 			}
 		
 			// P control
-			error = (app_regs.REG_CHANNEL4_FLOW_TARGET-app_regs.REG_CHANNEL4_FLOW_REAL);
+			error = (app_regs.REG_CHANNEL4_TARGET_FLOW-app_regs.REG_CHANNEL4_ACTUAL_FLOW);
 			calc_dutycycle = app_regs.REG_CHANNEL4_DUTY_CYCLE + error/256; 
 	
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL4_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
@@ -603,17 +603,18 @@ void core_callback_reset_registers(void)
 	
 	app_regs.REG_USER_CALIBRATION_ENABLE = 0; 
 			
-	app_regs.REG_CHANNEL0_FLOW_TARGET = 50.0;
-	app_regs.REG_CHANNEL0_FLOW_REAL = 0.0;
-	app_regs.REG_CHANNEL1_FLOW_TARGET = 50.0;
-	app_regs.REG_CHANNEL1_FLOW_REAL = 0.0;
-	app_regs.REG_CHANNEL2_FLOW_TARGET = 50.0;
-	app_regs.REG_CHANNEL2_FLOW_REAL = 0.0;
-	app_regs.REG_CHANNEL3_FLOW_TARGET = 50.0;
-	app_regs.REG_CHANNEL3_FLOW_REAL = 0.0;
-	app_regs.REG_CHANNEL4_FLOW_TARGET = 50.0;
-	app_regs.REG_CHANNEL4_FLOW_REAL = 0.0;
+	app_regs.REG_CHANNEL0_TARGET_FLOW = 50.0;
+	app_regs.REG_CHANNEL1_TARGET_FLOW = 50.0;
+	app_regs.REG_CHANNEL2_TARGET_FLOW = 50.0;
+	app_regs.REG_CHANNEL3_TARGET_FLOW = 50.0;
+	app_regs.REG_CHANNEL4_TARGET_FLOW = 50.0;
 	
+	app_regs.REG_CHANNEL0_ACTUAL_FLOW = 0.0;
+	app_regs.REG_CHANNEL1_ACTUAL_FLOW = 0.0;
+	app_regs.REG_CHANNEL2_ACTUAL_FLOW = 0.0;
+	app_regs.REG_CHANNEL3_ACTUAL_FLOW = 0.0;
+	app_regs.REG_CHANNEL4_ACTUAL_FLOW = 0.0;
+		
 	app_regs.REG_CHANNEL0_FREQUENCY = 2500;
 	app_regs.REG_CHANNEL0_DUTY_CYCLE = 1;
 	app_regs.REG_CHANNEL1_FREQUENCY = 2500;
@@ -627,13 +628,13 @@ void core_callback_reset_registers(void)
 	
 	app_regs.REG_ENABLE_VALVES_PULSE = 0;
 	
-	app_regs.REG_PULSE_VALVE0 = 500;
-	app_regs.REG_PULSE_VALVE1 = 500;
-	app_regs.REG_PULSE_VALVE2 = 500;
-	app_regs.REG_PULSE_VALVE3 = 500;
-	app_regs.REG_PULSE_ENDVALVE0 = 500;
-	app_regs.REG_PULSE_ENDVALVE1 = 500;
-	app_regs.REG_PULSE_DUMMYVALVE = 500;
+	app_regs.REG_VALVE0_PULSE_DURATION = 500;
+	app_regs.REG_VALVE1_PULSE_DURATION = 500;
+	app_regs.REG_VALVE2_PULSE_DURATION = 500;
+	app_regs.REG_VALVE3_PULSE_DURATION = 500;
+	app_regs.REG_END_VALVE0_PULSE_DURATION = 500;
+	app_regs.REG_END_VALVE1_PULSE_DURATION = 500;
+	app_regs.REG_DUMMY_VALVE_PULSE_DURATION = 500;
 	   
 	app_regs.REG_ENABLE_EVENTS = B_EVT0 | B_EVT1 | B_EVT2;
 	
@@ -645,12 +646,12 @@ void core_callback_reset_registers(void)
 	app_regs.REG_MIMIC_VALVE1 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_VALVE2 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_VALVE3 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_ENDVALVE0 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_ENDVALVE1 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_DUMMYVALVE = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_END_VALVE0 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_END_VALVE1 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_DUMMY_VALVE = GM_MIMIC_NONE;
 	
 	app_regs.REG_CHANNEL3_RANGE = GM_FLOW_100;
-	app_regs.REG_EXT_CTRL_VALVES = 0;
+	app_regs.REG_ENABLE_VALVE_EXT_CTRL = 0;
 		
 	status_DC.DC0_ready = 0;
 	status_DC.DC1_ready = 0;
@@ -686,9 +687,9 @@ void core_callback_registers_were_reinitialized(void)
 	app_write_REG_MIMIC_VALVE1(&app_regs.REG_MIMIC_VALVE1);
 	app_write_REG_MIMIC_VALVE2(&app_regs.REG_MIMIC_VALVE2);
 	app_write_REG_MIMIC_VALVE3(&app_regs.REG_MIMIC_VALVE3);
-	app_write_REG_MIMIC_ENDVALVE0(&app_regs.REG_MIMIC_ENDVALVE0);
-	app_write_REG_MIMIC_ENDVALVE1(&app_regs.REG_MIMIC_ENDVALVE1);
-	app_write_REG_MIMIC_DUMMYVALVE(&app_regs.REG_MIMIC_DUMMYVALVE);
+	app_write_REG_MIMIC_END_VALVE0(&app_regs.REG_MIMIC_END_VALVE0);
+	app_write_REG_MIMIC_END_VALVE1(&app_regs.REG_MIMIC_END_VALVE1);
+	app_write_REG_MIMIC_DUMMY_VALVE(&app_regs.REG_MIMIC_DUMMY_VALVE);
 	app_write_REG_CHANNEL3_RANGE(&app_regs.REG_CHANNEL3_RANGE);
 		
 }

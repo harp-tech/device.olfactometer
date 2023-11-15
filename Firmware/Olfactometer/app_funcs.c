@@ -23,16 +23,17 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_CHANNEL4_USER_CALIBRATION,
 	&app_read_REG_CHANNEL3_USER_CALIBRATION_AUX,
 	&app_read_REG_USER_CALIBRATION_ENABLE,
-	&app_read_REG_CHANNEL0_FLOW_TARGET,
-	&app_read_REG_CHANNEL1_FLOW_TARGET,
-	&app_read_REG_CHANNEL2_FLOW_TARGET,
-	&app_read_REG_CHANNEL3_FLOW_TARGET,
-	&app_read_REG_CHANNEL4_FLOW_TARGET,
-	&app_read_REG_CHANNEL0_FLOW_REAL,
-	&app_read_REG_CHANNEL1_FLOW_REAL,
-	&app_read_REG_CHANNEL2_FLOW_REAL,
-	&app_read_REG_CHANNEL3_FLOW_REAL,
-	&app_read_REG_CHANNEL4_FLOW_REAL,
+	&app_read_REG_CHANNEL0_TARGET_FLOW,
+	&app_read_REG_CHANNEL1_TARGET_FLOW,
+	&app_read_REG_CHANNEL2_TARGET_FLOW,
+	&app_read_REG_CHANNEL3_TARGET_FLOW,
+	&app_read_REG_CHANNEL4_TARGET_FLOW,
+	&app_read_REG_CHANNELS_TARGET_FLOW,
+	&app_read_REG_CHANNEL0_ACTUAL_FLOW,
+	&app_read_REG_CHANNEL1_ACTUAL_FLOW,
+	&app_read_REG_CHANNEL2_ACTUAL_FLOW,
+	&app_read_REG_CHANNEL3_ACTUAL_FLOW,
+	&app_read_REG_CHANNEL4_ACTUAL_FLOW,
 	&app_read_REG_CHANNEL0_FREQUENCY,
 	&app_read_REG_CHANNEL1_FREQUENCY,
 	&app_read_REG_CHANNEL2_FREQUENCY,
@@ -51,14 +52,15 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_VALVES_SET,
 	&app_read_REG_VALVES_CLEAR,
 	&app_read_REG_VALVES_TOGGLE,
-	&app_read_REG_VALVES_STATE,
-	&app_read_REG_PULSE_VALVE0,
-	&app_read_REG_PULSE_VALVE1,
-	&app_read_REG_PULSE_VALVE2,
-	&app_read_REG_PULSE_VALVE3,
-	&app_read_REG_PULSE_ENDVALVE0,
-	&app_read_REG_PULSE_ENDVALVE1,
-	&app_read_REG_PULSE_DUMMYVALVE,
+	&app_read_REG_ISOLATION_VALVES_STATE,
+	&app_read_REG_END_VALVES_STATE,
+	&app_read_REG_VALVE0_PULSE_DURATION,
+	&app_read_REG_VALVE1_PULSE_DURATION,
+	&app_read_REG_VALVE2_PULSE_DURATION,
+	&app_read_REG_VALVE3_PULSE_DURATION,
+	&app_read_REG_END_VALVE0_PULSE_DURATION,
+	&app_read_REG_END_VALVE1_PULSE_DURATION,
+	&app_read_REG_DUMMY_VALVE_PULSE_DURATION,
 	&app_read_REG_DO0_SYNC,
 	&app_read_REG_DO1_SYNC,
 	&app_read_REG_DI0_TRIGGER,
@@ -66,10 +68,10 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MIMIC_VALVE1,
 	&app_read_REG_MIMIC_VALVE2,
 	&app_read_REG_MIMIC_VALVE3,
-	&app_read_REG_MIMIC_ENDVALVE0,
-	&app_read_REG_MIMIC_ENDVALVE1,
-	&app_read_REG_MIMIC_DUMMYVALVE,
-	&app_read_REG_EXT_CTRL_VALVES,
+	&app_read_REG_MIMIC_END_VALVE0,
+	&app_read_REG_MIMIC_END_VALVE1,
+	&app_read_REG_MIMIC_DUMMY_VALVE,
+	&app_read_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_read_REG_CHANNEL3_RANGE,
 	&app_read_REG_RESERVED0,
 	&app_read_REG_RESERVED1,
@@ -88,16 +90,17 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_CHANNEL4_USER_CALIBRATION,
 	&app_write_REG_CHANNEL3_USER_CALIBRATION_AUX,
 	&app_write_REG_USER_CALIBRATION_ENABLE,
-	&app_write_REG_CHANNEL0_FLOW_TARGET,
-	&app_write_REG_CHANNEL1_FLOW_TARGET,
-	&app_write_REG_CHANNEL2_FLOW_TARGET,
-	&app_write_REG_CHANNEL3_FLOW_TARGET,
-	&app_write_REG_CHANNEL4_FLOW_TARGET,
-	&app_write_REG_CHANNEL0_FLOW_REAL,
-	&app_write_REG_CHANNEL1_FLOW_REAL,
-	&app_write_REG_CHANNEL2_FLOW_REAL,
-	&app_write_REG_CHANNEL3_FLOW_REAL,
-	&app_write_REG_CHANNEL4_FLOW_REAL,
+	&app_write_REG_CHANNEL0_TARGET_FLOW,
+	&app_write_REG_CHANNEL1_TARGET_FLOW,
+	&app_write_REG_CHANNEL2_TARGET_FLOW,
+	&app_write_REG_CHANNEL3_TARGET_FLOW,
+	&app_write_REG_CHANNEL4_TARGET_FLOW,
+	&app_write_REG_CHANNELS_TARGET_FLOW,
+	&app_write_REG_CHANNEL0_ACTUAL_FLOW,
+	&app_write_REG_CHANNEL1_ACTUAL_FLOW,
+	&app_write_REG_CHANNEL2_ACTUAL_FLOW,
+	&app_write_REG_CHANNEL3_ACTUAL_FLOW,
+	&app_write_REG_CHANNEL4_ACTUAL_FLOW,
 	&app_write_REG_CHANNEL0_FREQUENCY,
 	&app_write_REG_CHANNEL1_FREQUENCY,
 	&app_write_REG_CHANNEL2_FREQUENCY,
@@ -116,14 +119,15 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_VALVES_SET,
 	&app_write_REG_VALVES_CLEAR,
 	&app_write_REG_VALVES_TOGGLE,
-	&app_write_REG_VALVES_STATE,
-	&app_write_REG_PULSE_VALVE0,
-	&app_write_REG_PULSE_VALVE1,
-	&app_write_REG_PULSE_VALVE2,
-	&app_write_REG_PULSE_VALVE3,
-	&app_write_REG_PULSE_ENDVALVE0,
-	&app_write_REG_PULSE_ENDVALVE1,
-	&app_write_REG_PULSE_DUMMYVALVE,
+	&app_write_REG_ISOLATION_VALVES_STATE,
+	&app_write_REG_END_VALVES_STATE,
+	&app_write_REG_VALVE0_PULSE_DURATION,
+	&app_write_REG_VALVE1_PULSE_DURATION,
+	&app_write_REG_VALVE2_PULSE_DURATION,
+	&app_write_REG_VALVE3_PULSE_DURATION,
+	&app_write_REG_END_VALVE0_PULSE_DURATION,
+	&app_write_REG_END_VALVE1_PULSE_DURATION,
+	&app_write_REG_DUMMY_VALVE_PULSE_DURATION,
 	&app_write_REG_DO0_SYNC,
 	&app_write_REG_DO1_SYNC,
 	&app_write_REG_DI0_TRIGGER,
@@ -131,10 +135,10 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MIMIC_VALVE1,
 	&app_write_REG_MIMIC_VALVE2,
 	&app_write_REG_MIMIC_VALVE3,
-	&app_write_REG_MIMIC_ENDVALVE0,
-	&app_write_REG_MIMIC_ENDVALVE1,
-	&app_write_REG_MIMIC_DUMMYVALVE,
-	&app_write_REG_EXT_CTRL_VALVES,
+	&app_write_REG_MIMIC_END_VALVE0,
+	&app_write_REG_MIMIC_END_VALVE1,
+	&app_write_REG_MIMIC_DUMMY_VALVE,
+	&app_write_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_write_REG_CHANNEL3_RANGE,
 	&app_write_REG_RESERVED0,
 	&app_write_REG_RESERVED1,
@@ -397,15 +401,15 @@ bool app_write_REG_USER_CALIBRATION_ENABLE(void *a)
 
 
 /************************************************************************/
-/* REG_CHANNEL0_FLOW_TARGET                                             */
+/* REG_CHANNEL0_TARGET_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL0_FLOW_TARGET(void)
+void app_read_REG_CHANNEL0_TARGET_FLOW(void)
 {
-	//app_regs.REG_CHANNEL0_FLOW_TARGET = 0;
+	//app_regs.REG_CHANNEL0_TARGET_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL0_FLOW_TARGET(void *a)
+bool app_write_REG_CHANNEL0_TARGET_FLOW(void *a)
 {
 	float reg = *((float*)a);
 	
@@ -413,24 +417,26 @@ bool app_write_REG_CHANNEL0_FLOW_TARGET(void *a)
 		hwbp_app_pwm_gen_stop_ch0();
 		
 	if (reg > 110)
-		app_regs.REG_CHANNEL0_FLOW_TARGET = 110;
+		app_regs.REG_CHANNEL0_TARGET_FLOW = 110;
 	else
-		app_regs.REG_CHANNEL0_FLOW_TARGET = reg;
+		app_regs.REG_CHANNEL0_TARGET_FLOW = reg;
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[0] = app_regs.REG_CHANNEL0_TARGET_FLOW;
 		
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL1_FLOW_TARGET                                             */
+/* REG_CHANNEL1_TARGET_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL1_FLOW_TARGET(void)
+void app_read_REG_CHANNEL1_TARGET_FLOW(void)
 {
-	//app_regs.REG_CHANNEL1_FLOW_TARGET = 0;
+	//app_regs.REG_CHANNEL1_TARGET_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL1_FLOW_TARGET(void *a)
+bool app_write_REG_CHANNEL1_TARGET_FLOW(void *a)
 {
 	float reg = *((float*)a);
 	
@@ -438,24 +444,26 @@ bool app_write_REG_CHANNEL1_FLOW_TARGET(void *a)
 		hwbp_app_pwm_gen_stop_ch1();
 	
 	if (reg > 110)
-		app_regs.REG_CHANNEL1_FLOW_TARGET = 110;
+		app_regs.REG_CHANNEL1_TARGET_FLOW = 110;
 	else
-		app_regs.REG_CHANNEL1_FLOW_TARGET = reg;
+		app_regs.REG_CHANNEL1_TARGET_FLOW = reg;
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[1] = app_regs.REG_CHANNEL1_TARGET_FLOW;
 
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL2_FLOW_TARGET                                             */
+/* REG_CHANNEL2_TARGET_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL2_FLOW_TARGET(void)
+void app_read_REG_CHANNEL2_TARGET_FLOW(void)
 {
-	//app_regs.REG_CHANNEL2_FLOW_TARGET = 0;
+	//app_regs.REG_CHANNEL2_TARGET_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL2_FLOW_TARGET(void *a)
+bool app_write_REG_CHANNEL2_TARGET_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
@@ -463,24 +471,26 @@ bool app_write_REG_CHANNEL2_FLOW_TARGET(void *a)
 		hwbp_app_pwm_gen_stop_ch2();
 	
 	if (reg > 110)
-		app_regs.REG_CHANNEL2_FLOW_TARGET = 110;
+		app_regs.REG_CHANNEL2_TARGET_FLOW = 110;
 	else
-		app_regs.REG_CHANNEL2_FLOW_TARGET = reg;
+		app_regs.REG_CHANNEL2_TARGET_FLOW = reg;
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[2] = app_regs.REG_CHANNEL2_TARGET_FLOW;
 		
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL3_FLOW_TARGET                                                  */
+/* REG_CHANNEL3_TARGET_FLOW                                                  */
 /************************************************************************/
-void app_read_REG_CHANNEL3_FLOW_TARGET(void)
+void app_read_REG_CHANNEL3_TARGET_FLOW(void)
 {
-	//app_regs.REG_CHANNEL3_FLOW_TARGET = 0;
+	//app_regs.REG_CHANNEL3_TARGET_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL3_FLOW_TARGET(void *a)
+bool app_write_REG_CHANNEL3_TARGET_FLOW(void *a)
 {
 	float reg = *((float*)a);
 	
@@ -489,31 +499,33 @@ bool app_write_REG_CHANNEL3_FLOW_TARGET(void *a)
 	
 	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
 		if (reg > 110)
-			app_regs.REG_CHANNEL3_FLOW_TARGET = 110;
+			app_regs.REG_CHANNEL3_TARGET_FLOW = 110;
 		else
-			app_regs.REG_CHANNEL3_FLOW_TARGET = reg;
+			app_regs.REG_CHANNEL3_TARGET_FLOW = reg;
 	}
 	else{
 		if (reg > 1100)
-			app_regs.REG_CHANNEL3_FLOW_TARGET = 1100;
+			app_regs.REG_CHANNEL3_TARGET_FLOW = 1100;
 		else
-			app_regs.REG_CHANNEL3_FLOW_TARGET = reg;
+			app_regs.REG_CHANNEL3_TARGET_FLOW = reg;
 	}
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[3] = app_regs.REG_CHANNEL3_TARGET_FLOW;
 		
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL4_FLOW_TARGET                                                  */
+/* REG_CHANNEL4_TARGET_FLOW                                                  */
 /************************************************************************/
-void app_read_REG_CHANNEL4_FLOW_TARGET(void)
+void app_read_REG_CHANNEL4_TARGET_FLOW(void)
 {
-	//app_regs.REG_CH4_FLOW_TARGET = 0;
+	//app_regs.REG_CH4_TARGET_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL4_FLOW_TARGET(void *a)
+bool app_write_REG_CHANNEL4_TARGET_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
@@ -521,100 +533,172 @@ bool app_write_REG_CHANNEL4_FLOW_TARGET(void *a)
 		hwbp_app_pwm_gen_stop_ch4();
 	
 	if (reg > 1100)
-		app_regs.REG_CHANNEL4_FLOW_TARGET = 1100;
+		app_regs.REG_CHANNEL4_TARGET_FLOW = 1100;
 	else
-		app_regs.REG_CHANNEL4_FLOW_TARGET = reg;
+		app_regs.REG_CHANNEL4_TARGET_FLOW = reg;
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[4] = app_regs.REG_CHANNEL4_TARGET_FLOW;
 		
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL0_FLOW_REAL                                               */
+/* REG_CHANNELS_TARGET_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL0_FLOW_REAL(void)
+// This register is an array with 5 positions
+void app_read_REG_CHANNELS_TARGET_FLOW(void)
 {
-	//app_regs.REG_CHANNEL0_FLOW_REAL = 0;
+	//app_regs.REG_CHANNELS_TARGET_FLOW[0] = 0;
 
 }
 
-bool app_write_REG_CHANNEL0_FLOW_REAL(void *a)
+bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 {
-	float reg = *((float*)a);
+	float *reg = ((float*)a);
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[0] = reg[0];
+	if (reg[0] == 0)
+		hwbp_app_pwm_gen_stop_ch0();
+	else if (reg[0] > 1100)
+		app_regs.REG_CHANNEL0_TARGET_FLOW = 1100;
+	else
+		app_regs.REG_CHANNEL0_TARGET_FLOW = reg[0];
+		
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[1] = reg[1];
+	if (reg[1] == 0)
+		hwbp_app_pwm_gen_stop_ch1();
+	else if (reg[1] > 110)
+		app_regs.REG_CHANNEL1_TARGET_FLOW = 110;
+	else
+		app_regs.REG_CHANNEL1_TARGET_FLOW = reg[1];
 
-	app_regs.REG_CHANNEL0_FLOW_REAL = reg;
+
+	app_regs.REG_CHANNELS_TARGET_FLOW[2] = reg[2];
+	if (reg[2] == 0)
+		hwbp_app_pwm_gen_stop_ch2();
+	else if (reg[2] > 110)
+		app_regs.REG_CHANNEL2_TARGET_FLOW = 110;
+	else
+		app_regs.REG_CHANNEL2_TARGET_FLOW = reg[2];
+		
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[3] = reg[3];
+	if (reg[3] == 0)
+		hwbp_app_pwm_gen_stop_ch3();
+	else if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){ 
+		if (reg[3] > 110)
+			app_regs.REG_CHANNEL3_TARGET_FLOW = 110;
+		else
+			app_regs.REG_CHANNEL3_TARGET_FLOW = reg[3];
+	}
+	else{
+		if (reg[3] > 1100)
+			app_regs.REG_CHANNEL3_TARGET_FLOW = 1100;
+		else
+			app_regs.REG_CHANNEL3_TARGET_FLOW = reg[3];
+	}
+
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[4] = reg[4];
+	if (reg[4] == 0)
+		hwbp_app_pwm_gen_stop_ch4();
+	else if (reg[4] > 1100)
+		app_regs.REG_CHANNEL4_TARGET_FLOW = 1100;
+	else
+		app_regs.REG_CHANNEL4_TARGET_FLOW = reg[4];
+	
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL1_FLOW_REAL                                               */
+/* REG_CHANNEL0_ACTUAL_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL1_FLOW_REAL(void)
+void app_read_REG_CHANNEL0_ACTUAL_FLOW(void)
 {
-	//app_regs.REG_CHANNEL1_FLOW_REAL = 0;
+	//app_regs.REG_CHANNEL0_ACTUAL_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL1_FLOW_REAL(void *a)
+bool app_write_REG_CHANNEL0_ACTUAL_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
-	app_regs.REG_CHANNEL1_FLOW_REAL = reg;
+	app_regs.REG_CHANNEL0_ACTUAL_FLOW = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL2_FLOW_REAL                                               */
+/* REG_CHANNEL1_ACTUAL_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL2_FLOW_REAL(void)
+void app_read_REG_CHANNEL1_ACTUAL_FLOW(void)
 {
-	//app_regs.REG_CHANNEL2_FLOW_REAL = 0;
+	//app_regs.REG_CHANNEL1_ACTUAL_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL2_FLOW_REAL(void *a)
+bool app_write_REG_CHANNEL1_ACTUAL_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
-	app_regs.REG_CHANNEL2_FLOW_REAL = reg;
+	app_regs.REG_CHANNEL1_ACTUAL_FLOW = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL3_FLOW_REAL                                                    */
+/* REG_CHANNEL2_ACTUAL_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL3_FLOW_REAL(void)
+void app_read_REG_CHANNEL2_ACTUAL_FLOW(void)
 {
-	//app_regs.REG_CHANNEL3_FLOW_REAL = 0;
+	//app_regs.REG_CHANNEL2_ACTUAL_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL3_FLOW_REAL(void *a)
+bool app_write_REG_CHANNEL2_ACTUAL_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
-	app_regs.REG_CHANNEL3_FLOW_REAL = reg;
+	app_regs.REG_CHANNEL2_ACTUAL_FLOW = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_CHANNEL4_FLOW_REAL                                               */
+/* REG_CHANNEL3_ACTUAL_FLOW                                             */
 /************************************************************************/
-void app_read_REG_CHANNEL4_FLOW_REAL(void)
+void app_read_REG_CHANNEL3_ACTUAL_FLOW(void)
 {
-	//app_regs.REG_CHANNEL4_FLOW_REAL = 0;
+	//app_regs.REG_CHANNEL3_ACTUAL_FLOW = 0;
 
 }
 
-bool app_write_REG_CHANNEL4_FLOW_REAL(void *a)
+bool app_write_REG_CHANNEL3_ACTUAL_FLOW(void *a)
 {
 	float reg = *((float*)a);
 
-	app_regs.REG_CHANNEL4_FLOW_REAL = reg;
+	app_regs.REG_CHANNEL3_ACTUAL_FLOW = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_CHANNEL4_ACTUAL_FLOW                                             */
+/************************************************************************/
+void app_read_REG_CHANNEL4_ACTUAL_FLOW(void)
+{
+	//app_regs.REG_CHANNEL4_ACTUAL_FLOW = 0;
+
+}
+
+bool app_write_REG_CHANNEL4_ACTUAL_FLOW(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_CHANNEL4_ACTUAL_FLOW = reg;
 	return true;
 }
 
@@ -1010,13 +1094,13 @@ bool app_write_REG_ENABLE_VALVES_PULSE(void *a)
 
 /*****************************************************************************************************************/
 
-#define start_VALVE0 do {set_VALVE0; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE0) pulse_countdown.valve0 = app_regs.REG_PULSE_VALVE0 + 1; } while(0)
-#define start_VALVE1 do {set_VALVE1; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE1) pulse_countdown.valve1 = app_regs.REG_PULSE_VALVE1 + 1; } while(0)
-#define start_VALVE2 do {set_VALVE2; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE2) pulse_countdown.valve2 = app_regs.REG_PULSE_VALVE2 + 1; } while(0)
-#define start_VALVE3 do {set_VALVE3; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE3) pulse_countdown.valve3 = app_regs.REG_PULSE_VALVE3 + 1; } while(0)
-#define start_VALVEAUX0 do {set_ENDVALVE0; if (app_regs.REG_ENABLE_VALVES_PULSE & B_ENDVALVE0) pulse_countdown.valveaux0 = app_regs.REG_PULSE_ENDVALVE0 + 1; } while(0)
-#define start_VALVEAUX1 do {set_ENDVALVE1; if (app_regs.REG_ENABLE_VALVES_PULSE & B_ENDVALVE1) pulse_countdown.valveaux1 = app_regs.REG_PULSE_ENDVALVE1 + 1; } while(0)
-#define start_VALVEDUMMY do {set_DUMMYVALVE; if (app_regs.REG_ENABLE_VALVES_PULSE & B_DUMMYVALVE) pulse_countdown.valvedummy = app_regs.REG_PULSE_DUMMYVALVE + 1; } while(0)
+#define start_VALVE0 do {set_VALVE0; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE0) pulse_countdown.valve0 = app_regs.REG_VALVE0_PULSE_DURATION + 1; } while(0)
+#define start_VALVE1 do {set_VALVE1; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE1) pulse_countdown.valve1 = app_regs.REG_VALVE1_PULSE_DURATION + 1; } while(0)
+#define start_VALVE2 do {set_VALVE2; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE2) pulse_countdown.valve2 = app_regs.REG_VALVE2_PULSE_DURATION + 1; } while(0)
+#define start_VALVE3 do {set_VALVE3; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE3) pulse_countdown.valve3 = app_regs.REG_VALVE3_PULSE_DURATION + 1; } while(0)
+#define start_VALVEAUX0 do {set_ENDVALVE0; if (app_regs.REG_ENABLE_VALVES_PULSE & B_ENDVALVE0) pulse_countdown.valveaux0 = app_regs.REG_END_VALVE0_PULSE_DURATION + 1; } while(0)
+#define start_VALVEAUX1 do {set_ENDVALVE1; if (app_regs.REG_ENABLE_VALVES_PULSE & B_ENDVALVE1) pulse_countdown.valveaux1 = app_regs.REG_END_VALVE1_PULSE_DURATION + 1; } while(0)
+#define start_VALVEDUMMY do {set_DUMMYVALVE; if (app_regs.REG_ENABLE_VALVES_PULSE & B_DUMMYVALVE) pulse_countdown.valvedummy = app_regs.REG_DUMMY_VALVE_PULSE_DURATION + 1; } while(0)
 	
 void app_read_REG_VALVES_SET(void)
 {
@@ -1036,7 +1120,9 @@ bool app_write_REG_VALVES_SET(void *a)
 	if (reg & B_ENDVALVE1) start_VALVEAUX1;
 	if (reg & B_DUMMYVALVE) start_VALVEDUMMY;
 		
-	app_regs.REG_VALVES_STATE |= reg;
+	//app_regs.REG_VALVES_STATE |= reg;
+	app_regs.REG_END_VALVES_STATE |= reg;
+	app_regs.REG_ISOLATION_VALVES_STATE |= reg;
 	app_regs.REG_VALVES_SET = reg;
 
 	return true;
@@ -1065,7 +1151,9 @@ bool app_write_REG_VALVES_CLEAR(void *a)
 	if (reg & B_ENDVALVE1) clr_ENDVALVE1;
 	if (reg & B_DUMMYVALVE) clr_DUMMYVALVE;
 	
-	app_regs.REG_VALVES_STATE &= ~reg;
+	//app_regs.REG_VALVES_STATE &= ~reg;
+	app_regs.REG_END_VALVES_STATE &= ~reg;
+	app_regs.REG_ISOLATION_VALVES_STATE &= ~reg;
 	app_regs.REG_VALVES_CLEAR = reg;
 
 	return true;
@@ -1095,7 +1183,12 @@ bool app_write_REG_VALVES_TOGGLE(void *a)
 	if (reg & B_ENDVALVE1) { if (read_ENDVALVE1) tgl_ENDVALVE1; else start_VALVEAUX1;}
 	if (reg & B_DUMMYVALVE) { if (read_DUMMYVALVE) tgl_DUMMYVALVE; else start_VALVEDUMMY;}
 	
-	app_regs.REG_VALVES_STATE ^= reg;
+	//app_regs.REG_VALVES_STATE ^= reg;
+	
+	//app_regs.REG_END_VALVES_STATE ^= (reg & 0x0030);
+	
+	app_regs.REG_END_VALVES_STATE ^= reg;
+	app_regs.REG_ISOLATION_VALVES_STATE ^= reg;
 	app_regs.REG_VALVES_TOGGLE = reg;
 
 	return true;
@@ -1103,24 +1196,24 @@ bool app_write_REG_VALVES_TOGGLE(void *a)
 
 
 /************************************************************************/
-/* REG_VALVES_STATE                                                     */
+/* REG_ISOLATION_VALVES_STATE                                           */
 /************************************************************************/
 
-void app_read_REG_VALVES_STATE(void)
+void app_read_REG_ISOLATION_VALVES_STATE(void)
 {
-	//app_regs.REG_VALVES_STATE = 0;
+	//app_regs.REG_ISOLATION_VALVES_STATE = 0;
 	
-	app_regs.REG_VALVES_STATE |= (read_VALVE0) ? B_VALVE0 : 0;
-	app_regs.REG_VALVES_STATE |= (read_VALVE1) ? B_VALVE1 : 0;
-	app_regs.REG_VALVES_STATE |= (read_VALVE2) ? B_VALVE2 : 0;
-	app_regs.REG_VALVES_STATE |= (read_VALVE3) ? B_VALVE3 : 0;
-	app_regs.REG_VALVES_STATE |= (read_ENDVALVE0) ? B_ENDVALVE0 : 0;
-	app_regs.REG_VALVES_STATE |= (read_ENDVALVE1) ? B_ENDVALVE1 : 0;
-	app_regs.REG_VALVES_STATE |= (read_DUMMYVALVE) ? B_DUMMYVALVE : 0;
+	app_regs.REG_ISOLATION_VALVES_STATE |= (read_VALVE0) ? B_VALVE0 : 0;
+	app_regs.REG_ISOLATION_VALVES_STATE |= (read_VALVE1) ? B_VALVE1 : 0;
+	app_regs.REG_ISOLATION_VALVES_STATE |= (read_VALVE2) ? B_VALVE2 : 0;
+	app_regs.REG_ISOLATION_VALVES_STATE |= (read_VALVE3) ? B_VALVE3 : 0;
+	//app_regs.REG_ISOLATION_VALVES_STATE |= (read_ENDVALVE0) ? B_ENDVALVE0 : 0;
+	//app_regs.REG_ISOLATION_VALVES_STATE |= (read_ENDVALVE1) ? B_ENDVALVE1 : 0;
+	//app_regs.REG_ISOLATION_VALVES_STATE |= (read_DUMMYVALVE) ? B_DUMMYVALVE : 0;
 
 }
 
-bool app_write_REG_VALVES_STATE(void *a)
+bool app_write_REG_ISOLATION_VALVES_STATE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
@@ -1128,154 +1221,190 @@ bool app_write_REG_VALVES_STATE(void *a)
 	if (reg & B_VALVE1) start_VALVE1; else clr_VALVE1;
 	if (reg & B_VALVE2) start_VALVE2; else clr_VALVE2;
 	if (reg & B_VALVE3) start_VALVE3; else clr_VALVE3;
+	//if (reg & B_ENDVALVE0) start_VALVEAUX0; else clr_ENDVALVE0;
+	//if (reg & B_ENDVALVE1) start_VALVEAUX1; else clr_ENDVALVE1;
+	//if (reg & B_DUMMYVALVE) start_VALVEDUMMY; else clr_DUMMYVALVE;
+
+	app_regs.REG_ISOLATION_VALVES_STATE = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_END_VALVES_STATE                                                 */
+/************************************************************************/
+
+void app_read_REG_END_VALVES_STATE(void)
+{
+	//app_regs.REG_END_VALVES_STATE = 0;
+	
+	//app_regs.REG_END_VALVES_STATE |= (read_VALVE0) ? B_VALVE0 : 0;
+	//app_regs.REG_END_VALVES_STATE |= (read_VALVE1) ? B_VALVE1 : 0;
+	//app_regs.REG_END_VALVES_STATE |= (read_VALVE2) ? B_VALVE2 : 0;
+	//app_regs.REG_END_VALVES_STATE |= (read_VALVE3) ? B_VALVE3 : 0;
+	app_regs.REG_END_VALVES_STATE |= (read_ENDVALVE0) ? B_ENDVALVE0 : 0;
+	app_regs.REG_END_VALVES_STATE |= (read_ENDVALVE1) ? B_ENDVALVE1 : 0;
+	app_regs.REG_END_VALVES_STATE |= (read_DUMMYVALVE) ? B_DUMMYVALVE : 0;
+
+}
+
+bool app_write_REG_END_VALVES_STATE(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	//if (reg & B_VALVE0) start_VALVE0; else clr_VALVE0;
+	//if (reg & B_VALVE1) start_VALVE1; else clr_VALVE1;
+	//if (reg & B_VALVE2) start_VALVE2; else clr_VALVE2;
+	//if (reg & B_VALVE3) start_VALVE3; else clr_VALVE3;
 	if (reg & B_ENDVALVE0) start_VALVEAUX0; else clr_ENDVALVE0;
 	if (reg & B_ENDVALVE1) start_VALVEAUX1; else clr_ENDVALVE1;
 	if (reg & B_DUMMYVALVE) start_VALVEDUMMY; else clr_DUMMYVALVE;
 
-	app_regs.REG_VALVES_STATE = reg;
+	app_regs.REG_END_VALVES_STATE = reg;
 	return true;
 }
 
 
+
 /************************************************************************/
-/* REG_PULSE_VALVE0                                                     */
+/* REG_VALVE0_PULSE_DURATION                                                     */
 /************************************************************************/
-void app_read_REG_PULSE_VALVE0(void) 
+void app_read_REG_VALVE0_PULSE_DURATION(void) 
 {
 	
-	//app_regs.REG_PULSE_VALVE0 = 0;
+	//app_regs.REG_VALVE0_PULSE_DURATION = 0;
 }
 
-bool app_write_REG_PULSE_VALVE0(void *a)
+bool app_write_REG_VALVE0_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	if (reg < 1)
 		return false;
 
-	app_regs.REG_PULSE_VALVE0 = reg;
+	app_regs.REG_VALVE0_PULSE_DURATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_PULSE_VALVE1                                                     */
+/* REG_VALVE1_PULSE_DURATION                                                     */
 /************************************************************************/
-void app_read_REG_PULSE_VALVE1(void)
+void app_read_REG_VALVE1_PULSE_DURATION(void)
 {
 
-	//app_regs.REG_PULSE_VALVE1 = 0;
+	//app_regs.REG_VALVE1_PULSE_DURATION = 0;
 }
-bool app_write_REG_PULSE_VALVE1(void *a)
+bool app_write_REG_VALVE1_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	if (reg < 1)
 		return false;
 
-	app_regs.REG_PULSE_VALVE1 = reg;
+	app_regs.REG_VALVE1_PULSE_DURATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_PULSE_VALVE2                                                     */
+/* REG_VALVE2_PULSE_DURATION                                                     */
 /************************************************************************/
-void app_read_REG_PULSE_VALVE2(void) 
+void app_read_REG_VALVE2_PULSE_DURATION(void) 
 {
 
-	//app_regs.REG_PULSE_VALVE2 = 0;
+	//app_regs.REG_VALVE2_PULSE_DURATION = 0;
 }
 
-bool app_write_REG_PULSE_VALVE2(void *a)
+bool app_write_REG_VALVE2_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	if (reg < 1)
 		return false;
 
-	app_regs.REG_PULSE_VALVE2 = reg;
+	app_regs.REG_VALVE2_PULSE_DURATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_PULSE_VALVE3                                                     */
+/* REG_VALVE3_PULSE_DURATION                                                     */
 /************************************************************************/
-void app_read_REG_PULSE_VALVE3(void)
+void app_read_REG_VALVE3_PULSE_DURATION(void)
 {
 
-//app_regs.REG_PULSE_VALVE3 = 0;
+//app_regs.REG_VALVE3_PULSE_DURATION = 0;
 }
 	
 	
-bool app_write_REG_PULSE_VALVE3(void *a)
+bool app_write_REG_VALVE3_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	if (reg < 1)
 		return false;
 
-	app_regs.REG_PULSE_VALVE3 = reg;
+	app_regs.REG_VALVE3_PULSE_DURATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_PULSE_ENDVALVE0                                                  */
+/* REG_END_VALVE0_PULSE_DURATION                                                  */
 /************************************************************************/
-void app_read_REG_PULSE_ENDVALVE0(void)
+void app_read_REG_END_VALVE0_PULSE_DURATION(void)
 {
-	//app_regs.REG_PULSE_VALVE_AUX0 = 0;
+	//app_regs.REG_END_VALVE0_PULSE_DURATION = 0;
 
 }
 
-bool app_write_REG_PULSE_ENDVALVE0(void *a)
-{
-	uint16_t reg = *((uint16_t*)a);
-
-	if (reg < 1)
-		return false;
-	
-	app_regs.REG_PULSE_ENDVALVE0 = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_PULSE_ENDVALVE1                                                  */
-/************************************************************************/
-void app_read_REG_PULSE_ENDVALVE1(void)
-{
-	//app_regs.REG_PULSE_ENDVALVE1 = 0;
-
-}
-
-bool app_write_REG_PULSE_ENDVALVE1(void *a)
+bool app_write_REG_END_VALVE0_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 
 	if (reg < 1)
 		return false;
 	
-	app_regs.REG_PULSE_ENDVALVE1 = reg;
+	app_regs.REG_END_VALVE0_PULSE_DURATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_PULSE_DUMMYVALVE                                                 */
+/* REG_END_VALVE1_PULSE_DURATION                                                  */
 /************************************************************************/
-void app_read_REG_PULSE_DUMMYVALVE(void)
+void app_read_REG_END_VALVE1_PULSE_DURATION(void)
 {
-	//app_regs.REG_PULSE_DUMMYVALVE = 0;
+	//app_regs.REG_END_VALVE1_PULSE_DURATION = 0;
 
 }
 
-bool app_write_REG_PULSE_DUMMYVALVE(void *a)
+bool app_write_REG_END_VALVE1_PULSE_DURATION(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	if (reg < 1)
+		return false;
+	
+	app_regs.REG_END_VALVE1_PULSE_DURATION = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_DUMMY_VALVE_PULSE_DURATION                                       */
+/************************************************************************/
+void app_read_REG_DUMMY_VALVE_PULSE_DURATION(void)
+{
+	//app_regs.REG_DUMMY_VALVE_PULSE_DURATION = 0;
+
+}
+
+bool app_write_REG_DUMMY_VALVE_PULSE_DURATION(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
 	if (reg < 1)
 		return false;
 	
-	app_regs.REG_PULSE_DUMMYVALVE = reg;
+	app_regs.REG_DUMMY_VALVE_PULSE_DURATION = reg;
 	return true;
 }
 
@@ -1407,72 +1536,72 @@ bool app_write_REG_MIMIC_VALVE3(void *a)
 
 
 /************************************************************************/
-/* REG_MIMIC_ENDVALVE0                                                  */
+/* REG_MIMIC_END_VALVE0                                                  */
 /************************************************************************/
-void app_read_REG_MIMIC_ENDVALVE0(void)
+void app_read_REG_MIMIC_END_VALVE0(void)
 {
-	//app_regs.REG_MIMIC_ENDVALVE0 = 0;
+	//app_regs.REG_MIMIC_END_VALVE0 = 0;
 
 }
 
-bool app_write_REG_MIMIC_ENDVALVE0(void *a)
+bool app_write_REG_MIMIC_END_VALVE0(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_MIMIC_ENDVALVE0 = reg;
+	app_regs.REG_MIMIC_END_VALVE0 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MIMIC_VALVE_AUX1                                                  */
+/* REG_MIMIC_END_VALVE1                                                 */
 /************************************************************************/
-void app_read_REG_MIMIC_ENDVALVE1(void)
+void app_read_REG_MIMIC_END_VALVE1(void)
 {
-	//app_regs.REG_MIMIC_ENDVALVE1 = 0;
+	//app_regs.REG_MIMIC_END_VALVE1 = 0;
 
 }
 
-bool app_write_REG_MIMIC_ENDVALVE1(void *a)
+bool app_write_REG_MIMIC_END_VALVE1(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_MIMIC_ENDVALVE1 = reg;
+	app_regs.REG_MIMIC_END_VALVE1 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MIMIC_DUMMYVALVE                                                 */
+/* REG_MIMIC_DUMMY_VALVE                                                */
 /************************************************************************/
-void app_read_REG_MIMIC_DUMMYVALVE(void)
+void app_read_REG_MIMIC_DUMMY_VALVE(void)
 {
-	//app_regs.REG_MIMIC_DUMMYVALVE = 0;
+	//app_regs.REG_MIMIC_DUMMY_VALVE = 0;
 
 }
 
-bool app_write_REG_MIMIC_DUMMYVALVE(void *a)
+bool app_write_REG_MIMIC_DUMMY_VALVE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_MIMIC_DUMMYVALVE = reg;
+	app_regs.REG_MIMIC_DUMMY_VALVE = reg;
 	return true;
 }
 
 /************************************************************************/
-/* REG_EXT_CTRL_VALVES                                                  */
+/* REG_ENABLE_VALVE_EXT_CTRL                                            */
 /************************************************************************/
-void app_read_REG_EXT_CTRL_VALVES(void)
+void app_read_REG_ENABLE_VALVE_EXT_CTRL(void)
 {
-	//app_regs.REG_EXT_CTRL_VALVES = 0;
+	//app_regs.REG_ENABLE_VALVE_EXT_CTRL = 0;
 
 }
 
-bool app_write_REG_EXT_CTRL_VALVES(void *a)
+bool app_write_REG_ENABLE_VALVE_EXT_CTRL(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_EXT_CTRL_VALVES = reg;
+	app_regs.REG_ENABLE_VALVE_EXT_CTRL = reg;
 	return true;
 }
 
@@ -1492,22 +1621,22 @@ bool app_write_REG_CHANNEL3_RANGE(void *a)
 
 	app_regs.REG_CHANNEL3_RANGE = reg;
 	
-	float reg_ch3_flow_target = app_regs.REG_CHANNEL3_FLOW_TARGET;
+	float reg_ch3_target_flow = app_regs.REG_CHANNEL3_TARGET_FLOW;
 	
 	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-		if (reg_ch3_flow_target > 110){
-			reg_ch3_flow_target = 110;
-			//app_write_REG_CHANNEL3_FLOW_TARGET(&reg_ch3_flow_target);
+		if (reg_ch3_target_flow > 110){
+			reg_ch3_target_flow = 110;
+			//app_write_REG_CHANNEL3_TARGET_FLOW(&reg_ch3_target_flow);
 		}
 	}
 	/*else{
-		if (reg_ch3_flow_target > 1100){
-			reg_ch3_flow_target = 1100;
-			app_write_REG_CHANNEL3_FLOW_TARGET(&reg_ch3_flow_target)
+		if (reg_ch3_target_flow > 1100){
+			reg_ch3_target_flow = 1100;
+			app_write_REG_CHANNEL3_TARGET_FLOW(&reg_ch3_target_flow)
 		}
 	}*/
 	
-	app_write_REG_CHANNEL3_FLOW_TARGET(&reg_ch3_flow_target);
+	app_write_REG_CHANNEL3_TARGET_FLOW(&reg_ch3_target_flow);
 	
 	init_calibration_values();
 		
