@@ -111,36 +111,36 @@
                                 <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*,*" Margin="0,0,40,0">
                                     <!-- Header -->
                                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Target" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Real" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
+                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Actual" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                                     <TextBlock Grid.Row="0" Grid.Column="3" Text="Range" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                                     <!-- Channel 0 -->
                                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Channel 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel0FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Channel0FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" ClipValueToMinMax="True" Text="{Binding Channel0TargetFlow}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Channel0ActualFlow, StringFormat={}{0:0.0}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Row="1" Grid.Column="3" Text="0-100 ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Channel 1 -->
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Channel 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel1FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Channel1FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="2" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" ClipValueToMinMax="True" Text="{Binding Channel1TargetFlow}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Channel1ActualFlow, StringFormat={}{0:0.0}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Row="2" Grid.Column="3" Text="0-100 ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Channel 2 -->
                                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Channel 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel2FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Channel2FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="3" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="100" MinWidth="110" ClipValueToMinMax="True" Text="{Binding Channel2TargetFlow}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Channel2ActualFlow, StringFormat={}{0:0.0}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Row="3" Grid.Column="3" Text="0-100 ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Channel 3 -->
                                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Channel 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel3FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Channel3FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="{Binding Channel3MaxValue}" MinWidth="110" ClipValueToMinMax="True" Text="{Binding Channel3TargetFlow}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Channel3ActualFlow, StringFormat={}{0:0.0}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ComboBox Grid.Row="4" Grid.Column="3" SelectedIndex="{Binding Path=Channel3Range}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <ComboBoxItem>0-100 ml/min</ComboBoxItem>
                                         <ComboBoxItem>0-1000 ml/min</ComboBoxItem>
                                     </ComboBox>
                                     <!-- Channel 4 -->
                                     <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" IsEnabled="{Binding !EnableFlow}" Increment="1" Minimum="0" Maximum="100" MinWidth="110" Text="{Binding Channel4FlowTarget}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Channel4FlowReal}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="5" Grid.Column="3" Text="0-100ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" Increment="1" Minimum="0" Maximum="1000" MinWidth="110" ClipValueToMinMax="True" Text="{Binding Channel4TargetFlow}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Channel4ActualFlow, StringFormat={}{0:0.0}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Row="5" Grid.Column="3" Text="0-1000 ml/min" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     
                                     <!-- Change Content depending on EnableFlow value -->
                                     <Button Grid.Row="6" Grid.Column="0"
@@ -160,7 +160,6 @@
                                 <Grid Grid.Row="0" Grid.Column="1" Margin="10" ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*">
                                     <!-- Header -->
                                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                                     <TextBlock Grid.Row="0" Grid.Column="2" Text="Pulse" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                                     <TextBlock Grid.Row="0" Grid.Column="3" Text="TPulse" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                                     <TextBlock Grid.Row="0" Grid.Column="4" Text="Range" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
@@ -168,37 +167,37 @@
                                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Valve 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="1" Grid.Column="1" Margin="10" IsChecked="{Binding Path=Valve0State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="1" Grid.Column="2" Margin="10" IsChecked="{Binding Valve0Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="1" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseValve0}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="1" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseValve0}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="1" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Valve 1 -->
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Valve 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="2" Grid.Column="1" Margin="10" IsChecked="{Binding Path=Valve1State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="2" Grid.Column="2" Margin="10" IsChecked="{Binding Valve1Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="2" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseValve1}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="2" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseValve1}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="2" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Valve 2 -->
                                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Valve 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="3" Grid.Column="1" Margin="10" IsChecked="{Binding Path=Valve2State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="3" Grid.Column="2" Margin="10" IsChecked="{Binding Valve2Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="3" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseValve2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="3" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseValve2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="3" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- Valve 3 -->
                                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Valve 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="4" Grid.Column="1" Margin="10" IsChecked="{Binding Path=Valve3State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="4" Grid.Column="2" Margin="10" IsChecked="{Binding Valve3Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="4" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseValve3}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="4" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseValve3}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="4" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- End Valve 0 -->
                                     <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="End Valve 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="5" Grid.Column="1" Margin="10" IsChecked="{Binding Path=EndValve0State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="5" Grid.Column="2" Margin="10" IsChecked="{Binding EndValve0Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="5" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseEndValve0}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="5" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseEndValve0}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="5" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <!-- End Valve 1 -->
                                     <TextBlock Grid.Row="6" Grid.Column="0" Margin="15" Text="End Valve 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="6" Grid.Column="1" Margin="10" IsChecked="{Binding Path=EndValve1State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="6" Grid.Column="2" Margin="10" IsChecked="{Binding EndValve1Pulse}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="6" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" Text="{Binding PulseEndValve1}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <NumericUpDown Grid.Row="6" Grid.Column="3" Margin="10" Increment="1" Minimum="1" Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Text="{Binding PulseEndValve1}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="6" Grid.Column="4" Margin="10" Text="[1:65535] ms" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     
                                 </Grid>
@@ -213,9 +212,9 @@
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16" FontWeight="SemiBold"/>
                             <TextBlock Grid.Row="0" Grid.Column="3" Text="Other" FontSize="16" FontWeight="SemiBold"/>
                             <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,20,30,0">
-                                <CheckBox IsChecked="{Binding FlowmeterAnalogOutputsEvent}">Flowmeter analog outputs state</CheckBox>
+                                <CheckBox IsChecked="{Binding FlowmeterEvent}">Flowmeter state</CheckBox>
                                 <CheckBox IsChecked="{Binding DI0TriggerEvent}">Digital Input 0 Trigger state</CheckBox>
-                                <CheckBox IsChecked="{Binding ChannelxFlowRealEvent}">Channels Flow Real state</CheckBox>
+                                <CheckBox IsChecked="{Binding ChannelActualFlowEvent}">Channels Actual Flow state</CheckBox>
                             </StackPanel>
 							<StackPanel Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,20,30,0">
                                 <TextBlock Text="Valve 0" FontWeight="SemiBold"/>
@@ -275,7 +274,7 @@
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="3" Spacing="5" Margin="0,20,30,0">
                                 <TextBlock Text="External Control Valves" FontWeight="SemiBold"/>
-                                <ComboBox SelectedIndex="{Binding Path=ExternalControlValves}">
+                                <ComboBox SelectedIndex="{Binding Path=ValveExternalControl}">
                                     <ComboBoxItem>Software control</ComboBoxItem>
                                     <ComboBoxItem>External control via the screw terminals</ComboBoxItem>
                                 </ComboBox>
