@@ -23,7 +23,7 @@ namespace Olfactometer.Design.ViewModels
         
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         
-        private EEPROMManager manager;
+        private EepromManager _manager;
         
         public EepromGenerationViewModel()
         {
@@ -43,9 +43,9 @@ namespace Olfactometer.Design.ViewModels
                 return Task.CompletedTask;
 
             //TODO: should throw exception if there are errors in the file
-            manager = new EEPROMManager(InputFileName);
-            manager.ProcessFile();
-            manager.GenerateEeprom();
+            _manager = new EepromManager(InputFileName);
+            _manager.ProcessFile();
+            _manager.GenerateEeprom();
 
             IsGenerated = true;
             
@@ -63,14 +63,14 @@ namespace Olfactometer.Design.ViewModels
 
         private async Task SaveAsync()
         {
-            if(manager == null)
+            if(_manager == null)
                 //TODO: should show error
                 return;
 
             var fileName = await ShowSaveFileDialog.Handle(Unit.Default);
             if (fileName is object)
             {
-                manager.Save(fileName);
+                _manager.Save(fileName);
                 
                 var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
                     .GetMessageBoxStandardWindow("File saved successfully",

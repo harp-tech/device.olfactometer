@@ -11,14 +11,14 @@ using HexIO;
 
 namespace Olfactometer.Design.Models
 {
-    public class EEPROMManager
+    public class EepromManager
     {
         public List<ushort[]> Data { get; }
 
         private readonly string filePath;
         private MemoryStream stream;
 
-        public EEPROMManager(string filePath)
+        public EepromManager(string filePath)
         {
             this.filePath = filePath;
             Data = new List<ushort[]>();
