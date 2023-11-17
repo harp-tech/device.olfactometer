@@ -117,9 +117,9 @@ namespace Olfactometer.Design.ViewModels
         public OlfactometerViewModel()
         {
             var assembly = typeof(OlfactometerViewModel).Assembly;
-            var informationVersion = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                ?.InformationalVersion;
-            AppVersion = $"v{informationVersion}";
+            var informationVersion = assembly.GetName().Version;
+            if (informationVersion != null)
+                AppVersion = $"v{informationVersion.Major}.{informationVersion.Minor}.{informationVersion.Build}";
 
             Console.WriteLine(
                 $"Dotnet version: {System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}");
