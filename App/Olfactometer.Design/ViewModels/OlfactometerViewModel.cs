@@ -41,6 +41,7 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public int DeviceID { get; set; }
         [Reactive] public HarpVersion HardwareVersion { get; set; }
         [Reactive] public HarpVersion FirmwareVersion { get; set; }
+        [Reactive] public int SerialNumber { get; set; }
 
         [Reactive] public EnableFlag EnableFlow { get; set; }
         [Reactive] public bool RunningFlow { get; set; }
@@ -379,6 +380,7 @@ namespace Olfactometer.Design.ViewModels
                 DeviceName = await _olfactometer.ReadDeviceNameAsync();
                 HardwareVersion = await _olfactometer.ReadHardwareVersionAsync();
                 FirmwareVersion = await _olfactometer.ReadFirmwareVersionAsync();
+                SerialNumber = await _olfactometer.ReadSerialNumberAsync();
 
                 Connected = true;
 

@@ -93,13 +93,17 @@
                                       VerticalAlignment="Center"
                                       Data="{StaticResource refresh}"></PathIcon>
                         </Button>
-                        <Button Content="Connect" Command="{Binding ConnectAndGetBaseInfoCommand}" />
+                        <Button Content="{Binding OlfactometerConnectButtonText}" Command="{Binding ConnectAndGetBaseInfoCommand}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="30"/>
-                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Hw " IsVisible="{Binding Connected}" VerticalAlignment="Bottom"/>
-                    <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding HardwareVersion}" IsVisible="{Binding Connected}" FontWeight="Bold" VerticalAlignment="Bottom" />
-                    <TextBlock Grid.Row="1" Grid.Column="4" Text="Fw " IsVisible="{Binding Connected}" VerticalAlignment="Top" />
-                    <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding FirmwareVersion}" IsVisible="{Binding Connected}" FontWeight="Bold" VerticalAlignment="Top" />
+                    <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="20,20,20,*" RowDefinitions="*,*,*" Margin="20, 0, 0, 0" IsVisible="{Binding Connected}">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Hw " VerticalAlignment="Bottom"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}" FontWeight="Bold" VerticalAlignment="Bottom" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Fw " VerticalAlignment="Top" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FirmwareVersion}" FontWeight="Bold" VerticalAlignment="Top" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="S/N " VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Text="{Binding SerialNumber}" FontWeight="Bold" VerticalAlignment="Center" />
+                    </Grid>
 
                 </Grid>
 
