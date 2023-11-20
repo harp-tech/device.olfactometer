@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harp.Olfactometer", "..\Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olfactometer", "Olfactometer\Olfactometer.csproj", "{5A6E1443-432F-4A21-B068-9391643F14B7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support", "Support", "{0526A876-4210-4E49-9AA2-793B6AE1947C}"
+	ProjectSection(SolutionItems) = preProject
+		Olfactometer.nsi = Olfactometer.nsi
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
