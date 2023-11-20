@@ -2,13 +2,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Themes.Fluent;
@@ -26,6 +26,7 @@ namespace Olfactometer.Design.ViewModels
 {
     public class OlfactometerViewModel : ReactiveValidationObject
     {
+        public ReactiveCommand<CancelEventArgs, Unit> ClosingCommand { get; }
         public string AppVersion { get; set; }
 
         [Reactive] public List<string> Ports { get; set; }
@@ -121,6 +122,20 @@ namespace Olfactometer.Design.ViewModels
             var informationVersion = assembly.GetName().Version;
             if (informationVersion != null)
                 AppVersion = $"v{informationVersion.Major}.{informationVersion.Minor}.{informationVersion.Build}";
+            
+            ClosingCommand = ReactiveCommand.Create<CancelEventArgs, Unit>(_ =>
+            {
+                if (_olfactometer != null)
+                {
+                    _olfactometer.Dispose();
+                    _olfactometer = null;
+                    // cleanup variables
+                    _observable?.Dispose();
+                    _observable = null;
+                }
+
+                return Unit.Default;
+            });
 
             Console.WriteLine(
                 $"Dotnet version: {System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}");
