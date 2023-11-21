@@ -1,4 +1,4 @@
-#region Usings
+﻿#region Usings
 
 using System;
 using System.Collections.Generic;
@@ -32,6 +32,7 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public List<string> Ports { get; set; }
         [Reactive] public string SelectedPort { get; set; }
         [Reactive] public bool Connected { get; set; }
+        [Reactive] public string OlfactometerConnectButtonText { get; set; } = "Connect";
 
         [ObservableAsProperty] public bool IsLoadingPorts { get; }
         [ObservableAsProperty] public bool IsConnecting { get; }
@@ -236,6 +237,9 @@ namespace Olfactometer.Design.ViewModels
                 Channel3MaxValue = Channel3Range == 0 ? 100 : 1000;
             });
 
+            this.WhenAnyValue(x => x.Connected)
+                .Subscribe(x => { OlfactometerConnectButtonText = x ? "Disconnect" : "Connect"; });
+
             this.WhenAnyValue(x => x.EnableFlow)
                 .Subscribe(x => RunningFlow = x == EnableFlag.Enable);
 
@@ -359,13 +363,20 @@ namespace Olfactometer.Design.ViewModels
                 if (string.IsNullOrEmpty(SelectedPort))
                     throw new Exception("invalid parameter");
 
-                if (_olfactometer != null)
+                if (Connected)
                 {
-                    _olfactometer.Dispose();
-                    _olfactometer = null;
-                    // cleanup variables
-                    _observable?.Dispose();
-                    _observable = null;
+                    // cleanup and return
+                    if (_olfactometer != null)
+                    {
+                        _olfactometer.Dispose();
+                        _olfactometer = null;
+                        // cleanup variables
+                        _observable?.Dispose();
+                        _observable = null;
+                    }
+
+                    Connected = false;
+                    return;
                 }
 
                 try
