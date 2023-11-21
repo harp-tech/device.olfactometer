@@ -82,7 +82,7 @@
                 <Panel Height="36">
                     <TextBlock Text="Device connection" VerticalAlignment="Center" FontSize="22" FontWeight="SemiBold" Margin="10,0"/>
                 </Panel>
-                <Grid ColumnDefinitions="*,*,220,10,30,30" RowDefinitions="*,*" Margin="0,0,50,0" MinHeight="60">
+                <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*" Margin="0,0,50,0" MinHeight="60">
                     <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="10" Orientation="Horizontal" Spacing="20">
                         <TextBlock Text="Select a device" VerticalAlignment="Center"/>
                         <ComboBox Name="Ports" Items="{Binding Ports}" SelectedItem="{Binding SelectedPort}" MinWidth="70"/>
@@ -96,7 +96,7 @@
                         <Button Content="{Binding OlfactometerConnectButtonText}" Command="{Binding ConnectAndGetBaseInfoCommand}" />
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="20,20,20,*" RowDefinitions="*,*,*" Margin="20, 0, 0, 0" IsVisible="{Binding Connected}">
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding DeviceName}" FontWeight="Bold" FontSize="24"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Hw " VerticalAlignment="Bottom"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}" FontWeight="Bold" VerticalAlignment="Bottom" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Fw " VerticalAlignment="Top" />
