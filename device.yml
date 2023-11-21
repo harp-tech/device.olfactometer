@@ -299,11 +299,11 @@ registers:
     <<: *mimicValve
     address: 86
     description: Mimic Valve3.
-  MimicEndvalve0:
+  MimicEndValve0:
     <<: *mimicValve
     address: 87
     description: Mimic EndValve0.
-  MimicEndvalve1:
+  MimicEndValve1:
     <<: *mimicValve
     address: 88
     description: Mimic EndValve1.
