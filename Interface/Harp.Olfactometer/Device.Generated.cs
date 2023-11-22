@@ -9428,7 +9428,7 @@ namespace Harp.Olfactometer
     public enum DI0TriggerConfig : byte
     {
         Sync = 0,
-        StartOnRisingEdgeStopOnFallingEdge = 1,
+        EnableFlowWhileHigh = 1,
         ValveToggle = 2
     }
 
