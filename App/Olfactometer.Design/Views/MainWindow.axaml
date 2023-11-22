@@ -2,11 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:Olfactometer.Design.ViewModels"
+        xmlns:vm="using:Olfactometer.Design.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="750"
         x:Class="Olfactometer.Design.Views.MainWindow"
         Icon="/Assets/cf-logo.ico"
         Title="Olfactometer"
         Content="{Binding Olfactometer}"
-        x:DataType="viewModels:MainWindowViewModel">
+        x:DataType="vm:MainWindowViewModel"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        Padding="0,30,0,0"
+        CanResize="False">
 </Window>
