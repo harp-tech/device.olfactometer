@@ -4,7 +4,7 @@ using Olfactometer.Design.ViewModels;
 
 namespace Olfactometer.Design.Views
 {
-    public partial class OlfactometerView : ReactiveUserControl<OlfactometerViewModel>
+    public class OlfactometerView : ReactiveUserControl<OlfactometerViewModel>
     {
         public OlfactometerView()
         {

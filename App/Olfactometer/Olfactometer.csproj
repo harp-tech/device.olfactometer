@@ -1,50 +1,56 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <RootNamespace>Olfactometer</RootNamespace>
-        <BaseOutputPath>..\bin</BaseOutputPath>
-        <Version>1.0.0</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+    <Nullable>enable</Nullable>
+    <UseAppHost>true</UseAppHost>
+    <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
+    <TrimMode>copyused</TrimMode>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <RootNamespace>Olfactometer</RootNamespace>
+    <BaseOutputPath>..\bin</BaseOutputPath>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
 
-    <PropertyGroup>
-      <CFBundleName>Olfactometer</CFBundleName>
-      <CFBundleDisplayName>Olfactometer</CFBundleDisplayName>
-      <CFBundleIdentifier>org.fchampalimaud</CFBundleIdentifier>
-      <CFBundleVersion>$(Version)</CFBundleVersion>
-      <CFBundleShortVersionString>$(Version)</CFBundleShortVersionString>
-      <CFBundlePackageType>AAPL</CFBundlePackageType>
-      <CFBundleSignature>.</CFBundleSignature>
-      <CFBundleExecutable>Olfactometer</CFBundleExecutable>
-      <CFBundleIconFile>cf-logo.icns</CFBundleIconFile>
-      <NSPrincipalClass>NSApplication</NSPrincipalClass>
-      <NSHighResolutionCapable>true</NSHighResolutionCapable>
-      <Copyright>Champalimaud Foundation</Copyright>
-      <ApplicationIcon>..\Assets\cf-logo.ico</ApplicationIcon>
-      <PackageReadmeFile>..\README.md</PackageReadmeFile>
-      <RepositoryType>git</RepositoryType>
-      <BaseOutputPath>..\bin</BaseOutputPath>
-    </PropertyGroup>
+  <PropertyGroup>
+    <CFBundleName>Olfactometer</CFBundleName>
+    <CFBundleDisplayName>Olfactometer</CFBundleDisplayName>
+    <CFBundleIdentifier>org.fchampalimaud</CFBundleIdentifier>
+    <CFBundleVersion>$(Version)</CFBundleVersion>
+    <CFBundleShortVersionString>$(Version)</CFBundleShortVersionString>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
+    <CFBundleSignature>.</CFBundleSignature>
+    <CFBundleExecutable>Olfactometer</CFBundleExecutable>
+    <CFBundleIconFile>cf-logo.icns</CFBundleIconFile>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+    <Copyright>Champalimaud Foundation</Copyright>
+    <ApplicationIcon>..\Assets\cf-logo.ico</ApplicationIcon>
+    <PackageReadmeFile>..\README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <BaseOutputPath>..\bin</BaseOutputPath>
+  </PropertyGroup>
 
-    <Target Name="CopyCustomContent" AfterTargets="AfterBuild" Condition="$([MSBuild]::IsOsPlatform('OSX'))">
-      <Copy SourceFiles="..\Assets\cf-logo.icns" DestinationFolder="$(OutDir)" />
-    </Target>
-    <Target Name="CopyCustomContent2" AfterTargets="Publish">
-      <Copy SourceFiles="..\Assets\cf-logo.ico" DestinationFolder="$(OutDir)\publish" />
-    </Target>
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild" Condition="$([MSBuild]::IsOsPlatform('OSX'))">
+    <Copy SourceFiles="..\Assets\cf-logo.icns" DestinationFolder="$(OutDir)"/>
+  </Target>
+  <Target Name="CopyCustomContent2" AfterTargets="Publish">
+    <Copy SourceFiles="..\Assets\cf-logo.ico" DestinationFolder="$(OutDir)\publish"/>
+  </Target>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Olfactometer.Design\Olfactometer.Design.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Olfactometer.Design\Olfactometer.Design.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Avalonia" Version="0.10.21" />
-      <PackageReference Include="Avalonia.Desktop" Version="0.10.21" />
-      <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.21"/>
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.21"/>
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.21" />
+    <PackageReference Include="DotNet.Bundle" Version="0.9.13"/>
+    <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1"/>
+  </ItemGroup>
 
 </Project>
