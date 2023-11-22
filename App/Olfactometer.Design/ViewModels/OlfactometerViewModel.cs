@@ -123,7 +123,7 @@ namespace Olfactometer.Design.ViewModels
             var informationVersion = assembly.GetName().Version;
             if (informationVersion != null)
                 AppVersion = $"v{informationVersion.Major}.{informationVersion.Minor}.{informationVersion.Build}";
-            
+
             ClosingCommand = ReactiveCommand.Create<CancelEventArgs, Unit>(_ =>
             {
                 if (_olfactometer != null)

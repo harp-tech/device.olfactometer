@@ -19,23 +19,23 @@ public partial class EepromGenerationWindow : ReactiveWindow<EepromGenerationVie
 #if DEBUG
         this.AttachDevTools();
 #endif
-        
+
         this.WhenActivated(d => d(ViewModel.ShowOpenFileDialog.RegisterHandler(DoShowOpenFileDialog)));
         this.WhenActivated(d => d(ViewModel.ShowSaveFileDialog.RegisterHandler(DoShowSaveFileDialog)));
     }
-    
+
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private async Task DoShowOpenFileDialog(InteractionContext<Unit, string?> interaction)
     {
         var dialog = new OpenFileDialog();
         var fileNames = await dialog.ShowAsync(this);
         interaction.SetOutput((fileNames ?? Array.Empty<string>()).FirstOrDefault());
     }
-    
+
     private async Task DoShowSaveFileDialog(InteractionContext<Unit, string> interaction)
     {
         var dialog = new SaveFileDialog();

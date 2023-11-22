@@ -11,15 +11,15 @@ namespace Olfactometer.Design.ViewModels
     public class AboutViewModel : ReactiveObject
     {
         [Reactive] public bool ShowDarkTheme { get; set; }
-        
+
         public ReactiveCommand<Unit, Unit> GenerateEepromCommand { get; }
 
         public AboutViewModel()
         {
             // Get current theme
             ShowDarkTheme = ((FluentTheme)App.Current.Styles[0]).Mode == FluentThemeMode.Dark;
-            
-            GenerateEepromCommand = ReactiveCommand.CreateFromTask( async () =>
+
+            GenerateEepromCommand = ReactiveCommand.CreateFromTask(async () =>
                 await new EepromGenerationWindow() { DataContext = new EepromGenerationViewModel() }.ShowDialog(
                     (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow));
         }

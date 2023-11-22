@@ -10,7 +10,7 @@ namespace Olfactometer.Design
         public static AppBuilder BuildAvaloniaApp()
         {
             RxApp.DefaultExceptionHandler = new MyCustomObservableExceptionHandler();
-        
+
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()

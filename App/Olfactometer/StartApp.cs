@@ -10,7 +10,7 @@ namespace Olfactometer
         {
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
-    
+
         public static AppBuilder BuildAvaloniaApp()
         {
             return StartApp.BuildAvaloniaApp();

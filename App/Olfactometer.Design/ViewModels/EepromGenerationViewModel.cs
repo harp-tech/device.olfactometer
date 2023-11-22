@@ -13,18 +13,18 @@ namespace Olfactometer.Design.ViewModels
     {
         [Reactive] public string InputFileName { get; set; }
         [Reactive] public string OutputFileName { get; set; }
-        
+
         [Reactive] public bool IsGenerated { get; set; }
-        
+
         public Interaction<Unit, string?> ShowOpenFileDialog { get; }
         public Interaction<Unit, string?> ShowSaveFileDialog { get; }
         public ReactiveCommand<Unit, Unit> BrowseOpenCommand { get; }
         public ReactiveCommand<Unit, Unit> GenerateCommand { get; }
-        
+
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        
+
         private EepromManager _manager;
-        
+
         public EepromGenerationViewModel()
         {
             ShowOpenFileDialog = new Interaction<Unit, string?>();
@@ -38,7 +38,7 @@ namespace Olfactometer.Design.ViewModels
 
         private Task GenerateAsync()
         {
-            if( string.IsNullOrWhiteSpace(InputFileName) )
+            if (string.IsNullOrWhiteSpace(InputFileName))
                 // TODO: should present an error to the user
                 return Task.CompletedTask;
 
@@ -48,7 +48,7 @@ namespace Olfactometer.Design.ViewModels
             _manager.GenerateEeprom();
 
             IsGenerated = true;
-            
+
             return Task.CompletedTask;
         }
 
@@ -63,7 +63,7 @@ namespace Olfactometer.Design.ViewModels
 
         private async Task SaveAsync()
         {
-            if(_manager == null)
+            if (_manager == null)
                 //TODO: should show error
                 return;
 
@@ -71,7 +71,7 @@ namespace Olfactometer.Design.ViewModels
             if (fileName is object)
             {
                 _manager.Save(fileName);
-                
+
                 var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
                     .GetMessageBoxStandardWindow("File saved successfully",
                         "File saved successfully",
