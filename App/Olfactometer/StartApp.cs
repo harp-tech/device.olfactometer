@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Olfactometer.Design;
 
 namespace Olfactometer

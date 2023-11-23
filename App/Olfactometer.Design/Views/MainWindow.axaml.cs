@@ -7,7 +7,7 @@ using Olfactometer.Design.ViewModels;
 
 namespace Olfactometer.Design.Views
 {
-    public class MainWindow : ReactiveWindow<MainWindowViewModel>
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {
@@ -23,11 +23,6 @@ namespace Olfactometer.Design.Views
                 ExtendClientAreaToDecorationsHint = false;
                 Padding = new Thickness(0, 0, 0, 0);
             }
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }
