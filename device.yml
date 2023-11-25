@@ -299,11 +299,11 @@ registers:
     <<: *mimicValve
     address: 86
     description: Mimic Valve3.
-  MimicEndvalve0:
+  MimicEndValve0:
     <<: *mimicValve
     address: 87
     description: Mimic EndValve0.
-  MimicEndvalve1:
+  MimicEndValve1:
     <<: *mimicValve
     address: 88
     description: Mimic EndValve1.
@@ -398,7 +398,7 @@ groupMasks:
     description: Specifies the configuration of the digital input 0 (DIN0).
     values:
       Sync: 0x0
-      StartOnRisingEdgeStopOnFallingEdge: 0x1
+      EnableFlowWhileHigh: 0x1
       ValveToggle: 0x2
   MimicOutputs:
     description: Specifies the target IO on which to mimic the specified register.

@@ -58,6 +58,11 @@ namespace Harp.Olfactometer
             { 50, typeof(Channel2ActualFlow) },
             { 51, typeof(Channel3ActualFlow) },
             { 52, typeof(Channel4ActualFlow) },
+            { 53, typeof(Channel0Frequency) },
+            { 54, typeof(Channel1Frequency) },
+            { 55, typeof(Channel2Frequency) },
+            { 56, typeof(Channel3Frequency) },
+            { 57, typeof(Channel4Frequency) },
             { 58, typeof(Channel0DutyCycle) },
             { 59, typeof(Channel1DutyCycle) },
             { 60, typeof(Channel2DutyCycle) },
@@ -79,6 +84,7 @@ namespace Harp.Olfactometer
             { 76, typeof(Valve3PulseDuration) },
             { 77, typeof(EndValve0PulseDuration) },
             { 78, typeof(EndValve1PulseDuration) },
+            { 79, typeof(PulseDummyValve) },
             { 80, typeof(DO0Sync) },
             { 81, typeof(DO1Sync) },
             { 82, typeof(DI0Trigger) },
@@ -86,10 +92,14 @@ namespace Harp.Olfactometer
             { 84, typeof(MimicValve1) },
             { 85, typeof(MimicValve2) },
             { 86, typeof(MimicValve3) },
-            { 87, typeof(MimicEndvalve0) },
-            { 88, typeof(MimicEndvalve1) },
+            { 87, typeof(MimicEndValve0) },
+            { 88, typeof(MimicEndValve1) },
+            { 89, typeof(MimicDummyValve) },
             { 90, typeof(EnableValveExternalControl) },
             { 91, typeof(Channel3Range) },
+            { 92, typeof(Reserved0) },
+            { 93, typeof(Reserved1) },
+            { 94, typeof(Reserved2) },
             { 95, typeof(EnableEvents) }
         };
     }
@@ -168,8 +178,8 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
-    /// <seealso cref="MimicEndvalve0"/>
-    /// <seealso cref="MimicEndvalve1"/>
+    /// <seealso cref="MimicEndValve0"/>
+    /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
@@ -222,8 +232,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
-    [XmlInclude(typeof(MimicEndvalve0))]
-    [XmlInclude(typeof(MimicEndvalve1))]
+    [XmlInclude(typeof(MimicEndValve0))]
+    [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
@@ -297,8 +307,8 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
-    /// <seealso cref="MimicEndvalve0"/>
-    /// <seealso cref="MimicEndvalve1"/>
+    /// <seealso cref="MimicEndValve0"/>
+    /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
@@ -351,8 +361,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
-    [XmlInclude(typeof(MimicEndvalve0))]
-    [XmlInclude(typeof(MimicEndvalve1))]
+    [XmlInclude(typeof(MimicEndValve0))]
+    [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
@@ -405,8 +415,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedMimicValve1))]
     [XmlInclude(typeof(TimestampedMimicValve2))]
     [XmlInclude(typeof(TimestampedMimicValve3))]
-    [XmlInclude(typeof(TimestampedMimicEndvalve0))]
-    [XmlInclude(typeof(TimestampedMimicEndvalve1))]
+    [XmlInclude(typeof(TimestampedMimicEndValve0))]
+    [XmlInclude(typeof(TimestampedMimicEndValve1))]
     [XmlInclude(typeof(TimestampedEnableValveExternalControl))]
     [XmlInclude(typeof(TimestampedChannel3Range))]
     [XmlInclude(typeof(TimestampedEnableEvents))]
@@ -477,8 +487,8 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
-    /// <seealso cref="MimicEndvalve0"/>
-    /// <seealso cref="MimicEndvalve1"/>
+    /// <seealso cref="MimicEndValve0"/>
+    /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="EnableEvents"/>
@@ -531,8 +541,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
-    [XmlInclude(typeof(MimicEndvalve0))]
-    [XmlInclude(typeof(MimicEndvalve1))]
+    [XmlInclude(typeof(MimicEndValve0))]
+    [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(EnableEvents))]
@@ -2618,6 +2628,116 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that switching frequency for proportional valve 0 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 0 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel0Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 53;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 1 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 1 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel1Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 54;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 2 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 2 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel2Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 55;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 3 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 3 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel3Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 56;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 4 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 4 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel4Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 57;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that duty cycle for proportional valve 0 [%].
     /// </summary>
     [Description("Duty cycle for proportional valve 0 [%].")]
@@ -4644,6 +4764,28 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that dummy valve pulse duration [1:65535] ms.
+    /// </summary>
+    [Description("Dummy valve pulse duration [1:65535] ms.")]
+    internal partial class PulseDummyValve
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 79;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that configuration of the digital output 0 (DOUT0).
     /// </summary>
     [Description("Configuration of the digital output 0 (DOUT0).")]
@@ -5326,25 +5468,25 @@ namespace Harp.Olfactometer
     /// Represents a register that mimic EndValve0.
     /// </summary>
     [Description("Mimic EndValve0.")]
-    public partial class MimicEndvalve0
+    public partial class MimicEndValve0
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicEndvalve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="MimicEndValve0"/> register. This field is constant.
         /// </summary>
         public const int Address = 87;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="MimicEndvalve0"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="MimicEndValve0"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="MimicEndvalve0"/> register. This field is constant.
+        /// Represents the length of the <see cref="MimicEndValve0"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="MimicEndvalve0"/> register messages.
+        /// Returns the payload data for <see cref="MimicEndValve0"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -5354,7 +5496,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="MimicEndvalve0"/> register messages.
+        /// Returns the timestamped payload data for <see cref="MimicEndValve0"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -5365,12 +5507,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="MimicEndvalve0"/> register.
+        /// Returns a Harp message for the <see cref="MimicEndValve0"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndValve0"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
@@ -5379,14 +5521,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MimicEndvalve0"/>
+        /// Returns a timestamped Harp message for the <see cref="MimicEndValve0"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve0"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndValve0"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
@@ -5397,25 +5539,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// MimicEndvalve0 register.
+    /// MimicEndValve0 register.
     /// </summary>
-    /// <seealso cref="MimicEndvalve0"/>
-    [Description("Filters and selects timestamped messages from the MimicEndvalve0 register.")]
-    public partial class TimestampedMimicEndvalve0
+    /// <seealso cref="MimicEndValve0"/>
+    [Description("Filters and selects timestamped messages from the MimicEndValve0 register.")]
+    public partial class TimestampedMimicEndValve0
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicEndvalve0"/> register. This field is constant.
+        /// Represents the address of the <see cref="MimicEndValve0"/> register. This field is constant.
         /// </summary>
-        public const int Address = MimicEndvalve0.Address;
+        public const int Address = MimicEndValve0.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="MimicEndvalve0"/> register messages.
+        /// Returns timestamped payload data for <see cref="MimicEndValve0"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
-            return MimicEndvalve0.GetTimestampedPayload(message);
+            return MimicEndValve0.GetTimestampedPayload(message);
         }
     }
 
@@ -5423,25 +5565,25 @@ namespace Harp.Olfactometer
     /// Represents a register that mimic EndValve1.
     /// </summary>
     [Description("Mimic EndValve1.")]
-    public partial class MimicEndvalve1
+    public partial class MimicEndValve1
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicEndvalve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="MimicEndValve1"/> register. This field is constant.
         /// </summary>
         public const int Address = 88;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="MimicEndvalve1"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="MimicEndValve1"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="MimicEndvalve1"/> register. This field is constant.
+        /// Represents the length of the <see cref="MimicEndValve1"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="MimicEndvalve1"/> register messages.
+        /// Returns the payload data for <see cref="MimicEndValve1"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -5451,7 +5593,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="MimicEndvalve1"/> register messages.
+        /// Returns the timestamped payload data for <see cref="MimicEndValve1"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -5462,12 +5604,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="MimicEndvalve1"/> register.
+        /// Returns a Harp message for the <see cref="MimicEndValve1"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndValve1"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
@@ -5476,14 +5618,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MimicEndvalve1"/>
+        /// Returns a timestamped Harp message for the <see cref="MimicEndValve1"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndvalve1"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicEndValve1"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
@@ -5494,26 +5636,48 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// MimicEndvalve1 register.
+    /// MimicEndValve1 register.
     /// </summary>
-    /// <seealso cref="MimicEndvalve1"/>
-    [Description("Filters and selects timestamped messages from the MimicEndvalve1 register.")]
-    public partial class TimestampedMimicEndvalve1
+    /// <seealso cref="MimicEndValve1"/>
+    [Description("Filters and selects timestamped messages from the MimicEndValve1 register.")]
+    public partial class TimestampedMimicEndValve1
     {
         /// <summary>
-        /// Represents the address of the <see cref="MimicEndvalve1"/> register. This field is constant.
+        /// Represents the address of the <see cref="MimicEndValve1"/> register. This field is constant.
         /// </summary>
-        public const int Address = MimicEndvalve1.Address;
+        public const int Address = MimicEndValve1.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="MimicEndvalve1"/> register messages.
+        /// Returns timestamped payload data for <see cref="MimicEndValve1"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
         {
-            return MimicEndvalve1.GetTimestampedPayload(message);
+            return MimicEndValve1.GetTimestampedPayload(message);
         }
+    }
+
+    /// <summary>
+    /// Represents a register that mimic DummyValve.
+    /// </summary>
+    [Description("Mimic DummyValve.")]
+    internal partial class MimicDummyValve
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 89;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
     }
 
     /// <summary>
@@ -5711,6 +5875,72 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that reserved for future use.
+    /// </summary>
+    [Description("Reserved for future use.")]
+    internal partial class Reserved0
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 92;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved for future use.
+    /// </summary>
+    [Description("Reserved for future use.")]
+    internal partial class Reserved1
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 93;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved for future use.
+    /// </summary>
+    [Description("Reserved for future use.")]
+    internal partial class Reserved2
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 94;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that specifies the active events in the device.
     /// </summary>
     [Description("Specifies the active events in the device.")]
@@ -5860,8 +6090,8 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateMimicValve1Payload"/>
     /// <seealso cref="CreateMimicValve2Payload"/>
     /// <seealso cref="CreateMimicValve3Payload"/>
-    /// <seealso cref="CreateMimicEndvalve0Payload"/>
-    /// <seealso cref="CreateMimicEndvalve1Payload"/>
+    /// <seealso cref="CreateMimicEndValve0Payload"/>
+    /// <seealso cref="CreateMimicEndValve1Payload"/>
     /// <seealso cref="CreateEnableValveExternalControlPayload"/>
     /// <seealso cref="CreateChannel3RangePayload"/>
     /// <seealso cref="CreateEnableEventsPayload"/>
@@ -5914,8 +6144,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateMimicValve1Payload))]
     [XmlInclude(typeof(CreateMimicValve2Payload))]
     [XmlInclude(typeof(CreateMimicValve3Payload))]
-    [XmlInclude(typeof(CreateMimicEndvalve0Payload))]
-    [XmlInclude(typeof(CreateMimicEndvalve1Payload))]
+    [XmlInclude(typeof(CreateMimicEndValve0Payload))]
+    [XmlInclude(typeof(CreateMimicEndValve1Payload))]
     [XmlInclude(typeof(CreateEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateChannel3RangePayload))]
     [XmlInclude(typeof(CreateEnableEventsPayload))]
@@ -5968,8 +6198,8 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedMimicValve1Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve2Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve3Payload))]
-    [XmlInclude(typeof(CreateTimestampedMimicEndvalve0Payload))]
-    [XmlInclude(typeof(CreateTimestampedMimicEndvalve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicEndValve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicEndValve1Payload))]
     [XmlInclude(typeof(CreateTimestampedEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel3RangePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableEventsPayload))]
@@ -8729,33 +8959,33 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a message payload
     /// that mimic EndValve0.
     /// </summary>
-    [DisplayName("MimicEndvalve0Payload")]
+    [DisplayName("MimicEndValve0Payload")]
     [Description("Creates a message payload that mimic EndValve0.")]
-    public partial class CreateMimicEndvalve0Payload
+    public partial class CreateMimicEndValve0Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic EndValve0.
         /// </summary>
         [Description("The value that mimic EndValve0.")]
-        public MimicOutputs MimicEndvalve0 { get; set; }
+        public MimicOutputs MimicEndValve0 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MimicEndvalve0 register.
+        /// Creates a message payload for the MimicEndValve0 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public MimicOutputs GetPayload()
         {
-            return MimicEndvalve0;
+            return MimicEndValve0;
         }
 
         /// <summary>
         /// Creates a message that mimic EndValve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MimicEndvalve0 register.</returns>
+        /// <returns>A new message for the MimicEndValve0 register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.MimicEndvalve0.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.MimicEndValve0.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -8763,19 +8993,19 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a timestamped message payload
     /// that mimic EndValve0.
     /// </summary>
-    [DisplayName("TimestampedMimicEndvalve0Payload")]
+    [DisplayName("TimestampedMimicEndValve0Payload")]
     [Description("Creates a timestamped message payload that mimic EndValve0.")]
-    public partial class CreateTimestampedMimicEndvalve0Payload : CreateMimicEndvalve0Payload
+    public partial class CreateTimestampedMimicEndValve0Payload : CreateMimicEndValve0Payload
     {
         /// <summary>
         /// Creates a timestamped message that mimic EndValve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MimicEndvalve0 register.</returns>
+        /// <returns>A new timestamped message for the MimicEndValve0 register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.MimicEndvalve0.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.MimicEndValve0.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -8783,33 +9013,33 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a message payload
     /// that mimic EndValve1.
     /// </summary>
-    [DisplayName("MimicEndvalve1Payload")]
+    [DisplayName("MimicEndValve1Payload")]
     [Description("Creates a message payload that mimic EndValve1.")]
-    public partial class CreateMimicEndvalve1Payload
+    public partial class CreateMimicEndValve1Payload
     {
         /// <summary>
         /// Gets or sets the value that mimic EndValve1.
         /// </summary>
         [Description("The value that mimic EndValve1.")]
-        public MimicOutputs MimicEndvalve1 { get; set; }
+        public MimicOutputs MimicEndValve1 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MimicEndvalve1 register.
+        /// Creates a message payload for the MimicEndValve1 register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public MimicOutputs GetPayload()
         {
-            return MimicEndvalve1;
+            return MimicEndValve1;
         }
 
         /// <summary>
         /// Creates a message that mimic EndValve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MimicEndvalve1 register.</returns>
+        /// <returns>A new message for the MimicEndValve1 register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.MimicEndvalve1.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.MimicEndValve1.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -8817,19 +9047,19 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a timestamped message payload
     /// that mimic EndValve1.
     /// </summary>
-    [DisplayName("TimestampedMimicEndvalve1Payload")]
+    [DisplayName("TimestampedMimicEndValve1Payload")]
     [Description("Creates a timestamped message payload that mimic EndValve1.")]
-    public partial class CreateTimestampedMimicEndvalve1Payload : CreateMimicEndvalve1Payload
+    public partial class CreateTimestampedMimicEndValve1Payload : CreateMimicEndValve1Payload
     {
         /// <summary>
         /// Creates a timestamped message that mimic EndValve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MimicEndvalve1 register.</returns>
+        /// <returns>A new timestamped message for the MimicEndValve1 register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.MimicEndvalve1.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.MimicEndValve1.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -9198,7 +9428,7 @@ namespace Harp.Olfactometer
     public enum DI0TriggerConfig : byte
     {
         Sync = 0,
-        StartOnRisingEdgeStopOnFallingEdge = 1,
+        EnableFlowWhileHigh = 1,
         ValveToggle = 2
     }
 
