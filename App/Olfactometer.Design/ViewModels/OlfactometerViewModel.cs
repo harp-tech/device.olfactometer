@@ -272,8 +272,8 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteMimicValve1Async((MimicOutputs)MimicValve1);
                 await _olfactometer.WriteMimicValve2Async((MimicOutputs)MimicValve2);
                 await _olfactometer.WriteMimicValve3Async((MimicOutputs)MimicValve3);
-                await _olfactometer.WriteMimicEndvalve0Async((MimicOutputs)MimicEndValve0);
-                await _olfactometer.WriteMimicEndvalve1Async((MimicOutputs)MimicEndValve1);
+                await _olfactometer.WriteMimicEndValve0Async((MimicOutputs)MimicEndValve0);
+                await _olfactometer.WriteMimicEndValve1Async((MimicOutputs)MimicEndValve1);
 
                 // DO0 Sync, DO1 Sync, DI0 Trigger
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
@@ -475,8 +475,8 @@ namespace Olfactometer.Design.ViewModels
                 MimicValve1 = (int)await _olfactometer.ReadMimicValve1Async();
                 MimicValve2 = (int)await _olfactometer.ReadMimicValve2Async();
                 MimicValve3 = (int)await _olfactometer.ReadMimicValve3Async();
-                MimicEndValve0 = (int)await _olfactometer.ReadMimicEndvalve0Async();
-                MimicEndValve1 = (int)await _olfactometer.ReadMimicEndvalve1Async();
+                MimicEndValve0 = (int)await _olfactometer.ReadMimicEndValve0Async();
+                MimicEndValve1 = (int)await _olfactometer.ReadMimicEndValve1Async();
 
                 EnableFlow = await _olfactometer.ReadEnableFlowAsync();
             });
