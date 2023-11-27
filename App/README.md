@@ -91,8 +91,8 @@ Hardware & Software Platform of the Champalimaud Foundation.
 
 ### Main contributors
 
-- Artur Silva
-- Luís Teixeira
+- Artur Silva ([@artursilva0](https://github.com/artursilva0))
+- Luís Teixeira ([@MicBoucinha](https://github.com/MicBoucinha))
 
 ## License
 
