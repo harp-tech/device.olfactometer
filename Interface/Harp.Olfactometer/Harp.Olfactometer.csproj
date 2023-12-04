@@ -23,12 +23,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bonsai.Harp" Version="3.5.0" />
+    <PackageReference Include="Bonsai.Harp" Version="3.5.0"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\LICENSE" PackagePath="/" />
-    <Content Include="..\icon.png" PackagePath="/" />
+    <Content Include="..\LICENSE" PackagePath="/"/>
+    <Content Include="..\icon.png" PackagePath="/"/>
   </ItemGroup>
 
 </Project>

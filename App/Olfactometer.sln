@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olfactometer.Design", "Olfactometer.Design\Olfactometer.Design.csproj", "{3F614DF8-56A0-4D20-B680-002E5D86088A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harp.Olfactometer", "..\Interface\Harp.Olfactometer\Harp.Olfactometer.csproj", "{88D7EB30-969E-4F0B-B98D-9388325C046C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olfactometer", "Olfactometer\Olfactometer.csproj", "{5A6E1443-432F-4A21-B068-9391643F14B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support", "Support", "{0526A876-4210-4E49-9AA2-793B6AE1947C}"
+	ProjectSection(SolutionItems) = preProject
+		Olfactometer.nsi = Olfactometer.nsi
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F614DF8-56A0-4D20-B680-002E5D86088A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F614DF8-56A0-4D20-B680-002E5D86088A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F614DF8-56A0-4D20-B680-002E5D86088A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F614DF8-56A0-4D20-B680-002E5D86088A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88D7EB30-969E-4F0B-B98D-9388325C046C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D7EB30-969E-4F0B-B98D-9388325C046C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D7EB30-969E-4F0B-B98D-9388325C046C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D7EB30-969E-4F0B-B98D-9388325C046C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6E1443-432F-4A21-B068-9391643F14B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6E1443-432F-4A21-B068-9391643F14B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6E1443-432F-4A21-B068-9391643F14B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6E1443-432F-4A21-B068-9391643F14B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
