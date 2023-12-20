@@ -60,7 +60,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 1;
     uint8_t hwL = 0;
     uint8_t fwH = 1;
-    uint8_t fwL = 1;
+    uint8_t fwL = 2;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -121,6 +121,10 @@ void init_calibration_values(void)
 	
 	index = index0;
 	CH0_calibration_values[0] = eeprom_rd_byte(index);
+	
+	if (CH0_calibration_values[0] == 0)
+		return; 
+	
 	CH0_calibration_values[0] = ((CH0_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 	CH0_calibration_values[1] = eeprom_rd_byte(++index);
 	CH0_calibration_values[1] = ((CH0_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
