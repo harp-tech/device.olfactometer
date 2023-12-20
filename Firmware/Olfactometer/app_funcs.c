@@ -283,6 +283,17 @@ bool app_write_REG_CHANNEL0_USER_CALIBRATION(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL0_USER_CALIBRATION[0] = reg[0];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[1] = reg[1];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[2] = reg[2];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[3] = reg[3];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[4] = reg[4];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[5] = reg[5];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[6] = reg[6];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[7] = reg[7];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[8] = reg[8];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[9] = reg[9];
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[10] = reg[10];
+	
 	return true;
 }
 
@@ -302,6 +313,17 @@ bool app_write_REG_CHANNEL1_USER_CALIBRATION(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL1_USER_CALIBRATION[0] = reg[0];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[1] = reg[1];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[2] = reg[2];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[3] = reg[3];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[4] = reg[4];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[5] = reg[5];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[6] = reg[6];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[7] = reg[7];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[8] = reg[8];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[9] = reg[9];
+	app_regs.REG_CHANNEL1_USER_CALIBRATION[10] = reg[10];
+	
 	return true;
 }
 
@@ -321,6 +343,16 @@ bool app_write_REG_CHANNEL2_USER_CALIBRATION(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL2_USER_CALIBRATION[0] = reg[0];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[1] = reg[1];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[2] = reg[2];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[3] = reg[3];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[4] = reg[4];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[5] = reg[5];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[6] = reg[6];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[7] = reg[7];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[8] = reg[8];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[9] = reg[9];
+	app_regs.REG_CHANNEL2_USER_CALIBRATION[10] = reg[10];
 	return true;
 }
 
@@ -340,6 +372,16 @@ bool app_write_REG_CHANNEL3_USER_CALIBRATION(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL3_USER_CALIBRATION[0] = reg[0];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[1] = reg[1];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[2] = reg[2];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[3] = reg[3];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[4] = reg[4];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[5] = reg[5];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[6] = reg[6];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[7] = reg[7];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[8] = reg[8];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[9] = reg[9];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION[10] = reg[10];
 	return true;
 }
 
@@ -359,6 +401,16 @@ bool app_write_REG_CHANNEL4_USER_CALIBRATION(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL4_USER_CALIBRATION[0] = reg[0];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[1] = reg[1];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[2] = reg[2];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[3] = reg[3];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[4] = reg[4];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[5] = reg[5];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[6] = reg[6];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[7] = reg[7];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[8] = reg[8];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[9] = reg[9];
+	app_regs.REG_CHANNEL4_USER_CALIBRATION[10] = reg[10];
 	return true;
 }
 
@@ -378,6 +430,16 @@ bool app_write_REG_CHANNEL3_USER_CALIBRATION_AUX(void *a)
 	uint16_t *reg = ((uint16_t*)a);
 
 	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[0] = reg[0];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[1] = reg[1];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[2] = reg[2];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[3] = reg[3];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[4] = reg[4];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[5] = reg[5];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[6] = reg[6];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[7] = reg[7];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[8] = reg[8];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[9] = reg[9];
+	app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[10] = reg[10];
 	return true;
 }
 
