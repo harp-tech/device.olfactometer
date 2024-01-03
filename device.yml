@@ -3,7 +3,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/harp-tech/reflex-generator/main/schema/device.json
 device: Olfactometer
 whoAmI: 1140
-firmwareVersion: "1.1"
+firmwareVersion: "1.2"
 hardwareTargets: "1.0"
 registers:
   EnableFlow:
