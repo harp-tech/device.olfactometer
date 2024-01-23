@@ -279,6 +279,17 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
                 await _olfactometer.WriteDI0TriggerAsync((DI0TriggerConfig)DigitalInput0Config);
+                
+                // Pulse state
+                await _olfactometer.WriteEnableValvePulseAsync(GetCurrentValvesPulse());
+
+                // Pulse Valves duration
+                await _olfactometer.WriteValve0PulseDurationAsync(PulseValve0);
+                await _olfactometer.WriteValve1PulseDurationAsync(PulseValve1);
+                await _olfactometer.WriteValve2PulseDurationAsync(PulseValve2);
+                await _olfactometer.WriteValve3PulseDurationAsync(PulseValve3);
+                await _olfactometer.WriteEndValve0PulseDurationAsync(PulseEndValve0);
+                await _olfactometer.WriteEndValve1PulseDurationAsync(PulseEndValve1);
 
                 // External control valves
                 await _olfactometer.WriteEnableValveExternalControlAsync((EnableFlag)ValveExternalControl);
@@ -422,6 +433,7 @@ namespace Olfactometer.Design.ViewModels
                 Channel4TargetFlow = await _olfactometer.ReadChannel4TargetFlowAsync();
                 Channel4ActualFlow = await _olfactometer.ReadChannel4ActualFlowAsync();
 
+                // Get Valves Pulse Duration
                 PulseValve0 = await _olfactometer.ReadValve0PulseDurationAsync();
                 PulseValve1 = await _olfactometer.ReadValve1PulseDurationAsync();
                 PulseValve2 = await _olfactometer.ReadValve2PulseDurationAsync();
