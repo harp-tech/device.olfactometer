@@ -234,11 +234,11 @@
                                                   IsChecked="{Binding Path=Valve0State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="1" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve0Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding Valve0PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="1" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseValve0}" VerticalAlignment="Center"
+                                                   Text="{Binding Valve0PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="1" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -249,11 +249,11 @@
                                                   IsChecked="{Binding Path=Valve1State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="2" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve1Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding Valve1PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="2" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseValve1}" VerticalAlignment="Center"
+                                                   Text="{Binding Valve1PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="2" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -264,11 +264,11 @@
                                                   IsChecked="{Binding Path=Valve2State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="3" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve2Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding Valve2PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="3" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseValve2}" VerticalAlignment="Center"
+                                                   Text="{Binding Valve2PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="3" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -279,11 +279,11 @@
                                                   IsChecked="{Binding Path=Valve3State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="4" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve3Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding Valve3PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="4" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseValve3}" VerticalAlignment="Center"
+                                                   Text="{Binding Valve3PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="4" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -294,11 +294,11 @@
                                                   IsChecked="{Binding Path=EndValve0State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="5" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding EndValve0Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding EndValve0PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="5" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseEndValve0}" VerticalAlignment="Center"
+                                                   Text="{Binding EndValve0PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="5" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -309,11 +309,11 @@
                                                   IsChecked="{Binding Path=EndValve1State}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <ToggleSwitch Grid.Row="6" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding EndValve1Pulse}" VerticalAlignment="Center"
+                                                  IsChecked="{Binding EndValve1PulseState}" VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                                     <NumericUpDown Grid.Row="6" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
                                                    Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding PulseEndValve1}" VerticalAlignment="Center"
+                                                   Text="{Binding EndValve1PulseDuration}" VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
                                     <TextBlock Grid.Row="6" Grid.Column="4" Margin="10" Text="[1:65535] ms"
                                                VerticalAlignment="Center" HorizontalAlignment="Center" />
