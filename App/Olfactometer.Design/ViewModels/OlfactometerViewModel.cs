@@ -63,12 +63,12 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public float Channel4TargetFlow { get; set; }
         [Reactive] public float Channel4ActualFlow { get; set; }
 
-        [Reactive] public ushort PulseValve0 { get; set; }
-        [Reactive] public ushort PulseValve1 { get; set; }
-        [Reactive] public ushort PulseValve2 { get; set; }
-        [Reactive] public ushort PulseValve3 { get; set; }
-        [Reactive] public ushort PulseEndValve0 { get; set; }
-        [Reactive] public ushort PulseEndValve1 { get; set; }
+        [Reactive] public ushort Valve0PulseDuration { get; set; }
+        [Reactive] public ushort Valve1PulseDuration { get; set; }
+        [Reactive] public ushort Valve2PulseDuration { get; set; }
+        [Reactive] public ushort Valve3PulseDuration { get; set; }
+        [Reactive] public ushort EndValve0PulseDuration { get; set; }
+        [Reactive] public ushort EndValve1PulseDuration { get; set; }
 
         [Reactive] public bool Valve0State { get; set; }
         [Reactive] public bool Valve1State { get; set; }
@@ -77,12 +77,12 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public bool EndValve0State { get; set; }
         [Reactive] public bool EndValve1State { get; set; }
 
-        [Reactive] public bool Valve0Pulse { get; set; }
-        [Reactive] public bool Valve1Pulse { get; set; }
-        [Reactive] public bool Valve2Pulse { get; set; }
-        [Reactive] public bool Valve3Pulse { get; set; }
-        [Reactive] public bool EndValve0Pulse { get; set; }
-        [Reactive] public bool EndValve1Pulse { get; set; }
+        [Reactive] public bool Valve0PulseState { get; set; }
+        [Reactive] public bool Valve1PulseState { get; set; }
+        [Reactive] public bool Valve2PulseState { get; set; }
+        [Reactive] public bool Valve3PulseState { get; set; }
+        [Reactive] public bool EndValve0PulseState { get; set; }
+        [Reactive] public bool EndValve1PulseState { get; set; }
 
         [Reactive] public int DigitalOutput0Config { get; set; }
         [Reactive] public int DigitalOutput1Config { get; set; }
@@ -220,8 +220,8 @@ namespace Olfactometer.Design.ViewModels
                     }
                 });
 
-            this.WhenAnyValue(x => x.Valve0Pulse, x => x.Valve1Pulse, x => x.Valve2Pulse, x => x.Valve3Pulse,
-                    x => x.EndValve0Pulse, x => x.EndValve1Pulse)
+            this.WhenAnyValue(x => x.Valve0PulseState, x => x.Valve1PulseState, x => x.Valve2PulseState, x => x.Valve3PulseState,
+                    x => x.EndValve0PulseState, x => x.EndValve1PulseState)
                 .Subscribe(async x =>
                 {
                     if (_olfactometer != null)
@@ -279,6 +279,17 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
                 await _olfactometer.WriteDI0TriggerAsync((DI0TriggerConfig)DigitalInput0Config);
+                
+                // Pulse state
+                await _olfactometer.WriteEnableValvePulseAsync(GetCurrentValvesPulse());
+
+                // Pulse Valves duration
+                await _olfactometer.WriteValve0PulseDurationAsync(Valve0PulseDuration);
+                await _olfactometer.WriteValve1PulseDurationAsync(Valve1PulseDuration);
+                await _olfactometer.WriteValve2PulseDurationAsync(Valve2PulseDuration);
+                await _olfactometer.WriteValve3PulseDurationAsync(Valve3PulseDuration);
+                await _olfactometer.WriteEndValve0PulseDurationAsync(EndValve0PulseDuration);
+                await _olfactometer.WriteEndValve1PulseDurationAsync(EndValve1PulseDuration);
 
                 // External control valves
                 await _olfactometer.WriteEnableValveExternalControlAsync((EnableFlag)ValveExternalControl);
@@ -422,12 +433,13 @@ namespace Olfactometer.Design.ViewModels
                 Channel4TargetFlow = await _olfactometer.ReadChannel4TargetFlowAsync();
                 Channel4ActualFlow = await _olfactometer.ReadChannel4ActualFlowAsync();
 
-                PulseValve0 = await _olfactometer.ReadValve0PulseDurationAsync();
-                PulseValve1 = await _olfactometer.ReadValve1PulseDurationAsync();
-                PulseValve2 = await _olfactometer.ReadValve2PulseDurationAsync();
-                PulseValve3 = await _olfactometer.ReadValve3PulseDurationAsync();
-                PulseEndValve0 = await _olfactometer.ReadEndValve0PulseDurationAsync();
-                PulseEndValve1 = await _olfactometer.ReadEndValve1PulseDurationAsync();
+                // Get Valves Pulse Duration
+                Valve0PulseDuration = await _olfactometer.ReadValve0PulseDurationAsync();
+                Valve1PulseDuration = await _olfactometer.ReadValve1PulseDurationAsync();
+                Valve2PulseDuration = await _olfactometer.ReadValve2PulseDurationAsync();
+                Valve3PulseDuration = await _olfactometer.ReadValve3PulseDurationAsync();
+                EndValve0PulseDuration = await _olfactometer.ReadEndValve0PulseDurationAsync();
+                EndValve1PulseDuration = await _olfactometer.ReadEndValve1PulseDurationAsync();
 
                 // get ValvesState (OdorValves and EndValves)
                 var odorValvesState = await _olfactometer.ReadOdorValveStateAsync();
@@ -441,12 +453,12 @@ namespace Olfactometer.Design.ViewModels
 
                 // get ValvesPulse
                 var valvesPulse = await _olfactometer.ReadEnableValvePulseAsync();
-                Valve0Pulse = valvesPulse.HasFlag(Valves.Valve0);
-                Valve1Pulse = valvesPulse.HasFlag(Valves.Valve1);
-                Valve2Pulse = valvesPulse.HasFlag(Valves.Valve2);
-                Valve3Pulse = valvesPulse.HasFlag(Valves.Valve3);
-                EndValve0Pulse = valvesPulse.HasFlag(Valves.EndValve0);
-                EndValve1Pulse = valvesPulse.HasFlag(Valves.EndValve1);
+                Valve0PulseState = valvesPulse.HasFlag(Valves.Valve0);
+                Valve1PulseState = valvesPulse.HasFlag(Valves.Valve1);
+                Valve2PulseState = valvesPulse.HasFlag(Valves.Valve2);
+                Valve3PulseState = valvesPulse.HasFlag(Valves.Valve3);
+                EndValve0PulseState = valvesPulse.HasFlag(Valves.EndValve0);
+                EndValve1PulseState = valvesPulse.HasFlag(Valves.EndValve1);
 
                 // get default values for DO0_SYNC, DO1_SYNC, DI0_TRIGGER
                 var do0Sync = await _olfactometer.ReadDO0SyncAsync();
@@ -485,17 +497,17 @@ namespace Olfactometer.Design.ViewModels
         private Valves GetCurrentValvesPulse()
         {
             _valvesPulse = 0;
-            if (Valve0Pulse)
+            if (Valve0PulseState)
                 _valvesPulse |= Valves.Valve0;
-            if (Valve1Pulse)
+            if (Valve1PulseState)
                 _valvesPulse |= Valves.Valve1;
-            if (Valve2Pulse)
+            if (Valve2PulseState)
                 _valvesPulse |= Valves.Valve2;
-            if (Valve3Pulse)
+            if (Valve3PulseState)
                 _valvesPulse |= Valves.Valve3;
-            if (EndValve0Pulse)
+            if (EndValve0PulseState)
                 _valvesPulse |= Valves.EndValve0;
-            if (EndValve1Pulse)
+            if (EndValve1PulseState)
                 _valvesPulse |= Valves.EndValve1;
 
             return _valvesPulse;
