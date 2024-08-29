@@ -126,6 +126,12 @@ void mimic_valves (uint8_t reg, uint8_t function);
 #define tgl_CS_ADC toggle_io(PORTE, 4)
 #define read_CS_ADC read_io(PORTE, 4)
 
+/* CS_TEMP */
+#define set_CS_TEMP clear_io(PORTE, 2)
+#define clr_CS_TEMP set_io(PORTE, 2)
+#define tgl_CS_TEMP toggle_io(PORTE, 2)
+#define read_CS_TEMP read_io(PORTE, 2)
+
 /* CONVST */
 #define set_CONVST set_io(PORTF, 4)
 #define clr_CONVST clear_io(PORTF, 4)
@@ -246,9 +252,9 @@ typedef struct
 	uint8_t REG_MIMIC_DUMMY_VALVE;
 	uint8_t REG_ENABLE_VALVE_EXT_CTRL;
 	uint8_t REG_CHANNEL3_RANGE;
-	uint8_t REG_RESERVED0;
-	uint8_t REG_RESERVED1;
-	uint8_t REG_RESERVED2;
+	uint8_t REG_TEMP_VALUE;
+	uint8_t REG_ENABLE_TEMP_CALIBRATION;
+	uint8_t REG_TEMP_USER_CALIBRATION;
 	uint8_t REG_ENABLE_EVENTS;
 } AppRegs;
 
@@ -316,13 +322,13 @@ typedef struct
 #define ADD_REG_MIMIC_DUMMY_VALVE           89 // U8
 #define ADD_REG_ENABLE_VALVE_EXT_CTRL       90 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
 #define ADD_REG_CHANNEL3_RANGE              91 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
-#define ADD_REG_RESERVED0                   92 // U8     Reserved register for future use
-#define ADD_REG_RESERVED1                   93 // U8     Reserved register for future use
-#define ADD_REG_RESERVED2                   94 // U8     Reserved register for future use
+#define ADD_REG_TEMP_VALUE                  92 // U8     Temperature sensor reading value
+#define ADD_REG_ENABLE_TEMP_CALIBRATION     93 // U8     Enable temperature calibration compensation
+#define ADD_REG_TEMP_USER_CALIBRATION       94 // U8     User temperature calibration value
 #define ADD_REG_ENABLE_EVENTS               95 // U8     Enable the Events
 
 /************************************************************************/
-/* PWM Generator registers' memory limits                               */
+/* Olfactometer  registers' memory limits                               */
 /*                                                                      */
 /* DON'T change the APP_REGS_ADD_MIN value !!!                          */
 /* DON'T change these names !!!                                         */

@@ -23,12 +23,17 @@ extern bool (*app_func_wr_pointer[])(void*);
 countdown_t pulse_countdown;
 status_PWM_DC_t status_DC;
 
-uint16_t ADC_sampling_counter = 0;
+uint16_t temp_sampling_counter = 0;
+uint8_t ADC_sampling_counter = 0;
+#define TEMP_SAMPLING_DIVIDER 1000 //1000*1ms
 #define ADC_SAMPLING_DIVIDER 2 //2*1ms
 #define CLOSE_LOOP_TIMING 5 //2*1*5ms 
-uint16_t close_loop_counter_ms = 0;
+uint8_t close_loop_counter_ms = 0;
 uint8_t close_loop_case = 0;
 uint8_t calibration_size = 11; //number of array positions for calibration  
+//uint8_t temp_sensor = 0; // temp sensor availability
+
+//bool temp_sensor = false;
 
 uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
 uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
@@ -39,6 +44,11 @@ uint16_t CH2_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 
 uint16_t CH3_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
 uint16_t CH4_calibration_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
 uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
+	
+#define _1_CLOCK_CYCLES asm ( "nop \n")
+#define _2_CLOCK_CYCLES _1_CLOCK_CYCLES; _1_CLOCK_CYCLES
+#define _4_CLOCK_CYCLES _2_CLOCK_CYCLES; _2_CLOCK_CYCLES
+#define _8_CLOCK_CYCLES _4_CLOCK_CYCLES; _4_CLOCK_CYCLES
 
 /************************************************************************/
 /* User functions                                                       */
@@ -46,7 +56,7 @@ uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 94
 
 void init_calibration_values(void);
 void closed_loop_control(uint8_t flow);
-float interpolate_aux(uint16_t inValue, uint16_t lower_x, uint16_t upper_x, uint16_t lower_y, uint16_t upper_y);
+float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y);
 
 
 /************************************************************************/
@@ -60,7 +70,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 1;
     uint8_t hwL = 0;
     uint8_t fwH = 1;
-    uint8_t fwL = 2;
+    uint8_t fwL = 3;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -105,6 +115,155 @@ void core_callback_catastrophic_error_detected(void)
 	clr_OUT0;
 	clr_OUT1;
 	
+}
+
+
+/************************************************************************/
+/* Send a read temperature command to the sensor                        */
+/************************************************************************/
+
+
+void init_temperature()
+{
+	uint8_t command_byte = 0x80; //write config register 
+	uint8_t current_spi_ctrl;
+	uint16_t status_MSB = 0;
+	current_spi_ctrl = SPIE_CTRL;
+	SPIE_CTRL = 0;
+		
+	clr_CS_TEMP;
+	_8_CLOCK_CYCLES;
+	
+	for (uint8_t i = 0; i < 8; i++) // write address
+	{
+		if ((command_byte<<i) & 0x80) set_MOSI;
+		else clr_MOSI;
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		clr_SCK;
+	}
+	
+	command_byte = 0x06;
+	_8_CLOCK_CYCLES;
+		
+	for (uint8_t i = 0; i < 8; i++) // write config for 12 bit resolution
+	{
+		if ((command_byte<<i) & 0x80) set_MOSI;
+		else clr_MOSI;
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		clr_SCK;
+	}
+	
+    set_CS_TEMP;
+	SPIE_CTRL = current_spi_ctrl;
+	
+	// verify temp sensor config
+	command_byte = 0x00; // read config register
+	current_spi_ctrl = SPIE_CTRL;
+	SPIE_CTRL = 0;
+	
+	clr_CS_TEMP;
+	
+	_8_CLOCK_CYCLES;
+	for (uint8_t i = 0; i < 8; i++) // write read config register
+	{
+		if ((command_byte<<i) & 0x80) set_MOSI;
+		else clr_MOSI;
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		clr_SCK;
+	}
+	
+	for (uint8_t i = 0; i < 8; i++) // read register
+	{
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		status_MSB = (read_io(PORTE, 6) >> (i-1)) | status_MSB;
+		clr_SCK;
+	}
+	
+	set_CS_TEMP;
+	
+
+	if (status_MSB == 0x06)
+		app_regs.REG_TEMP_VALUE = 25;
+
+	SPIE_CTRL = current_spi_ctrl;
+	
+}
+
+
+void read_temperature() //~50us
+{
+	uint16_t temperature_MSB = 0;
+	uint16_t temperature_LSB = 0;
+	uint8_t command_byte = 0x02; // MSB
+	
+	uint8_t current_spi_ctrl;
+	current_spi_ctrl = SPIE_CTRL;
+	SPIE_CTRL = 0;
+	
+	//clr_CS_ADC;
+	clr_CS_TEMP;
+	
+	_8_CLOCK_CYCLES;
+	for (uint8_t i = 0; i < 8; i++) // write MSB temp address
+	{
+		if ((command_byte<<i) & 0x80) set_MOSI;
+		else clr_MOSI;
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		clr_SCK;
+	}
+		
+	for (uint8_t i = 0; i < 8; i++) // read register 
+	{
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		temperature_MSB = (read_io(PORTE, 6) >> (i-1)) | temperature_MSB;
+		clr_SCK;
+	}
+	
+	set_CS_TEMP;
+	_8_CLOCK_CYCLES;
+	clr_CS_TEMP;
+	
+	
+	command_byte = 0x01; // LSB
+	_8_CLOCK_CYCLES;
+	for (uint8_t i = 0; i < 8; i++) // write LSB temp address
+	{
+		if ((command_byte<<i) & 0x80) set_MOSI;
+		else clr_MOSI;
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		clr_SCK;
+	}
+		
+	for (uint8_t i = 0; i < 8; i++) // read register
+	{
+		_8_CLOCK_CYCLES;
+		set_SCK;
+		_8_CLOCK_CYCLES;
+		temperature_LSB = (read_io(PORTE, 6) >> i) | temperature_LSB;
+		clr_SCK;
+	}
+	
+	
+	set_CS_TEMP;
+	//set_CS_ADC;
+	
+	app_regs.REG_TEMP_VALUE = (temperature_MSB);
+	//app_regs.REG_RESERVED1 = (temperature_LSB >> 3);
+	SPIE_CTRL = current_spi_ctrl;
 }
 
 
@@ -270,6 +429,11 @@ void init_calibration_values(void)
 		CH3_calibration_values[9] = ((CH3_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 		CH3_calibration_values[10] = eeprom_rd_byte(++index);
 		CH3_calibration_values[10] = ((CH3_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		}
+	
+	if (app_regs.REG_TEMP_USER_CALIBRATION == 0){
+		index = index0 + 181;
+		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
 	}
 
 }
@@ -278,8 +442,9 @@ void init_calibration_values(void)
 /* Closed Loop Control - aux Interpolate function                       */
 /************************************************************************/
 
-float interpolate_aux(uint16_t inValue, uint16_t lower_x, uint16_t upper_x, uint16_t lower_y, uint16_t upper_y)
+float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y)
 {
+	
 	float slope = (float)(upper_y - lower_y) / (upper_x - lower_x) * 1.0;
 	float interpolated = (float)(inValue-lower_x) * slope + lower_y * 1.0;
 	
@@ -289,9 +454,9 @@ float interpolate_aux(uint16_t inValue, uint16_t lower_x, uint16_t upper_x, uint
 	if (interpolated > upper_y){
 		return upper_y*1.0;
 	}
-	return interpolated; 
+	
+	return interpolated;
 }
-
 
 
 /************************************************************************/
@@ -301,7 +466,7 @@ float interpolate_aux(uint16_t inValue, uint16_t lower_x, uint16_t upper_x, uint
 void closed_loop_control(uint8_t flow)
 {
 	
-	/* Takes 1100 us */ //re-check!!!!!!!!!!!!!!!!!!!!!!!
+	/* Takes 350 us */
 		
 	uint16_t calibration_values [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,500};
 	uint16_t calibration_values_1000 [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,3000};
@@ -311,10 +476,12 @@ void closed_loop_control(uint8_t flow)
 	float high_limit_dc = 99.0;
 	float error = 0;
 	
+	float temp_correction = 0.0;/****************************/
+	
 	uint8_t flowmeter = flow;
 	uint8_t index = 0;
 		
-	//set_OUT0;  // test timing
+	//set_OUT1;  // test timings
 	
 	uint8_t user_calibration = 0;
 	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
@@ -331,12 +498,19 @@ void closed_loop_control(uint8_t flow)
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
+				
+				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ // MSB temperature 
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; //+ app_regs.REG_RESERVED1*0.0625 - 25; //test with REG_RESERVED2
+					temp_correction = temp_correction * 5;
+				}
+				
+				
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH0_calibration_values[index];
+					calibration_values[index*2+2] = CH0_calibration_values[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index];
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -371,12 +545,16 @@ void closed_loop_control(uint8_t flow)
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
+				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ 
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
+					temp_correction = temp_correction * 5;
+				}
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH1_calibration_values[index];
+					calibration_values[index*2+2] = CH1_calibration_values[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index];
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -411,12 +589,16 @@ void closed_loop_control(uint8_t flow)
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
+				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+					temp_correction = temp_correction * 5;
+				}
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH2_calibration_values[index];
+					calibration_values[index*2+2] = CH2_calibration_values[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index];
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -451,13 +633,17 @@ void closed_loop_control(uint8_t flow)
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
+				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+					temp_correction = temp_correction * 5;
+				}
 				if(!user_calibration){
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = CH3_calibration_values[index];
+						calibration_values[index*2+2] = CH3_calibration_values[index]-temp_correction;
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
-						calibration_values_1000[index*2+2] = CH3_calibration_values[index];
+						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
 					
@@ -465,11 +651,11 @@ void closed_loop_control(uint8_t flow)
 				}
 				else{
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index];
+						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-temp_correction;
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
-						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index];
+						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index]-temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
 				}
@@ -522,12 +708,16 @@ void closed_loop_control(uint8_t flow)
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
+				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+					temp_correction = temp_correction * 5;
+				}
 				if(!user_calibration){
-					calibration_values_1000[index*2+2] = CH4_calibration_values[index];
+					calibration_values_1000[index*2+2] = CH4_calibration_values[index]-temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 				}
 				else{
-					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index];
+					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 				}
 				index = index + 1;
@@ -554,6 +744,8 @@ void closed_loop_control(uint8_t flow)
 			break;
 	}
 	
+	//clr_OUT1; //test timings
+	
 }
 
 
@@ -567,9 +759,11 @@ void core_callback_initialize_hardware(void){
 	init_ios();
 	
 	init_calibration_values();
-		
 	/* Initialize SPI with 4MHz */
 	SPIE_CTRL = SPI_MASTER_bm | SPI_ENABLE_bm | SPI_MODE_0_gc | SPI_CLK2X_bm | SPI_PRESCALER_DIV16_gc;
+	
+	/* Initialize temp sensor */
+	init_temperature();
 	
 	/* Reset ADC */
 	_delay_ms(100);
@@ -577,7 +771,6 @@ void core_callback_initialize_hardware(void){
 	_delay_ms(1);
 	clr_RESET;
 	_delay_ms(1);
-	
 	
 }
 
@@ -586,10 +779,13 @@ void core_callback_1st_config_hw_after_boot(void)
 	init_ios();
 	
 	init_calibration_values();
-		
+	
 	/* Initialize SPI with 4MHz */
 	SPIE_CTRL = SPI_MASTER_bm | SPI_ENABLE_bm | SPI_MODE_0_gc | SPI_CLK2X_bm | SPI_PRESCALER_DIV16_gc;
 		
+	/* Initialize temp sensor */
+	init_temperature();
+	
 	/* Reset ADC */
 	_delay_ms(100);
 	set_RESET;
@@ -597,7 +793,6 @@ void core_callback_1st_config_hw_after_boot(void)
 	clr_RESET;
 	_delay_ms(1);
 
-	
 }
 
 void core_callback_reset_registers(void)
@@ -656,6 +851,8 @@ void core_callback_reset_registers(void)
 	
 	app_regs.REG_CHANNEL3_RANGE = GM_FLOW_100;
 	app_regs.REG_ENABLE_VALVE_EXT_CTRL = 0;
+	
+	app_regs.REG_ENABLE_TEMP_CALIBRATION = 1;
 		
 	status_DC.DC0_ready = 0;
 	status_DC.DC1_ready = 0;
@@ -766,6 +963,15 @@ void core_callback_t_500us(void) {
 
 void core_callback_t_1ms(void) {
 
+	
+	if(++temp_sampling_counter >= TEMP_SAMPLING_DIVIDER){	
+		//set_OUT0;
+		if (app_regs.REG_TEMP_VALUE != 0)
+			read_temperature();
+		//clr_OUT0;
+		temp_sampling_counter = 0;
+	}
+	
 	// if flowmeter is running then each ms
 	if (app_regs.REG_ENABLE_FLOW){
 		core_func_mark_user_timestamp();

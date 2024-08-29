@@ -73,9 +73,9 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MIMIC_DUMMY_VALVE,
 	&app_read_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_read_REG_CHANNEL3_RANGE,
-	&app_read_REG_RESERVED0,
-	&app_read_REG_RESERVED1,
-	&app_read_REG_RESERVED2,
+	&app_read_REG_TEMP_VALUE,
+	&app_read_REG_ENABLE_TEMP_CALIBRATION,
+	&app_read_REG_TEMP_USER_CALIBRATION,
 	&app_read_REG_ENABLE_EVENTS
 };
 
@@ -140,9 +140,9 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MIMIC_DUMMY_VALVE,
 	&app_write_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_write_REG_CHANNEL3_RANGE,
-	&app_write_REG_RESERVED0,
-	&app_write_REG_RESERVED1,
-	&app_write_REG_RESERVED2,
+	&app_write_REG_TEMP_VALUE,
+	&app_write_REG_ENABLE_TEMP_CALIBRATION,
+	&app_write_REG_TEMP_USER_CALIBRATION,
 	&app_write_REG_ENABLE_EVENTS
 };
 
@@ -222,6 +222,13 @@ bool app_write_REG_ENABLE_FLOW(void *a)
 		clr_VALVE1;
 		clr_VALVE2;
 		clr_VALVE3;
+		
+		clr_DUMMYVALVE; //fan
+		
+	}
+	
+	else{
+		set_DUMMYVALVE; //fan
 		
 	}
 	
@@ -1707,55 +1714,55 @@ bool app_write_REG_CHANNEL3_RANGE(void *a)
 
 
 /************************************************************************/
-/* REG_RESERVED0                                                        */
+/* REG_TEMP_VALUE                                                       */
 /************************************************************************/
-void app_read_REG_RESERVED0(void)
+void app_read_REG_TEMP_VALUE(void)
 {
-	//app_regs.REG_RESERVED0 = 0;
+	//app_regs.REG_TEMP_VALUE = 0;
 
 }
 
-bool app_write_REG_RESERVED0(void *a)
+bool app_write_REG_TEMP_VALUE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_RESERVED0 = reg;
+	app_regs.REG_TEMP_VALUE = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_RESERVED1                                                        */
+/* REG_ENABLE_TEMP_CALIBRATION                                          */
 /************************************************************************/
-void app_read_REG_RESERVED1(void)
+void app_read_REG_ENABLE_TEMP_CALIBRATION(void)
 {
-	//app_regs.REG_RESERVED1 = 0;
+	//app_regs.REG_ENABLE_TEMP_CALIBRATION = 0;
 
 }
 
-bool app_write_REG_RESERVED1(void *a)
+bool app_write_REG_ENABLE_TEMP_CALIBRATION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_RESERVED1 = reg;
+	app_regs.REG_ENABLE_TEMP_CALIBRATION = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_RESERVED2                                                        */
+/* REG_TEMP_USER_CALIBRATION                                            */
 /************************************************************************/
-void app_read_REG_RESERVED2(void)
+void app_read_REG_TEMP_USER_CALIBRATION(void)
 {
-	//app_regs.REG_RESERVED2 = 0;
+	//app_regs.REG_TEMP_USER_CALIBRATION = 0;
 
 }
 
-bool app_write_REG_RESERVED2(void *a)
+bool app_write_REG_TEMP_USER_CALIBRATION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 
-	app_regs.REG_RESERVED2 = reg;
+	app_regs.REG_TEMP_USER_CALIBRATION = reg;
 	return true;
 }
 

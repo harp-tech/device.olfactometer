@@ -67,6 +67,7 @@ void init_ios(void)
 	io_pin2out(&PORTE, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // VALVE2
 	io_pin2out(&PORTF, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // VALVE3
 	io_pin2out(&PORTE, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CS_ADC
+	io_pin2out(&PORTE, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CS_TEMP
 	io_pin2out(&PORTF, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CONVST
 	io_pin2out(&PORTE, 5, OUT_IO_DIGITAL, IN_EN_IO_DIS);                 // MOSI
 	io_pin2out(&PORTE, 7, OUT_IO_DIGITAL, IN_EN_IO_DIS);                 // SCK
@@ -89,7 +90,8 @@ void init_ios(void)
 	clr_VALVE1;
 	clr_VALVE2;
 	clr_VALVE3;
-	set_CS_ADC;
+	clr_CS_ADC;
+	set_CS_TEMP;
 	clr_CONVST;
 	clr_MOSI;
 	clr_SCK;
@@ -302,8 +304,8 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_MIMIC_DUMMY_VALVE),
 	(uint8_t*)(&app_regs.REG_ENABLE_VALVE_EXT_CTRL),
 	(uint8_t*)(&app_regs.REG_CHANNEL3_RANGE),
-	(uint8_t*)(&app_regs.REG_RESERVED0),
-	(uint8_t*)(&app_regs.REG_RESERVED1),
-	(uint8_t*)(&app_regs.REG_RESERVED2),
+	(uint8_t*)(&app_regs.REG_TEMP_VALUE),
+	(uint8_t*)(&app_regs.REG_ENABLE_TEMP_CALIBRATION),
+	(uint8_t*)(&app_regs.REG_TEMP_USER_CALIBRATION),
 	(uint8_t*)(&app_regs.REG_ENABLE_EVENTS)
 };

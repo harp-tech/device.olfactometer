@@ -80,9 +80,9 @@ void app_read_REG_MIMIC_END_VALVE1(void);
 void app_read_REG_MIMIC_DUMMY_VALVE(void);
 void app_read_REG_ENABLE_VALVE_EXT_CTRL(void);
 void app_read_REG_CHANNEL3_RANGE(void);
-void app_read_REG_RESERVED0(void);
-void app_read_REG_RESERVED1(void);
-void app_read_REG_RESERVED2(void);
+void app_read_REG_TEMP_VALUE(void);
+void app_read_REG_ENABLE_TEMP_CALIBRATION(void);
+void app_read_REG_TEMP_USER_CALIBRATION(void); 
 void app_read_REG_ENABLE_EVENTS(void);
 
 bool app_write_REG_ENABLE_FLOW(void *a);
@@ -145,9 +145,9 @@ bool app_write_REG_MIMIC_END_VALVE1(void *a);
 bool app_write_REG_MIMIC_DUMMY_VALVE(void *a);
 bool app_write_REG_ENABLE_VALVE_EXT_CTRL(void *a);
 bool app_write_REG_CHANNEL3_RANGE(void *a);
-bool app_write_REG_RESERVED0(void *a);
-bool app_write_REG_RESERVED1(void *a);
-bool app_write_REG_RESERVED2(void *a);
+bool app_write_REG_TEMP_VALUE(void *a);
+bool app_write_REG_ENABLE_TEMP_CALIBRATION(void *a);
+bool app_write_REG_TEMP_USER_CALIBRATION(void *a);
 bool app_write_REG_ENABLE_EVENTS(void *a);
 
 
