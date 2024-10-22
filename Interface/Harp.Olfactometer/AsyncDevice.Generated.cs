@@ -2386,6 +2386,102 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
+        /// Asynchronously reads the contents of the TemperatureValue register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<byte> ReadTemperatureValueAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(TemperatureValue.Address), cancellationToken);
+            return TemperatureValue.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the TemperatureValue register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<byte>> ReadTimestampedTemperatureValueAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(TemperatureValue.Address), cancellationToken);
+            return TemperatureValue.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the EnableTemperatureCalibration register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<byte> ReadEnableTemperatureCalibrationAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(EnableTemperatureCalibration.Address), cancellationToken);
+            return EnableTemperatureCalibration.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the EnableTemperatureCalibration register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<byte>> ReadTimestampedEnableTemperatureCalibrationAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(EnableTemperatureCalibration.Address), cancellationToken);
+            return EnableTemperatureCalibration.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the UserTemperatureCalibration register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<byte> ReadUserTemperatureCalibrationAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(UserTemperatureCalibration.Address), cancellationToken);
+            return UserTemperatureCalibration.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the UserTemperatureCalibration register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<byte>> ReadTimestampedUserTemperatureCalibrationAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(UserTemperatureCalibration.Address), cancellationToken);
+            return UserTemperatureCalibration.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
         /// Asynchronously reads the contents of the EnableEvents register.
         /// </summary>
         /// <param name="cancellationToken">
