@@ -4,7 +4,7 @@
 device: Olfactometer
 whoAmI: 1140
 firmwareVersion: "1.3"
-hardwareTargets: "1.1"
+hardwareTargets: "1.0"
 registers:
   EnableFlow:
     address: 32
