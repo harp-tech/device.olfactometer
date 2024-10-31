@@ -339,7 +339,7 @@ registers:
     address: 94
     type: U8
     access: Read
-    description: User temperature calibration value.
+    description: Temperature value measured during the device calibration.
   EnableEvents:
     address: 95
     access: Write
