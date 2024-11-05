@@ -335,7 +335,7 @@ registers:
     type: U8
     access: Read
     description: Enable flow adjustment based on the temperature calibration.
-  UserTemperatureCalibration:
+  TemperatureCalibrationValue:
     address: 94
     type: U8
     access: Read
