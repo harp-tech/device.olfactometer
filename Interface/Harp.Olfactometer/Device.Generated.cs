@@ -92,7 +92,7 @@ namespace Harp.Olfactometer
             { 91, typeof(Channel3Range) },
             { 92, typeof(TemperatureValue) },
             { 93, typeof(EnableTemperatureCalibration) },
-            { 94, typeof(UserTemperatureCalibration) },
+            { 94, typeof(TemperatureCalibrationValue) },
             { 95, typeof(EnableEvents) }
         };
     }
@@ -177,7 +177,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
-    /// <seealso cref="UserTemperatureCalibration"/>
+    /// <seealso cref="TemperatureCalibrationValue"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
     [XmlInclude(typeof(Flowmeter))]
@@ -234,7 +234,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
-    [XmlInclude(typeof(UserTemperatureCalibration))]
+    [XmlInclude(typeof(TemperatureCalibrationValue))]
     [XmlInclude(typeof(EnableEvents))]
     [Description("Filters register-specific messages reported by the Olfactometer device.")]
     public class FilterRegister : FilterRegisterBuilder, INamedElement
@@ -312,7 +312,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
-    /// <seealso cref="UserTemperatureCalibration"/>
+    /// <seealso cref="TemperatureCalibrationValue"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
     [XmlInclude(typeof(Flowmeter))]
@@ -369,7 +369,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
-    [XmlInclude(typeof(UserTemperatureCalibration))]
+    [XmlInclude(typeof(TemperatureCalibrationValue))]
     [XmlInclude(typeof(EnableEvents))]
     [XmlInclude(typeof(TimestampedEnableFlow))]
     [XmlInclude(typeof(TimestampedFlowmeter))]
@@ -426,7 +426,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedChannel3Range))]
     [XmlInclude(typeof(TimestampedTemperatureValue))]
     [XmlInclude(typeof(TimestampedEnableTemperatureCalibration))]
-    [XmlInclude(typeof(TimestampedUserTemperatureCalibration))]
+    [XmlInclude(typeof(TimestampedTemperatureCalibrationValue))]
     [XmlInclude(typeof(TimestampedEnableEvents))]
     [Description("Filters and selects specific messages reported by the Olfactometer device.")]
     public partial class Parse : ParseBuilder, INamedElement
@@ -501,7 +501,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3Range"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
-    /// <seealso cref="UserTemperatureCalibration"/>
+    /// <seealso cref="TemperatureCalibrationValue"/>
     /// <seealso cref="EnableEvents"/>
     [XmlInclude(typeof(EnableFlow))]
     [XmlInclude(typeof(Flowmeter))]
@@ -558,7 +558,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3Range))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
-    [XmlInclude(typeof(UserTemperatureCalibration))]
+    [XmlInclude(typeof(TemperatureCalibrationValue))]
     [XmlInclude(typeof(EnableEvents))]
     [Description("Formats a sequence of values as specific Olfactometer register messages.")]
     public partial class Format : FormatBuilder, INamedElement
@@ -5927,28 +5927,28 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that user temperature calibration value.
+    /// Represents a register that temperature value measured during the device calibration.
     /// </summary>
-    [Description("User temperature calibration value.")]
-    public partial class UserTemperatureCalibration
+    [Description("Temperature value measured during the device calibration.")]
+    public partial class TemperatureCalibrationValue
     {
         /// <summary>
-        /// Represents the address of the <see cref="UserTemperatureCalibration"/> register. This field is constant.
+        /// Represents the address of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
         /// </summary>
         public const int Address = 94;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="UserTemperatureCalibration"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="UserTemperatureCalibration"/> register. This field is constant.
+        /// Represents the length of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="UserTemperatureCalibration"/> register messages.
+        /// Returns the payload data for <see cref="TemperatureCalibrationValue"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -5958,7 +5958,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="UserTemperatureCalibration"/> register messages.
+        /// Returns the timestamped payload data for <see cref="TemperatureCalibrationValue"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -5968,12 +5968,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="UserTemperatureCalibration"/> register.
+        /// Returns a Harp message for the <see cref="TemperatureCalibrationValue"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="UserTemperatureCalibration"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="TemperatureCalibrationValue"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, byte value)
@@ -5982,14 +5982,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="UserTemperatureCalibration"/>
+        /// Returns a timestamped Harp message for the <see cref="TemperatureCalibrationValue"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="UserTemperatureCalibration"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="TemperatureCalibrationValue"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
@@ -6000,25 +6000,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// UserTemperatureCalibration register.
+    /// TemperatureCalibrationValue register.
     /// </summary>
-    /// <seealso cref="UserTemperatureCalibration"/>
-    [Description("Filters and selects timestamped messages from the UserTemperatureCalibration register.")]
-    public partial class TimestampedUserTemperatureCalibration
+    /// <seealso cref="TemperatureCalibrationValue"/>
+    [Description("Filters and selects timestamped messages from the TemperatureCalibrationValue register.")]
+    public partial class TimestampedTemperatureCalibrationValue
     {
         /// <summary>
-        /// Represents the address of the <see cref="UserTemperatureCalibration"/> register. This field is constant.
+        /// Represents the address of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
         /// </summary>
-        public const int Address = UserTemperatureCalibration.Address;
+        public const int Address = TemperatureCalibrationValue.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="UserTemperatureCalibration"/> register messages.
+        /// Returns timestamped payload data for <see cref="TemperatureCalibrationValue"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<byte> GetPayload(HarpMessage message)
         {
-            return UserTemperatureCalibration.GetTimestampedPayload(message);
+            return TemperatureCalibrationValue.GetTimestampedPayload(message);
         }
     }
 
@@ -6178,7 +6178,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateChannel3RangePayload"/>
     /// <seealso cref="CreateTemperatureValuePayload"/>
     /// <seealso cref="CreateEnableTemperatureCalibrationPayload"/>
-    /// <seealso cref="CreateUserTemperatureCalibrationPayload"/>
+    /// <seealso cref="CreateTemperatureCalibrationValuePayload"/>
     /// <seealso cref="CreateEnableEventsPayload"/>
     [XmlInclude(typeof(CreateEnableFlowPayload))]
     [XmlInclude(typeof(CreateFlowmeterPayload))]
@@ -6235,7 +6235,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateChannel3RangePayload))]
     [XmlInclude(typeof(CreateTemperatureValuePayload))]
     [XmlInclude(typeof(CreateEnableTemperatureCalibrationPayload))]
-    [XmlInclude(typeof(CreateUserTemperatureCalibrationPayload))]
+    [XmlInclude(typeof(CreateTemperatureCalibrationValuePayload))]
     [XmlInclude(typeof(CreateEnableEventsPayload))]
     [XmlInclude(typeof(CreateTimestampedEnableFlowPayload))]
     [XmlInclude(typeof(CreateTimestampedFlowmeterPayload))]
@@ -6292,7 +6292,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedChannel3RangePayload))]
     [XmlInclude(typeof(CreateTimestampedTemperatureValuePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableTemperatureCalibrationPayload))]
-    [XmlInclude(typeof(CreateTimestampedUserTemperatureCalibrationPayload))]
+    [XmlInclude(typeof(CreateTimestampedTemperatureCalibrationValuePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableEventsPayload))]
     [Description("Creates standard message payloads for the Olfactometer device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
@@ -9372,55 +9372,55 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that user temperature calibration value.
+    /// that temperature value measured during the device calibration.
     /// </summary>
-    [DisplayName("UserTemperatureCalibrationPayload")]
-    [Description("Creates a message payload that user temperature calibration value.")]
-    public partial class CreateUserTemperatureCalibrationPayload
+    [DisplayName("TemperatureCalibrationValuePayload")]
+    [Description("Creates a message payload that temperature value measured during the device calibration.")]
+    public partial class CreateTemperatureCalibrationValuePayload
     {
         /// <summary>
-        /// Gets or sets the value that user temperature calibration value.
+        /// Gets or sets the value that temperature value measured during the device calibration.
         /// </summary>
-        [Description("The value that user temperature calibration value.")]
-        public byte UserTemperatureCalibration { get; set; }
+        [Description("The value that temperature value measured during the device calibration.")]
+        public byte TemperatureCalibrationValue { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the UserTemperatureCalibration register.
+        /// Creates a message payload for the TemperatureCalibrationValue register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public byte GetPayload()
         {
-            return UserTemperatureCalibration;
+            return TemperatureCalibrationValue;
         }
 
         /// <summary>
-        /// Creates a message that user temperature calibration value.
+        /// Creates a message that temperature value measured during the device calibration.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the UserTemperatureCalibration register.</returns>
+        /// <returns>A new message for the TemperatureCalibrationValue register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.UserTemperatureCalibration.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.TemperatureCalibrationValue.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that user temperature calibration value.
+    /// that temperature value measured during the device calibration.
     /// </summary>
-    [DisplayName("TimestampedUserTemperatureCalibrationPayload")]
-    [Description("Creates a timestamped message payload that user temperature calibration value.")]
-    public partial class CreateTimestampedUserTemperatureCalibrationPayload : CreateUserTemperatureCalibrationPayload
+    [DisplayName("TimestampedTemperatureCalibrationValuePayload")]
+    [Description("Creates a timestamped message payload that temperature value measured during the device calibration.")]
+    public partial class CreateTimestampedTemperatureCalibrationValuePayload : CreateTemperatureCalibrationValuePayload
     {
         /// <summary>
-        /// Creates a timestamped message that user temperature calibration value.
+        /// Creates a timestamped message that temperature value measured during the device calibration.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the UserTemperatureCalibration register.</returns>
+        /// <returns>A new timestamped message for the TemperatureCalibrationValue register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.UserTemperatureCalibration.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.TemperatureCalibrationValue.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
