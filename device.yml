@@ -3,7 +3,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/harp-tech/reflex-generator/main/schema/device.json
 device: Olfactometer
 whoAmI: 1140
-firmwareVersion: "1.2"
+firmwareVersion: "1.3"
 hardwareTargets: "1.0"
 registers:
   EnableFlow:
@@ -325,18 +325,21 @@ registers:
     access: Write
     maskType: Channel3RangeConfig
     description: Selects the flow range for the channel 3.
-  Reserved0: &reserved
+  TemperatureValue: 
     address: 92
     type: U8
     access: Read
-    description: Reserved for future use.
-    visibility: private
-  Reserved1:
-    <<: *reserved
+    description: Temperature sensor reading value.
+  EnableTemperatureCalibration:
     address: 93
-  Reserved2:
-    <<: *reserved
+    type: U8
+    access: Read
+    description: Enable flow adjustment based on the temperature calibration.
+  TemperatureCalibrationValue:
     address: 94
+    type: U8
+    access: Read
+    description: Temperature value measured during the device calibration.
   EnableEvents:
     address: 95
     access: Write
