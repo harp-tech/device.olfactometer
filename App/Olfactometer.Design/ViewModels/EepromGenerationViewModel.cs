@@ -15,6 +15,7 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public string OutputFileName { get; set; }
 
         [Reactive] public bool IsGenerated { get; set; }
+        [Reactive] public int SerialNumber { get; set; }
 
         public Interaction<Unit, string?> ShowOpenFileDialog { get; }
         public Interaction<Unit, string?> ShowSaveFileDialog { get; }
