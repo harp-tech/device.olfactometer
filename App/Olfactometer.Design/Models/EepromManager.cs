@@ -48,7 +48,7 @@ namespace Olfactometer.Design.Models
             }
         }
 
-        public void GenerateEeprom(int serialNumber)
+        public void GenerateEeprom(int serialNumber, int temperature)
         {
             // using the HexIO nuget package, create the EEPROM file by adding Data starting in address 0x10064000
             const int baseOffset = 100;
@@ -76,6 +76,22 @@ namespace Olfactometer.Design.Models
                     for (int k = 0; k < dataSize; k++)
                     {
                         var data = Data[k];
+                        
+                        // update data to add the temperature value
+                        // we need to write the temperature value to the first byte of the second line on the last 'k' iteration
+                        // each entry in data is in decimal format representing 2 bytes. convert it to hex
+                        if (k == dataSize - 1)
+                        {
+                            // find the first empty byte in data
+                            var index = Array.IndexOf(data, (ushort)0);
+                            if (index == -1)
+                                throw new Exception("Data is full");
+                            // convert temperature to ushort and add to data
+                            byte temperatureByte = Convert.ToByte(temperature);
+                            // save it in the upper byte of the ushort on index
+                            // (0x00FF is a mask to keep the upper byte unchanged) since it will be reversed
+                            data[index] = (ushort)(data[index] & 0x00FF | (temperatureByte << 8));
+                        }
 
                         var firstLine = new List<byte>();
                         var secondLine = new List<byte>();
