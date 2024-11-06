@@ -19,6 +19,11 @@
             <Label Grid.Row="0" Grid.Column="0" Margin="0, 4" FontWeight="SemiBold">Serial number</Label>
             <NumericUpDown Grid.Row="1" Grid.Column="0" Text="{Binding Path=SerialNumber, Mode=TwoWay}" 
                            Increment="1" Minimum="0" ClipValueToMinMax="True"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Margin="0, 4" FontWeight="SemiBold">Temperature</Label>
+            <NumericUpDown Grid.Row="1" Grid.Column="2" Text="{Binding Path=Temperature, Mode=TwoWay}" 
+                           Increment="1" Minimum="0" ClipValueToMinMax="True" />
+            <Label Grid.Row="1" Grid.Column="4" Margin="0, 4">°C</Label>
         </Grid>
         <StackPanel Orientation="Horizontal" Spacing="20">
             <Button Content="Generate" Command="{Binding Path=GenerateCommand}" />
