@@ -46,7 +46,7 @@ namespace Olfactometer.Design.ViewModels
             //TODO: should throw exception if there are errors in the file
             _manager = new EepromManager(InputFileName);
             _manager.ProcessFile();
-            _manager.GenerateEeprom();
+            _manager.GenerateEeprom(SerialNumber);
 
             IsGenerated = true;
 

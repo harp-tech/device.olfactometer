@@ -48,7 +48,7 @@ namespace Olfactometer.Design.Models
             }
         }
 
-        public void GenerateEeprom()
+        public void GenerateEeprom(int serialNumber)
         {
             // using the HexIO nuget package, create the EEPROM file by adding Data starting in address 0x10064000
             const int baseOffset = 100;
@@ -103,7 +103,27 @@ namespace Olfactometer.Design.Models
                     i += dataSize - 1;
                 }
                 else
-                    writer.WriteDataRecord((ushort)(i * 0x10), testData);
+                {
+                    // special case for the first Data record since we will need to add the serial number
+                    // we can use a copy of testData as a base and update the ushort on position 4 with the serial number
+                    if (i == 0)
+                    {
+                        // copy testData to a new array
+                        var firstLine = new List<byte>(testData);
+                        // convert serial number to ushort
+                        ushort serialShort = Convert.ToUInt16(serialNumber);
+                        // write the high byte of the serial number to the 4th byte of the first line
+                        firstLine[4] = (byte)(serialShort >> 8);
+                        // write the low byte of the serial number to the 5th byte of the first line
+                        firstLine[5] = (byte)(serialShort & 0xFF);
+                        
+                        writer.WriteDataRecord((ushort)(i * 0x10), firstLine);
+                    }
+                    else
+                    {
+                        writer.WriteDataRecord((ushort)(i * 0x10), testData);
+                    }
+                }
             }
 
             writer.Close();
