@@ -333,12 +333,12 @@ registers:
   EnableTemperatureCalibration:
     address: 93
     type: U8
-    access: Read
+    access: Write
     description: Enable flow adjustment based on the temperature calibration.
   TemperatureCalibrationValue:
     address: 94
     type: U8
-    access: Read
+    access: Write
     description: Temperature value measured during the device calibration.
   EnableEvents:
     address: 95
