@@ -2450,6 +2450,20 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
+        /// Asynchronously writes a value to the EnableTemperatureCalibration register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WriteEnableTemperatureCalibrationAsync(byte value, CancellationToken cancellationToken = default)
+        {
+            var request = EnableTemperatureCalibration.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
         /// Asynchronously reads the contents of the TemperatureCalibrationValue register.
         /// </summary>
         /// <param name="cancellationToken">
@@ -2479,6 +2493,20 @@ namespace Harp.Olfactometer
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(TemperatureCalibrationValue.Address), cancellationToken);
             return TemperatureCalibrationValue.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the TemperatureCalibrationValue register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WriteTemperatureCalibrationValueAsync(byte value, CancellationToken cancellationToken = default)
+        {
+            var request = TemperatureCalibrationValue.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
