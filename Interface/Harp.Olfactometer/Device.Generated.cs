@@ -58,6 +58,11 @@ namespace Harp.Olfactometer
             { 50, typeof(Channel2ActualFlow) },
             { 51, typeof(Channel3ActualFlow) },
             { 52, typeof(Channel4ActualFlow) },
+            { 53, typeof(Channel0Frequency) },
+            { 54, typeof(Channel1Frequency) },
+            { 55, typeof(Channel2Frequency) },
+            { 56, typeof(Channel3Frequency) },
+            { 57, typeof(Channel4Frequency) },
             { 58, typeof(Channel0DutyCycle) },
             { 59, typeof(Channel1DutyCycle) },
             { 60, typeof(Channel2DutyCycle) },
@@ -79,6 +84,7 @@ namespace Harp.Olfactometer
             { 76, typeof(Valve3PulseDuration) },
             { 77, typeof(EndValve0PulseDuration) },
             { 78, typeof(EndValve1PulseDuration) },
+            { 79, typeof(PulseDummyValve) },
             { 80, typeof(DO0Sync) },
             { 81, typeof(DO1Sync) },
             { 82, typeof(DI0Trigger) },
@@ -88,6 +94,7 @@ namespace Harp.Olfactometer
             { 86, typeof(MimicValve3) },
             { 87, typeof(MimicEndValve0) },
             { 88, typeof(MimicEndValve1) },
+            { 89, typeof(MimicDummyValve) },
             { 90, typeof(EnableValveExternalControl) },
             { 91, typeof(Channel3Range) },
             { 92, typeof(TemperatureValue) },
@@ -95,6 +102,41 @@ namespace Harp.Olfactometer
             { 94, typeof(TemperatureCalibrationValue) },
             { 95, typeof(EnableEvents) }
         };
+
+        /// <summary>
+        /// Gets the contents of the metadata file describing the <see cref="Olfactometer"/>
+        /// device registers.
+        /// </summary>
+        public static readonly string Metadata = GetDeviceMetadata();
+
+        static string GetDeviceMetadata()
+        {
+            var deviceType = typeof(Device);
+            using var metadataStream = deviceType.Assembly.GetManifestResourceStream($"{deviceType.Namespace}.device.yml");
+            using var streamReader = new System.IO.StreamReader(metadataStream);
+            return streamReader.ReadToEnd();
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that returns the contents of the metadata file
+    /// describing the <see cref="Olfactometer"/> device registers.
+    /// </summary>
+    [Description("Returns the contents of the metadata file describing the Olfactometer device registers.")]
+    public partial class GetMetadata : Source<string>
+    {
+        /// <summary>
+        /// Returns an observable sequence with the contents of the metadata file
+        /// describing the <see cref="Olfactometer"/> device registers.
+        /// </summary>
+        /// <returns>
+        /// A sequence with a single <see cref="string"/> object representing the
+        /// contents of the metadata file.
+        /// </returns>
+        public override IObservable<string> Generate()
+        {
+            return Observable.Return(Device.Metadata);
+        }
     }
 
     /// <summary>
@@ -2642,6 +2684,116 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that switching frequency for proportional valve 0 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 0 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel0Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 53;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel0Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 1 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 1 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel1Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 54;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel1Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 2 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 2 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel2Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 55;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel2Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 3 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 3 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel3Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 56;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel3Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that switching frequency for proportional valve 4 - DO NOT CHANGE [Hz].
+    /// </summary>
+    [Description("Switching frequency for proportional valve 4 - DO NOT CHANGE [Hz].")]
+    internal partial class Channel4Frequency
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 57;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Channel4Frequency"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that duty cycle for proportional valve 0 [%].
     /// </summary>
     [Description("Duty cycle for proportional valve 0 [%].")]
@@ -4668,6 +4820,28 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that dummy valve pulse duration [1:65535] ms.
+    /// </summary>
+    [Description("Dummy valve pulse duration [1:65535] ms.")]
+    internal partial class PulseDummyValve
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 79;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="PulseDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that configuration of the digital output 0 (DOUT0).
     /// </summary>
     [Description("Configuration of the digital output 0 (DOUT0).")]
@@ -5538,6 +5712,28 @@ namespace Harp.Olfactometer
         {
             return MimicEndValve1.GetTimestampedPayload(message);
         }
+    }
+
+    /// <summary>
+    /// Represents a register that mimic DummyValve.
+    /// </summary>
+    [Description("Mimic DummyValve.")]
+    internal partial class MimicDummyValve
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 89;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicDummyValve"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
     }
 
     /// <summary>
@@ -9529,6 +9725,25 @@ namespace Harp.Olfactometer
         /// 
         /// </summary>
         public short Channel4;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the Flowmeter register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// Flowmeter register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "FlowmeterPayload { " +
+                "Channel0 = " + Channel0 + ", " +
+                "Channel1 = " + Channel1 + ", " +
+                "Channel2 = " + Channel2 + ", " +
+                "Channel3 = " + Channel3 + ", " +
+                "Channel4 = " + Channel4 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -9582,6 +9797,25 @@ namespace Harp.Olfactometer
         /// 
         /// </summary>
         public float Channel4;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the ChannelsTargetFlow register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// ChannelsTargetFlow register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "ChannelsTargetFlowPayload { " +
+                "Channel0 = " + Channel0 + ", " +
+                "Channel1 = " + Channel1 + ", " +
+                "Channel2 = " + Channel2 + ", " +
+                "Channel3 = " + Channel3 + ", " +
+                "Channel4 = " + Channel4 + " " +
+            "}";
+        }
     }
 
     /// <summary>
