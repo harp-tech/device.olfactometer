@@ -476,7 +476,7 @@ void closed_loop_control(uint8_t flow)
 	float high_limit_dc = 99.0;
 	float error = 0;
 	
-	float temp_correction = 0.0;/****************************/
+	float temp_correction = 0.0;
 	
 	uint8_t flowmeter = flow;
 	uint8_t index = 0;
@@ -639,7 +639,7 @@ void closed_loop_control(uint8_t flow)
 				}
 				if(!user_calibration){
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = CH3_calibration_values[index]-temp_correction;
+						calibration_values[index*2+2] = CH3_calibration_values[index]-(temp_correction*0.5);
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
@@ -651,7 +651,7 @@ void closed_loop_control(uint8_t flow)
 				}
 				else{
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-temp_correction;
+						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-(temp_correction*0.5);
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
