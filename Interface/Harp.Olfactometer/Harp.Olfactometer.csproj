@@ -9,6 +9,7 @@
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Description>Bonsai Library containing interfaces for data acquisition and control of Harp Olfactometer devices.</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageType>Dependency;BonsaiLibrary</PackageType>
     <PackageTags>Harp Olfactometer Bonsai Rx</PackageTags>
     <PackageProjectUrl>https://harp-tech.org</PackageProjectUrl>
     <RepositoryUrl>https://github.com/harp-tech/device.olfactometer.git</RepositoryUrl>
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Content Include="..\LICENSE" PackagePath="/"/>
     <Content Include="..\icon.png" PackagePath="/"/>
+    <EmbeddedResource Include="..\..\device.yml" />
   </ItemGroup>
 
 </Project>
