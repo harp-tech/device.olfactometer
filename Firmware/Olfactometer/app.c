@@ -70,7 +70,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 1;
     uint8_t hwL = 1;
     uint8_t fwH = 1;
-    uint8_t fwL = 3;
+    uint8_t fwL = 4;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -475,21 +475,16 @@ void closed_loop_control(uint8_t flow)
 	float low_limit_dc = 1.0;
 	float high_limit_dc = 99.0;
 	float error = 0;
-	
 	float temp_correction = 0.0;
 	
 	uint8_t flowmeter = flow;
 	uint8_t index = 0;
-		
-	//set_OUT1;  // test timings
-	
 	uint8_t user_calibration = 0;
 	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
 	
 	switch (flowmeter)
 	{
-		case 0: 
-			
+		case 0:
 			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0)
 				break;
 			
@@ -500,17 +495,17 @@ void closed_loop_control(uint8_t flow)
 			while(index < calibration_size){
 				
 				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ // MSB temperature 
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; //+ app_regs.REG_RESERVED1*0.0625 - 25; //test with REG_RESERVED2
+					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
 					temp_correction = temp_correction * 5;
 				}
 				
 				
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH0_calibration_values[index]-temp_correction;
+					calibration_values[index*2+2] = CH0_calibration_values[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-temp_correction;
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -535,7 +530,7 @@ void closed_loop_control(uint8_t flow)
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL0_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL0_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL0_DUTY_CYCLE(&calc_dutycycle); }
 			break;
-		
+
 		
 		case 1:
 			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0)
@@ -550,11 +545,11 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH1_calibration_values[index]-temp_correction;
+					calibration_values[index*2+2] = CH1_calibration_values[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-temp_correction;
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -594,11 +589,11 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
-					calibration_values[index*2+2] = CH2_calibration_values[index]-temp_correction;
+					calibration_values[index*2+2] = CH2_calibration_values[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				else{
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-temp_correction;
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
 				index = index + 1;
@@ -635,15 +630,16 @@ void closed_loop_control(uint8_t flow)
 			while(index < calibration_size){
 				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
 					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
-					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = CH3_calibration_values[index]-(temp_correction*0.5);
+						temp_correction = temp_correction * 2.5;
+						calibration_values[index*2+2] = CH3_calibration_values[index]-((uint16_t)temp_correction);
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
-						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-temp_correction;
+						temp_correction = temp_correction * 5;
+						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-(uint16_t)temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
 					
@@ -651,11 +647,13 @@ void closed_loop_control(uint8_t flow)
 				}
 				else{
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-(temp_correction*0.5);
+						temp_correction = temp_correction * 2.5;
+						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-((uint16_t)temp_correction);
 						calibration_values[index*2+3] = CH100_flows[index+1];
 					}
 					else{
-						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index]-temp_correction;
+						temp_correction = temp_correction * 5;
+						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index]-(uint16_t)temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
 				}
@@ -713,11 +711,11 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
-					calibration_values_1000[index*2+2] = CH4_calibration_values[index]-temp_correction;
+					calibration_values_1000[index*2+2] = CH4_calibration_values[index]-(uint16_t)temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 				}
 				else{
-					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-temp_correction;
+					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 				}
 				index = index + 1;
@@ -743,8 +741,6 @@ void closed_loop_control(uint8_t flow)
 				app_write_REG_CHANNEL4_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL4_DUTY_CYCLE(&calc_dutycycle); }
 			break;
 	}
-	
-	//clr_OUT1; //test timings
 	
 }
 
@@ -990,9 +986,6 @@ void core_callback_t_1ms(void) {
 			}				
 		}
 	}
-	else {
-	}
-	
 }
 
 
