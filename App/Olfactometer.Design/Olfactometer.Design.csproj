@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
     <RootNamespace>Olfactometer.Design</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
