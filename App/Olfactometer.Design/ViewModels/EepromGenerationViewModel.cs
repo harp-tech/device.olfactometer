@@ -15,6 +15,8 @@ namespace Olfactometer.Design.ViewModels
         [Reactive] public string OutputFileName { get; set; }
 
         [Reactive] public bool IsGenerated { get; set; }
+        [Reactive] public int SerialNumber { get; set; }
+        [Reactive] public int Temperature { get; set; }
 
         public Interaction<Unit, string?> ShowOpenFileDialog { get; }
         public Interaction<Unit, string?> ShowSaveFileDialog { get; }
@@ -45,7 +47,7 @@ namespace Olfactometer.Design.ViewModels
             //TODO: should throw exception if there are errors in the file
             _manager = new EepromManager(InputFileName);
             _manager.ProcessFile();
-            _manager.GenerateEeprom();
+            _manager.GenerateEeprom(SerialNumber, Temperature);
 
             IsGenerated = true;
 

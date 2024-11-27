@@ -398,6 +398,7 @@
                                     <ComboBoxItem>Software control</ComboBoxItem>
                                     <ComboBoxItem>External control via the screw terminals</ComboBoxItem>
                                 </ComboBox>
+                                <CheckBox IsChecked="{Binding TemperatureCompensation}" IsVisible="{Binding ShowTemperatureCompensation}">Temperature compensation</CheckBox>
                             </StackPanel>
                         </Grid>
                     </TabItem>
