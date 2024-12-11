@@ -626,37 +626,43 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 {
 	float *reg = ((float*)a);
 	
-	app_regs.REG_CHANNELS_TARGET_FLOW[0] = reg[0];
 	if (reg[0] == 0)
 		hwbp_app_pwm_gen_stop_ch0();
-	else if (reg[0] > 1100)
-		app_regs.REG_CHANNEL0_TARGET_FLOW = 1100;
+	
+	if (reg[0] > 110)
+		app_regs.REG_CHANNEL0_TARGET_FLOW = 110;
 	else
 		app_regs.REG_CHANNEL0_TARGET_FLOW = reg[0];
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[0] = app_regs.REG_CHANNEL0_TARGET_FLOW;
 		
 	
-	app_regs.REG_CHANNELS_TARGET_FLOW[1] = reg[1];
 	if (reg[1] == 0)
 		hwbp_app_pwm_gen_stop_ch1();
-	else if (reg[1] > 110)
+	
+	if (reg[1] > 110)
 		app_regs.REG_CHANNEL1_TARGET_FLOW = 110;
 	else
 		app_regs.REG_CHANNEL1_TARGET_FLOW = reg[1];
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[1] = app_regs.REG_CHANNEL1_TARGET_FLOW;
 
 
-	app_regs.REG_CHANNELS_TARGET_FLOW[2] = reg[2];
 	if (reg[2] == 0)
 		hwbp_app_pwm_gen_stop_ch2();
-	else if (reg[2] > 110)
+	
+	if (reg[2] > 110)
 		app_regs.REG_CHANNEL2_TARGET_FLOW = 110;
 	else
 		app_regs.REG_CHANNEL2_TARGET_FLOW = reg[2];
+	
+	app_regs.REG_CHANNELS_TARGET_FLOW[2] = app_regs.REG_CHANNEL2_TARGET_FLOW;
 		
 	
-	app_regs.REG_CHANNELS_TARGET_FLOW[3] = reg[3];
 	if (reg[3] == 0)
 		hwbp_app_pwm_gen_stop_ch3();
-	else if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){ 
+	
+	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){ 
 		if (reg[3] > 110)
 			app_regs.REG_CHANNEL3_TARGET_FLOW = 110;
 		else
@@ -668,15 +674,18 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 		else
 			app_regs.REG_CHANNEL3_TARGET_FLOW = reg[3];
 	}
+	app_regs.REG_CHANNELS_TARGET_FLOW[3] = app_regs.REG_CHANNEL3_TARGET_FLOW;
 
 	
-	app_regs.REG_CHANNELS_TARGET_FLOW[4] = reg[4];
 	if (reg[4] == 0)
 		hwbp_app_pwm_gen_stop_ch4();
-	else if (reg[4] > 1100)
+	
+	if (reg[4] > 1100)
 		app_regs.REG_CHANNEL4_TARGET_FLOW = 1100;
 	else
 		app_regs.REG_CHANNEL4_TARGET_FLOW = reg[4];
+		
+	app_regs.REG_CHANNELS_TARGET_FLOW[4] = app_regs.REG_CHANNEL4_TARGET_FLOW;
 	
 	return true;
 }
