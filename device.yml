@@ -3,7 +3,7 @@
 # yaml-language-server: $schema=https://harp-tech.org/draft-02/schema/device.json
 device: Olfactometer
 whoAmI: 1140
-firmwareVersion: "1.4"
+firmwareVersion: "1.5"
 hardwareTargets: "1.0"
 registers:
   EnableFlow:

@@ -70,7 +70,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 1;
     uint8_t hwL = 1;
     uint8_t fwH = 1;
-    uint8_t fwL = 4;
+    uint8_t fwL = 5;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -814,7 +814,7 @@ void core_callback_reset_registers(void)
 	app_regs.REG_CHANNEL0_DUTY_CYCLE = 1;
 	app_regs.REG_CHANNEL1_FREQUENCY = 2500;
 	app_regs.REG_CHANNEL1_DUTY_CYCLE = 1;
-	app_regs.REG_CHANNEL2_FREQUENCY = 1500;
+	app_regs.REG_CHANNEL2_FREQUENCY = 2500;
 	app_regs.REG_CHANNEL2_DUTY_CYCLE = 1;
 	app_regs.REG_CHANNEL3_FREQUENCY = 1500;
 	app_regs.REG_CHANNEL3_DUTY_CYCLE = 1;
