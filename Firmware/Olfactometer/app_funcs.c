@@ -494,8 +494,14 @@ void app_read_REG_USER_CALIBRATION_ENABLE(void)
 bool app_write_REG_USER_CALIBRATION_ENABLE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-
+	
+	//if(reg)
+	
 	app_regs.REG_USER_CALIBRATION_ENABLE = reg;
+	
+	init_calibration_values();
+	
+	//app_regs.REG_USER_CALIBRATION_ENABLE = reg;
 	return true;
 }
 

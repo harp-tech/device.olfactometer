@@ -35,14 +35,14 @@ uint8_t close_loop_case = 0;
 uint8_t calibration_size = 11; //number of array positions for calibration
 uint8_t standby_mfcs = 5;
 
-const uint16_t CH0_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};	
-const uint16_t CH1_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
-const uint16_t CH2_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
-const uint16_t CH3_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
-const uint16_t CH4_calibration_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
-const uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
+uint16_t CH0_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};	
+uint16_t CH1_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
+uint16_t CH2_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
+uint16_t CH3_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
+uint16_t CH4_calibration_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
+uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
 	
-const uint16_t CHX_calibration_values_mfc [] =  {0,3277,6553,9830,13107,16384,19660,22937,26214,29490,32767};
+//const uint16_t CHX_calibration_values_mfc [] =  {0,3277,6553,9830,13107,16384,19660,22937,26214,29490,32767};
 
 #define _1_CLOCK_CYCLES asm ( "nop \n")
 #define _2_CLOCK_CYCLES _1_CLOCK_CYCLES; _1_CLOCK_CYCLES
@@ -105,6 +105,10 @@ void core_callback_catastrophic_error_detected(void)
 	clr_VALVE1;
 	clr_VALVE2;
 	clr_VALVE3;
+	clr_VALVE0CHK;
+	clr_VALVE1CHK;
+	clr_VALVE2CHK;
+	clr_VALVE3CHK;
 	clr_ENDVALVE0;
 	clr_ENDVALVE1;
 	clr_DUMMYVALVE;
@@ -291,7 +295,7 @@ void init_calibration_values(void)
 {
 	
 	
-	uint16_t CHX_calibration_values;
+	//uint16_t CHX_calibration_values;
 	uint16_t index0 = 1600;
 	uint16_t index = 0;
 	uint8_t user_calibration = 0;
@@ -303,10 +307,10 @@ void init_calibration_values(void)
 	if (CHX_calibration_values == 0) // no data in EEPROM, no initialization performed
 		return; */
 	
-	if (user_calibration) // calibration values are stored in USER_CALIBRATION registers
+	/*if (user_calibration) // calibration values are stored in USER_CALIBRATION registers
 		return;
 	
-	if (mfcs){
+	if (mfcs && !user_calibration){
 		for (uint8_t i = 0; i < 11; i++){
 			float decade = 16383/10*i;
 			app_regs.REG_CHANNEL0_USER_CALIBRATION[i] = (uint16_t)decade;
@@ -321,7 +325,184 @@ void init_calibration_values(void)
 	CHX_calibration_values = eeprom_rd_byte(index);
 	if (CHX_calibration_values == 0) // no data in EEPROM, no initialization performed
 		return;
-	app_regs.REG_CHANNEL0_USER_CALIBRATION[0] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	app_regs.REG_CHANNEL0_USER_CALIBRATION[0] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);*/
+	
+	
+	CH0_calibration_values[0] = eeprom_rd_byte(index);
+	
+	if (CH0_calibration_values[0] == 0) // no data in EEPROM, no initialization performed
+		return;
+		
+	if (user_calibration) // calibration values are stored in USER_CALIBRATION registers
+		return;
+		
+	if (mfcs){
+		for (uint8_t i = 0; i < 11; i++){
+			float decade = 16383/10*i;
+			CH0_calibration_values[i] = (uint16_t)decade;
+			CH1_calibration_values[i] = (uint16_t)decade;
+			CH2_calibration_values[i] = (uint16_t)decade;
+			CH3_calibration_values[i] = (uint16_t)decade;
+			CH4_calibration_values[i] = (uint16_t)decade;
+		}
+		return;
+	}	
+	
+	CH0_calibration_values[0] = ((CH0_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[1] = eeprom_rd_byte(++index);
+	CH0_calibration_values[1] = ((CH0_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[2] = eeprom_rd_byte(++index);
+	CH0_calibration_values[2] = ((CH0_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[3] = eeprom_rd_byte(++index);
+	CH0_calibration_values[3] = ((CH0_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[4] = eeprom_rd_byte(++index);
+	CH0_calibration_values[4] = ((CH0_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[5] = eeprom_rd_byte(++index);
+	CH0_calibration_values[5] = ((CH0_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[6] = eeprom_rd_byte(++index);
+	CH0_calibration_values[6] = ((CH0_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[7] = eeprom_rd_byte(++index);
+	CH0_calibration_values[7] = ((CH0_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[8] = eeprom_rd_byte(++index);
+	CH0_calibration_values[8] = ((CH0_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[9] = eeprom_rd_byte(++index);
+	CH0_calibration_values[9] = ((CH0_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH0_calibration_values[10] = eeprom_rd_byte(++index);
+	CH0_calibration_values[10] = ((CH0_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	
+	index = index0 + 32;
+	CH1_calibration_values[0] = eeprom_rd_byte(index);
+	CH1_calibration_values[0] = ((CH1_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[1] = eeprom_rd_byte(++index);
+	CH1_calibration_values[1] = ((CH1_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[2] = eeprom_rd_byte(++index);
+	CH1_calibration_values[2] = ((CH1_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[3] = eeprom_rd_byte(++index);
+	CH1_calibration_values[3] = ((CH1_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[4] = eeprom_rd_byte(++index);
+	CH1_calibration_values[4] = ((CH1_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[5] = eeprom_rd_byte(++index);
+	CH1_calibration_values[5] = ((CH1_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[6] = eeprom_rd_byte(++index);
+	CH1_calibration_values[6] = ((CH1_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[7] = eeprom_rd_byte(++index);
+	CH1_calibration_values[7] = ((CH1_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[8] = eeprom_rd_byte(++index);
+	CH1_calibration_values[8] = ((CH1_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[9] = eeprom_rd_byte(++index);
+	CH1_calibration_values[9] = ((CH1_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH1_calibration_values[10] = eeprom_rd_byte(++index);
+	CH1_calibration_values[10] = ((CH1_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	
+	index = index0 + 64;
+	CH2_calibration_values[0] = eeprom_rd_byte(index);
+	CH2_calibration_values[0] = ((CH2_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[1] = eeprom_rd_byte(++index);
+	CH2_calibration_values[1] = ((CH2_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[2] = eeprom_rd_byte(++index);
+	CH2_calibration_values[2] = ((CH2_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[3] = eeprom_rd_byte(++index);
+	CH2_calibration_values[3] = ((CH2_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[4] = eeprom_rd_byte(++index);
+	CH2_calibration_values[4] = ((CH2_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[5] = eeprom_rd_byte(++index);
+	CH2_calibration_values[5] = ((CH2_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[6] = eeprom_rd_byte(++index);
+	CH2_calibration_values[6] = ((CH2_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[7] = eeprom_rd_byte(++index);
+	CH2_calibration_values[7] = ((CH2_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[8] = eeprom_rd_byte(++index);
+	CH2_calibration_values[8] = ((CH2_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[9] = eeprom_rd_byte(++index);
+	CH2_calibration_values[9] = ((CH2_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH2_calibration_values[10] = eeprom_rd_byte(++index);
+	CH2_calibration_values[10] = ((CH2_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	
+	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+		index = index0 + 96;
+		CH3_calibration_values[0] = eeprom_rd_byte(index);
+		CH3_calibration_values[0] = ((CH3_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[1] = eeprom_rd_byte(++index);
+		CH3_calibration_values[1] = ((CH3_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[2] = eeprom_rd_byte(++index);
+		CH3_calibration_values[2] = ((CH3_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[3] = eeprom_rd_byte(++index);
+		CH3_calibration_values[3] = ((CH3_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[4] = eeprom_rd_byte(++index);
+		CH3_calibration_values[4] = ((CH3_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[5] = eeprom_rd_byte(++index);
+		CH3_calibration_values[5] = ((CH3_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[6] = eeprom_rd_byte(++index);
+		CH3_calibration_values[6] = ((CH3_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[7] = eeprom_rd_byte(++index);
+		CH3_calibration_values[7] = ((CH3_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[8] = eeprom_rd_byte(++index);
+		CH3_calibration_values[8] = ((CH3_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[9] = eeprom_rd_byte(++index);
+		CH3_calibration_values[9] = ((CH3_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[10] = eeprom_rd_byte(++index);
+		CH3_calibration_values[10] = ((CH3_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	}
+	
+	index = index0 + 128;
+	CH4_calibration_values[0] = eeprom_rd_byte(index);
+	CH4_calibration_values[0] = ((CH4_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[1] = eeprom_rd_byte(++index);
+	CH4_calibration_values[1] = ((CH4_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[2] = eeprom_rd_byte(++index);
+	CH4_calibration_values[2] = ((CH4_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[3] = eeprom_rd_byte(++index);
+	CH4_calibration_values[3] = ((CH4_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[4] = eeprom_rd_byte(++index);
+	CH4_calibration_values[4] = ((CH4_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[5] = eeprom_rd_byte(++index);
+	CH4_calibration_values[5] = ((CH4_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[6] = eeprom_rd_byte(++index);
+	CH4_calibration_values[6] = ((CH4_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[7] = eeprom_rd_byte(++index);
+	CH4_calibration_values[7] = ((CH4_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[8] = eeprom_rd_byte(++index);
+	CH4_calibration_values[8] = ((CH4_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[9] = eeprom_rd_byte(++index);
+	CH4_calibration_values[9] = ((CH4_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	CH4_calibration_values[10] = eeprom_rd_byte(++index);
+	CH4_calibration_values[10] = ((CH4_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	
+	
+	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_1000){
+		index = index0 + 160;
+		CH3_calibration_values[0] = eeprom_rd_byte(index);
+		CH3_calibration_values[0] = ((CH3_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[1] = eeprom_rd_byte(++index);
+		CH3_calibration_values[1] = ((CH3_calibration_values[1] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[2] = eeprom_rd_byte(++index);
+		CH3_calibration_values[2] = ((CH3_calibration_values[2] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[3] = eeprom_rd_byte(++index);
+		CH3_calibration_values[3] = ((CH3_calibration_values[3] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[4] = eeprom_rd_byte(++index);
+		CH3_calibration_values[4] = ((CH3_calibration_values[4] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[5] = eeprom_rd_byte(++index);
+		CH3_calibration_values[5] = ((CH3_calibration_values[5] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[6] = eeprom_rd_byte(++index);
+		CH3_calibration_values[6] = ((CH3_calibration_values[6] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[7] = eeprom_rd_byte(++index);
+		CH3_calibration_values[7] = ((CH3_calibration_values[7] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[8] = eeprom_rd_byte(++index);
+		CH3_calibration_values[8] = ((CH3_calibration_values[8] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[9] = eeprom_rd_byte(++index);
+		CH3_calibration_values[9] = ((CH3_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+		CH3_calibration_values[10] = eeprom_rd_byte(++index);
+		CH3_calibration_values[10] = ((CH3_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
+	}
+	
+	if (app_regs.REG_TEMP_USER_CALIBRATION == 0){
+		index = index0 + 181;
+		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
+	}
+	
+	
+	
+	/*
 	
 	for (uint8_t i = 1; i < 11; i++){
 		CHX_calibration_values = eeprom_rd_byte(++index);
@@ -401,7 +582,7 @@ void init_calibration_values(void)
 	if (app_regs.REG_TEMP_USER_CALIBRATION == 0){
 		index = index0 + 181;
 		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
-	}
+	}*/
 
 }
 
@@ -515,6 +696,8 @@ void closed_loop_control(uint8_t flow)
 	
 	uint8_t flowmeter = flow;
 	uint8_t index = 0;
+	uint8_t user_calibration = 0;
+	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
 	
 	switch (flowmeter)
 	{
@@ -539,8 +722,16 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = temp_correction * 5;
 				}
 				
-				calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				calibration_values[index*2+3] = CH100_flows[index+1];
+				if(!user_calibration){
+					calibration_values[index*2+2] = CH0_calibration_values[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				else{
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				//calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+				//calibration_values[index*2+3] = CH100_flows[index+1];
 				
 				index = index + 1;
 			}
@@ -585,19 +776,26 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
 					temp_correction = temp_correction * 5;
 				}
-				
-				calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				calibration_values[index*2+3] = CH100_flows[index+1];
+				if(!user_calibration){
+					calibration_values[index*2+2] = CH1_calibration_values[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				else{
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				//calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+				//calibration_values[index*2+3] = CH100_flows[index+1];
 				
 				index = index + 1;
 			}
-									
+			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
 			while(!(flow_real < calibration_values[index])){
 				index = index + 2;
 			}
-			//flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
+			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			
 			app_regs.REG_CHANNEL1_ACTUAL_FLOW = flow_real;
 			if (app_regs.REG_ENABLE_EVENTS & B_EVT2){
@@ -632,9 +830,16 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 					temp_correction = temp_correction * 5;
 				}
-				
-				calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				calibration_values[index*2+3] = CH100_flows[index+1];
+				if(!user_calibration){
+					calibration_values[index*2+2] = CH2_calibration_values[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				else{
+					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+					calibration_values[index*2+3] = CH100_flows[index+1];
+				}
+				//calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+				//calibration_values[index*2+3] = CH100_flows[index+1];
 								
 				index = index + 1;
 			}
@@ -678,8 +883,34 @@ void closed_loop_control(uint8_t flow)
 				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
 					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 				}
+				if(!user_calibration){
+					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+						temp_correction = temp_correction * 2.5;
+						calibration_values[index*2+2] = CH3_calibration_values[index]-((uint16_t)temp_correction);
+						calibration_values[index*2+3] = CH100_flows[index+1];
+					}
+					else{
+						temp_correction = temp_correction * 5;
+						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-(uint16_t)temp_correction;
+						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+					}
+					
+					
+				}
+				else{
+					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+						temp_correction = temp_correction * 2.5;
+						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-((uint16_t)temp_correction);
+						calibration_values[index*2+3] = CH100_flows[index+1];
+					}
+					else{
+						temp_correction = temp_correction * 5;
+						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index]-(uint16_t)temp_correction;
+						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+					}
+				}
 				
-				if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+				/*if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
 					temp_correction = temp_correction * 2.5;
 					calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-((uint16_t)temp_correction);
 					calibration_values[index*2+3] = CH100_flows[index+1];
@@ -688,7 +919,7 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = temp_correction * 5;
 					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
-				}
+				}*/
 				
 				index = index + 1;
 			}
@@ -750,9 +981,16 @@ void closed_loop_control(uint8_t flow)
 					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 					temp_correction = temp_correction * 5;
 				}
-				
-				calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+				if(!user_calibration){
+					calibration_values_1000[index*2+2] = CH4_calibration_values[index]-(uint16_t)temp_correction;
+					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+				}
+				else{
+					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+				}
+				//calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
+				//calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 							
 				index = index + 1;
 			}
