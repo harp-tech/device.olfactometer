@@ -82,6 +82,7 @@ void init_ios(void)
 	io_pin2out(&PORTB, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // RE_DE_5V_2
 	io_pin2out(&PORTB, 5, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // RE_DE_5V_3
 	io_pin2out(&PORTB, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // RE_DE_5V_4
+	io_pin2out(&PORTE, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CS_TEMP
 	io_pin2out(&PORTE, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CS_ADC
 	io_pin2out(&PORTF, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CONVST
 	io_pin2out(&PORTE, 5, OUT_IO_DIGITAL, IN_EN_IO_DIS);                 // MOSI
@@ -114,7 +115,8 @@ void init_ios(void)
 	clr_RE_DE_5V_2;
 	clr_RE_DE_5V_3;
 	clr_RE_DE_5V_4;
-	set_CS_ADC;
+	clr_CS_ADC;
+	set_CS_TEMP;
 	clr_CONVST;
 	clr_MOSI;
 	clr_SCK;

@@ -129,10 +129,10 @@ ISR(PORTB_INT0_vect, ISR_NAKED)
 		if(previous_in0 == 0 && aux == 1)
 		{
 			set_ENDVALVE0;
-			set_ENDVALVE1;
+			//set_ENDVALVE1;
 		} else {
 			clr_ENDVALVE0;
-			clr_ENDVALVE1;
+			//clr_ENDVALVE1;
 		}
 	}
     
