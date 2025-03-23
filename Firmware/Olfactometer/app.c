@@ -638,20 +638,11 @@ void set_flowrate_mfc(uint8_t mfc_id,float target_flow)
 			break;
 		case 3:
 			command_rs485[0] = 'D';
-		
-			if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-				dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
-				set_RE_DE_5V_3; 
-				break;
-			}
-			else{
-				num_digits_after_decimal = 3;
-				target_flow = target_flow/1000;
-				dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
-				set_RE_DE_5V_3;  
-				break;
-			}
-		
+			num_digits_after_decimal = 3;
+			target_flow = target_flow/1000;
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_3;  
+			break;
 		case 4:
 			command_rs485[0] = 'E';
 			num_digits_after_decimal = 3;
@@ -876,6 +867,7 @@ void closed_loop_control(uint8_t flow)
 				break;
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[3]; // raw ADC analog output signal [2^16]
+			
 			
 			// create calibration array
 			index = 0;
@@ -1253,27 +1245,6 @@ void core_callback_t_new_second(void) {}
 void core_callback_t_500us(void) {
 	
 	
-	if (pulse_countdown.uart > 0)
-		if (--pulse_countdown.uart == 0){
-			clr_RE_DE_5V_0;
-			clr_RE_DE_5V_1;
-			clr_RE_DE_5V_2;
-			clr_RE_DE_5V_3;
-			clr_RE_DE_5V_4;
-		}
-	
-	if (pulse_countdown.delayvalve0chk > 0)
-		if (--pulse_countdown.delayvalve0chk == 0){ if (read_VALVE0) set_VALVE0CHK; else clr_VALVE0CHK;}
-			
-	if (pulse_countdown.delayvalve1chk > 0)
-		if (--pulse_countdown.delayvalve1chk == 0){ if (read_VALVE1) set_VALVE1CHK; else clr_VALVE1CHK;}
-					
-	if (pulse_countdown.delayvalve2chk > 0)
-		if (--pulse_countdown.delayvalve2chk == 0){ if (read_VALVE2) set_VALVE2CHK; else clr_VALVE2CHK;}
-						
-	if (pulse_countdown.delayvalve3chk > 0)
-		if (--pulse_countdown.delayvalve3chk == 0){ if (read_VALVE3) set_VALVE3CHK; else clr_VALVE3CHK;}
-			
 	if (pulse_countdown.valve0 > 0)
 		if (--pulse_countdown.valve0 == 0)
 			stop_VALVE0;
@@ -1281,7 +1252,7 @@ void core_callback_t_500us(void) {
 	if (pulse_countdown.valve1 > 0)
 		if (--pulse_countdown.valve1 == 0)
 			stop_VALVE1;
-	
+			
 	if (pulse_countdown.valve2 > 0)
 		if (--pulse_countdown.valve2 == 0)
 			stop_VALVE2;
@@ -1289,6 +1260,19 @@ void core_callback_t_500us(void) {
 	if (pulse_countdown.valve3 > 0)
 		if (--pulse_countdown.valve3 == 0)
 			stop_VALVE3;
+			
+	if (pulse_countdown.delayvalve0chk > 0)
+		if (--pulse_countdown.delayvalve0chk == 0){ if (read_VALVE0) set_VALVE0CHK; else clr_VALVE0CHK;}
+		
+	if (pulse_countdown.delayvalve1chk > 0)
+		if (--pulse_countdown.delayvalve1chk == 0){ if (read_VALVE1) set_VALVE1CHK; else clr_VALVE1CHK;}
+		
+	if (pulse_countdown.delayvalve2chk > 0)
+		if (--pulse_countdown.delayvalve2chk == 0){ if (read_VALVE2) set_VALVE2CHK; else clr_VALVE2CHK;}
+		
+	if (pulse_countdown.delayvalve3chk > 0)
+		if (--pulse_countdown.delayvalve3chk == 0){ if (read_VALVE3) set_VALVE3CHK; else clr_VALVE3CHK;}
+			
 			
 	if (pulse_countdown.chkvalve0 > 0)
 		if (--pulse_countdown.chkvalve0 == 0)
