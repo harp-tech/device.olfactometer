@@ -62,6 +62,7 @@ void uart1_enable(void)
 {
 	UART1_UART.CTRLB |= (USART_RXEN_bm | USART_TXEN_bm);
 	UART1_UART.STATUS = USART_RXCIF_bm | USART_TXCIF_bm | USART_DREIF_bm;
+	UART1_UART.CTRLA |= (UART1_TX_INT_LEVEL<< 2);
 	UART1_UART.CTRLA |= (UART1_RX_INT_LEVEL<< 4);
 }
 
@@ -75,6 +76,9 @@ void uart1_disable(void)
 /************************************************************************/
 UART1_TX_ROUTINE_
 {
+	
+	UART1_UART.STATUS |= USART_TXCIF_bm;
+	
 	UART1_UART.DATA = txbuff_uart1[uart1_tail++];
 	if (uart1_tail == UART1_TXBUFSIZ)
 		uart1_tail = 0;
@@ -82,11 +86,25 @@ UART1_TX_ROUTINE_
 	/* disable this interrupt until new data arrive to buffer */
 	if (uart1_head == uart1_tail){
 		UART1_UART.CTRLA &= ~(USART_DREINTLVL_OFF_gc | USART_DREINTLVL_gm);
-
-		pulse_countdown.uart = 1;
 	}
 	uart1_leave_interrupt;
 }
+
+UART1_TX_ROUTINENEWFLAG_
+{
+	
+	clr_RE_DE_5V_0;
+	clr_RE_DE_5V_1;
+	clr_RE_DE_5V_2;
+	clr_RE_DE_5V_3;
+	clr_RE_DE_5V_4;
+	
+	UART1_UART.CTRLA &= ~(USART_TXCINTLVL_OFF_gc | USART_TXCINTLVL_gm);
+	
+	
+	uart1_leave_interrupt;
+}
+
 
 /************************************************************************/
 /* Interrupt CTS                                                        */
@@ -128,7 +146,10 @@ void uart1_xmit(const uint8_t *dataIn0, uint8_t siz)
 	#ifdef UART1_USE_FLOW_CONTROL
 		if (!(UART1_CTS_PORT.IN & (1 << UART1_CTS_pin)))
 	#endif
-			UART1_UART.CTRLA |= UART1_TX_INT_LEVEL;	// Re-enable TX interrupt
+			
+	UART1_UART.CTRLA |= UART1_TX_INT_LEVEL;	// Re-enable TX interrupt
+	UART1_UART.CTRLA &= ~(USART_TXCINTLVL_OFF_gc | USART_TXCINTLVL_gm);//AL
+	UART1_UART.CTRLA |= (UART1_TX_INT_LEVEL<< 2);//AL
 	
 	
 	uint16_t space = UART1_TXBUFSIZ - uart1_head;
