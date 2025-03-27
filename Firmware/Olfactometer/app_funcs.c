@@ -245,24 +245,8 @@ bool app_write_REG_ENABLE_FLOW(void *a)
 		app_write_REG_CHANNEL2_DUTY_CYCLE(&low_limit_dc);
 		app_write_REG_CHANNEL3_DUTY_CYCLE(&low_limit_dc);
 		app_write_REG_CHANNEL4_DUTY_CYCLE(&low_limit_dc);
+	}
 				
-		clr_ENDVALVE0;
-		clr_ENDVALVE1;
-		clr_VALVE0;
-		clr_VALVE1;
-		clr_VALVE2;
-		clr_VALVE3;
-		clr_VALVE0CHK;
-		clr_VALVE1CHK;
-		clr_VALVE2CHK;
-		clr_VALVE3CHK;
-		clr_DUMMYVALVE; //fan
-	}
-	
-	else{
-		set_DUMMYVALVE; //fan
-	}
-	
 	app_regs.REG_ENABLE_FLOW = reg;
 	
 	return true;
@@ -1398,9 +1382,6 @@ bool app_write_REG_VALVES_STATE(void *a)
 		if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;
 		if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;
 	}
-	else{
-		
-	}
 
 	app_regs.REG_VALVES_STATE = reg;
 	return true;
@@ -1425,23 +1406,14 @@ bool app_write_REG_CHECK_VALVES_STATE(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-
 	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		
-		//app_regs.REG_CHECK_VALVES_STATE = 0;
-		app_regs.REG_CHECK_VALVES_STATE = (reg & 0x10) ? B_CHECK_VALVE0 : 0;
-		app_regs.REG_CHECK_VALVES_STATE |= (reg & 0x40) ? B_CHECK_VALVE1 : 0;
-		app_regs.REG_CHECK_VALVES_STATE |= (reg & 0x02) ? B_CHECK_VALVE2 : 0;
-		app_regs.REG_CHECK_VALVES_STATE |= (reg & 0x20) ? B_CHECK_VALVE3 : 0;
-				
-		if (app_regs.REG_CHECK_VALVES_STATE & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;
-		if (app_regs.REG_CHECK_VALVES_STATE & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;
-		if (app_regs.REG_CHECK_VALVES_STATE & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;
-		if (app_regs.REG_CHECK_VALVES_STATE & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;
-		
+		if (reg & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;
+		if (reg & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;
+		if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;
+		if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;
 	}
-
-	//app_regs.REG_CHECK_VALVES_STATE = reg;
+	app_regs.REG_CHECK_VALVES_STATE = reg;
+	
 	return true;
 }
 
