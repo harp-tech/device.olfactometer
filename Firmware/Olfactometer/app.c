@@ -135,6 +135,9 @@ void init_mfcs()
 		status_DC.flow3_update = 1;
 		status_DC.flow4_update = 1;
 	}
+	else{
+		mfcs = 0;
+	}
 
 }
 
@@ -342,7 +345,12 @@ void init_calibration_values(void)
 			CH0_calibration_values[i] = (uint16_t)decade;
 			CH1_calibration_values[i] = (uint16_t)decade;
 			CH2_calibration_values[i] = (uint16_t)decade;
-			CH3_calibration_values[i] = (uint16_t)decade;
+			if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+				CH3_calibration_values[i] = (uint16_t)decade/10;
+			}
+			else{
+				CH3_calibration_values[i] = (uint16_t)decade;
+			}
 			CH4_calibration_values[i] = (uint16_t)decade;
 		}
 		return;
@@ -699,8 +707,9 @@ void closed_loop_control(uint8_t flow)
 				status_DC.flow0_update = 0;
 			}
 				
-			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0)
+			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
+				
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[0]; // raw ADC analog output signal [2^16]
 			
@@ -755,7 +764,7 @@ void closed_loop_control(uint8_t flow)
 				status_DC.flow1_update = 0;
 			}
 			
-			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0)
+			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[1]; // raw analog output signal [2^16]
@@ -809,7 +818,7 @@ void closed_loop_control(uint8_t flow)
 				status_DC.flow2_update = 0;
 			}
 			
-			if(app_regs.REG_CHANNEL2_TARGET_FLOW == 0)
+			if(app_regs.REG_CHANNEL2_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[2]; // raw ADC analog output signal [2^16]
@@ -863,7 +872,7 @@ void closed_loop_control(uint8_t flow)
 				status_DC.flow3_update = 0;
 			}
 
-			if(app_regs.REG_CHANNEL3_TARGET_FLOW == 0)
+			if(app_regs.REG_CHANNEL3_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[3]; // raw ADC analog output signal [2^16]
@@ -961,7 +970,7 @@ void closed_loop_control(uint8_t flow)
 				status_DC.flow4_update = 0;
 			}
 			
-			if(app_regs.REG_CHANNEL4_TARGET_FLOW == 0)
+			if(app_regs.REG_CHANNEL4_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
 				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[4]; // raw analog output signal [2^16]
@@ -1023,7 +1032,9 @@ void core_callback_initialize_hardware(void){
 	//basis 2 baud rate 38400 - //uart1_init(12, 2, false);
 	//https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8331-8-and-16-bit-AVR-Microcontroller-XMEGA-AU_Manual.pdf pg 282
 	
-	uart1_init(2094, -7, false); // baud rate 115200
+	//uart1_init(2094, -7, false); // baud rate 115200
+	
+	uart1_init(12, 2, false);
 	
 	uart1_enable();
 	
@@ -1113,10 +1124,10 @@ void core_callback_reset_registers(void)
 	app_regs.REG_END_VALVE0_PULSE_DURATION = 500;
 	app_regs.REG_END_VALVE1_PULSE_DURATION = 500;
 	app_regs.REG_DUMMY_VALVE_PULSE_DURATION = 500;
-	app_regs.REG_VALVE0CHK_DELAY = 10;
-	app_regs.REG_VALVE1CHK_DELAY = 10;
-	app_regs.REG_VALVE2CHK_DELAY = 10;
-	app_regs.REG_VALVE3CHK_DELAY = 10;
+	app_regs.REG_VALVE0CHK_DELAY = 0;
+	app_regs.REG_VALVE1CHK_DELAY = 0;
+	app_regs.REG_VALVE2CHK_DELAY = 0;
+	app_regs.REG_VALVE3CHK_DELAY = 0;
 	
 	app_regs.REG_ENABLE_EVENTS = B_EVT0 | B_EVT1 | B_EVT2;
 	
@@ -1147,11 +1158,11 @@ void core_callback_reset_registers(void)
 	status_DC.DC3_ready = 0;
 	status_DC.DC4_ready = 0;
 	
-	status_DC.flow0_update = 0;
-	status_DC.flow1_update = 0;
-	status_DC.flow2_update = 0;
-	status_DC.flow3_update = 0;
-	status_DC.flow4_update = 0;
+	status_DC.flow0_update = 1;
+	status_DC.flow1_update = 1;
+	status_DC.flow2_update = 1;
+	status_DC.flow3_update = 1;
+	status_DC.flow4_update = 1;
 	
 	init_calibration_values();
 	
@@ -1173,6 +1184,10 @@ void core_callback_registers_were_reinitialized(void)
 	timer_type0_stop(&TCE0);
 	timer_type0_stop(&TCF0);
 	timer_type1_stop(&TCD1);
+	
+	
+	//app_write_REG_VALVES_STATE(&app_regs.REG_VALVES_STATE);
+	
 	
 	app_write_REG_DI0_TRIGGER(&app_regs.REG_DI0_TRIGGER);
 	app_write_REG_DO0_SYNC(&app_regs.REG_DO0_SYNC);
@@ -1228,6 +1243,8 @@ void core_callback_device_to_standby(void) {
 	app_write_REG_CHANNEL3_TARGET_FLOW(&app_regs.REG_CHANNEL3_TARGET_FLOW);
 	app_regs.REG_CHANNEL4_TARGET_FLOW = 0;
 	app_write_REG_CHANNEL4_TARGET_FLOW(&app_regs.REG_CHANNEL4_TARGET_FLOW);
+	app_regs.REG_VALVES_STATE = 0;
+	app_write_REG_VALVES_STATE(&app_regs.REG_VALVES_STATE);	
 	
 	
 }
@@ -1326,10 +1343,9 @@ void core_callback_t_1ms(void) {
 			if(++close_loop_counter_ms >= CLOSE_LOOP_TIMING){
 				if(++close_loop_case >= 5)
 					close_loop_case = 0;
-				//set_OUT0;	
 				closed_loop_control(close_loop_case);
-				standby_mfcs--;	
-				//clr_OUT0;
+				if(standby_mfcs)
+					standby_mfcs--;	
 				close_loop_counter_ms = 0;
 			}				
 		}
