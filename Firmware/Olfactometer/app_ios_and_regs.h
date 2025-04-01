@@ -328,7 +328,7 @@ typedef struct
 	uint8_t REG_MIMIC_DUMMY_VALVE;
 	uint8_t REG_ENABLE_VALVE_EXT_CTRL;
 	uint8_t REG_CHANNEL3_RANGE;
-	uint8_t REG_CHECK_VALVES_CTRL;
+	uint16_t REG_ENABLE_CHECK_VALVES_SYNC;
 	uint8_t REG_TEMPERATURE_VALUE;
 	uint8_t REG_ENABLE_TEMP_CALIBRATION;
 	uint8_t REG_TEMP_USER_CALIBRATION;
@@ -386,10 +386,10 @@ typedef struct
 #define ADD_REG_VALVE1_PULSE_DURATION       76 // U16    Valve 1 pulse duration [1:65535] ms
 #define ADD_REG_VALVE2_PULSE_DURATION       77 // U16    Valve 2 pulse duration [1:65535] ms
 #define ADD_REG_VALVE3_PULSE_DURATION       78 // U16    Valve 3 pulse duration [1:65535] ms
-#define ADD_REG_VALVE0CHK_DELAY             79 // U16     Valve 0 check delay [1:65535] ms
-#define ADD_REG_VALVE1CHK_DELAY             80 // U16     Valve 1 check delay [1:65535] ms
-#define ADD_REG_VALVE2CHK_DELAY             81 // U16     Valve 2 check delay [1:65535] ms
-#define ADD_REG_VALVE3CHK_DELAY             82 // U16     Valve 3 check delay [1:65535] ms
+#define ADD_REG_VALVE0CHK_DELAY             79 // U16    Check valve 0 delay [0:65535] ms
+#define ADD_REG_VALVE1CHK_DELAY             80 // U16    Check valve 1 delay [0:65535] ms
+#define ADD_REG_VALVE2CHK_DELAY             81 // U16    Check valve 2 delay [0:65535] ms
+#define ADD_REG_VALVE3CHK_DELAY             82 // U16    Check valve 3 delay [0:65535] ms
 #define ADD_REG_END_VALVE0_PULSE_DURATION   83 // U16    End valve 0 pulse duration [1:65535] ms
 #define ADD_REG_END_VALVE1_PULSE_DURATION   84 // U16    End valve 1 pulse duration [1:65535] ms
 #define ADD_REG_DUMMY_VALVE_PULSE_DURATION  85 // U16    Dummy valve pulse duration [1:65535] ms
@@ -409,7 +409,7 @@ typedef struct
 #define ADD_REG_MIMIC_DUMMY_VALVE           99 // U8
 #define ADD_REG_ENABLE_VALVE_EXT_CTRL      100 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
 #define ADD_REG_CHANNEL3_RANGE             101 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
-#define ADD_REG_CHECK_VALVES_CTRL          102 // U8     Configure the control mode of the isolation valves: 0: software, 1: sync with odor valves + delay
+#define ADD_REG_ENABLE_CHECK_VALVES_SYNC   102 // U8     Configure the control mode of the isolation valves: 0: software, 1: sync with odor valves + delay
 #define ADD_REG_TEMPERATURE_VALUE          103 // U8     Temperature sensor reading value
 #define ADD_REG_ENABLE_TEMP_CALIBRATION    104 // U8     Enable flow adjustment based on the temperature calibration
 #define ADD_REG_TEMP_CALIBRATION           105 // U8     Temperature value measured during the device calibration
@@ -463,8 +463,8 @@ typedef struct
 #define GM_FLOW_100                        (0<<0)       // Range is 0-100ml/min
 #define GM_FLOW_1000                       (1<<0)       // Range is 0-1000ml/min
 #define MSK_CHECK_VALVES_CONFIG            (3<<0)       // Check valves control configuration
-#define GM_CHECK_VALVES_SOFTWARE           (0<<0)       // Check valves controlled by software
-#define GM_CHECK_VALVES_SYNC               (1<<0)       // Check valves synchronized with odor valves + configured delay
+//#define GM_CHECK_VALVES_SOFTWARE           (0<<0)       // Check valves controlled by software
+//#define GM_CHECK_VALVES_SYNC               (1<<0)       // Check valves synchronized with odor valves + configured delay
 #define B_EVT0                             (1<<0)       // Events of register FLOWMETER_ANALOG_OUTPUTS
 #define B_EVT1                             (1<<1)       // Events of register DI0_STATE
 #define B_EVT2                             (1<<2)       // Events of register CHANNELS_ACTUAL_FLOW

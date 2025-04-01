@@ -16,20 +16,19 @@
 #define false 0
 #endif
 
-
 #define start_VALVE0 do {set_VALVE0; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE0) pulse_countdown.valve0 = app_regs.REG_VALVE0_PULSE_DURATION + 1;\
-if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve0chk = app_regs.REG_VALVE0CHK_DELAY + 1;} while(0)
+if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) pulse_countdown.delayvalve0chk = app_regs.REG_VALVE0CHK_DELAY + 1;} while(0)
 #define start_VALVE1 do {set_VALVE1; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE1) pulse_countdown.valve1 = app_regs.REG_VALVE1_PULSE_DURATION + 1;\
-if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve1chk = app_regs.REG_VALVE1CHK_DELAY + 1;} while(0)
+if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) pulse_countdown.delayvalve1chk = app_regs.REG_VALVE1CHK_DELAY + 1;} while(0)
 #define start_VALVE2 do {set_VALVE2; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE2) pulse_countdown.valve2 = app_regs.REG_VALVE2_PULSE_DURATION + 1;\
-if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve2chk = app_regs.REG_VALVE2CHK_DELAY + 1;} while(0)
+if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) pulse_countdown.delayvalve2chk = app_regs.REG_VALVE2CHK_DELAY + 1;} while(0)
 #define start_VALVE3 do {set_VALVE3; if (app_regs.REG_ENABLE_VALVES_PULSE & B_VALVE3) pulse_countdown.valve3 = app_regs.REG_VALVE3_PULSE_DURATION + 1;\
-if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve3chk = app_regs.REG_VALVE3CHK_DELAY + 1;} while(0)
+if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) pulse_countdown.delayvalve3chk = app_regs.REG_VALVE3CHK_DELAY + 1;} while(0)
 
-#define stop_VALVE0 do {clr_VALVE0; if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve0chk = app_regs.REG_VALVE0CHK_DELAY + 1;} while(0) 
-#define stop_VALVE1 do {clr_VALVE1; if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve1chk = app_regs.REG_VALVE1CHK_DELAY + 1;} while(0)
-#define stop_VALVE2 do {clr_VALVE2; if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve2chk = app_regs.REG_VALVE2CHK_DELAY + 1;} while(0)
-#define stop_VALVE3 do {clr_VALVE3; if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SYNC) pulse_countdown.delayvalve3chk = app_regs.REG_VALVE3CHK_DELAY + 1;} while(0)
+#define stop_VALVE0 do {clr_VALVE0; if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) pulse_countdown.delayvalve0chk = app_regs.REG_VALVE0CHK_DELAY + 1;} while(0)
+#define stop_VALVE1 do {clr_VALVE1; if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) pulse_countdown.delayvalve1chk = app_regs.REG_VALVE1CHK_DELAY + 1;} while(0)
+#define stop_VALVE2 do {clr_VALVE2; if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) pulse_countdown.delayvalve2chk = app_regs.REG_VALVE2CHK_DELAY + 1;} while(0)
+#define stop_VALVE3 do {clr_VALVE3; if(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) pulse_countdown.delayvalve3chk = app_regs.REG_VALVE3CHK_DELAY + 1;} while(0)
 
 #define start_VALVE0CHK do {set_VALVE0CHK; if (app_regs.REG_ENABLE_VALVES_PULSE & B_CHECK_VALVE0) pulse_countdown.chkvalve0 = app_regs.REG_VALVE0CHK_DELAY + 1;} while(0)
 #define start_VALVE1CHK do {set_VALVE1CHK; if (app_regs.REG_ENABLE_VALVES_PULSE & B_CHECK_VALVE1) pulse_countdown.chkvalve1 = app_regs.REG_VALVE1CHK_DELAY + 1; } while(0)
@@ -113,7 +112,7 @@ void app_read_REG_MIMIC_END_VALVE1(void);
 void app_read_REG_MIMIC_DUMMY_VALVE(void);
 void app_read_REG_ENABLE_VALVE_EXT_CTRL(void);
 void app_read_REG_CHANNEL3_RANGE(void);
-void app_read_REG_CHECK_VALVES_CTRL(void);
+void app_read_REG_ENABLE_CHECK_VALVES_SYNC(void);
 void app_read_REG_TEMPERATURE_VALUE(void);
 void app_read_REG_ENABLE_TEMP_CALIBRATION(void);
 void app_read_REG_TEMP_USER_CALIBRATION(void);
@@ -189,7 +188,7 @@ bool app_write_REG_MIMIC_END_VALVE1(void *a);
 bool app_write_REG_MIMIC_DUMMY_VALVE(void *a);
 bool app_write_REG_ENABLE_VALVE_EXT_CTRL(void *a);
 bool app_write_REG_CHANNEL3_RANGE(void *a);
-bool app_write_REG_CHECK_VALVES_CTRL(void *a);
+bool app_write_REG_ENABLE_CHECK_VALVES_SYNC(void *a);
 bool app_write_REG_TEMPERATURE_VALUE(void *a);
 bool app_write_REG_ENABLE_TEMP_CALIBRATION(void *a);
 bool app_write_REG_TEMP_USER_CALIBRATION(void *a);

@@ -1128,6 +1128,7 @@ void core_callback_reset_registers(void)
 	app_regs.REG_VALVE1CHK_DELAY = 0;
 	app_regs.REG_VALVE2CHK_DELAY = 0;
 	app_regs.REG_VALVE3CHK_DELAY = 0;
+	app_regs.REG_ENABLE_CHECK_VALVES_SYNC = 0;
 	
 	app_regs.REG_ENABLE_EVENTS = B_EVT0 | B_EVT1 | B_EVT2;
 	
@@ -1147,7 +1148,6 @@ void core_callback_reset_registers(void)
 	app_regs.REG_MIMIC_END_VALVE1 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_DUMMY_VALVE = GM_MIMIC_NONE;
 	
-	app_regs.REG_CHECK_VALVES_CTRL = GM_CHECK_VALVES_SOFTWARE;
 	app_regs.REG_CHANNEL3_RANGE = GM_FLOW_100;
 	app_regs.REG_ENABLE_VALVE_EXT_CTRL = 0;
 	app_regs.REG_ENABLE_TEMP_CALIBRATION = 1;
@@ -1187,8 +1187,7 @@ void core_callback_registers_were_reinitialized(void)
 	
 	
 	//app_write_REG_VALVES_STATE(&app_regs.REG_VALVES_STATE);
-	
-	
+	app_write_REG_ENABLE_CHECK_VALVES_SYNC(&app_regs.REG_ENABLE_CHECK_VALVES_SYNC);
 	app_write_REG_DI0_TRIGGER(&app_regs.REG_DI0_TRIGGER);
 	app_write_REG_DO0_SYNC(&app_regs.REG_DO0_SYNC);
 	app_write_REG_DO1_SYNC(&app_regs.REG_DO1_SYNC);
@@ -1204,8 +1203,8 @@ void core_callback_registers_were_reinitialized(void)
 	app_write_REG_MIMIC_END_VALVE1(&app_regs.REG_MIMIC_END_VALVE1);
 	app_write_REG_MIMIC_DUMMY_VALVE(&app_regs.REG_MIMIC_DUMMY_VALVE);
 	app_write_REG_CHANNEL3_RANGE(&app_regs.REG_CHANNEL3_RANGE);
-	app_write_REG_CHECK_VALVES_CTRL(&app_regs.REG_CHECK_VALVES_CTRL);
 	app_write_REG_ENABLE_VALVE_EXT_CTRL(&app_regs.REG_ENABLE_VALVE_EXT_CTRL);
+	app_write_REG_ENABLE_TEMP_CALIBRATION(&app_regs.REG_ENABLE_TEMP_CALIBRATION);
 		
 }
 

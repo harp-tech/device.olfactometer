@@ -91,7 +91,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MIMIC_DUMMY_VALVE,
 	&app_read_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_read_REG_CHANNEL3_RANGE,
-	&app_read_REG_CHECK_VALVES_CTRL,
+	&app_read_REG_ENABLE_CHECK_VALVES_SYNC,
 	&app_read_REG_TEMPERATURE_VALUE,
 	&app_read_REG_ENABLE_TEMP_CALIBRATION,
 	&app_read_REG_TEMP_USER_CALIBRATION,
@@ -169,7 +169,7 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MIMIC_DUMMY_VALVE,
 	&app_write_REG_ENABLE_VALVE_EXT_CTRL,
 	&app_write_REG_CHANNEL3_RANGE,
-	&app_write_REG_CHECK_VALVES_CTRL,
+	&app_write_REG_ENABLE_CHECK_VALVES_SYNC,
 	&app_write_REG_TEMPERATURE_VALUE,
 	&app_write_REG_ENABLE_TEMP_CALIBRATION,
 	&app_write_REG_TEMP_USER_CALIBRATION,
@@ -1243,14 +1243,12 @@ bool app_write_REG_VALVES_SET(void *a)
 	if (reg & B_ENDVALVE1) start_VALVEAUX1;
 	if (reg & B_DUMMYVALVE) start_VALVEDUMMY;
 	
-	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		if (reg & B_CHECK_VALVE0) start_VALVE0CHK;
-		if (reg & B_CHECK_VALVE1) start_VALVE1CHK;
-		if (reg & B_CHECK_VALVE2) start_VALVE2CHK;
-		if (reg & B_CHECK_VALVE3) start_VALVE3CHK;
-		app_regs.REG_CHECK_VALVES_STATE |= reg;
-	}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) && (reg & B_CHECK_VALVE0)) start_VALVE0CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) && (reg & B_CHECK_VALVE1)) start_VALVE1CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) && (reg & B_CHECK_VALVE2)) start_VALVE2CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) && (reg & B_CHECK_VALVE3)) start_VALVE3CHK;
 	
+	app_regs.REG_CHECK_VALVES_STATE |= reg;
 	app_regs.REG_VALVES_STATE |= reg;
 	app_regs.REG_END_VALVES_STATE |= reg;
 	app_regs.REG_ODOR_VALVES_STATE |= reg;
@@ -1283,15 +1281,12 @@ bool app_write_REG_VALVES_CLEAR(void *a)
 	if (reg & B_ENDVALVE1) clr_ENDVALVE1;
 	if (reg & B_DUMMYVALVE) clr_DUMMYVALVE;
 	
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) && (reg & B_CHECK_VALVE0)) clr_VALVE0CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) && (reg & B_CHECK_VALVE1)) clr_VALVE1CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) && (reg & B_CHECK_VALVE2)) clr_VALVE2CHK;
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) && (reg & B_CHECK_VALVE3)) clr_VALVE3CHK;
 	
-	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		if (reg & B_CHECK_VALVE0) clr_VALVE0CHK;
-		if (reg & B_CHECK_VALVE1) clr_VALVE1CHK;
-		if (reg & B_CHECK_VALVE2) clr_VALVE2CHK;
-		if (reg & B_CHECK_VALVE3) clr_VALVE3CHK;
-		app_regs.REG_CHECK_VALVES_STATE &= ~reg;
-	}
-		
+	app_regs.REG_CHECK_VALVES_STATE &= ~reg;
 	app_regs.REG_VALVES_STATE &= ~reg;
 	app_regs.REG_END_VALVES_STATE &= ~reg;
 	app_regs.REG_ODOR_VALVES_STATE &= ~reg;
@@ -1325,14 +1320,12 @@ bool app_write_REG_VALVES_TOGGLE(void *a)
 	if (reg & B_ENDVALVE1) { if (read_ENDVALVE1) tgl_ENDVALVE1; else start_VALVEAUX1;}
 	if (reg & B_DUMMYVALVE) { if (read_DUMMYVALVE) tgl_DUMMYVALVE; else start_VALVEDUMMY;}
 		
-	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		if (reg & B_CHECK_VALVE0) { if (read_VALVE0CHK) tgl_VALVE0CHK; else start_VALVE0CHK;}
-		if (reg & B_CHECK_VALVE1) { if (read_VALVE1CHK) tgl_VALVE1CHK; else start_VALVE1CHK;}
-		if (reg & B_CHECK_VALVE2) { if (read_VALVE2CHK) tgl_VALVE2CHK; else start_VALVE2CHK;}
-		if (reg & B_CHECK_VALVE3) { if (read_VALVE3CHK) tgl_VALVE3CHK; else start_VALVE3CHK;}
-		app_regs.REG_CHECK_VALVES_STATE ^= reg;
-		}
-	
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) && (reg & B_CHECK_VALVE0)) {if (read_VALVE0CHK) tgl_VALVE0CHK; else start_VALVE0CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) && (reg & B_CHECK_VALVE1)) {if (read_VALVE1CHK) tgl_VALVE1CHK; else start_VALVE1CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) && (reg & B_CHECK_VALVE2)) {if (read_VALVE2CHK) tgl_VALVE2CHK; else start_VALVE2CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) && (reg & B_CHECK_VALVE3)) {if (read_VALVE3CHK) tgl_VALVE3CHK; else start_VALVE3CHK;}
+			
+	app_regs.REG_CHECK_VALVES_STATE ^= reg;
 	app_regs.REG_VALVES_STATE ^= reg;
 	app_regs.REG_END_VALVES_STATE ^= reg;
 	app_regs.REG_ODOR_VALVES_STATE ^= reg;
@@ -1376,13 +1369,11 @@ bool app_write_REG_VALVES_STATE(void *a)
 	if (reg & B_ENDVALVE1) start_VALVEAUX1; else clr_ENDVALVE1;
 	if (reg & B_DUMMYVALVE) start_VALVEDUMMY; else clr_DUMMYVALVE;
 
-	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		if (reg & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;
-		if (reg & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;
-		if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;
-		if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;
-	}
-
+    if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) && (reg & B_CHECK_VALVE0)) {if (reg & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) && (reg & B_CHECK_VALVE1)) {if (reg & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) && (reg & B_CHECK_VALVE2)) {if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) && (reg & B_CHECK_VALVE3)) {if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;}
+		
 	app_regs.REG_VALVES_STATE = reg;
 	return true;
 }
@@ -1406,12 +1397,11 @@ bool app_write_REG_CHECK_VALVES_STATE(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if((app_regs.REG_CHECK_VALVES_CTRL & MSK_CHECK_VALVES_CONFIG) == GM_CHECK_VALVES_SOFTWARE){
-		if (reg & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;
-		if (reg & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;
-		if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;
-		if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;
-	}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE0) && (reg & B_CHECK_VALVE0)) {if (reg & B_CHECK_VALVE0) start_VALVE0CHK; else clr_VALVE0CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE1) && (reg & B_CHECK_VALVE1)) {if (reg & B_CHECK_VALVE1) start_VALVE1CHK; else clr_VALVE1CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE2) && (reg & B_CHECK_VALVE2)) {if (reg & B_CHECK_VALVE2) start_VALVE2CHK; else clr_VALVE2CHK;}
+	if(!(app_regs.REG_ENABLE_CHECK_VALVES_SYNC & B_CHECK_VALVE3) && (reg & B_CHECK_VALVE3)) {if (reg & B_CHECK_VALVE3) start_VALVE3CHK; else clr_VALVE3CHK;}
+		
 	app_regs.REG_CHECK_VALVES_STATE = reg;
 	
 	return true;
@@ -2009,21 +1999,22 @@ bool app_write_REG_CHANNEL3_RANGE(void *a)
 }
 
 /************************************************************************/
-/* REG_CHECK_VALVES_CTRL                                                */
+/* REG_ENABLE_CHECK_VALVES_SYNC                                                */
 /************************************************************************/
-void app_read_REG_CHECK_VALVES_CTRL(void)
+void app_read_REG_ENABLE_CHECK_VALVES_SYNC(void)
 {
-	//app_regs.REG_CHECK_VALVES_CTRL = 0;
+	//app_regs.REG_ENABLE_CHECK_VALVES_SYNC = 0;
 
 }
 
-bool app_write_REG_CHECK_VALVES_CTRL(void *a)
+bool app_write_REG_ENABLE_CHECK_VALVES_SYNC(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
+	uint16_t reg = *((uint16_t*)a);
 
-	app_regs.REG_CHECK_VALVES_CTRL = reg;
+	app_regs.REG_ENABLE_CHECK_VALVES_SYNC = reg;
 	return true;
 }
+
 
 /************************************************************************/
 /* REG_TEMPERATURE_VALUE                                                */
