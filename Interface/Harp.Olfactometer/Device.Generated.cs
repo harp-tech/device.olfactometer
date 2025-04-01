@@ -76,31 +76,42 @@ namespace Harp.Olfactometer
             { 68, typeof(ValveSet) },
             { 69, typeof(ValveClear) },
             { 70, typeof(ValveToggle) },
-            { 71, typeof(OdorValveState) },
-            { 72, typeof(EndValveState) },
-            { 73, typeof(Valve0PulseDuration) },
-            { 74, typeof(Valve1PulseDuration) },
-            { 75, typeof(Valve2PulseDuration) },
-            { 76, typeof(Valve3PulseDuration) },
-            { 77, typeof(EndValve0PulseDuration) },
-            { 78, typeof(EndValve1PulseDuration) },
-            { 79, typeof(PulseDummyValve) },
-            { 80, typeof(DO0Sync) },
-            { 81, typeof(DO1Sync) },
-            { 82, typeof(DI0Trigger) },
-            { 83, typeof(MimicValve0) },
-            { 84, typeof(MimicValve1) },
-            { 85, typeof(MimicValve2) },
-            { 86, typeof(MimicValve3) },
-            { 87, typeof(MimicEndValve0) },
-            { 88, typeof(MimicEndValve1) },
-            { 89, typeof(MimicDummyValve) },
-            { 90, typeof(EnableValveExternalControl) },
-            { 91, typeof(Channel3Range) },
-            { 92, typeof(TemperatureValue) },
-            { 93, typeof(EnableTemperatureCalibration) },
-            { 94, typeof(TemperatureCalibrationValue) },
-            { 95, typeof(EnableEvents) }
+            { 71, typeof(ValveState) },
+            { 72, typeof(OdorValveState) },
+            { 73, typeof(EndValveState) },
+            { 74, typeof(CheckValveState) },
+            { 75, typeof(Valve0PulseDuration) },
+            { 76, typeof(Valve1PulseDuration) },
+            { 77, typeof(Valve2PulseDuration) },
+            { 78, typeof(Valve3PulseDuration) },
+            { 79, typeof(CheckValve0DelayPulseDuration) },
+            { 80, typeof(CheckValve1DelayPulseDuration) },
+            { 81, typeof(CheckValve2DelayPulseDuration) },
+            { 82, typeof(CheckValve3DelayPulseDuration) },
+            { 83, typeof(EndValve0PulseDuration) },
+            { 84, typeof(EndValve1PulseDuration) },
+            { 85, typeof(PulseDummyValve) },
+            { 86, typeof(DO0Sync) },
+            { 87, typeof(DO1Sync) },
+            { 88, typeof(DI0Trigger) },
+            { 89, typeof(MimicValve0) },
+            { 90, typeof(MimicValve1) },
+            { 91, typeof(MimicValve2) },
+            { 92, typeof(MimicValve3) },
+            { 93, typeof(MimicCheckValve0) },
+            { 94, typeof(MimicCheckValve1) },
+            { 95, typeof(MimicCheckValve2) },
+            { 96, typeof(MimicCheckValve3) },
+            { 97, typeof(MimicEndValve0) },
+            { 98, typeof(MimicEndValve1) },
+            { 99, typeof(MimicDummyValve) },
+            { 100, typeof(EnableValveExternalControl) },
+            { 101, typeof(Channel3Range) },
+            { 102, typeof(EnableCheckValveSync) },
+            { 103, typeof(TemperatureValue) },
+            { 104, typeof(EnableTemperatureCalibration) },
+            { 105, typeof(TemperatureCalibrationValue) },
+            { 106, typeof(EnableEvents) }
         };
 
         /// <summary>
@@ -198,12 +209,18 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValveSet"/>
     /// <seealso cref="ValveClear"/>
     /// <seealso cref="ValveToggle"/>
+    /// <seealso cref="ValveState"/>
     /// <seealso cref="OdorValveState"/>
     /// <seealso cref="EndValveState"/>
+    /// <seealso cref="CheckValveState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
     /// <seealso cref="Valve2PulseDuration"/>
     /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="CheckValve0DelayPulseDuration"/>
+    /// <seealso cref="CheckValve1DelayPulseDuration"/>
+    /// <seealso cref="CheckValve2DelayPulseDuration"/>
+    /// <seealso cref="CheckValve3DelayPulseDuration"/>
     /// <seealso cref="EndValve0PulseDuration"/>
     /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
@@ -213,10 +230,15 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
+    /// <seealso cref="MimicCheckValve0"/>
+    /// <seealso cref="MimicCheckValve1"/>
+    /// <seealso cref="MimicCheckValve2"/>
+    /// <seealso cref="MimicCheckValve3"/>
     /// <seealso cref="MimicEndValve0"/>
     /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
+    /// <seealso cref="EnableCheckValveSync"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
     /// <seealso cref="TemperatureCalibrationValue"/>
@@ -255,12 +277,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValveSet))]
     [XmlInclude(typeof(ValveClear))]
     [XmlInclude(typeof(ValveToggle))]
+    [XmlInclude(typeof(ValveState))]
     [XmlInclude(typeof(OdorValveState))]
     [XmlInclude(typeof(EndValveState))]
+    [XmlInclude(typeof(CheckValveState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
     [XmlInclude(typeof(Valve2PulseDuration))]
     [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(CheckValve0DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve1DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve2DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve3DelayPulseDuration))]
     [XmlInclude(typeof(EndValve0PulseDuration))]
     [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
@@ -270,10 +298,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
+    [XmlInclude(typeof(MimicCheckValve0))]
+    [XmlInclude(typeof(MimicCheckValve1))]
+    [XmlInclude(typeof(MimicCheckValve2))]
+    [XmlInclude(typeof(MimicCheckValve3))]
     [XmlInclude(typeof(MimicEndValve0))]
     [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
+    [XmlInclude(typeof(EnableCheckValveSync))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
     [XmlInclude(typeof(TemperatureCalibrationValue))]
@@ -333,12 +366,18 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValveSet"/>
     /// <seealso cref="ValveClear"/>
     /// <seealso cref="ValveToggle"/>
+    /// <seealso cref="ValveState"/>
     /// <seealso cref="OdorValveState"/>
     /// <seealso cref="EndValveState"/>
+    /// <seealso cref="CheckValveState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
     /// <seealso cref="Valve2PulseDuration"/>
     /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="CheckValve0DelayPulseDuration"/>
+    /// <seealso cref="CheckValve1DelayPulseDuration"/>
+    /// <seealso cref="CheckValve2DelayPulseDuration"/>
+    /// <seealso cref="CheckValve3DelayPulseDuration"/>
     /// <seealso cref="EndValve0PulseDuration"/>
     /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
@@ -348,10 +387,15 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
+    /// <seealso cref="MimicCheckValve0"/>
+    /// <seealso cref="MimicCheckValve1"/>
+    /// <seealso cref="MimicCheckValve2"/>
+    /// <seealso cref="MimicCheckValve3"/>
     /// <seealso cref="MimicEndValve0"/>
     /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
+    /// <seealso cref="EnableCheckValveSync"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
     /// <seealso cref="TemperatureCalibrationValue"/>
@@ -390,12 +434,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValveSet))]
     [XmlInclude(typeof(ValveClear))]
     [XmlInclude(typeof(ValveToggle))]
+    [XmlInclude(typeof(ValveState))]
     [XmlInclude(typeof(OdorValveState))]
     [XmlInclude(typeof(EndValveState))]
+    [XmlInclude(typeof(CheckValveState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
     [XmlInclude(typeof(Valve2PulseDuration))]
     [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(CheckValve0DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve1DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve2DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve3DelayPulseDuration))]
     [XmlInclude(typeof(EndValve0PulseDuration))]
     [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
@@ -405,10 +455,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
+    [XmlInclude(typeof(MimicCheckValve0))]
+    [XmlInclude(typeof(MimicCheckValve1))]
+    [XmlInclude(typeof(MimicCheckValve2))]
+    [XmlInclude(typeof(MimicCheckValve3))]
     [XmlInclude(typeof(MimicEndValve0))]
     [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
+    [XmlInclude(typeof(EnableCheckValveSync))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
     [XmlInclude(typeof(TemperatureCalibrationValue))]
@@ -447,12 +502,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedValveSet))]
     [XmlInclude(typeof(TimestampedValveClear))]
     [XmlInclude(typeof(TimestampedValveToggle))]
+    [XmlInclude(typeof(TimestampedValveState))]
     [XmlInclude(typeof(TimestampedOdorValveState))]
     [XmlInclude(typeof(TimestampedEndValveState))]
+    [XmlInclude(typeof(TimestampedCheckValveState))]
     [XmlInclude(typeof(TimestampedValve0PulseDuration))]
     [XmlInclude(typeof(TimestampedValve1PulseDuration))]
     [XmlInclude(typeof(TimestampedValve2PulseDuration))]
     [XmlInclude(typeof(TimestampedValve3PulseDuration))]
+    [XmlInclude(typeof(TimestampedCheckValve0DelayPulseDuration))]
+    [XmlInclude(typeof(TimestampedCheckValve1DelayPulseDuration))]
+    [XmlInclude(typeof(TimestampedCheckValve2DelayPulseDuration))]
+    [XmlInclude(typeof(TimestampedCheckValve3DelayPulseDuration))]
     [XmlInclude(typeof(TimestampedEndValve0PulseDuration))]
     [XmlInclude(typeof(TimestampedEndValve1PulseDuration))]
     [XmlInclude(typeof(TimestampedDO0Sync))]
@@ -462,10 +523,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedMimicValve1))]
     [XmlInclude(typeof(TimestampedMimicValve2))]
     [XmlInclude(typeof(TimestampedMimicValve3))]
+    [XmlInclude(typeof(TimestampedMimicCheckValve0))]
+    [XmlInclude(typeof(TimestampedMimicCheckValve1))]
+    [XmlInclude(typeof(TimestampedMimicCheckValve2))]
+    [XmlInclude(typeof(TimestampedMimicCheckValve3))]
     [XmlInclude(typeof(TimestampedMimicEndValve0))]
     [XmlInclude(typeof(TimestampedMimicEndValve1))]
     [XmlInclude(typeof(TimestampedEnableValveExternalControl))]
     [XmlInclude(typeof(TimestampedChannel3Range))]
+    [XmlInclude(typeof(TimestampedEnableCheckValveSync))]
     [XmlInclude(typeof(TimestampedTemperatureValue))]
     [XmlInclude(typeof(TimestampedEnableTemperatureCalibration))]
     [XmlInclude(typeof(TimestampedTemperatureCalibrationValue))]
@@ -522,12 +588,18 @@ namespace Harp.Olfactometer
     /// <seealso cref="ValveSet"/>
     /// <seealso cref="ValveClear"/>
     /// <seealso cref="ValveToggle"/>
+    /// <seealso cref="ValveState"/>
     /// <seealso cref="OdorValveState"/>
     /// <seealso cref="EndValveState"/>
+    /// <seealso cref="CheckValveState"/>
     /// <seealso cref="Valve0PulseDuration"/>
     /// <seealso cref="Valve1PulseDuration"/>
     /// <seealso cref="Valve2PulseDuration"/>
     /// <seealso cref="Valve3PulseDuration"/>
+    /// <seealso cref="CheckValve0DelayPulseDuration"/>
+    /// <seealso cref="CheckValve1DelayPulseDuration"/>
+    /// <seealso cref="CheckValve2DelayPulseDuration"/>
+    /// <seealso cref="CheckValve3DelayPulseDuration"/>
     /// <seealso cref="EndValve0PulseDuration"/>
     /// <seealso cref="EndValve1PulseDuration"/>
     /// <seealso cref="DO0Sync"/>
@@ -537,10 +609,15 @@ namespace Harp.Olfactometer
     /// <seealso cref="MimicValve1"/>
     /// <seealso cref="MimicValve2"/>
     /// <seealso cref="MimicValve3"/>
+    /// <seealso cref="MimicCheckValve0"/>
+    /// <seealso cref="MimicCheckValve1"/>
+    /// <seealso cref="MimicCheckValve2"/>
+    /// <seealso cref="MimicCheckValve3"/>
     /// <seealso cref="MimicEndValve0"/>
     /// <seealso cref="MimicEndValve1"/>
     /// <seealso cref="EnableValveExternalControl"/>
     /// <seealso cref="Channel3Range"/>
+    /// <seealso cref="EnableCheckValveSync"/>
     /// <seealso cref="TemperatureValue"/>
     /// <seealso cref="EnableTemperatureCalibration"/>
     /// <seealso cref="TemperatureCalibrationValue"/>
@@ -579,12 +656,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(ValveSet))]
     [XmlInclude(typeof(ValveClear))]
     [XmlInclude(typeof(ValveToggle))]
+    [XmlInclude(typeof(ValveState))]
     [XmlInclude(typeof(OdorValveState))]
     [XmlInclude(typeof(EndValveState))]
+    [XmlInclude(typeof(CheckValveState))]
     [XmlInclude(typeof(Valve0PulseDuration))]
     [XmlInclude(typeof(Valve1PulseDuration))]
     [XmlInclude(typeof(Valve2PulseDuration))]
     [XmlInclude(typeof(Valve3PulseDuration))]
+    [XmlInclude(typeof(CheckValve0DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve1DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve2DelayPulseDuration))]
+    [XmlInclude(typeof(CheckValve3DelayPulseDuration))]
     [XmlInclude(typeof(EndValve0PulseDuration))]
     [XmlInclude(typeof(EndValve1PulseDuration))]
     [XmlInclude(typeof(DO0Sync))]
@@ -594,10 +677,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(MimicValve1))]
     [XmlInclude(typeof(MimicValve2))]
     [XmlInclude(typeof(MimicValve3))]
+    [XmlInclude(typeof(MimicCheckValve0))]
+    [XmlInclude(typeof(MimicCheckValve1))]
+    [XmlInclude(typeof(MimicCheckValve2))]
+    [XmlInclude(typeof(MimicCheckValve3))]
     [XmlInclude(typeof(MimicEndValve0))]
     [XmlInclude(typeof(MimicEndValve1))]
     [XmlInclude(typeof(EnableValveExternalControl))]
     [XmlInclude(typeof(Channel3Range))]
+    [XmlInclude(typeof(EnableCheckValveSync))]
     [XmlInclude(typeof(TemperatureValue))]
     [XmlInclude(typeof(EnableTemperatureCalibration))]
     [XmlInclude(typeof(TemperatureCalibrationValue))]
@@ -3675,7 +3763,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the payload type of the <see cref="EnableValvePulse"/> register. This field is constant.
         /// </summary>
-        public const PayloadType RegisterType = PayloadType.U8;
+        public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
         /// Represents the length of the <see cref="EnableValvePulse"/> register. This field is constant.
@@ -3689,7 +3777,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the message payload.</returns>
         public static Valves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (Valves)message.GetPayloadUInt16();
         }
 
         /// <summary>
@@ -3699,7 +3787,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
         {
-            var payload = message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadUInt16();
             return Timestamped.Create((Valves)payload.Value, payload.Seconds);
         }
 
@@ -3714,7 +3802,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
         }
 
         /// <summary>
@@ -3730,7 +3818,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
         }
     }
 
@@ -3772,7 +3860,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the payload type of the <see cref="ValveSet"/> register. This field is constant.
         /// </summary>
-        public const PayloadType RegisterType = PayloadType.U8;
+        public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
         /// Represents the length of the <see cref="ValveSet"/> register. This field is constant.
@@ -3786,7 +3874,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the message payload.</returns>
         public static Valves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (Valves)message.GetPayloadUInt16();
         }
 
         /// <summary>
@@ -3796,7 +3884,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
         {
-            var payload = message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadUInt16();
             return Timestamped.Create((Valves)payload.Value, payload.Seconds);
         }
 
@@ -3811,7 +3899,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
         }
 
         /// <summary>
@@ -3827,7 +3915,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
         }
     }
 
@@ -3869,7 +3957,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the payload type of the <see cref="ValveClear"/> register. This field is constant.
         /// </summary>
-        public const PayloadType RegisterType = PayloadType.U8;
+        public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
         /// Represents the length of the <see cref="ValveClear"/> register. This field is constant.
@@ -3883,7 +3971,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the message payload.</returns>
         public static Valves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (Valves)message.GetPayloadUInt16();
         }
 
         /// <summary>
@@ -3893,7 +3981,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
         {
-            var payload = message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadUInt16();
             return Timestamped.Create((Valves)payload.Value, payload.Seconds);
         }
 
@@ -3908,7 +3996,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
         }
 
         /// <summary>
@@ -3924,7 +4012,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
         }
     }
 
@@ -3966,7 +4054,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the payload type of the <see cref="ValveToggle"/> register. This field is constant.
         /// </summary>
-        public const PayloadType RegisterType = PayloadType.U8;
+        public const PayloadType RegisterType = PayloadType.U16;
 
         /// <summary>
         /// Represents the length of the <see cref="ValveToggle"/> register. This field is constant.
@@ -3980,7 +4068,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the message payload.</returns>
         public static Valves GetPayload(HarpMessage message)
         {
-            return (Valves)message.GetPayloadByte();
+            return (Valves)message.GetPayloadUInt16();
         }
 
         /// <summary>
@@ -3990,7 +4078,7 @@ namespace Harp.Olfactometer
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
         {
-            var payload = message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadUInt16();
             return Timestamped.Create((Valves)payload.Value, payload.Seconds);
         }
 
@@ -4005,7 +4093,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
         }
 
         /// <summary>
@@ -4021,7 +4109,7 @@ namespace Harp.Olfactometer
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
         }
     }
 
@@ -4050,6 +4138,103 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that controls the specified valve output lines.
+    /// </summary>
+    [Description("Controls the specified valve output lines.")]
+    public partial class ValveState
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="ValveState"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 71;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="ValveState"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="ValveState"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="ValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static Valves GetPayload(HarpMessage message)
+        {
+            return (Valves)message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="ValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Valves> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadUInt16();
+            return Timestamped.Create((Valves)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="ValveState"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="ValveState"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, Valves value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="ValveState"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="ValveState"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Valves value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// ValveState register.
+    /// </summary>
+    /// <seealso cref="ValveState"/>
+    [Description("Filters and selects timestamped messages from the ValveState register.")]
+    public partial class TimestampedValveState
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="ValveState"/> register. This field is constant.
+        /// </summary>
+        public const int Address = ValveState.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="ValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Valves> GetPayload(HarpMessage message)
+        {
+            return ValveState.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents a register that write the state of all odor valve output lines.
     /// </summary>
     [Description("Write the state of all odor valve output lines.")]
@@ -4058,7 +4243,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="OdorValveState"/> register. This field is constant.
         /// </summary>
-        public const int Address = 71;
+        public const int Address = 72;
 
         /// <summary>
         /// Represents the payload type of the <see cref="OdorValveState"/> register. This field is constant.
@@ -4155,7 +4340,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EndValveState"/> register. This field is constant.
         /// </summary>
-        public const int Address = 72;
+        public const int Address = 73;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EndValveState"/> register. This field is constant.
@@ -4244,6 +4429,103 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that write the state of all check valve output lines.
+    /// </summary>
+    [Description("Write the state of all check valve output lines.")]
+    public partial class CheckValveState
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValveState"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 74;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="CheckValveState"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="CheckValveState"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="CheckValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static CheckValves GetPayload(HarpMessage message)
+        {
+            return (CheckValves)message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="CheckValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<CheckValves> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadUInt16();
+            return Timestamped.Create((CheckValves)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="CheckValveState"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValveState"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, CheckValves value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="CheckValveState"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValveState"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, CheckValves value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// CheckValveState register.
+    /// </summary>
+    /// <seealso cref="CheckValveState"/>
+    [Description("Filters and selects timestamped messages from the CheckValveState register.")]
+    public partial class TimestampedCheckValveState
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValveState"/> register. This field is constant.
+        /// </summary>
+        public const int Address = CheckValveState.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="CheckValveState"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<CheckValves> GetPayload(HarpMessage message)
+        {
+            return CheckValveState.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents a register that sets the pulse duration for Valve0.
     /// </summary>
     [Description("Sets the pulse duration for Valve0.")]
@@ -4252,7 +4534,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="Valve0PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 73;
+        public const int Address = 75;
 
         /// <summary>
         /// Represents the payload type of the <see cref="Valve0PulseDuration"/> register. This field is constant.
@@ -4348,7 +4630,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="Valve1PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 74;
+        public const int Address = 76;
 
         /// <summary>
         /// Represents the payload type of the <see cref="Valve1PulseDuration"/> register. This field is constant.
@@ -4444,7 +4726,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="Valve2PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 75;
+        public const int Address = 77;
 
         /// <summary>
         /// Represents the payload type of the <see cref="Valve2PulseDuration"/> register. This field is constant.
@@ -4540,7 +4822,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="Valve3PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 76;
+        public const int Address = 78;
 
         /// <summary>
         /// Represents the payload type of the <see cref="Valve3PulseDuration"/> register. This field is constant.
@@ -4628,6 +4910,390 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// </summary>
+    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    public partial class CheckValve0DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve0DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 79;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="CheckValve0DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="CheckValve0DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="CheckValve0DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static ushort GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="CheckValve0DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="CheckValve0DelayPulseDuration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve0DelayPulseDuration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="CheckValve0DelayPulseDuration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve0DelayPulseDuration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// CheckValve0DelayPulseDuration register.
+    /// </summary>
+    /// <seealso cref="CheckValve0DelayPulseDuration"/>
+    [Description("Filters and selects timestamped messages from the CheckValve0DelayPulseDuration register.")]
+    public partial class TimestampedCheckValve0DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve0DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = CheckValve0DelayPulseDuration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="CheckValve0DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetPayload(HarpMessage message)
+        {
+            return CheckValve0DelayPulseDuration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// </summary>
+    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    public partial class CheckValve1DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve1DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 80;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="CheckValve1DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="CheckValve1DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="CheckValve1DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static ushort GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="CheckValve1DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="CheckValve1DelayPulseDuration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve1DelayPulseDuration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="CheckValve1DelayPulseDuration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve1DelayPulseDuration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// CheckValve1DelayPulseDuration register.
+    /// </summary>
+    /// <seealso cref="CheckValve1DelayPulseDuration"/>
+    [Description("Filters and selects timestamped messages from the CheckValve1DelayPulseDuration register.")]
+    public partial class TimestampedCheckValve1DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve1DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = CheckValve1DelayPulseDuration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="CheckValve1DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetPayload(HarpMessage message)
+        {
+            return CheckValve1DelayPulseDuration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// </summary>
+    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    public partial class CheckValve2DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve2DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 81;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="CheckValve2DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="CheckValve2DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="CheckValve2DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static ushort GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="CheckValve2DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="CheckValve2DelayPulseDuration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve2DelayPulseDuration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="CheckValve2DelayPulseDuration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve2DelayPulseDuration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// CheckValve2DelayPulseDuration register.
+    /// </summary>
+    /// <seealso cref="CheckValve2DelayPulseDuration"/>
+    [Description("Filters and selects timestamped messages from the CheckValve2DelayPulseDuration register.")]
+    public partial class TimestampedCheckValve2DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve2DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = CheckValve2DelayPulseDuration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="CheckValve2DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetPayload(HarpMessage message)
+        {
+            return CheckValve2DelayPulseDuration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// </summary>
+    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    public partial class CheckValve3DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve3DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 82;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="CheckValve3DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="CheckValve3DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="CheckValve3DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static ushort GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="CheckValve3DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="CheckValve3DelayPulseDuration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve3DelayPulseDuration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="CheckValve3DelayPulseDuration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="CheckValve3DelayPulseDuration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, ushort value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// CheckValve3DelayPulseDuration register.
+    /// </summary>
+    /// <seealso cref="CheckValve3DelayPulseDuration"/>
+    [Description("Filters and selects timestamped messages from the CheckValve3DelayPulseDuration register.")]
+    public partial class TimestampedCheckValve3DelayPulseDuration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="CheckValve3DelayPulseDuration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = CheckValve3DelayPulseDuration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="CheckValve3DelayPulseDuration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<ushort> GetPayload(HarpMessage message)
+        {
+            return CheckValve3DelayPulseDuration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents a register that sets the pulse duration for EndValve0.
     /// </summary>
     [Description("Sets the pulse duration for EndValve0.")]
@@ -4636,7 +5302,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 77;
+        public const int Address = 83;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EndValve0PulseDuration"/> register. This field is constant.
@@ -4732,7 +5398,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 78;
+        public const int Address = 84;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EndValve1PulseDuration"/> register. This field is constant.
@@ -4828,7 +5494,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="PulseDummyValve"/> register. This field is constant.
         /// </summary>
-        public const int Address = 79;
+        public const int Address = 85;
 
         /// <summary>
         /// Represents the payload type of the <see cref="PulseDummyValve"/> register. This field is constant.
@@ -4850,7 +5516,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="DO0Sync"/> register. This field is constant.
         /// </summary>
-        public const int Address = 80;
+        public const int Address = 86;
 
         /// <summary>
         /// Represents the payload type of the <see cref="DO0Sync"/> register. This field is constant.
@@ -4947,7 +5613,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="DO1Sync"/> register. This field is constant.
         /// </summary>
-        public const int Address = 81;
+        public const int Address = 87;
 
         /// <summary>
         /// Represents the payload type of the <see cref="DO1Sync"/> register. This field is constant.
@@ -5044,7 +5710,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="DI0Trigger"/> register. This field is constant.
         /// </summary>
-        public const int Address = 82;
+        public const int Address = 88;
 
         /// <summary>
         /// Represents the payload type of the <see cref="DI0Trigger"/> register. This field is constant.
@@ -5141,7 +5807,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicValve0"/> register. This field is constant.
         /// </summary>
-        public const int Address = 83;
+        public const int Address = 89;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicValve0"/> register. This field is constant.
@@ -5238,7 +5904,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicValve1"/> register. This field is constant.
         /// </summary>
-        public const int Address = 84;
+        public const int Address = 90;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicValve1"/> register. This field is constant.
@@ -5335,7 +6001,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicValve2"/> register. This field is constant.
         /// </summary>
-        public const int Address = 85;
+        public const int Address = 91;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicValve2"/> register. This field is constant.
@@ -5432,7 +6098,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicValve3"/> register. This field is constant.
         /// </summary>
-        public const int Address = 86;
+        public const int Address = 92;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicValve3"/> register. This field is constant.
@@ -5521,6 +6187,394 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that mimic Check Valve0.
+    /// </summary>
+    [Description("Mimic Check Valve0.")]
+    public partial class MimicCheckValve0
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve0"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 93;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicCheckValve0"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicCheckValve0"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="MimicCheckValve0"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static MimicOutputs GetPayload(HarpMessage message)
+        {
+            return (MimicOutputs)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="MimicCheckValve0"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="MimicCheckValve0"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve0"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="MimicCheckValve0"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve0"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// MimicCheckValve0 register.
+    /// </summary>
+    /// <seealso cref="MimicCheckValve0"/>
+    [Description("Filters and selects timestamped messages from the MimicCheckValve0 register.")]
+    public partial class TimestampedMimicCheckValve0
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve0"/> register. This field is constant.
+        /// </summary>
+        public const int Address = MimicCheckValve0.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="MimicCheckValve0"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
+        {
+            return MimicCheckValve0.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that mimic Check Valve1.
+    /// </summary>
+    [Description("Mimic Check Valve1.")]
+    public partial class MimicCheckValve1
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve1"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 94;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicCheckValve1"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicCheckValve1"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="MimicCheckValve1"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static MimicOutputs GetPayload(HarpMessage message)
+        {
+            return (MimicOutputs)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="MimicCheckValve1"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="MimicCheckValve1"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve1"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="MimicCheckValve1"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve1"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// MimicCheckValve1 register.
+    /// </summary>
+    /// <seealso cref="MimicCheckValve1"/>
+    [Description("Filters and selects timestamped messages from the MimicCheckValve1 register.")]
+    public partial class TimestampedMimicCheckValve1
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve1"/> register. This field is constant.
+        /// </summary>
+        public const int Address = MimicCheckValve1.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="MimicCheckValve1"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
+        {
+            return MimicCheckValve1.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that mimic Check Valve2.
+    /// </summary>
+    [Description("Mimic Check Valve2.")]
+    public partial class MimicCheckValve2
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve2"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 95;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicCheckValve2"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicCheckValve2"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="MimicCheckValve2"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static MimicOutputs GetPayload(HarpMessage message)
+        {
+            return (MimicOutputs)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="MimicCheckValve2"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="MimicCheckValve2"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve2"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="MimicCheckValve2"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve2"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// MimicCheckValve2 register.
+    /// </summary>
+    /// <seealso cref="MimicCheckValve2"/>
+    [Description("Filters and selects timestamped messages from the MimicCheckValve2 register.")]
+    public partial class TimestampedMimicCheckValve2
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve2"/> register. This field is constant.
+        /// </summary>
+        public const int Address = MimicCheckValve2.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="MimicCheckValve2"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
+        {
+            return MimicCheckValve2.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that mimic Check Valve3.
+    /// </summary>
+    [Description("Mimic Check Valve3.")]
+    public partial class MimicCheckValve3
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve3"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 96;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="MimicCheckValve3"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="MimicCheckValve3"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="MimicCheckValve3"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static MimicOutputs GetPayload(HarpMessage message)
+        {
+            return (MimicOutputs)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="MimicCheckValve3"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((MimicOutputs)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="MimicCheckValve3"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve3"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="MimicCheckValve3"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="MimicCheckValve3"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MimicOutputs value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// MimicCheckValve3 register.
+    /// </summary>
+    /// <seealso cref="MimicCheckValve3"/>
+    [Description("Filters and selects timestamped messages from the MimicCheckValve3 register.")]
+    public partial class TimestampedMimicCheckValve3
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="MimicCheckValve3"/> register. This field is constant.
+        /// </summary>
+        public const int Address = MimicCheckValve3.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="MimicCheckValve3"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<MimicOutputs> GetPayload(HarpMessage message)
+        {
+            return MimicCheckValve3.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents a register that mimic EndValve0.
     /// </summary>
     [Description("Mimic EndValve0.")]
@@ -5529,7 +6583,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicEndValve0"/> register. This field is constant.
         /// </summary>
-        public const int Address = 87;
+        public const int Address = 97;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicEndValve0"/> register. This field is constant.
@@ -5626,7 +6680,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicEndValve1"/> register. This field is constant.
         /// </summary>
-        public const int Address = 88;
+        public const int Address = 98;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicEndValve1"/> register. This field is constant.
@@ -5723,7 +6777,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="MimicDummyValve"/> register. This field is constant.
         /// </summary>
-        public const int Address = 89;
+        public const int Address = 99;
 
         /// <summary>
         /// Represents the payload type of the <see cref="MimicDummyValve"/> register. This field is constant.
@@ -5745,7 +6799,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EnableValveExternalControl"/> register. This field is constant.
         /// </summary>
-        public const int Address = 90;
+        public const int Address = 100;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EnableValveExternalControl"/> register. This field is constant.
@@ -5842,7 +6896,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="Channel3Range"/> register. This field is constant.
         /// </summary>
-        public const int Address = 91;
+        public const int Address = 101;
 
         /// <summary>
         /// Represents the payload type of the <see cref="Channel3Range"/> register. This field is constant.
@@ -5931,6 +6985,103 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
+    /// Represents a register that enable the check valve to sync with the respective odor valve.
+    /// </summary>
+    [Description("Enable the check valve to sync with the respective odor valve.")]
+    public partial class EnableCheckValveSync
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="EnableCheckValveSync"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 102;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="EnableCheckValveSync"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U16;
+
+        /// <summary>
+        /// Represents the length of the <see cref="EnableCheckValveSync"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="EnableCheckValveSync"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static CheckValves GetPayload(HarpMessage message)
+        {
+            return (CheckValves)message.GetPayloadUInt16();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="EnableCheckValveSync"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<CheckValves> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadUInt16();
+            return Timestamped.Create((CheckValves)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="EnableCheckValveSync"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableCheckValveSync"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, CheckValves value)
+        {
+            return HarpMessage.FromUInt16(Address, messageType, (ushort)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="EnableCheckValveSync"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableCheckValveSync"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, CheckValves value)
+        {
+            return HarpMessage.FromUInt16(Address, timestamp, messageType, (ushort)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// EnableCheckValveSync register.
+    /// </summary>
+    /// <seealso cref="EnableCheckValveSync"/>
+    [Description("Filters and selects timestamped messages from the EnableCheckValveSync register.")]
+    public partial class TimestampedEnableCheckValveSync
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="EnableCheckValveSync"/> register. This field is constant.
+        /// </summary>
+        public const int Address = EnableCheckValveSync.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="EnableCheckValveSync"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<CheckValves> GetPayload(HarpMessage message)
+        {
+            return EnableCheckValveSync.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents a register that temperature sensor reading value.
     /// </summary>
     [Description("Temperature sensor reading value.")]
@@ -5939,7 +7090,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="TemperatureValue"/> register. This field is constant.
         /// </summary>
-        public const int Address = 92;
+        public const int Address = 103;
 
         /// <summary>
         /// Represents the payload type of the <see cref="TemperatureValue"/> register. This field is constant.
@@ -6035,7 +7186,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EnableTemperatureCalibration"/> register. This field is constant.
         /// </summary>
-        public const int Address = 93;
+        public const int Address = 104;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EnableTemperatureCalibration"/> register. This field is constant.
@@ -6052,9 +7203,9 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static byte GetPayload(HarpMessage message)
+        public static EnableFlag GetPayload(HarpMessage message)
         {
-            return message.GetPayloadByte();
+            return (EnableFlag)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -6062,9 +7213,10 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<EnableFlag> GetTimestampedPayload(HarpMessage message)
         {
-            return message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((EnableFlag)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -6076,9 +7228,9 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="EnableTemperatureCalibration"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, byte value)
+        public static HarpMessage FromPayload(MessageType messageType, EnableFlag value)
         {
-            return HarpMessage.FromByte(Address, messageType, value);
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
@@ -6092,9 +7244,9 @@ namespace Harp.Olfactometer
         /// A <see cref="HarpMessage"/> object for the <see cref="EnableTemperatureCalibration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, EnableFlag value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, value);
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
     }
 
@@ -6116,7 +7268,7 @@ namespace Harp.Olfactometer
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetPayload(HarpMessage message)
+        public static Timestamped<EnableFlag> GetPayload(HarpMessage message)
         {
             return EnableTemperatureCalibration.GetTimestampedPayload(message);
         }
@@ -6131,7 +7283,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
         /// </summary>
-        public const int Address = 94;
+        public const int Address = 105;
 
         /// <summary>
         /// Represents the payload type of the <see cref="TemperatureCalibrationValue"/> register. This field is constant.
@@ -6227,7 +7379,7 @@ namespace Harp.Olfactometer
         /// <summary>
         /// Represents the address of the <see cref="EnableEvents"/> register. This field is constant.
         /// </summary>
-        public const int Address = 95;
+        public const int Address = 106;
 
         /// <summary>
         /// Represents the payload type of the <see cref="EnableEvents"/> register. This field is constant.
@@ -6353,12 +7505,18 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateValveSetPayload"/>
     /// <seealso cref="CreateValveClearPayload"/>
     /// <seealso cref="CreateValveTogglePayload"/>
+    /// <seealso cref="CreateValveStatePayload"/>
     /// <seealso cref="CreateOdorValveStatePayload"/>
     /// <seealso cref="CreateEndValveStatePayload"/>
+    /// <seealso cref="CreateCheckValveStatePayload"/>
     /// <seealso cref="CreateValve0PulseDurationPayload"/>
     /// <seealso cref="CreateValve1PulseDurationPayload"/>
     /// <seealso cref="CreateValve2PulseDurationPayload"/>
     /// <seealso cref="CreateValve3PulseDurationPayload"/>
+    /// <seealso cref="CreateCheckValve0DelayPulseDurationPayload"/>
+    /// <seealso cref="CreateCheckValve1DelayPulseDurationPayload"/>
+    /// <seealso cref="CreateCheckValve2DelayPulseDurationPayload"/>
+    /// <seealso cref="CreateCheckValve3DelayPulseDurationPayload"/>
     /// <seealso cref="CreateEndValve0PulseDurationPayload"/>
     /// <seealso cref="CreateEndValve1PulseDurationPayload"/>
     /// <seealso cref="CreateDO0SyncPayload"/>
@@ -6368,10 +7526,15 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateMimicValve1Payload"/>
     /// <seealso cref="CreateMimicValve2Payload"/>
     /// <seealso cref="CreateMimicValve3Payload"/>
+    /// <seealso cref="CreateMimicCheckValve0Payload"/>
+    /// <seealso cref="CreateMimicCheckValve1Payload"/>
+    /// <seealso cref="CreateMimicCheckValve2Payload"/>
+    /// <seealso cref="CreateMimicCheckValve3Payload"/>
     /// <seealso cref="CreateMimicEndValve0Payload"/>
     /// <seealso cref="CreateMimicEndValve1Payload"/>
     /// <seealso cref="CreateEnableValveExternalControlPayload"/>
     /// <seealso cref="CreateChannel3RangePayload"/>
+    /// <seealso cref="CreateEnableCheckValveSyncPayload"/>
     /// <seealso cref="CreateTemperatureValuePayload"/>
     /// <seealso cref="CreateEnableTemperatureCalibrationPayload"/>
     /// <seealso cref="CreateTemperatureCalibrationValuePayload"/>
@@ -6410,12 +7573,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateValveSetPayload))]
     [XmlInclude(typeof(CreateValveClearPayload))]
     [XmlInclude(typeof(CreateValveTogglePayload))]
+    [XmlInclude(typeof(CreateValveStatePayload))]
     [XmlInclude(typeof(CreateOdorValveStatePayload))]
     [XmlInclude(typeof(CreateEndValveStatePayload))]
+    [XmlInclude(typeof(CreateCheckValveStatePayload))]
     [XmlInclude(typeof(CreateValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateValve2PulseDurationPayload))]
     [XmlInclude(typeof(CreateValve3PulseDurationPayload))]
+    [XmlInclude(typeof(CreateCheckValve0DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateCheckValve1DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateCheckValve2DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateCheckValve3DelayPulseDurationPayload))]
     [XmlInclude(typeof(CreateEndValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateEndValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateDO0SyncPayload))]
@@ -6425,10 +7594,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateMimicValve1Payload))]
     [XmlInclude(typeof(CreateMimicValve2Payload))]
     [XmlInclude(typeof(CreateMimicValve3Payload))]
+    [XmlInclude(typeof(CreateMimicCheckValve0Payload))]
+    [XmlInclude(typeof(CreateMimicCheckValve1Payload))]
+    [XmlInclude(typeof(CreateMimicCheckValve2Payload))]
+    [XmlInclude(typeof(CreateMimicCheckValve3Payload))]
     [XmlInclude(typeof(CreateMimicEndValve0Payload))]
     [XmlInclude(typeof(CreateMimicEndValve1Payload))]
     [XmlInclude(typeof(CreateEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateChannel3RangePayload))]
+    [XmlInclude(typeof(CreateEnableCheckValveSyncPayload))]
     [XmlInclude(typeof(CreateTemperatureValuePayload))]
     [XmlInclude(typeof(CreateEnableTemperatureCalibrationPayload))]
     [XmlInclude(typeof(CreateTemperatureCalibrationValuePayload))]
@@ -6467,12 +7641,18 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedValveSetPayload))]
     [XmlInclude(typeof(CreateTimestampedValveClearPayload))]
     [XmlInclude(typeof(CreateTimestampedValveTogglePayload))]
+    [XmlInclude(typeof(CreateTimestampedValveStatePayload))]
     [XmlInclude(typeof(CreateTimestampedOdorValveStatePayload))]
     [XmlInclude(typeof(CreateTimestampedEndValveStatePayload))]
+    [XmlInclude(typeof(CreateTimestampedCheckValveStatePayload))]
     [XmlInclude(typeof(CreateTimestampedValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedValve2PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedValve3PulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedCheckValve0DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedCheckValve1DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedCheckValve2DelayPulseDurationPayload))]
+    [XmlInclude(typeof(CreateTimestampedCheckValve3DelayPulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedEndValve0PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedEndValve1PulseDurationPayload))]
     [XmlInclude(typeof(CreateTimestampedDO0SyncPayload))]
@@ -6482,10 +7662,15 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedMimicValve1Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve2Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicValve3Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicCheckValve0Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicCheckValve1Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicCheckValve2Payload))]
+    [XmlInclude(typeof(CreateTimestampedMimicCheckValve3Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicEndValve0Payload))]
     [XmlInclude(typeof(CreateTimestampedMimicEndValve1Payload))]
     [XmlInclude(typeof(CreateTimestampedEnableValveExternalControlPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel3RangePayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableCheckValveSyncPayload))]
     [XmlInclude(typeof(CreateTimestampedTemperatureValuePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableTemperatureCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedTemperatureCalibrationValuePayload))]
@@ -8422,6 +9607,60 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
+    /// that controls the specified valve output lines.
+    /// </summary>
+    [DisplayName("ValveStatePayload")]
+    [Description("Creates a message payload that controls the specified valve output lines.")]
+    public partial class CreateValveStatePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that controls the specified valve output lines.
+        /// </summary>
+        [Description("The value that controls the specified valve output lines.")]
+        public Valves ValveState { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the ValveState register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public Valves GetPayload()
+        {
+            return ValveState;
+        }
+
+        /// <summary>
+        /// Creates a message that controls the specified valve output lines.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the ValveState register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.ValveState.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that controls the specified valve output lines.
+    /// </summary>
+    [DisplayName("TimestampedValveStatePayload")]
+    [Description("Creates a timestamped message payload that controls the specified valve output lines.")]
+    public partial class CreateTimestampedValveStatePayload : CreateValveStatePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that controls the specified valve output lines.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the ValveState register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.ValveState.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that write the state of all odor valve output lines.
     /// </summary>
     [DisplayName("OdorValveStatePayload")]
@@ -8525,6 +9764,60 @@ namespace Harp.Olfactometer
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
             return Harp.Olfactometer.EndValveState.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that write the state of all check valve output lines.
+    /// </summary>
+    [DisplayName("CheckValveStatePayload")]
+    [Description("Creates a message payload that write the state of all check valve output lines.")]
+    public partial class CreateCheckValveStatePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that write the state of all check valve output lines.
+        /// </summary>
+        [Description("The value that write the state of all check valve output lines.")]
+        public CheckValves CheckValveState { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the CheckValveState register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public CheckValves GetPayload()
+        {
+            return CheckValveState;
+        }
+
+        /// <summary>
+        /// Creates a message that write the state of all check valve output lines.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the CheckValveState register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValveState.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that write the state of all check valve output lines.
+    /// </summary>
+    [DisplayName("TimestampedCheckValveStatePayload")]
+    [Description("Creates a timestamped message payload that write the state of all check valve output lines.")]
+    public partial class CreateTimestampedCheckValveStatePayload : CreateCheckValveStatePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that write the state of all check valve output lines.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the CheckValveState register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValveState.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -8749,6 +10042,230 @@ namespace Harp.Olfactometer
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
             return Harp.Olfactometer.Valve3PulseDuration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// </summary>
+    [DisplayName("CheckValve0DelayPulseDurationPayload")]
+    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    public partial class CreateCheckValve0DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// </summary>
+        [Range(min: 0, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+        public ushort CheckValve0DelayPulseDuration { get; set; } = 0;
+
+        /// <summary>
+        /// Creates a message payload for the CheckValve0DelayPulseDuration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
+        {
+            return CheckValve0DelayPulseDuration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the CheckValve0DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve0DelayPulseDuration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// </summary>
+    [DisplayName("TimestampedCheckValve0DelayPulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    public partial class CreateTimestampedCheckValve0DelayPulseDurationPayload : CreateCheckValve0DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the CheckValve0DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve0DelayPulseDuration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// </summary>
+    [DisplayName("CheckValve1DelayPulseDurationPayload")]
+    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    public partial class CreateCheckValve1DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// </summary>
+        [Range(min: 0, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+        public ushort CheckValve1DelayPulseDuration { get; set; } = 0;
+
+        /// <summary>
+        /// Creates a message payload for the CheckValve1DelayPulseDuration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
+        {
+            return CheckValve1DelayPulseDuration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the CheckValve1DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve1DelayPulseDuration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// </summary>
+    [DisplayName("TimestampedCheckValve1DelayPulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    public partial class CreateTimestampedCheckValve1DelayPulseDurationPayload : CreateCheckValve1DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the CheckValve1DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve1DelayPulseDuration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// </summary>
+    [DisplayName("CheckValve2DelayPulseDurationPayload")]
+    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    public partial class CreateCheckValve2DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// </summary>
+        [Range(min: 0, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+        public ushort CheckValve2DelayPulseDuration { get; set; } = 0;
+
+        /// <summary>
+        /// Creates a message payload for the CheckValve2DelayPulseDuration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
+        {
+            return CheckValve2DelayPulseDuration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the CheckValve2DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve2DelayPulseDuration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// </summary>
+    [DisplayName("TimestampedCheckValve2DelayPulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    public partial class CreateTimestampedCheckValve2DelayPulseDurationPayload : CreateCheckValve2DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the CheckValve2DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve2DelayPulseDuration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// </summary>
+    [DisplayName("CheckValve3DelayPulseDurationPayload")]
+    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    public partial class CreateCheckValve3DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// </summary>
+        [Range(min: 0, max: 65535)]
+        [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
+        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+        public ushort CheckValve3DelayPulseDuration { get; set; } = 0;
+
+        /// <summary>
+        /// Creates a message payload for the CheckValve3DelayPulseDuration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public ushort GetPayload()
+        {
+            return CheckValve3DelayPulseDuration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the CheckValve3DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve3DelayPulseDuration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// </summary>
+    [DisplayName("TimestampedCheckValve3DelayPulseDurationPayload")]
+    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    public partial class CreateTimestampedCheckValve3DelayPulseDurationPayload : CreateCheckValve3DelayPulseDurationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the CheckValve3DelayPulseDuration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.CheckValve3DelayPulseDuration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -9244,6 +10761,222 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
+    /// that mimic Check Valve0.
+    /// </summary>
+    [DisplayName("MimicCheckValve0Payload")]
+    [Description("Creates a message payload that mimic Check Valve0.")]
+    public partial class CreateMimicCheckValve0Payload
+    {
+        /// <summary>
+        /// Gets or sets the value that mimic Check Valve0.
+        /// </summary>
+        [Description("The value that mimic Check Valve0.")]
+        public MimicOutputs MimicCheckValve0 { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the MimicCheckValve0 register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public MimicOutputs GetPayload()
+        {
+            return MimicCheckValve0;
+        }
+
+        /// <summary>
+        /// Creates a message that mimic Check Valve0.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicCheckValve0 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve0.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic Check Valve0.
+    /// </summary>
+    [DisplayName("TimestampedMimicCheckValve0Payload")]
+    [Description("Creates a timestamped message payload that mimic Check Valve0.")]
+    public partial class CreateTimestampedMimicCheckValve0Payload : CreateMimicCheckValve0Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic Check Valve0.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicCheckValve0 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve0.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that mimic Check Valve1.
+    /// </summary>
+    [DisplayName("MimicCheckValve1Payload")]
+    [Description("Creates a message payload that mimic Check Valve1.")]
+    public partial class CreateMimicCheckValve1Payload
+    {
+        /// <summary>
+        /// Gets or sets the value that mimic Check Valve1.
+        /// </summary>
+        [Description("The value that mimic Check Valve1.")]
+        public MimicOutputs MimicCheckValve1 { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the MimicCheckValve1 register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public MimicOutputs GetPayload()
+        {
+            return MimicCheckValve1;
+        }
+
+        /// <summary>
+        /// Creates a message that mimic Check Valve1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicCheckValve1 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve1.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic Check Valve1.
+    /// </summary>
+    [DisplayName("TimestampedMimicCheckValve1Payload")]
+    [Description("Creates a timestamped message payload that mimic Check Valve1.")]
+    public partial class CreateTimestampedMimicCheckValve1Payload : CreateMimicCheckValve1Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic Check Valve1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicCheckValve1 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve1.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that mimic Check Valve2.
+    /// </summary>
+    [DisplayName("MimicCheckValve2Payload")]
+    [Description("Creates a message payload that mimic Check Valve2.")]
+    public partial class CreateMimicCheckValve2Payload
+    {
+        /// <summary>
+        /// Gets or sets the value that mimic Check Valve2.
+        /// </summary>
+        [Description("The value that mimic Check Valve2.")]
+        public MimicOutputs MimicCheckValve2 { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the MimicCheckValve2 register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public MimicOutputs GetPayload()
+        {
+            return MimicCheckValve2;
+        }
+
+        /// <summary>
+        /// Creates a message that mimic Check Valve2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicCheckValve2 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve2.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic Check Valve2.
+    /// </summary>
+    [DisplayName("TimestampedMimicCheckValve2Payload")]
+    [Description("Creates a timestamped message payload that mimic Check Valve2.")]
+    public partial class CreateTimestampedMimicCheckValve2Payload : CreateMimicCheckValve2Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic Check Valve2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicCheckValve2 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve2.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that mimic Check Valve3.
+    /// </summary>
+    [DisplayName("MimicCheckValve3Payload")]
+    [Description("Creates a message payload that mimic Check Valve3.")]
+    public partial class CreateMimicCheckValve3Payload
+    {
+        /// <summary>
+        /// Gets or sets the value that mimic Check Valve3.
+        /// </summary>
+        [Description("The value that mimic Check Valve3.")]
+        public MimicOutputs MimicCheckValve3 { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the MimicCheckValve3 register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public MimicOutputs GetPayload()
+        {
+            return MimicCheckValve3;
+        }
+
+        /// <summary>
+        /// Creates a message that mimic Check Valve3.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the MimicCheckValve3 register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve3.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that mimic Check Valve3.
+    /// </summary>
+    [DisplayName("TimestampedMimicCheckValve3Payload")]
+    [Description("Creates a timestamped message payload that mimic Check Valve3.")]
+    public partial class CreateTimestampedMimicCheckValve3Payload : CreateMimicCheckValve3Payload
+    {
+        /// <summary>
+        /// Creates a timestamped message that mimic Check Valve3.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the MimicCheckValve3 register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.MimicCheckValve3.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that mimic EndValve0.
     /// </summary>
     [DisplayName("MimicEndValve0Payload")]
@@ -9460,6 +11193,60 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
+    /// that enable the check valve to sync with the respective odor valve.
+    /// </summary>
+    [DisplayName("EnableCheckValveSyncPayload")]
+    [Description("Creates a message payload that enable the check valve to sync with the respective odor valve.")]
+    public partial class CreateEnableCheckValveSyncPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that enable the check valve to sync with the respective odor valve.
+        /// </summary>
+        [Description("The value that enable the check valve to sync with the respective odor valve.")]
+        public CheckValves EnableCheckValveSync { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the EnableCheckValveSync register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public CheckValves GetPayload()
+        {
+            return EnableCheckValveSync;
+        }
+
+        /// <summary>
+        /// Creates a message that enable the check valve to sync with the respective odor valve.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the EnableCheckValveSync register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableCheckValveSync.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that enable the check valve to sync with the respective odor valve.
+    /// </summary>
+    [DisplayName("TimestampedEnableCheckValveSyncPayload")]
+    [Description("Creates a timestamped message payload that enable the check valve to sync with the respective odor valve.")]
+    public partial class CreateTimestampedEnableCheckValveSyncPayload : CreateEnableCheckValveSyncPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that enable the check valve to sync with the respective odor valve.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the EnableCheckValveSync register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.Olfactometer.EnableCheckValveSync.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
     /// that temperature sensor reading value.
     /// </summary>
     [DisplayName("TemperatureValuePayload")]
@@ -9524,13 +11311,13 @@ namespace Harp.Olfactometer
         /// Gets or sets the value that enable flow adjustment based on the temperature calibration.
         /// </summary>
         [Description("The value that enable flow adjustment based on the temperature calibration.")]
-        public byte EnableTemperatureCalibration { get; set; }
+        public EnableFlag EnableTemperatureCalibration { get; set; }
 
         /// <summary>
         /// Creates a message payload for the EnableTemperatureCalibration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public byte GetPayload()
+        public EnableFlag GetPayload()
         {
             return EnableTemperatureCalibration;
         }
@@ -9833,7 +11620,7 @@ namespace Harp.Olfactometer
     /// Specifies the states of the valves.
     /// </summary>
     [Flags]
-    public enum Valves : byte
+    public enum Valves : ushort
     {
         None = 0x0,
         Valve0 = 0x1,
@@ -9842,7 +11629,11 @@ namespace Harp.Olfactometer
         Valve3 = 0x8,
         EndValve0 = 0x10,
         EndValve1 = 0x20,
-        ValveDummy = 0x40
+        ValveDummy = 0x40,
+        CheckValve0 = 0x100,
+        CheckValve1 = 0x200,
+        CheckValve2 = 0x400,
+        CheckValve3 = 0x800
     }
 
     /// <summary>
@@ -9856,6 +11647,19 @@ namespace Harp.Olfactometer
         Valve1 = 0x2,
         Valve2 = 0x4,
         Valve3 = 0x8
+    }
+
+    /// <summary>
+    /// Specifies the states of the check valves.
+    /// </summary>
+    [Flags]
+    public enum CheckValves : ushort
+    {
+        None = 0x0,
+        CheckValve0 = 0x100,
+        CheckValve1 = 0x200,
+        CheckValve2 = 0x400,
+        CheckValve3 = 0x800
     }
 
     /// <summary>
