@@ -463,8 +463,6 @@ typedef struct
 #define GM_FLOW_100                        (0<<0)       // Range is 0-100ml/min
 #define GM_FLOW_1000                       (1<<0)       // Range is 0-1000ml/min
 #define MSK_CHECK_VALVES_CONFIG            (3<<0)       // Check valves control configuration
-//#define GM_CHECK_VALVES_SOFTWARE           (0<<0)       // Check valves controlled by software
-//#define GM_CHECK_VALVES_SYNC               (1<<0)       // Check valves synchronized with odor valves + configured delay
 #define B_EVT0                             (1<<0)       // Events of register FLOWMETER_ANALOG_OUTPUTS
 #define B_EVT1                             (1<<1)       // Events of register DI0_STATE
 #define B_EVT2                             (1<<2)       // Events of register CHANNELS_ACTUAL_FLOW

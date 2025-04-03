@@ -147,13 +147,11 @@ ISR(PORTB_INT0_vect, ISR_NAKED)
 		{
 			app_regs.REG_ENABLE_FLOW = aux;
 			app_write_REG_ENABLE_FLOW(&app_regs.REG_ENABLE_FLOW);
-			//core_func_send_event(ADD_REG_START, true);
 		}
 		// transition from high to low - stop
 		else{
 			app_regs.REG_ENABLE_FLOW = aux;
 			app_write_REG_ENABLE_FLOW(&app_regs.REG_ENABLE_FLOW);
-			//core_func_send_event(ADD_REG_START, false);
 		}
 	}
 	

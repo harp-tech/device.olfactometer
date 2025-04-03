@@ -515,7 +515,6 @@ bool app_write_REG_CHANNEL0_TARGET_FLOW(void *a)
 
 	if(mfcs)
 		status_DC.flow0_update = 1;
-		//set_flowrate_mfc(0,app_regs.REG_CHANNEL0_TARGET_FLOW);
 	
 	return true;
 }
@@ -546,7 +545,6 @@ bool app_write_REG_CHANNEL1_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow1_update = 1;
-		//set_flowrate_mfc(1,app_regs.REG_CHANNEL1_TARGET_FLOW);
 
 	return true;
 }
@@ -577,7 +575,6 @@ bool app_write_REG_CHANNEL2_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow2_update = 1;	
-		//set_flowrate_mfc(2,app_regs.REG_CHANNEL2_TARGET_FLOW);
 		
 	return true;
 }
@@ -616,7 +613,6 @@ bool app_write_REG_CHANNEL3_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow3_update = 1;
-		//set_flowrate_mfc(3,app_regs.REG_CHANNEL3_TARGET_FLOW);
 		
 	return true;
 }
@@ -647,7 +643,6 @@ bool app_write_REG_CHANNEL4_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow4_update = 1;
-		//set_flowrate_mfc(4,app_regs.REG_CHANNEL4_TARGET_FLOW);
 		
 	return true;
 }
@@ -679,7 +674,6 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow0_update = 1;
-		//set_flowrate_mfc(0,app_regs.REG_CHANNEL0_TARGET_FLOW);
 		
 	
 	if (reg[1] == 0)
@@ -694,7 +688,6 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow1_update = 1;
-		//set_flowrate_mfc(1,app_regs.REG_CHANNEL1_TARGET_FLOW);
 
 
 	if (reg[2] == 0)
@@ -709,7 +702,6 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow2_update = 1;
-		//set_flowrate_mfc(2,app_regs.REG_CHANNEL2_TARGET_FLOW);
 		
 	
 	if (reg[3] == 0)
@@ -731,7 +723,6 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow3_update = 1;
-		//set_flowrate_mfc(3,app_regs.REG_CHANNEL3_TARGET_FLOW);
 
 	
 	if (reg[4] == 0)
@@ -746,7 +737,6 @@ bool app_write_REG_CHANNELS_TARGET_FLOW(void *a)
 	
 	if(mfcs)
 		status_DC.flow4_update = 1;
-		//set_flowrate_mfc(4,app_regs.REG_CHANNEL4_TARGET_FLOW);*/
 	
 	return true;
 }
@@ -1506,7 +1496,7 @@ bool app_write_REG_VALVE0_PULSE_DURATION(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE1_PULSE_DURATION                                                     */
+/* REG_VALVE1_PULSE_DURATION                                            */
 /************************************************************************/
 void app_read_REG_VALVE1_PULSE_DURATION(void)
 {
@@ -1526,7 +1516,7 @@ bool app_write_REG_VALVE1_PULSE_DURATION(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE2_PULSE_DURATION                                                     */
+/* REG_VALVE2_PULSE_DURATION                                            */
 /************************************************************************/
 void app_read_REG_VALVE2_PULSE_DURATION(void) 
 {
@@ -1546,7 +1536,7 @@ bool app_write_REG_VALVE2_PULSE_DURATION(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE3_PULSE_DURATION                                                     */
+/* REG_VALVE3_PULSE_DURATION                                            */
 /************************************************************************/
 void app_read_REG_VALVE3_PULSE_DURATION(void)
 {
@@ -1584,7 +1574,7 @@ bool app_write_REG_VALVE0CHK_DELAY(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE1CHK_DELAY                                                     */
+/* REG_VALVE1CHK_DELAY                                                  */
 /************************************************************************/
 void app_read_REG_VALVE1CHK_DELAY(void)
 {
@@ -1602,7 +1592,7 @@ bool app_write_REG_VALVE1CHK_DELAY(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE2CHK_DELAY                                                     */
+/* REG_VALVE2CHK_DELAY                                                  */
 /************************************************************************/
 void app_read_REG_VALVE2CHK_DELAY(void)
 {
@@ -1620,7 +1610,7 @@ bool app_write_REG_VALVE2CHK_DELAY(void *a)
 
 
 /************************************************************************/
-/* REG_VALVE3CHK_DELAY                                                     */
+/* REG_VALVE3CHK_DELAY                                                  */
 /************************************************************************/
 void app_read_REG_VALVE3CHK_DELAY(void)
 {
@@ -1638,7 +1628,7 @@ bool app_write_REG_VALVE3CHK_DELAY(void *a)
 
 
 /************************************************************************/
-/* REG_END_VALVE0_PULSE_DURATION                                                  */
+/* REG_END_VALVE0_PULSE_DURATION                                        */
 /************************************************************************/
 void app_read_REG_END_VALVE0_PULSE_DURATION(void)
 {
@@ -1659,7 +1649,7 @@ bool app_write_REG_END_VALVE0_PULSE_DURATION(void *a)
 
 
 /************************************************************************/
-/* REG_END_VALVE1_PULSE_DURATION                                                  */
+/* REG_END_VALVE1_PULSE_DURATION                                        */
 /************************************************************************/
 void app_read_REG_END_VALVE1_PULSE_DURATION(void)
 {

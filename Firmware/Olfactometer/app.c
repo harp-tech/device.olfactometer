@@ -42,8 +42,6 @@ uint16_t CH3_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 
 uint16_t CH4_calibration_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
 uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 9493, 10060, 10554, 11006, 11430};
 	
-//const uint16_t CHX_calibration_values_mfc [] =  {0,3277,6553,9830,13107,16384,19660,22937,26214,29490,32767};
-
 #define _1_CLOCK_CYCLES asm ( "nop \n")
 #define _2_CLOCK_CYCLES _1_CLOCK_CYCLES; _1_CLOCK_CYCLES
 #define _4_CLOCK_CYCLES _2_CLOCK_CYCLES; _2_CLOCK_CYCLES
@@ -52,11 +50,6 @@ uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 94
 /************************************************************************/
 /* User functions                                                       */
 /************************************************************************/
-
-//void init_calibration_values(void);
-//void closed_loop_control(uint8_t flow);
-//float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y);
-
 
 /************************************************************************/
 /* Initialize app                                                       */
@@ -306,31 +299,6 @@ void init_calibration_values(void)
 	index = index0;
 	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
 	
-	/*CHX_calibration_values = eeprom_rd_byte(index);
-	if (CHX_calibration_values == 0) // no data in EEPROM, no initialization performed
-		return; */
-	
-	/*if (user_calibration) // calibration values are stored in USER_CALIBRATION registers
-		return;
-	
-	if (mfcs && !user_calibration){
-		for (uint8_t i = 0; i < 11; i++){
-			float decade = 16383/10*i;
-			app_regs.REG_CHANNEL0_USER_CALIBRATION[i] = (uint16_t)decade;
-			app_regs.REG_CHANNEL1_USER_CALIBRATION[i] = (uint16_t)decade;
-			app_regs.REG_CHANNEL2_USER_CALIBRATION[i] = (uint16_t)decade;
-			app_regs.REG_CHANNEL3_USER_CALIBRATION[i] = (uint16_t)decade;
-			app_regs.REG_CHANNEL4_USER_CALIBRATION[i] = (uint16_t)decade;
-		}
-		return;
-	}
-		
-	CHX_calibration_values = eeprom_rd_byte(index);
-	if (CHX_calibration_values == 0) // no data in EEPROM, no initialization performed
-		return;
-	app_regs.REG_CHANNEL0_USER_CALIBRATION[0] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);*/
-	
-	
 	CH0_calibration_values[0] = eeprom_rd_byte(index);
 	
 	if (CH0_calibration_values[0] == 0) // no data in EEPROM, no initialization performed
@@ -508,90 +476,6 @@ void init_calibration_values(void)
 		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
 	}
 	
-	
-	
-	/*
-	
-	for (uint8_t i = 1; i < 11; i++){
-		CHX_calibration_values = eeprom_rd_byte(++index);
-		CHX_calibration_values = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-		app_regs.REG_CHANNEL0_USER_CALIBRATION[i] = CHX_calibration_values;
-	}
-	for (uint8_t i = 0; i < 11; i++){
-		if (app_regs.REG_CHANNEL0_USER_CALIBRATION[i] == 0)
-			app_regs.REG_CHANNEL0_USER_CALIBRATION[i] = CH0_calibration_values[i];
-	}
-	
-	
-	index = index0 + 31;
-
-	for (uint8_t i = 0; i < 11; i++){
-		CHX_calibration_values = eeprom_rd_byte(++index);
-		app_regs.REG_CHANNEL1_USER_CALIBRATION[i] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-		
-	}	
-	for (uint8_t i = 0; i < 11; i++){
-		if (app_regs.REG_CHANNEL1_USER_CALIBRATION[i] == 0)
-			app_regs.REG_CHANNEL1_USER_CALIBRATION[i] = CH1_calibration_values[i];
-	}
-	
-
-	index = index0 + 63;
-	
-	for (uint8_t i = 0; i < 11; i++){
-		CHX_calibration_values = eeprom_rd_byte(++index);
-		app_regs.REG_CHANNEL2_USER_CALIBRATION[i] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-	}
-	for (uint8_t i = 0; i < 11; i++){	
-		if (app_regs.REG_CHANNEL2_USER_CALIBRATION[i] == 0)
-			app_regs.REG_CHANNEL2_USER_CALIBRATION[i] = CH2_calibration_values[i];
-	}
-	
-	
-	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-		index = index0 + 95;
-		
-		for (uint8_t i = 0; i < 11; i++){
-			CHX_calibration_values = eeprom_rd_byte(++index);
-			app_regs.REG_CHANNEL3_USER_CALIBRATION[i] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-		}
-		for (uint8_t i = 0; i < 11; i++){
-			if (app_regs.REG_CHANNEL3_USER_CALIBRATION[i] == 0)
-				app_regs.REG_CHANNEL3_USER_CALIBRATION[i] = CH3_calibration_values[i];
-		}
-	}
-	
-		
-	index = index0 + 127;
-	
-	for (uint8_t i = 0; i < 11; i++){
-		CHX_calibration_values = eeprom_rd_byte(++index);
-		app_regs.REG_CHANNEL4_USER_CALIBRATION[i] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-	}
-	for (uint8_t i = 0; i < 11; i++){
-		if (app_regs.REG_CHANNEL4_USER_CALIBRATION[i] == 0)
-			app_regs.REG_CHANNEL4_USER_CALIBRATION[i] = CH4_calibration_values[i];
-	}
-		
-	
-	if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_1000){
-		index = index0 + 159;
-		
-		for (uint8_t i = 0; i < 11; i++){
-			CHX_calibration_values = eeprom_rd_byte(++index);
-			app_regs.REG_CHANNEL3_USER_CALIBRATION[i] = ((CHX_calibration_values << 8) & 0xFF00) | eeprom_rd_byte(++index);
-		}
-		for (uint8_t i = 0; i < 11; i++){
-			if (app_regs.REG_CHANNEL3_USER_CALIBRATION[i] == 0)
-				app_regs.REG_CHANNEL3_USER_CALIBRATION[i] = CH3_calibration_aux_values[i];
-		}
-	}
-	
-	if (app_regs.REG_TEMP_USER_CALIBRATION == 0){
-		index = index0 + 181;
-		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
-	}*/
-
 }
 
 /************************************************************************/
@@ -730,9 +614,6 @@ void closed_loop_control(uint8_t flow)
 					calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
-				//calibration_values[index*2+2] = app_regs.REG_CHANNEL0_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				//calibration_values[index*2+3] = CH100_flows[index+1];
-				
 				index = index + 1;
 			}
 			
@@ -784,9 +665,6 @@ void closed_loop_control(uint8_t flow)
 					calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
-				//calibration_values[index*2+2] = app_regs.REG_CHANNEL1_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				//calibration_values[index*2+3] = CH100_flows[index+1];
-				
 				index = index + 1;
 			}
 			
@@ -838,9 +716,6 @@ void closed_loop_control(uint8_t flow)
 					calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values[index*2+3] = CH100_flows[index+1];
 				}
-				//calibration_values[index*2+2] = app_regs.REG_CHANNEL2_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				//calibration_values[index*2+3] = CH100_flows[index+1];
-								
 				index = index + 1;
 			}
 		
@@ -895,8 +770,6 @@ void closed_loop_control(uint8_t flow)
 						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-(uint16_t)temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
-					
-					
 				}
 				else{
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
@@ -910,18 +783,6 @@ void closed_loop_control(uint8_t flow)
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
 				}
-				
-				/*if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
-					temp_correction = temp_correction * 2.5;
-					calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-((uint16_t)temp_correction);
-					calibration_values[index*2+3] = CH100_flows[index+1];
-				}
-				else{
-					temp_correction = temp_correction * 5;
-					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
-				}*/
-				
 				index = index + 1;
 			}
 		
@@ -990,9 +851,6 @@ void closed_loop_control(uint8_t flow)
 					calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
 					calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 				}
-				//calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL4_USER_CALIBRATION[index]-(uint16_t)temp_correction;
-				//calibration_values_1000[index*2+3] = CH1000_flows[index+1];
-							
 				index = index + 1;
 			}
 			
@@ -1031,9 +889,7 @@ void core_callback_initialize_hardware(void){
 	
 	//basis 2 baud rate 38400 - //uart1_init(12, 2, false);
 	//https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8331-8-and-16-bit-AVR-Microcontroller-XMEGA-AU_Manual.pdf pg 282
-	
 	//uart1_init(2094, -7, false); // baud rate 115200
-	
 	uart1_init(12, 2, false);
 	
 	uart1_enable();
@@ -1185,8 +1041,6 @@ void core_callback_registers_were_reinitialized(void)
 	timer_type0_stop(&TCF0);
 	timer_type1_stop(&TCD1);
 	
-	
-	//app_write_REG_VALVES_STATE(&app_regs.REG_VALVES_STATE);
 	app_write_REG_ENABLE_CHECK_VALVES_SYNC(&app_regs.REG_ENABLE_CHECK_VALVES_SYNC);
 	app_write_REG_DI0_TRIGGER(&app_regs.REG_DI0_TRIGGER);
 	app_write_REG_DO0_SYNC(&app_regs.REG_DO0_SYNC);
