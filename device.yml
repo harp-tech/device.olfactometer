@@ -267,19 +267,19 @@ registers:
     type: U16
     minValue: 0
     maxValue: 65535
-    description: Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
   CheckValve1DelayPulseDuration:
     <<: *checkValvePulseDuration
     address: 80
-    description: Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
   CheckValve2DelayPulseDuration:
     <<: *checkValvePulseDuration
     address: 81
-    description: Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
   CheckValve3DelayPulseDuration:
     <<: *checkValvePulseDuration
     address: 82
-    description: Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
   EndValve0PulseDuration:
     <<: *valvePulseDuration
     address: 83
@@ -402,12 +402,12 @@ registers:
     description: Specifies the active events in the device.
 bitMasks:
   DigitalOutputs:
-    description: Specifies the states of the digital outputs.
+    description: Specifies the state of the digital outputs.
     bits:
       DO0: 0x1
       DO1: 0x2
   Valves:
-    description: Specifies the states of the valves.
+    description: Specifies the state of the valves.
     bits:
       Valve0: 0x1
       Valve1: 0x2
@@ -421,21 +421,21 @@ bitMasks:
       CheckValve2: 0x400
       CheckValve3: 0x800
   OdorValves:
-    description: Specifies the states of the odor valves.
+    description: Specifies the state of the odor valves.
     bits:
       Valve0: 0x1
       Valve1: 0x2
       Valve2: 0x4
       Valve3: 0x8
   CheckValves:
-    description: Specifies the states of the check valves.
+    description: Specifies the state of the check valves.
     bits:
       CheckValve0: 0x100
       CheckValve1: 0x200
       CheckValve2: 0x400
       CheckValve3: 0x800
   EndValves:
-    description: Specifies the states of the end valves.
+    description: Specifies the state of the end valves.
     bits:
       EndValve0: 0x10
       EndValve1: 0x20
