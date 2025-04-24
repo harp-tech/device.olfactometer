@@ -4910,9 +4910,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// Represents a register that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
     /// </summary>
-    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    [Description("Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.")]
     public partial class CheckValve0DelayPulseDuration
     {
         /// <summary>
@@ -5006,9 +5006,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// Represents a register that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
     /// </summary>
-    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    [Description("Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.")]
     public partial class CheckValve1DelayPulseDuration
     {
         /// <summary>
@@ -5102,9 +5102,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// Represents a register that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
     /// </summary>
-    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    [Description("Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.")]
     public partial class CheckValve2DelayPulseDuration
     {
         /// <summary>
@@ -5198,9 +5198,9 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Represents a register that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// Represents a register that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
     /// </summary>
-    [Description("Sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    [Description("Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.")]
     public partial class CheckValve3DelayPulseDuration
     {
         /// <summary>
@@ -10047,18 +10047,18 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
     /// </summary>
     [DisplayName("CheckValve0DelayPulseDurationPayload")]
-    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    [Description("Creates a message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.")]
     public partial class CreateCheckValve0DelayPulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// Gets or sets the value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
         /// </summary>
         [Range(min: 0, max: 65535)]
         [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
-        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+        [Description("The value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.")]
         public ushort CheckValve0DelayPulseDuration { get; set; } = 0;
 
         /// <summary>
@@ -10071,7 +10071,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// Creates a message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the CheckValve0DelayPulseDuration register.</returns>
@@ -10083,14 +10083,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
     /// </summary>
     [DisplayName("TimestampedCheckValve0DelayPulseDurationPayload")]
-    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.")]
+    [Description("Creates a timestamped message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.")]
     public partial class CreateTimestampedCheckValve0DelayPulseDurationPayload : CreateCheckValve0DelayPulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve0.
+        /// Creates a timestamped message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -10103,18 +10103,18 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
     /// </summary>
     [DisplayName("CheckValve1DelayPulseDurationPayload")]
-    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    [Description("Creates a message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.")]
     public partial class CreateCheckValve1DelayPulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// Gets or sets the value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
         /// </summary>
         [Range(min: 0, max: 65535)]
         [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
-        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+        [Description("The value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.")]
         public ushort CheckValve1DelayPulseDuration { get; set; } = 0;
 
         /// <summary>
@@ -10127,7 +10127,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// Creates a message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the CheckValve1DelayPulseDuration register.</returns>
@@ -10139,14 +10139,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
     /// </summary>
     [DisplayName("TimestampedCheckValve1DelayPulseDurationPayload")]
-    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.")]
+    [Description("Creates a timestamped message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.")]
     public partial class CreateTimestampedCheckValve1DelayPulseDurationPayload : CreateCheckValve1DelayPulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve1.
+        /// Creates a timestamped message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -10159,18 +10159,18 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
     /// </summary>
     [DisplayName("CheckValve2DelayPulseDurationPayload")]
-    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    [Description("Creates a message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.")]
     public partial class CreateCheckValve2DelayPulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// Gets or sets the value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
         /// </summary>
         [Range(min: 0, max: 65535)]
         [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
-        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+        [Description("The value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.")]
         public ushort CheckValve2DelayPulseDuration { get; set; } = 0;
 
         /// <summary>
@@ -10183,7 +10183,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// Creates a message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the CheckValve2DelayPulseDuration register.</returns>
@@ -10195,14 +10195,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
     /// </summary>
     [DisplayName("TimestampedCheckValve2DelayPulseDurationPayload")]
-    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.")]
+    [Description("Creates a timestamped message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.")]
     public partial class CreateTimestampedCheckValve2DelayPulseDurationPayload : CreateCheckValve2DelayPulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve2.
+        /// Creates a timestamped message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -10215,18 +10215,18 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
     /// </summary>
     [DisplayName("CheckValve3DelayPulseDurationPayload")]
-    [Description("Creates a message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    [Description("Creates a message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.")]
     public partial class CreateCheckValve3DelayPulseDurationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// Gets or sets the value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
         /// </summary>
         [Range(min: 0, max: 65535)]
         [Editor(DesignTypes.NumericUpDownEditor, DesignTypes.UITypeEditor)]
-        [Description("The value that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+        [Description("The value that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.")]
         public ushort CheckValve3DelayPulseDuration { get; set; } = 0;
 
         /// <summary>
@@ -10239,7 +10239,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Creates a message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// Creates a message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the CheckValve3DelayPulseDuration register.</returns>
@@ -10251,14 +10251,14 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+    /// that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
     /// </summary>
     [DisplayName("TimestampedCheckValve3DelayPulseDurationPayload")]
-    [Description("Creates a timestamped message payload that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.")]
+    [Description("Creates a timestamped message payload that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.")]
     public partial class CreateTimestampedCheckValve3DelayPulseDurationPayload : CreateCheckValve3DelayPulseDurationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the delay (when CheckValvesConfig = Sync) or pulse duration for Check Valve3.
+        /// Creates a timestamped message that sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -11606,7 +11606,7 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Specifies the states of the digital outputs.
+    /// Specifies the state of the digital outputs.
     /// </summary>
     [Flags]
     public enum DigitalOutputs : byte
@@ -11617,7 +11617,7 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Specifies the states of the valves.
+    /// Specifies the state of the valves.
     /// </summary>
     [Flags]
     public enum Valves : ushort
@@ -11637,7 +11637,7 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Specifies the states of the odor valves.
+    /// Specifies the state of the odor valves.
     /// </summary>
     [Flags]
     public enum OdorValves : byte
@@ -11650,7 +11650,7 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Specifies the states of the check valves.
+    /// Specifies the state of the check valves.
     /// </summary>
     [Flags]
     public enum CheckValves : ushort
@@ -11663,7 +11663,7 @@ namespace Harp.Olfactometer
     }
 
     /// <summary>
-    /// Specifies the states of the end valves.
+    /// Specifies the state of the end valves.
     /// </summary>
     [Flags]
     public enum EndValves : byte
