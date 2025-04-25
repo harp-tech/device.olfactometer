@@ -46,7 +46,7 @@ namespace Harp.Olfactometer
             { 38, typeof(Channel3UserCalibration) },
             { 39, typeof(Channel4UserCalibration) },
             { 40, typeof(Channel3UserCalibrationAux) },
-            { 41, typeof(UserCalibrationEnable) },
+            { 41, typeof(EnableUserCalibration) },
             { 42, typeof(Channel0TargetFlow) },
             { 43, typeof(Channel1TargetFlow) },
             { 44, typeof(Channel2TargetFlow) },
@@ -184,7 +184,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3UserCalibration"/>
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
-    /// <seealso cref="UserCalibrationEnable"/>
+    /// <seealso cref="EnableUserCalibration"/>
     /// <seealso cref="Channel0TargetFlow"/>
     /// <seealso cref="Channel1TargetFlow"/>
     /// <seealso cref="Channel2TargetFlow"/>
@@ -252,7 +252,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3UserCalibration))]
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
-    [XmlInclude(typeof(UserCalibrationEnable))]
+    [XmlInclude(typeof(EnableUserCalibration))]
     [XmlInclude(typeof(Channel0TargetFlow))]
     [XmlInclude(typeof(Channel1TargetFlow))]
     [XmlInclude(typeof(Channel2TargetFlow))]
@@ -341,7 +341,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3UserCalibration"/>
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
-    /// <seealso cref="UserCalibrationEnable"/>
+    /// <seealso cref="EnableUserCalibration"/>
     /// <seealso cref="Channel0TargetFlow"/>
     /// <seealso cref="Channel1TargetFlow"/>
     /// <seealso cref="Channel2TargetFlow"/>
@@ -409,7 +409,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3UserCalibration))]
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
-    [XmlInclude(typeof(UserCalibrationEnable))]
+    [XmlInclude(typeof(EnableUserCalibration))]
     [XmlInclude(typeof(Channel0TargetFlow))]
     [XmlInclude(typeof(Channel1TargetFlow))]
     [XmlInclude(typeof(Channel2TargetFlow))]
@@ -477,7 +477,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(TimestampedChannel3UserCalibration))]
     [XmlInclude(typeof(TimestampedChannel4UserCalibration))]
     [XmlInclude(typeof(TimestampedChannel3UserCalibrationAux))]
-    [XmlInclude(typeof(TimestampedUserCalibrationEnable))]
+    [XmlInclude(typeof(TimestampedEnableUserCalibration))]
     [XmlInclude(typeof(TimestampedChannel0TargetFlow))]
     [XmlInclude(typeof(TimestampedChannel1TargetFlow))]
     [XmlInclude(typeof(TimestampedChannel2TargetFlow))]
@@ -563,7 +563,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="Channel3UserCalibration"/>
     /// <seealso cref="Channel4UserCalibration"/>
     /// <seealso cref="Channel3UserCalibrationAux"/>
-    /// <seealso cref="UserCalibrationEnable"/>
+    /// <seealso cref="EnableUserCalibration"/>
     /// <seealso cref="Channel0TargetFlow"/>
     /// <seealso cref="Channel1TargetFlow"/>
     /// <seealso cref="Channel2TargetFlow"/>
@@ -631,7 +631,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(Channel3UserCalibration))]
     [XmlInclude(typeof(Channel4UserCalibration))]
     [XmlInclude(typeof(Channel3UserCalibrationAux))]
-    [XmlInclude(typeof(UserCalibrationEnable))]
+    [XmlInclude(typeof(EnableUserCalibration))]
     [XmlInclude(typeof(Channel0TargetFlow))]
     [XmlInclude(typeof(Channel1TargetFlow))]
     [XmlInclude(typeof(Channel2TargetFlow))]
@@ -1598,25 +1598,25 @@ namespace Harp.Olfactometer
     /// Represents a register that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
     /// </summary>
     [Description("Override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-    public partial class UserCalibrationEnable
+    public partial class EnableUserCalibration
     {
         /// <summary>
-        /// Represents the address of the <see cref="UserCalibrationEnable"/> register. This field is constant.
+        /// Represents the address of the <see cref="EnableUserCalibration"/> register. This field is constant.
         /// </summary>
         public const int Address = 41;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="UserCalibrationEnable"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="EnableUserCalibration"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="UserCalibrationEnable"/> register. This field is constant.
+        /// Represents the length of the <see cref="EnableUserCalibration"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="UserCalibrationEnable"/> register messages.
+        /// Returns the payload data for <see cref="EnableUserCalibration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1626,7 +1626,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="UserCalibrationEnable"/> register messages.
+        /// Returns the timestamped payload data for <see cref="EnableUserCalibration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1637,12 +1637,12 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="UserCalibrationEnable"/> register.
+        /// Returns a Harp message for the <see cref="EnableUserCalibration"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="UserCalibrationEnable"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableUserCalibration"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, EnableFlag value)
@@ -1651,14 +1651,14 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="UserCalibrationEnable"/>
+        /// Returns a timestamped Harp message for the <see cref="EnableUserCalibration"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="UserCalibrationEnable"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="EnableUserCalibration"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, EnableFlag value)
@@ -1669,25 +1669,25 @@ namespace Harp.Olfactometer
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// UserCalibrationEnable register.
+    /// EnableUserCalibration register.
     /// </summary>
-    /// <seealso cref="UserCalibrationEnable"/>
-    [Description("Filters and selects timestamped messages from the UserCalibrationEnable register.")]
-    public partial class TimestampedUserCalibrationEnable
+    /// <seealso cref="EnableUserCalibration"/>
+    [Description("Filters and selects timestamped messages from the EnableUserCalibration register.")]
+    public partial class TimestampedEnableUserCalibration
     {
         /// <summary>
-        /// Represents the address of the <see cref="UserCalibrationEnable"/> register. This field is constant.
+        /// Represents the address of the <see cref="EnableUserCalibration"/> register. This field is constant.
         /// </summary>
-        public const int Address = UserCalibrationEnable.Address;
+        public const int Address = EnableUserCalibration.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="UserCalibrationEnable"/> register messages.
+        /// Returns timestamped payload data for <see cref="EnableUserCalibration"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<EnableFlag> GetPayload(HarpMessage message)
         {
-            return UserCalibrationEnable.GetTimestampedPayload(message);
+            return EnableUserCalibration.GetTimestampedPayload(message);
         }
     }
 
@@ -7480,7 +7480,7 @@ namespace Harp.Olfactometer
     /// <seealso cref="CreateChannel3UserCalibrationPayload"/>
     /// <seealso cref="CreateChannel4UserCalibrationPayload"/>
     /// <seealso cref="CreateChannel3UserCalibrationAuxPayload"/>
-    /// <seealso cref="CreateUserCalibrationEnablePayload"/>
+    /// <seealso cref="CreateEnableUserCalibrationPayload"/>
     /// <seealso cref="CreateChannel0TargetFlowPayload"/>
     /// <seealso cref="CreateChannel1TargetFlowPayload"/>
     /// <seealso cref="CreateChannel2TargetFlowPayload"/>
@@ -7548,7 +7548,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateChannel3UserCalibrationPayload))]
     [XmlInclude(typeof(CreateChannel4UserCalibrationPayload))]
     [XmlInclude(typeof(CreateChannel3UserCalibrationAuxPayload))]
-    [XmlInclude(typeof(CreateUserCalibrationEnablePayload))]
+    [XmlInclude(typeof(CreateEnableUserCalibrationPayload))]
     [XmlInclude(typeof(CreateChannel0TargetFlowPayload))]
     [XmlInclude(typeof(CreateChannel1TargetFlowPayload))]
     [XmlInclude(typeof(CreateChannel2TargetFlowPayload))]
@@ -7616,7 +7616,7 @@ namespace Harp.Olfactometer
     [XmlInclude(typeof(CreateTimestampedChannel3UserCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel4UserCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel3UserCalibrationAuxPayload))]
-    [XmlInclude(typeof(CreateTimestampedUserCalibrationEnablePayload))]
+    [XmlInclude(typeof(CreateTimestampedEnableUserCalibrationPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel0TargetFlowPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel1TargetFlowPayload))]
     [XmlInclude(typeof(CreateTimestampedChannel2TargetFlowPayload))]
@@ -8209,33 +8209,33 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a message payload
     /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
     /// </summary>
-    [DisplayName("UserCalibrationEnablePayload")]
+    [DisplayName("EnableUserCalibrationPayload")]
     [Description("Creates a message payload that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-    public partial class CreateUserCalibrationEnablePayload
+    public partial class CreateEnableUserCalibrationPayload
     {
         /// <summary>
         /// Gets or sets the value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
         [Description("The value that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-        public EnableFlag UserCalibrationEnable { get; set; }
+        public EnableFlag EnableUserCalibration { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the UserCalibrationEnable register.
+        /// Creates a message payload for the EnableUserCalibration register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public EnableFlag GetPayload()
         {
-            return UserCalibrationEnable;
+            return EnableUserCalibration;
         }
 
         /// <summary>
         /// Creates a message that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the UserCalibrationEnable register.</returns>
+        /// <returns>A new message for the EnableUserCalibration register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.Olfactometer.UserCalibrationEnable.FromPayload(messageType, GetPayload());
+            return Harp.Olfactometer.EnableUserCalibration.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -8243,19 +8243,19 @@ namespace Harp.Olfactometer
     /// Represents an operator that creates a timestamped message payload
     /// that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
     /// </summary>
-    [DisplayName("TimestampedUserCalibrationEnablePayload")]
+    [DisplayName("TimestampedEnableUserCalibrationPayload")]
     [Description("Creates a timestamped message payload that override the factory calibration values, replacing with CHX_USER_CALIBRATION.")]
-    public partial class CreateTimestampedUserCalibrationEnablePayload : CreateUserCalibrationEnablePayload
+    public partial class CreateTimestampedEnableUserCalibrationPayload : CreateEnableUserCalibrationPayload
     {
         /// <summary>
         /// Creates a timestamped message that override the factory calibration values, replacing with CHX_USER_CALIBRATION.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the UserCalibrationEnable register.</returns>
+        /// <returns>A new timestamped message for the EnableUserCalibration register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.Olfactometer.UserCalibrationEnable.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.Olfactometer.EnableUserCalibration.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 

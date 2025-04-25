@@ -58,7 +58,7 @@ registers:
     <<: *channel0UserCalibration
     description: Calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     address: 40
-  UserCalibrationEnable:
+  EnableUserCalibration:
     address: 41
     access: Write
     type: U8

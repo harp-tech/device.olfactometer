@@ -432,7 +432,7 @@ namespace Harp.Olfactometer
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the UserCalibrationEnable register.
+        /// Asynchronously reads the contents of the EnableUserCalibration register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -441,14 +441,14 @@ namespace Harp.Olfactometer
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<EnableFlag> ReadUserCalibrationEnableAsync(CancellationToken cancellationToken = default)
+        public async Task<EnableFlag> ReadEnableUserCalibrationAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(UserCalibrationEnable.Address), cancellationToken);
-            return UserCalibrationEnable.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(EnableUserCalibration.Address), cancellationToken);
+            return EnableUserCalibration.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the UserCalibrationEnable register.
+        /// Asynchronously reads the timestamped contents of the EnableUserCalibration register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -457,23 +457,23 @@ namespace Harp.Olfactometer
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<EnableFlag>> ReadTimestampedUserCalibrationEnableAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<EnableFlag>> ReadTimestampedEnableUserCalibrationAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(UserCalibrationEnable.Address), cancellationToken);
-            return UserCalibrationEnable.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(EnableUserCalibration.Address), cancellationToken);
+            return EnableUserCalibration.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the UserCalibrationEnable register.
+        /// Asynchronously writes a value to the EnableUserCalibration register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteUserCalibrationEnableAsync(EnableFlag value, CancellationToken cancellationToken = default)
+        public async Task WriteEnableUserCalibrationAsync(EnableFlag value, CancellationToken cancellationToken = default)
         {
-            var request = UserCalibrationEnable.FromPayload(MessageType.Write, value);
+            var request = EnableUserCalibration.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
