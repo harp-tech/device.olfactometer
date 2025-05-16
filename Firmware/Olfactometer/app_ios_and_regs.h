@@ -13,22 +13,34 @@ void mimic_valves (uint8_t reg, uint8_t function);
 /* Definition of input pins                                             */
 /************************************************************************/
 // IN0                    Description: Input IN0
+// VERSION_CTRL           Description: HW version control
 // MISO                   Description: ADC SPI serial data output
 // BUSY                   Description: ADC busy
 // VALVE0CTRL             Description: Valve 0 external control signal
 // VALVE1CTRL             Description: Valve 1 external control signal
 // VALVE2CTRL             Description: Valve 2 external control signal
 // VALVE3CTRL             Description: Valve 3 external control signal
-// ENDVALVECTRL           Description: End valves external control signal
+// VALVE0CHKCTRL          Description: Valve 0 check external control signal
+// VALVE1CHKCTRL          Description: Valve 1 check external control signal
+// VALVE2CHKCTRL          Description: Valve 2 check external control signal
+// VALVE3CHKCTRL          Description: Valve 3 check external control signal
+// ENDVALVECTRL           Description: End valve external control signal
+// FLUSHVALVECTRL         Description: Flush valve external control signal
 
 #define read_IN0 read_io(PORTB, 0)              // IN0
+#define read_VERSION_CTRL read_io(PORTK, 7)     // VERSION_CTRL
 #define read_MISO read_io(PORTE, 6)             // MISO
 #define read_BUSY read_io(PORTH, 1)             // BUSY
 #define read_VALVE0CTRL read_io(PORTA, 0)       // VALVE0CTRL
 #define read_VALVE1CTRL read_io(PORTA, 1)       // VALVE1CTRL
 #define read_VALVE2CTRL read_io(PORTA, 2)       // VALVE2CTRL
 #define read_VALVE3CTRL read_io(PORTA, 3)       // VALVE3CTRL
+#define read_VALVE0CHKCTRL read_io(PORTK, 4)    // VALVE0CHKCTRL
+#define read_VALVE1CHKCTRL read_io(PORTK, 6)    // VALVE1CHKCTRL
+#define read_VALVE2CHKCTRL read_io(PORTK, 1)    // VALVE2CHKCTRL
+#define read_VALVE3CHKCTRL read_io(PORTK, 5)    // VALVE3CHKCTRL
 #define read_ENDVALVECTRL read_io(PORTA, 4)     // ENDVALVECTRL
+#define read_FLUSHVALVECTRL read_io(PORTA, 5)   // FLUSHVALVE
 
 /************************************************************************/
 /* Definition of output pins                                            */
@@ -97,28 +109,82 @@ void mimic_valves (uint8_t reg, uint8_t function);
 #define read_PWM4 read_io(PORTD, 4)
 
 /* VALVE0 */
-#define set_VALVE0 do { set_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_VALVE0, _SET_IO_); } while(0)
-#define clr_VALVE0 do { clear_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_VALVE0, _CLR_IO_); } while(0)
-#define tgl_VALVE0 do { toggle_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_VALVE0, _TGL_IO_); } while(0)
+#define set_VALVE0 do { set_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE0, _SET_IO_); } while(0)
+#define clr_VALVE0 do { clear_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE0, _CLR_IO_); } while(0)
+#define tgl_VALVE0 do { toggle_io(PORTC, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE0, _TGL_IO_); } while(0)
 #define read_VALVE0 read_io(PORTC, 1)
 
 /* VALVE1 */
-#define set_VALVE1 do { set_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_VALVE1, _SET_IO_); } while(0)
-#define clr_VALVE1 do { clear_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_VALVE1, _CLR_IO_); } while(0)
-#define tgl_VALVE1 do { toggle_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_VALVE1, _TGL_IO_); } while(0)
+#define set_VALVE1 do { set_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE1, _SET_IO_); } while(0)
+#define clr_VALVE1 do { clear_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE1, _CLR_IO_); } while(0)
+#define tgl_VALVE1 do { toggle_io(PORTD, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE1, _TGL_IO_); } while(0)
 #define read_VALVE1 read_io(PORTD, 1)
 
 /* VALVE2 */
-#define set_VALVE2 do { set_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_VALVE2, _SET_IO_); } while(0)
-#define clr_VALVE2 do { clear_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_VALVE2, _CLR_IO_); } while(0)
-#define tgl_VALVE2 do { toggle_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_VALVE2, _TGL_IO_); } while(0)
+#define set_VALVE2 do { set_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE2, _SET_IO_); } while(0)
+#define clr_VALVE2 do { clear_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE2, _CLR_IO_); } while(0)
+#define tgl_VALVE2 do { toggle_io(PORTE, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE2, _TGL_IO_); } while(0)
 #define read_VALVE2 read_io(PORTE, 1)
 
 /* VALVE3 */
-#define set_VALVE3 do { set_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_VALVE3, _SET_IO_); } while(0)
-#define clr_VALVE3 do { clear_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_VALVE3, _CLR_IO_); } while(0)
-#define tgl_VALVE3 do { toggle_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_VALVE3, _TGL_IO_); } while(0)
+#define set_VALVE3 do { set_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE3, _SET_IO_); } while(0)
+#define clr_VALVE3 do { clear_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE3, _CLR_IO_); } while(0)
+#define tgl_VALVE3 do { toggle_io(PORTF, 1); mimic_valves(app_regs.REG_MIMIC_ODOR_VALVE3, _TGL_IO_); } while(0)
 #define read_VALVE3 read_io(PORTF, 1)
+
+/* VALVE0CHK */
+#define set_VALVE0CHK do { set_io(PORTD, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE0, _SET_IO_); } while(0)
+#define clr_VALVE0CHK do { clear_io(PORTD, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE0, _CLR_IO_); } while(0)
+#define tgl_VALVE0CHK do { toggle_io(PORTD, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE0, _TGL_IO_); } while(0)
+#define read_VALVE0CHK read_io(PORTD, 5)
+
+/* VALVE1CHK */
+#define set_VALVE1CHK do { set_io(PORTD, 7); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE1, _SET_IO_); } while(0)
+#define clr_VALVE1CHK do { clear_io(PORTD, 7); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE1, _CLR_IO_); } while(0)
+#define tgl_VALVE1CHK do { toggle_io(PORTD, 7); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE1, _TGL_IO_); } while(0)
+#define read_VALVE1CHK read_io(PORTD, 7)
+
+/* VALVE2CHK */
+#define set_VALVE2CHK do { set_io(PORTE, 3); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE2, _SET_IO_); } while(0)
+#define clr_VALVE2CHK do { clear_io(PORTE, 3); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE2, _CLR_IO_); } while(0)
+#define tgl_VALVE2CHK do { toggle_io(PORTE, 3); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE2, _TGL_IO_); } while(0)
+#define read_VALVE2CHK read_io(PORTE, 3)
+
+/* VALVE3CHK */
+#define set_VALVE3CHK do { set_io(PORTF, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE3, _SET_IO_); } while(0)
+#define clr_VALVE3CHK do { clear_io(PORTF, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE3, _CLR_IO_); } while(0)
+#define tgl_VALVE3CHK do { toggle_io(PORTF, 5); mimic_valves(app_regs.REG_MIMIC_CHECK_VALVE3, _TGL_IO_); } while(0)
+#define read_VALVE3CHK read_io(PORTF, 5)
+
+/* RE_DE_5V_0 */
+#define set_RE_DE_5V_0 set_io(PORTB, 2)
+#define clr_RE_DE_5V_0 clear_io(PORTB, 2)
+#define tgl_RE_DE_5V_0 toggle_io(PORTB, 2)
+#define read_RE_DE_5V_0 read_io(PORTB, 2)
+
+/* RE_DE_5V_1 */
+#define set_RE_DE_5V_1 set_io(PORTB, 3)
+#define clr_RE_DE_5V_1 clear_io(PORTB, 3)
+#define tgl_RE_DE_5V_1 toggle_io(PORTB, 3)
+#define read_RE_DE_5V_1 read_io(PORTB, 3)
+
+/* RE_DE_5V_2 */
+#define set_RE_DE_5V_2 set_io(PORTB, 4)
+#define clr_RE_DE_5V_2 clear_io(PORTB, 4)
+#define tgl_RE_DE_5V_2 toggle_io(PORTB, 4)
+#define read_RE_DE_5V_2 read_io(PORTB, 4)
+
+/* RE_DE_5V_3 */
+#define set_RE_DE_5V_3 set_io(PORTB, 5)
+#define clr_RE_DE_5V_3 clear_io(PORTB, 5)
+#define tgl_RE_DE_5V_3 toggle_io(PORTB, 5)
+#define read_RE_DE_5V_3 read_io(PORTB, 5)
+
+/* RE_DE_5V_4 */
+#define set_RE_DE_5V_4 set_io(PORTB, 6)
+#define clr_RE_DE_5V_4 clear_io(PORTB, 6)
+#define tgl_RE_DE_5V_4 toggle_io(PORTB, 6)
+#define read_RE_DE_5V_4 read_io(PORTB, 6)
 
 /* CS_ADC */
 #define set_CS_ADC clear_io(PORTE, 4)
@@ -227,32 +293,43 @@ typedef struct
 	uint8_t REG_OUTPUT_CLEAR;
 	uint8_t REG_OUTPUT_TOGGLE;
 	uint8_t REG_OUTPUT_STATE;
-	uint8_t REG_ENABLE_VALVES_PULSE;
-	uint8_t REG_VALVES_SET;
-	uint8_t REG_VALVES_CLEAR;
-	uint8_t REG_VALVES_TOGGLE;
-	uint8_t REG_ISOLATION_VALVES_STATE;
+	uint16_t REG_ENABLE_VALVES_PULSE;
+	uint16_t REG_VALVES_SET;
+	uint16_t REG_VALVES_CLEAR;
+	uint16_t REG_VALVES_TOGGLE;
+	uint16_t REG_VALVES_STATE;
+	uint8_t REG_ODOR_VALVES_STATE;
 	uint8_t REG_END_VALVES_STATE;
+	uint16_t REG_CHECK_VALVES_STATE;
 	uint16_t REG_VALVE0_PULSE_DURATION;
 	uint16_t REG_VALVE1_PULSE_DURATION;
 	uint16_t REG_VALVE2_PULSE_DURATION;
 	uint16_t REG_VALVE3_PULSE_DURATION;
+	uint16_t REG_VALVE0CHK_DELAY;
+	uint16_t REG_VALVE1CHK_DELAY;
+	uint16_t REG_VALVE2CHK_DELAY;
+	uint16_t REG_VALVE3CHK_DELAY;
 	uint16_t REG_END_VALVE0_PULSE_DURATION;
 	uint16_t REG_END_VALVE1_PULSE_DURATION;
 	uint16_t REG_DUMMY_VALVE_PULSE_DURATION;
 	uint8_t REG_DO0_SYNC;
 	uint8_t REG_DO1_SYNC;
 	uint8_t REG_DI0_TRIGGER;
-	uint8_t REG_MIMIC_VALVE0;
-	uint8_t REG_MIMIC_VALVE1;
-	uint8_t REG_MIMIC_VALVE2;
-	uint8_t REG_MIMIC_VALVE3;
+	uint8_t REG_MIMIC_ODOR_VALVE0;
+	uint8_t REG_MIMIC_ODOR_VALVE1;
+	uint8_t REG_MIMIC_ODOR_VALVE2;
+	uint8_t REG_MIMIC_ODOR_VALVE3;
+	uint8_t REG_MIMIC_CHECK_VALVE0;
+	uint8_t REG_MIMIC_CHECK_VALVE1;
+	uint8_t REG_MIMIC_CHECK_VALVE2;
+	uint8_t REG_MIMIC_CHECK_VALVE3;
 	uint8_t REG_MIMIC_END_VALVE0;
 	uint8_t REG_MIMIC_END_VALVE1;
 	uint8_t REG_MIMIC_DUMMY_VALVE;
 	uint8_t REG_ENABLE_VALVE_EXT_CTRL;
 	uint8_t REG_CHANNEL3_RANGE;
-	uint8_t REG_TEMP_VALUE;
+	uint16_t REG_ENABLE_CHECK_VALVES_SYNC;
+	uint8_t REG_TEMPERATURE_VALUE;
 	uint8_t REG_ENABLE_TEMP_CALIBRATION;
 	uint8_t REG_TEMP_USER_CALIBRATION;
 	uint8_t REG_ENABLE_EVENTS;
@@ -297,35 +374,46 @@ typedef struct
 #define ADD_REG_OUTPUT_CLEAR                64 // U8     Clear the correspondent output
 #define ADD_REG_OUTPUT_TOGGLE               65 // U8     Toggle the correspondent output
 #define ADD_REG_OUTPUT_STATE                66 // U8     Control the correspondent output
-#define ADD_REG_ENABLE_VALVES_PULSE         67 // U8     Enable pulse mode for valves
-#define ADD_REG_VALVES_SET                  68 // U8     Set the correspondent valve
-#define ADD_REG_VALVES_CLEAR                69 // U8     Clear the correspondent valve
-#define ADD_REG_VALVES_TOGGLE               70 // U8     Toggle the correspondent valve
-#define ADD_REG_ISOLATION_VALVES_STATE      71 // U8     Control the correspondent isolation valve
-#define ADD_REG_END_VALVES_STATE            72 // U8     Control the correspondent end valve
-#define ADD_REG_VALVE0_PULSE_DURATION       73 // U16    Valve 0 pulse duration [1:65535] ms
-#define ADD_REG_VALVE1_PULSE_DURATION       74 // U16    Valve 1 pulse duration [1:65535] ms
-#define ADD_REG_VALVE2_PULSE_DURATION       75 // U16    Valve 2 pulse duration [1:65535] ms
-#define ADD_REG_VALVE3_PULSE_DURATION       76 // U16    Valve 3 pulse duration [1:65535] ms
-#define ADD_REG_END_VALVE0_PULSE_DURATION   77 // U16    End valve 0 pulse duration [1:65535] ms
-#define ADD_REG_END_VALVE1_PULSE_DURATION   78 // U16    End valve 1 pulse duration [1:65535] ms
-#define ADD_REG_DUMMY_VALVE_PULSE_DURATION  79 // U16    Dummy valve pulse duration [1:65535] ms
-#define ADD_REG_DO0_SYNC                    80 // U8     Configuration of digital output 0 (DOUT0)
-#define ADD_REG_DO1_SYNC                    81 // U8     Configuration of digital output 1 (DOUT1)
-#define ADD_REG_DI0_TRIGGER                 82 // U8     Configuration of the digital input 0 (DIN0)
-#define ADD_REG_MIMIC_VALVE0                83 // U8
-#define ADD_REG_MIMIC_VALVE1                84 // U8
-#define ADD_REG_MIMIC_VALVE2                85 // U8
-#define ADD_REG_MIMIC_VALVE3                86 // U8
-#define ADD_REG_MIMIC_END_VALVE0            87 // U8
-#define ADD_REG_MIMIC_END_VALVE1            88 // U8
-#define ADD_REG_MIMIC_DUMMY_VALVE           89 // U8
-#define ADD_REG_ENABLE_VALVE_EXT_CTRL       90 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
-#define ADD_REG_CHANNEL3_RANGE              91 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
-#define ADD_REG_TEMP_VALUE                  92 // U8     Temperature sensor reading value
-#define ADD_REG_ENABLE_TEMP_CALIBRATION     93 // U8     Enable temperature calibration compensation
-#define ADD_REG_TEMP_USER_CALIBRATION       94 // U8     User temperature calibration value
-#define ADD_REG_ENABLE_EVENTS               95 // U8     Enable the Events
+#define ADD_REG_ENABLE_VALVES_PULSE         67 // U16    Enable pulse mode for valves
+#define ADD_REG_VALVES_SET                  68 // U16    Set the correspondent valve
+#define ADD_REG_VALVES_CLEAR                69 // U16    Clear the correspondent valve
+#define ADD_REG_VALVES_TOGGLE               70 // U16    Toggle the correspondent valve
+#define ADD_REG_VALVES_STATE                71 // U16    Control the correspondent valve
+#define ADD_REG_ODOR_VALVES_STATE           72 // U8     Control the correspondent odor valve
+#define ADD_REG_END_VALVES_STATE            73 // U8     Control the correspondent end valve
+#define ADD_REG_CHECK_VALVES_STATE          74 // U16    Control the correspondent check valve
+#define ADD_REG_VALVE0_PULSE_DURATION       75 // U16    Valve 0 pulse duration [1:65535] ms
+#define ADD_REG_VALVE1_PULSE_DURATION       76 // U16    Valve 1 pulse duration [1:65535] ms
+#define ADD_REG_VALVE2_PULSE_DURATION       77 // U16    Valve 2 pulse duration [1:65535] ms
+#define ADD_REG_VALVE3_PULSE_DURATION       78 // U16    Valve 3 pulse duration [1:65535] ms
+#define ADD_REG_VALVE0CHK_DELAY             79 // U16    Check valve 0 delay [0:65535] ms
+#define ADD_REG_VALVE1CHK_DELAY             80 // U16    Check valve 1 delay [0:65535] ms
+#define ADD_REG_VALVE2CHK_DELAY             81 // U16    Check valve 2 delay [0:65535] ms
+#define ADD_REG_VALVE3CHK_DELAY             82 // U16    Check valve 3 delay [0:65535] ms
+#define ADD_REG_END_VALVE0_PULSE_DURATION   83 // U16    End valve 0 pulse duration [1:65535] ms
+#define ADD_REG_END_VALVE1_PULSE_DURATION   84 // U16    End valve 1 pulse duration [1:65535] ms
+#define ADD_REG_DUMMY_VALVE_PULSE_DURATION  85 // U16    Dummy valve pulse duration [1:65535] ms
+#define ADD_REG_DO0_SYNC                    86 // U8     Configuration of digital output 0 (DOUT0)
+#define ADD_REG_DO1_SYNC                    87 // U8     Configuration of digital output 1 (DOUT1)
+#define ADD_REG_DI0_TRIGGER                 88 // U8     Configuration of the digital input 0 (DIN0)
+#define ADD_REG_MIMIC_ODOR_VALVE0           89 // U8
+#define ADD_REG_MIMIC_ODOR_VALVE1           90 // U8
+#define ADD_REG_MIMIC_ODOR_VALVE2           91 // U8
+#define ADD_REG_MIMIC_ODOR_VALVE3           92 // U8
+#define ADD_REG_MIMIC_CHECK_VALVE0          93 // U8
+#define ADD_REG_MIMIC_CHECK_VALVE1          94 // U8
+#define ADD_REG_MIMIC_CHECK_VALVE2          95 // U8
+#define ADD_REG_MIMIC_CHECK_VALVE3          96 // U8
+#define ADD_REG_MIMIC_END_VALVE0            97 // U8
+#define ADD_REG_MIMIC_END_VALVE1            98 // U8
+#define ADD_REG_MIMIC_DUMMY_VALVE           99 // U8
+#define ADD_REG_ENABLE_VALVE_EXT_CTRL      100 // U8     Write value 1 to control the valves via the screw terminals, write 0 through software
+#define ADD_REG_CHANNEL3_RANGE             101 // U8     Selects the flow range for the channel 3 (0-100ml/min or 0-1000ml/min)
+#define ADD_REG_ENABLE_CHECK_VALVES_SYNC   102 // U8     Configure the control mode of the isolation valves: 0: software, 1: sync with odor valves + delay
+#define ADD_REG_TEMPERATURE_VALUE          103 // U8     Temperature sensor reading value
+#define ADD_REG_ENABLE_TEMP_CALIBRATION    104 // U8     Enable flow adjustment based on the temperature calibration
+#define ADD_REG_TEMP_CALIBRATION           105 // U8     Temperature value measured during the device calibration
+#define ADD_REG_ENABLE_EVENTS              106 // U8     Enable the Events
 
 /************************************************************************/
 /* Olfactometer  registers' memory limits                               */
@@ -335,8 +423,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x5F
-#define APP_NBYTES_OF_REG_BANK              275
+#define APP_REGS_ADD_MAX                    0x6A
+#define APP_NBYTES_OF_REG_BANK              291
 
 /************************************************************************/
 /* Registers' bits                                                      */
@@ -352,6 +440,10 @@ typedef struct
 #define B_ENDVALVE0                        (1<<4)       // End valve 0
 #define B_ENDVALVE1                        (1<<5)       // End valve 1
 #define B_DUMMYVALVE                       (1<<6)       // Dummy valve
+#define B_CHECK_VALVE0                     (1<<8)       // Check valve 0 //(1<<4)
+#define B_CHECK_VALVE1                     (1<<9)       // Check valve 1 //(1<<6) 
+#define B_CHECK_VALVE2                     (1<<10)      // Check valve 2 //(1<<1) 
+#define B_CHECK_VALVE3                     (1<<11)      // Check valve 3 //(1<<5)  
 #define MSK_DOUT0_CONF                     (3<<0)       // Select DOUT0 function
 #define GM_DOUT0_SOFTWARE                  (0<<0)       // Digital output 0 controlled by software
 #define GM_DOUT0_START                     (1<<0)       // Equal to bit START
@@ -370,6 +462,7 @@ typedef struct
 #define MSK_CHANNEL3_RANGE_CONFIG          (3<<0)       // Available flow ranges for channel 3 (ml/min)
 #define GM_FLOW_100                        (0<<0)       // Range is 0-100ml/min
 #define GM_FLOW_1000                       (1<<0)       // Range is 0-1000ml/min
+#define MSK_CHECK_VALVES_CONFIG            (3<<0)       // Check valves control configuration
 #define B_EVT0                             (1<<0)       // Events of register FLOWMETER_ANALOG_OUTPUTS
 #define B_EVT1                             (1<<1)       // Events of register DI0_STATE
 #define B_EVT2                             (1<<2)       // Events of register CHANNELS_ACTUAL_FLOW

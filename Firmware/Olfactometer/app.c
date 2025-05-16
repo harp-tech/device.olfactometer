@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "hwbp_core.h"
 #include "hwbp_core_regs.h"
 #include "hwbp_core_types.h"
@@ -5,6 +6,7 @@
 #include "app.h"
 #include "app_funcs.h"
 #include "app_ios_and_regs.h"
+#include "usart_driver.h"
 
 #include "aux_funcs.h"
 
@@ -30,15 +32,10 @@ uint8_t ADC_sampling_counter = 0;
 #define CLOSE_LOOP_TIMING 5 //2*1*5ms 
 uint8_t close_loop_counter_ms = 0;
 uint8_t close_loop_case = 0;
-uint8_t calibration_size = 11; //number of array positions for calibration  
-//uint8_t temp_sensor = 0; // temp sensor availability
+uint8_t calibration_size = 11; //number of array positions for calibration
+uint8_t standby_mfcs = 5;
 
-//bool temp_sensor = false;
-
-uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
-uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
-	
-uint16_t CH0_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
+uint16_t CH0_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};	
 uint16_t CH1_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
 uint16_t CH2_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
 uint16_t CH3_calibration_values [] = {3259, 3819, 4336, 4824, 5284, 5722, 6144, 6549, 6928, 7283, 7636};
@@ -54,11 +51,6 @@ uint16_t CH3_calibration_aux_values [] = {3391, 5176, 6389, 7357, 8166, 8872, 94
 /* User functions                                                       */
 /************************************************************************/
 
-void init_calibration_values(void);
-void closed_loop_control(uint8_t flow);
-float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y);
-
-
 /************************************************************************/
 /* Initialize app                                                       */
 /************************************************************************/
@@ -67,10 +59,10 @@ static const uint8_t default_device_name[] = "Olfactometer";
 void hwbp_app_initialize(void)
 {
     /* Define versions */
-    uint8_t hwH = 1;
+    uint8_t hwH = 2;
     uint8_t hwL = 1;
-    uint8_t fwH = 1;
-    uint8_t fwL = 5;
+    uint8_t fwH = 2;
+    uint8_t fwL = 0;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -88,8 +80,6 @@ void hwbp_app_initialize(void)
 		0		// Default timestamp offset
     );
 	
-	//init_calibration_values();
-
 }
 
 /************************************************************************/
@@ -108,6 +98,10 @@ void core_callback_catastrophic_error_detected(void)
 	clr_VALVE1;
 	clr_VALVE2;
 	clr_VALVE3;
+	clr_VALVE0CHK;
+	clr_VALVE1CHK;
+	clr_VALVE2CHK;
+	clr_VALVE3CHK;
 	clr_ENDVALVE0;
 	clr_ENDVALVE1;
 	clr_DUMMYVALVE;
@@ -119,9 +113,30 @@ void core_callback_catastrophic_error_detected(void)
 
 
 /************************************************************************/
-/* Send a read temperature command to the sensor                        */
+/* Config MFCs and check status                                          */
 /************************************************************************/
 
+uint8_t mfcs;
+
+void init_mfcs()
+{
+	if(read_VERSION_CTRL){
+		mfcs = 1;
+		status_DC.flow0_update = 1;
+		status_DC.flow1_update = 1;
+		status_DC.flow2_update = 1;
+		status_DC.flow3_update = 1;
+		status_DC.flow4_update = 1;
+	}
+	else{
+		mfcs = 0;
+	}
+
+}
+
+/************************************************************************/
+/* Config temp sensor and read status                                   */
+/************************************************************************/
 
 void init_temperature()
 {
@@ -189,14 +204,16 @@ void init_temperature()
 	
 	set_CS_TEMP;
 	
-
 	if (status_MSB == 0x06)
-		app_regs.REG_TEMP_VALUE = 25;
+		app_regs.REG_TEMPERATURE_VALUE = 25;
 
 	SPIE_CTRL = current_spi_ctrl;
 	
 }
 
+/************************************************************************/
+/* Send a read temperature command to the sensor                        */
+/************************************************************************/
 
 void read_temperature() //~50us
 {
@@ -207,8 +224,7 @@ void read_temperature() //~50us
 	uint8_t current_spi_ctrl;
 	current_spi_ctrl = SPIE_CTRL;
 	SPIE_CTRL = 0;
-	
-	//clr_CS_ADC;
+
 	clr_CS_TEMP;
 	
 	_8_CLOCK_CYCLES;
@@ -259,9 +275,8 @@ void read_temperature() //~50us
 	
 	
 	set_CS_TEMP;
-	//set_CS_ADC;
 	
-	app_regs.REG_TEMP_VALUE = (temperature_MSB);
+	app_regs.REG_TEMPERATURE_VALUE = (temperature_MSB);
 	//app_regs.REG_RESERVED1 = (temperature_LSB >> 3);
 	SPIE_CTRL = current_spi_ctrl;
 }
@@ -275,14 +290,39 @@ void read_temperature() //~50us
 void init_calibration_values(void)
 {
 	
+	
+	//uint16_t CHX_calibration_values;
 	uint16_t index0 = 1600;
-	uint16_t index = index0;
+	uint16_t index = 0;
+	uint8_t user_calibration = 0;
 	
 	index = index0;
+	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
+	
 	CH0_calibration_values[0] = eeprom_rd_byte(index);
 	
-	if (CH0_calibration_values[0] == 0)
-		return; 
+	if (CH0_calibration_values[0] == 0) // no data in EEPROM, no initialization performed
+		return;
+		
+	if (user_calibration) // calibration values are stored in USER_CALIBRATION registers
+		return;
+		
+	if (mfcs){
+		for (uint8_t i = 0; i < 11; i++){
+			float decade = 16383/10*i;
+			CH0_calibration_values[i] = (uint16_t)decade;
+			CH1_calibration_values[i] = (uint16_t)decade;
+			CH2_calibration_values[i] = (uint16_t)decade;
+			if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
+				CH3_calibration_values[i] = (uint16_t)decade/10;
+			}
+			else{
+				CH3_calibration_values[i] = (uint16_t)decade;
+			}
+			CH4_calibration_values[i] = (uint16_t)decade;
+		}
+		return;
+	}	
 	
 	CH0_calibration_values[0] = ((CH0_calibration_values[0] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 	CH0_calibration_values[1] = eeprom_rd_byte(++index);
@@ -328,7 +368,7 @@ void init_calibration_values(void)
 	CH1_calibration_values[9] = eeprom_rd_byte(++index);
 	CH1_calibration_values[9] = ((CH1_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 	CH1_calibration_values[10] = eeprom_rd_byte(++index);
-	CH1_calibration_values[10] = ((CH1_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);	
+	CH1_calibration_values[10] = ((CH1_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 	
 	index = index0 + 64;
 	CH2_calibration_values[0] = eeprom_rd_byte(index);
@@ -429,13 +469,13 @@ void init_calibration_values(void)
 		CH3_calibration_values[9] = ((CH3_calibration_values[9] << 8) & 0xFF00) | eeprom_rd_byte(++index);
 		CH3_calibration_values[10] = eeprom_rd_byte(++index);
 		CH3_calibration_values[10] = ((CH3_calibration_values[10] << 8) & 0xFF00) | eeprom_rd_byte(++index);
-		}
+	}
 	
 	if (app_regs.REG_TEMP_USER_CALIBRATION == 0){
 		index = index0 + 181;
 		app_regs.REG_TEMP_USER_CALIBRATION = eeprom_rd_byte(++index); //factory temp calibration - can be override for user calibration by just setting REG_TEMP_USER_CALIBRATION and write permanently
 	}
-
+	
 }
 
 /************************************************************************/
@@ -458,16 +498,76 @@ float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lowe
 	return interpolated;
 }
 
+/************************************************************************/
+/* Set MFCs flow rate		    		                                */
+/************************************************************************/
+
+void set_flowrate_mfc(uint8_t mfc_id,float target_flow)
+{
+	
+	uint8_t min_width = 3;
+	uint8_t num_digits_after_decimal = 1;
+	char command_rs485_flow[5];
+	uint8_t command_rs485_length = 9;
+	uint8_t command_rs485 [command_rs485_length];
+
+	switch (mfc_id)
+	{
+		case 0:
+			command_rs485[0] = 'A';
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_0; 
+			break;
+		case 1:
+			command_rs485[0] = 'B';
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_1;
+			break;
+		case 2:
+			command_rs485[0] = 'C';
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_2;  
+			break;
+		case 3:
+			command_rs485[0] = 'D';
+			num_digits_after_decimal = 3;
+			target_flow = target_flow/1000;
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_3;  
+			break;
+		case 4:
+			command_rs485[0] = 'E';
+			num_digits_after_decimal = 3;
+			target_flow = target_flow/1000;
+			dtostrf(target_flow, min_width, num_digits_after_decimal, command_rs485_flow);
+			set_RE_DE_5V_4; 
+			break;
+	}
+
+	command_rs485[1] = 'S';
+	command_rs485[2] = ' ';
+	command_rs485[3] = command_rs485_flow[0];
+	command_rs485[4] = command_rs485_flow[1];
+	command_rs485[5] = command_rs485_flow[2];
+	command_rs485[6] = command_rs485_flow[3];
+	command_rs485[7] = command_rs485_flow[4];
+	command_rs485[8] = 13; //CR
+	
+	uart1_xmit(command_rs485, command_rs485_length);
+}
 
 /************************************************************************/
 /* Closed Loop Control                                                  */
 /************************************************************************/
 
+
 void closed_loop_control(uint8_t flow)
 {
 	
-	/* Takes 350 us */
+	uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
+	uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
 		
+	/* Takes 350 us */
 	uint16_t calibration_values [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,500};
 	uint16_t calibration_values_1000 [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,3000};
 	float flow_real = 0;
@@ -485,20 +585,26 @@ void closed_loop_control(uint8_t flow)
 	switch (flowmeter)
 	{
 		case 0:
-			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0)
+		
+			if (status_DC.flow0_update && mfcs){
+				set_flowrate_mfc(0,app_regs.REG_CHANNEL0_TARGET_FLOW);
+				status_DC.flow0_update = 0;
+			}
+				
+			if(app_regs.REG_CHANNEL0_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
-			
+				
+				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[0]; // raw ADC analog output signal [2^16]
 			
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
 				
-				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ // MSB temperature 
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
+				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ // MSB temperature 
+					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
 					temp_correction = temp_correction * 5;
 				}
-				
 				
 				if(!user_calibration){
 					calibration_values[index*2+2] = CH0_calibration_values[index]-(uint16_t)temp_correction;
@@ -510,7 +616,7 @@ void closed_loop_control(uint8_t flow)
 				}
 				index = index + 1;
 			}
-				
+			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
 			while(!(flow_real < calibration_values[index])){
@@ -533,15 +639,22 @@ void closed_loop_control(uint8_t flow)
 
 		
 		case 1:
-			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0)
+		
+			if (status_DC.flow1_update && mfcs){
+				set_flowrate_mfc(1,app_regs.REG_CHANNEL1_TARGET_FLOW);
+				status_DC.flow1_update = 0;
+			}
+			
+			if(app_regs.REG_CHANNEL1_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
+				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[1]; // raw analog output signal [2^16]
 			
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
-				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ 
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
+				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){ 
+					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION; 
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
@@ -554,7 +667,7 @@ void closed_loop_control(uint8_t flow)
 				}
 				index = index + 1;
 			}
-									
+			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
 			while(!(flow_real < calibration_values[index])){
@@ -577,15 +690,22 @@ void closed_loop_control(uint8_t flow)
 		
 		
 		case 2:
-			if(app_regs.REG_CHANNEL2_TARGET_FLOW == 0)
+		
+			if (status_DC.flow2_update && mfcs){
+				set_flowrate_mfc(2,app_regs.REG_CHANNEL2_TARGET_FLOW);
+				status_DC.flow2_update = 0;
+			}
+			
+			if(app_regs.REG_CHANNEL2_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
+				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[2]; // raw ADC analog output signal [2^16]
 		
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
-				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
@@ -621,15 +741,23 @@ void closed_loop_control(uint8_t flow)
 		
 				
 		case 3:
-			if(app_regs.REG_CHANNEL3_TARGET_FLOW == 0)
+		
+			if (status_DC.flow3_update && mfcs){
+				set_flowrate_mfc(3,app_regs.REG_CHANNEL3_TARGET_FLOW);
+				status_DC.flow3_update = 0;
+			}
+
+			if(app_regs.REG_CHANNEL3_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
+				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[3]; // raw ADC analog output signal [2^16]
+			
 			
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
-				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 				}
 				if(!user_calibration){
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
@@ -642,8 +770,6 @@ void closed_loop_control(uint8_t flow)
 						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-(uint16_t)temp_correction;
 						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
 					}
-					
-					
 				}
 				else{
 					if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
@@ -699,15 +825,22 @@ void closed_loop_control(uint8_t flow)
 		
 			
 		case 4: // flow meter 1000ml/min 
-			if(app_regs.REG_CHANNEL4_TARGET_FLOW == 0)
+			
+			if (status_DC.flow4_update && mfcs){
+				set_flowrate_mfc(4,app_regs.REG_CHANNEL4_TARGET_FLOW);
+				status_DC.flow4_update = 0;
+			}
+			
+			if(app_regs.REG_CHANNEL4_TARGET_FLOW == 0 || app_regs.REG_ENABLE_FLOW == 0)
 				break;
+				
 			flow_real = app_regs.REG_FLOWMETER_ANALOG_OUTPUTS[4]; // raw analog output signal [2^16]
 			
 			// create calibration array
 			index = 0;
 			while(index < calibration_size){
-				if(app_regs.REG_TEMP_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
-					temp_correction = app_regs.REG_TEMP_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
 					temp_correction = temp_correction * 5;
 				}
 				if(!user_calibration){
@@ -754,12 +887,22 @@ void core_callback_initialize_hardware(void){
 	
 	init_ios();
 	
+	//basis 2 baud rate 38400 - //uart1_init(12, 2, false);
+	//https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8331-8-and-16-bit-AVR-Microcontroller-XMEGA-AU_Manual.pdf pg 282
+	//uart1_init(2094, -7, false); // baud rate 115200
+	uart1_init(12, 2, false);
+	
+	uart1_enable();
+	
 	init_calibration_values();
 	/* Initialize SPI with 4MHz */
 	SPIE_CTRL = SPI_MASTER_bm | SPI_ENABLE_bm | SPI_MODE_0_gc | SPI_CLK2X_bm | SPI_PRESCALER_DIV16_gc;
 	
 	/* Initialize temp sensor */
 	init_temperature();
+	
+	/* Initialize MFCs */
+	init_mfcs();
 	
 	/* Reset ADC */
 	_delay_ms(100);
@@ -774,6 +917,10 @@ void core_callback_1st_config_hw_after_boot(void)
 {
 	init_ios();
 	
+	
+	uart1_init(12, 2, false);
+	uart1_enable();
+		
 	init_calibration_values();
 	
 	/* Initialize SPI with 4MHz */
@@ -781,6 +928,9 @@ void core_callback_1st_config_hw_after_boot(void)
 		
 	/* Initialize temp sensor */
 	init_temperature();
+	
+	/* Initialize MFCs */
+	init_mfcs();
 	
 	/* Reset ADC */
 	_delay_ms(100);
@@ -830,24 +980,32 @@ void core_callback_reset_registers(void)
 	app_regs.REG_END_VALVE0_PULSE_DURATION = 500;
 	app_regs.REG_END_VALVE1_PULSE_DURATION = 500;
 	app_regs.REG_DUMMY_VALVE_PULSE_DURATION = 500;
-	   
+	app_regs.REG_VALVE0CHK_DELAY = 0;
+	app_regs.REG_VALVE1CHK_DELAY = 0;
+	app_regs.REG_VALVE2CHK_DELAY = 0;
+	app_regs.REG_VALVE3CHK_DELAY = 0;
+	app_regs.REG_ENABLE_CHECK_VALVES_SYNC = 0;
+	
 	app_regs.REG_ENABLE_EVENTS = B_EVT0 | B_EVT1 | B_EVT2;
 	
 	app_regs.REG_DI0_TRIGGER = GM_DIN0_SYNC;
 	app_regs.REG_DO0_SYNC = GM_DOUT0_SOFTWARE;
 	app_regs.REG_DO0_SYNC = GM_DOUT1_SOFTWARE;
 	
-	app_regs.REG_MIMIC_VALVE0 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_VALVE1 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_VALVE2 = GM_MIMIC_NONE;
-	app_regs.REG_MIMIC_VALVE3 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_ODOR_VALVE0 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_ODOR_VALVE1 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_ODOR_VALVE2 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_ODOR_VALVE3 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_CHECK_VALVE0 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_CHECK_VALVE1 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_CHECK_VALVE2 = GM_MIMIC_NONE;
+	app_regs.REG_MIMIC_CHECK_VALVE3 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_END_VALVE0 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_END_VALVE1 = GM_MIMIC_NONE;
 	app_regs.REG_MIMIC_DUMMY_VALVE = GM_MIMIC_NONE;
 	
 	app_regs.REG_CHANNEL3_RANGE = GM_FLOW_100;
 	app_regs.REG_ENABLE_VALVE_EXT_CTRL = 0;
-	
 	app_regs.REG_ENABLE_TEMP_CALIBRATION = 1;
 		
 	status_DC.DC0_ready = 0;
@@ -855,6 +1013,12 @@ void core_callback_reset_registers(void)
 	status_DC.DC2_ready = 0;
 	status_DC.DC3_ready = 0;
 	status_DC.DC4_ready = 0;
+	
+	status_DC.flow0_update = 1;
+	status_DC.flow1_update = 1;
+	status_DC.flow2_update = 1;
+	status_DC.flow3_update = 1;
+	status_DC.flow4_update = 1;
 	
 	init_calibration_values();
 	
@@ -877,17 +1041,24 @@ void core_callback_registers_were_reinitialized(void)
 	timer_type0_stop(&TCF0);
 	timer_type1_stop(&TCD1);
 	
+	app_write_REG_ENABLE_CHECK_VALVES_SYNC(&app_regs.REG_ENABLE_CHECK_VALVES_SYNC);
 	app_write_REG_DI0_TRIGGER(&app_regs.REG_DI0_TRIGGER);
 	app_write_REG_DO0_SYNC(&app_regs.REG_DO0_SYNC);
 	app_write_REG_DO1_SYNC(&app_regs.REG_DO1_SYNC);
-	app_write_REG_MIMIC_VALVE0(&app_regs.REG_MIMIC_VALVE0);
-	app_write_REG_MIMIC_VALVE1(&app_regs.REG_MIMIC_VALVE1);
-	app_write_REG_MIMIC_VALVE2(&app_regs.REG_MIMIC_VALVE2);
-	app_write_REG_MIMIC_VALVE3(&app_regs.REG_MIMIC_VALVE3);
+	app_write_REG_MIMIC_ODOR_VALVE0(&app_regs.REG_MIMIC_ODOR_VALVE0);
+	app_write_REG_MIMIC_ODOR_VALVE1(&app_regs.REG_MIMIC_ODOR_VALVE1);
+	app_write_REG_MIMIC_ODOR_VALVE2(&app_regs.REG_MIMIC_ODOR_VALVE2);
+	app_write_REG_MIMIC_ODOR_VALVE3(&app_regs.REG_MIMIC_ODOR_VALVE3);
+	app_write_REG_MIMIC_CHECK_VALVE0(&app_regs.REG_MIMIC_CHECK_VALVE0);
+	app_write_REG_MIMIC_CHECK_VALVE1(&app_regs.REG_MIMIC_CHECK_VALVE1);
+	app_write_REG_MIMIC_CHECK_VALVE2(&app_regs.REG_MIMIC_CHECK_VALVE2);
+	app_write_REG_MIMIC_CHECK_VALVE3(&app_regs.REG_MIMIC_CHECK_VALVE3);
 	app_write_REG_MIMIC_END_VALVE0(&app_regs.REG_MIMIC_END_VALVE0);
 	app_write_REG_MIMIC_END_VALVE1(&app_regs.REG_MIMIC_END_VALVE1);
 	app_write_REG_MIMIC_DUMMY_VALVE(&app_regs.REG_MIMIC_DUMMY_VALVE);
 	app_write_REG_CHANNEL3_RANGE(&app_regs.REG_CHANNEL3_RANGE);
+	app_write_REG_ENABLE_VALVE_EXT_CTRL(&app_regs.REG_ENABLE_VALVE_EXT_CTRL);
+	app_write_REG_ENABLE_TEMP_CALIBRATION(&app_regs.REG_ENABLE_TEMP_CALIBRATION);
 		
 }
 
@@ -911,8 +1082,23 @@ void core_callback_visualen_to_off(void)
 /************************************************************************/
 void core_callback_device_to_standby(void) {
 	
+	
 	app_regs.REG_ENABLE_FLOW = 0;
 	app_write_REG_ENABLE_FLOW(&app_regs.REG_ENABLE_FLOW);
+	standby_mfcs = 5;
+	app_regs.REG_CHANNEL0_TARGET_FLOW = 0;
+	app_write_REG_CHANNEL0_TARGET_FLOW(&app_regs.REG_CHANNEL0_TARGET_FLOW);
+	app_regs.REG_CHANNEL1_TARGET_FLOW = 0;
+	app_write_REG_CHANNEL1_TARGET_FLOW(&app_regs.REG_CHANNEL1_TARGET_FLOW);
+	app_regs.REG_CHANNEL2_TARGET_FLOW = 0;
+	app_write_REG_CHANNEL2_TARGET_FLOW(&app_regs.REG_CHANNEL2_TARGET_FLOW);
+	app_regs.REG_CHANNEL3_TARGET_FLOW = 0;
+	app_write_REG_CHANNEL3_TARGET_FLOW(&app_regs.REG_CHANNEL3_TARGET_FLOW);
+	app_regs.REG_CHANNEL4_TARGET_FLOW = 0;
+	app_write_REG_CHANNEL4_TARGET_FLOW(&app_regs.REG_CHANNEL4_TARGET_FLOW);
+	app_regs.REG_VALVES_STATE = 0;
+	app_write_REG_VALVES_STATE(&app_regs.REG_VALVES_STATE);	
+	
 	
 }
 
@@ -928,21 +1114,51 @@ void core_callback_t_after_exec(void) {}
 void core_callback_t_new_second(void) {}
 void core_callback_t_500us(void) {
 	
+	
 	if (pulse_countdown.valve0 > 0)
 		if (--pulse_countdown.valve0 == 0)
-			clr_VALVE0;
+			stop_VALVE0;
 			
 	if (pulse_countdown.valve1 > 0)
 		if (--pulse_countdown.valve1 == 0)
-			clr_VALVE1;
-	
+			stop_VALVE1;
+			
 	if (pulse_countdown.valve2 > 0)
 		if (--pulse_countdown.valve2 == 0)
-			clr_VALVE2;
+			stop_VALVE2;
 		
 	if (pulse_countdown.valve3 > 0)
 		if (--pulse_countdown.valve3 == 0)
-			clr_VALVE3;
+			stop_VALVE3;
+			
+	if (pulse_countdown.delayvalve0chk > 0)
+		if (--pulse_countdown.delayvalve0chk == 0){ if (read_VALVE0) set_VALVE0CHK; else clr_VALVE0CHK;}
+		
+	if (pulse_countdown.delayvalve1chk > 0)
+		if (--pulse_countdown.delayvalve1chk == 0){ if (read_VALVE1) set_VALVE1CHK; else clr_VALVE1CHK;}
+		
+	if (pulse_countdown.delayvalve2chk > 0)
+		if (--pulse_countdown.delayvalve2chk == 0){ if (read_VALVE2) set_VALVE2CHK; else clr_VALVE2CHK;}
+		
+	if (pulse_countdown.delayvalve3chk > 0)
+		if (--pulse_countdown.delayvalve3chk == 0){ if (read_VALVE3) set_VALVE3CHK; else clr_VALVE3CHK;}
+			
+			
+	if (pulse_countdown.chkvalve0 > 0)
+		if (--pulse_countdown.chkvalve0 == 0)
+			clr_VALVE0CHK;
+		
+	if (pulse_countdown.chkvalve1 > 0)
+		if (--pulse_countdown.chkvalve1 == 0)
+			clr_VALVE1CHK;
+		
+	if (pulse_countdown.chkvalve2 > 0)
+		if (--pulse_countdown.chkvalve2 == 0)
+			clr_VALVE2CHK;
+		
+	if (pulse_countdown.chkvalve3 > 0)
+		if (--pulse_countdown.chkvalve3 == 0)
+			clr_VALVE3CHK;
 			
 	if (pulse_countdown.valveaux0 > 0)
 		if (--pulse_countdown.valveaux0 == 0)
@@ -955,33 +1171,34 @@ void core_callback_t_500us(void) {
 	if (pulse_countdown.valvedummy > 0)
 		if (--pulse_countdown.valvedummy == 0)
 			clr_DUMMYVALVE;
+	
 }
 
 void core_callback_t_1ms(void) {
 
 	
 	if(++temp_sampling_counter >= TEMP_SAMPLING_DIVIDER){	
-		//set_OUT0;
-		if (app_regs.REG_TEMP_VALUE != 0)
+		if (app_regs.REG_TEMPERATURE_VALUE != 0)
 			read_temperature();
-		//clr_OUT0;
 		temp_sampling_counter = 0;
 	}
 	
 	// if flowmeter is running then each ms
-	if (app_regs.REG_ENABLE_FLOW){
+	if (app_regs.REG_ENABLE_FLOW || standby_mfcs){
 		core_func_mark_user_timestamp();
-		
+					
 		// read ADC at 1ms x ADC_SAMPLING_DIVIDER
 		if(++ADC_sampling_counter >= ADC_SAMPLING_DIVIDER){		
 			set_CONVST;
 			ADC_sampling_counter = 0;
-			
+		    
 			// go over each flow controller
 			if(++close_loop_counter_ms >= CLOSE_LOOP_TIMING){
 				if(++close_loop_case >= 5)
 					close_loop_case = 0;
 				closed_loop_control(close_loop_case);
+				if(standby_mfcs)
+					standby_mfcs--;	
 				close_loop_counter_ms = 0;
 			}				
 		}

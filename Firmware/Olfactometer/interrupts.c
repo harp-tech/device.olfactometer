@@ -12,6 +12,8 @@ extern AppRegs app_regs;
 
 uint8_t aux_isolation = 0;
 uint8_t aux_end = 0;
+uint16_t aux_check = 0;
+
 
 /************************************************************************/
 /* Interrupts from Timers                                               */
@@ -36,15 +38,28 @@ uint8_t aux_end = 0;
 
 ISR(PORTA_INT0_vect, ISR_NAKED)
 {
-	// add equal to 
+
 	if (app_regs.REG_ENABLE_VALVE_EXT_CTRL == B_EXT_CTRL_ENABLED){
 		
 		aux_isolation = ( ((read_VALVE3CTRL) & 0x08) | ((read_VALVE2CTRL) & 0x04) | ((read_VALVE1CTRL) & 0x02) | ((read_VALVE0CTRL) & 0x01) );
-		aux_end = ( ((read_ENDVALVECTRL) & 0x20) | ((read_ENDVALVECTRL) & 0x10) );
+		aux_end = ( ((read_FLUSHVALVECTRL) & 0x20) | ((read_ENDVALVECTRL) & 0x10) );
 		
-		app_write_REG_ISOLATION_VALVES_STATE(&aux_isolation);
+		app_write_REG_ODOR_VALVES_STATE(&aux_isolation);
 		app_write_REG_END_VALVES_STATE(&aux_end);
 		
+	}
+	
+	reti();
+}
+
+ISR(PORTK_INT0_vect, ISR_NAKED)
+{
+
+	if (app_regs.REG_ENABLE_VALVE_EXT_CTRL == B_EXT_CTRL_ENABLED){
+		
+		aux_check = ( ((read_VALVE3CHKCTRL) & 0x20) | ((read_VALVE2CHKCTRL) & 0x02) | ((read_VALVE1CHKCTRL) & 0x40) | ((read_VALVE0CHKCTRL) & 0x10) );
+
+		app_write_REG_CHECK_VALVES_STATE(&aux_check);
 	}
 	
 	reti();
@@ -114,10 +129,10 @@ ISR(PORTB_INT0_vect, ISR_NAKED)
 		if(previous_in0 == 0 && aux == 1)
 		{
 			set_ENDVALVE0;
-			set_ENDVALVE1;
+			//set_ENDVALVE1;
 		} else {
 			clr_ENDVALVE0;
-			clr_ENDVALVE1;
+			//clr_ENDVALVE1;
 		}
 	}
     
@@ -132,13 +147,11 @@ ISR(PORTB_INT0_vect, ISR_NAKED)
 		{
 			app_regs.REG_ENABLE_FLOW = aux;
 			app_write_REG_ENABLE_FLOW(&app_regs.REG_ENABLE_FLOW);
-			//core_func_send_event(ADD_REG_START, true);
 		}
 		// transition from high to low - stop
 		else{
 			app_regs.REG_ENABLE_FLOW = aux;
 			app_write_REG_ENABLE_FLOW(&app_regs.REG_ENABLE_FLOW);
-			//core_func_send_event(ADD_REG_START, false);
 		}
 	}
 	
