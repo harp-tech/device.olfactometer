@@ -58,7 +58,7 @@ registers:
     <<: *channel0UserCalibration
     description: Calibration values specific for channel 3 if Channel3RangeConfig = FlowRate1000. [x0,...xn], where x= ADC raw value for 0:100:1000 ml/min.
     address: 40
-  UserCalibrationEnable:
+  EnableUserCalibration:
     address: 41
     access: Write
     type: U8
@@ -197,41 +197,53 @@ registers:
   EnableValvePulse:
     address: 67
     access: Write
-    type: U8
+    type: U16
     maskType: Valves
     description: Enable pulse mode for valves.
   ValveSet:
     address: 68
     access: Write
-    type: U8
+    type: U16
     maskType: Valves
     description: Set the specified valve output lines.
   ValveClear:
     address: 69
     access: Write
-    type: U8
+    type: U16
     maskType: Valves
     description: Clears the specified valve output lines.
   ValveToggle:
     address: 70
     access: Write
-    type: U8
+    type: U16
     maskType: Valves
     description: Toggles the specified valve output lines.
-  OdorValveState:
+  ValveState:
     address: 71
+    access: Write
+    type: U16
+    maskType: Valves
+    description: Controls the specified valve output lines.
+  OdorValveState:
+    address: 72
     access: Write
     type: U8
     maskType: OdorValves
     description: Write the state of all odor valve output lines.
   EndValveState:
-    address: 72
+    address: 73
     access: Write
     type: U8
     maskType: EndValves
     description: Write the state of all end valve output lines.
+  CheckValveState:
+    address: 74
+    access: Write
+    type: U16
+    maskType: CheckValves
+    description: Write the state of all check valve output lines.
   Valve0PulseDuration: &valvePulseDuration
-    address: 73
+    address: 75
     access: Write
     type: U16
     minValue: 1
@@ -239,121 +251,163 @@ registers:
     description: Sets the pulse duration for Valve0.
   Valve1PulseDuration:
     <<: *valvePulseDuration
-    address: 74
+    address: 76
     description: Sets the pulse duration for Valve1.
   Valve2PulseDuration:
     <<: *valvePulseDuration
-    address: 75
+    address: 77
     description: Sets the pulse duration for Valve2.
   Valve3PulseDuration:
     <<: *valvePulseDuration
-    address: 76
+    address: 78
     description: Sets the pulse duration for Valve3.
+  CheckValve0DelayPulseDuration: &checkValvePulseDuration
+    address: 79
+    access: Write
+    type: U16
+    minValue: 0
+    maxValue: 65535
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve0.
+  CheckValve1DelayPulseDuration:
+    <<: *checkValvePulseDuration
+    address: 80
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve1.
+  CheckValve2DelayPulseDuration:
+    <<: *checkValvePulseDuration
+    address: 81
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve2.
+  CheckValve3DelayPulseDuration:
+    <<: *checkValvePulseDuration
+    address: 82
+    description: Sets the delay when CheckValvesConfig is Sync. Otherwise, sets the pulse duration for Check Valve3.
   EndValve0PulseDuration:
     <<: *valvePulseDuration
-    address: 77
+    address: 83
     description: Sets the pulse duration for EndValve0.
   EndValve1PulseDuration:
     <<: *valvePulseDuration
-    address: 78
+    address: 84
     description: Sets the pulse duration for EndValve1.
   PulseDummyValve:
     <<: *valvePulseDuration
-    address: 79
+    address: 85
     access: Read
     visibility: private
     description: Dummy valve pulse duration [1:65535] ms.
   DO0Sync:
-      address: 80
-      access: Write
-      type: U8
-      maskType: DO0SyncConfig
-      description: Configuration of the digital output 0 (DOUT0).
+    address: 86
+    access: Write
+    type: U8
+    maskType: DO0SyncConfig
+    description: Configuration of the digital output 0 (DOUT0).
   DO1Sync:
-      address: 81
-      access: Write
-      type: U8
-      maskType: DO1SyncConfig
-      description: Configuration of the digital output 1 (DOUT1).
+    address: 87
+    access: Write
+    type: U8
+    maskType: DO1SyncConfig
+    description: Configuration of the digital output 1 (DOUT1).
   DI0Trigger:
-      address: 82
-      access: Write
-      type: U8
-      maskType: DI0TriggerConfig
-      description: Configuration of the digital input pin 0 (DIN0).
+    address: 88
+    access: Write
+    type: U8
+    maskType: DI0TriggerConfig
+    description: Configuration of the digital input pin 0 (DIN0).
   MimicValve0: &mimicValve
-    address: 83
+    address: 89
     access: Write
     type: U8
     maskType: MimicOutputs
     description: Mimic Valve0.
   MimicValve1:
     <<: *mimicValve
-    address: 84
+    address: 90
     description: Mimic Valve1.
   MimicValve2:
     <<: *mimicValve
-    address: 85
+    address: 91
     description: Mimic Valve2.
   MimicValve3:
     <<: *mimicValve
-    address: 86
+    address: 92
     description: Mimic Valve3.
+  MimicCheckValve0:
+    <<: *mimicValve
+    address: 93
+    description: Mimic Check Valve0.
+  MimicCheckValve1:
+    <<: *mimicValve
+    address: 94
+    description: Mimic Check Valve1.
+  MimicCheckValve2:
+    <<: *mimicValve
+    address: 95
+    description: Mimic Check Valve2.
+  MimicCheckValve3:
+    <<: *mimicValve
+    address: 96
+    description: Mimic Check Valve3.
   MimicEndValve0:
     <<: *mimicValve
-    address: 87
+    address: 97
     description: Mimic EndValve0.
   MimicEndValve1:
     <<: *mimicValve
-    address: 88
+    address: 98
     description: Mimic EndValve1.
   MimicDummyValve:
     <<: *mimicValve
-    address: 89
+    address: 99
     access: Read
     visibility: private
     description: Mimic DummyValve.
   EnableValveExternalControl:
-    address: 90
+    address: 100
     type: U8
     access: Write
     maskType: EnableFlag
     description: Enable the valves control via low-level IO screw terminals.
   Channel3Range:
-    address: 91
+    address: 101
     type: U8
     access: Write
     maskType: Channel3RangeConfig
     description: Selects the flow range for the channel 3.
+  EnableCheckValveSync:
+    address: 102
+    type: U16
+    access: Write
+    maskType: CheckValves
+    description: Enable the check valve to sync with the respective odor valve. 
   TemperatureValue: 
-    address: 92
+    address: 103
     type: U8
     access: Read
     description: Temperature sensor reading value.
   EnableTemperatureCalibration:
-    address: 93
+    address: 104
     type: U8
     access: Write
+    maskType: EnableFlag
     description: Enable flow adjustment based on the temperature calibration.
   TemperatureCalibrationValue:
-    address: 94
+    address: 105
     type: U8
     access: Write
     description: Temperature value measured during the device calibration.
   EnableEvents:
-    address: 95
+    address: 106
     access: Write
     type: U8
     maskType: OlfactometerEvents
     description: Specifies the active events in the device.
 bitMasks:
   DigitalOutputs:
-    description: Specifies the states of the digital outputs.
+    description: Specifies the state of the digital outputs.
     bits:
       DO0: 0x1
       DO1: 0x2
   Valves:
-    description: Specifies the states of the valves.
+    description: Specifies the state of the valves.
     bits:
       Valve0: 0x1
       Valve1: 0x2
@@ -362,15 +416,26 @@ bitMasks:
       EndValve0: 0x10
       EndValve1: 0x20
       ValveDummy: 0x40
+      CheckValve0: 0x100
+      CheckValve1: 0x200
+      CheckValve2: 0x400
+      CheckValve3: 0x800
   OdorValves:
-    description: Specifies the states of the odor valves.
+    description: Specifies the state of the odor valves.
     bits:
       Valve0: 0x1
       Valve1: 0x2
       Valve2: 0x4
       Valve3: 0x8
+  CheckValves:
+    description: Specifies the state of the check valves.
+    bits:
+      CheckValve0: 0x100
+      CheckValve1: 0x200
+      CheckValve2: 0x400
+      CheckValve3: 0x800
   EndValves:
-    description: Specifies the states of the end valves.
+    description: Specifies the state of the end valves.
     bits:
       EndValve0: 0x10
       EndValve1: 0x20
@@ -414,4 +479,3 @@ groupMasks:
     values:
       FlowRate100: 0x0
       FlowRate1000: 0x1
-
