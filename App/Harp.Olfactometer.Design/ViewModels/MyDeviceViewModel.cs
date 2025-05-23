@@ -281,7 +281,7 @@ namespace Olfactometer.Design.ViewModels
                 await _olfactometer.WriteDO0SyncAsync((DO0SyncConfig)DigitalOutput0Config);
                 await _olfactometer.WriteDO1SyncAsync((DO1SyncConfig)DigitalOutput1Config);
                 await _olfactometer.WriteDI0TriggerAsync((DI0TriggerConfig)DigitalInput0Config);
-                
+
                 // Pulse state
                 await _olfactometer.WriteEnableValvePulseAsync(GetCurrentValvesPulse());
 
@@ -295,11 +295,11 @@ namespace Olfactometer.Design.ViewModels
 
                 // External control valves
                 await _olfactometer.WriteEnableValveExternalControlAsync((EnableFlag)ValveExternalControl);
-                
+
                 // Temperature compensation
-                if(ShowTemperatureCompensation)
+                if (ShowTemperatureCompensation)
                 {
-                    await _olfactometer.WriteEnableTemperatureCalibrationAsync(Convert.ToByte(TemperatureCompensation));
+                    await _olfactometer.WriteEnableTemperatureCalibrationAsync(TemperatureCompensation == true ? EnableFlag.Enabled : EnableFlag.Disabled);
                 }
 
                 if (savePermanently)
@@ -426,7 +426,7 @@ namespace Olfactometer.Design.ViewModels
                 HardwareVersion = await _olfactometer.ReadHardwareVersionAsync();
                 FirmwareVersion = await _olfactometer.ReadFirmwareVersionAsync();
                 SerialNumber = await _olfactometer.ReadSerialNumberAsync();
-                
+
                 // Show temperature compensation if firmware >= 1.3
                 ShowTemperatureCompensation = FirmwareVersion >= new HarpVersion(1, 3);
 
@@ -483,9 +483,9 @@ namespace Olfactometer.Design.ViewModels
 
                 // External control valves
                 ValveExternalControl = (int)await _olfactometer.ReadEnableValveExternalControlAsync();
-                
+
                 // Temperature compensation
-                if(ShowTemperatureCompensation)
+                if (ShowTemperatureCompensation)
                 {
                     TemperatureCompensation = Convert.ToBoolean(await _olfactometer.ReadEnableTemperatureCalibrationAsync());
                 }
