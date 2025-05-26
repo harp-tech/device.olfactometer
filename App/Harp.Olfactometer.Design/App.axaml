@@ -1,17 +1,18 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:design="using:Olfactometer.Design"
-             x:Class="Olfactometer.Design.App"
-             Name="Olfactometer">
-
-    <Application.DataTemplates>
-        <design:ViewLocator />
-    </Application.DataTemplates>
-
-
+             x:Class="Harp.Olfactometer.Design.App"
+             RequestedThemeVariant="Default"
+             Name="Harp.Olfactometer">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
     <Application.Styles>
-        <FluentTheme Mode="Light" />
-        <StyleInclude Source="avares://Harp.Olfactometer.Design/Views/Icons.axaml" />
-        <StyleInclude Source="avares://Harp.Olfactometer.Design/Views/AccentColors.axaml" />
+        <FluentTheme />
+        <StyleInclude Source="avares://Harp.Olfactometer.Design/Styles/DefaultStyles.axaml" />
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
     </Application.Styles>
+
+    <NativeMenu.Menu>
+      <NativeMenu>
+        <NativeMenuItem Header="About Harp.Olfactometer" Click="NativeMenuItem_OnClick" />
+      </NativeMenu>
+    </NativeMenu.Menu>
 </Application>

@@ -1,28 +1,11 @@
-using System.Runtime.InteropServices;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using Olfactometer.Design.ViewModels;
+﻿using Avalonia.Controls;
 
-namespace Olfactometer.Design.Views
+namespace Harp.Olfactometer.Design.Views;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            SizeToContent = SizeToContent.WidthAndHeight;
-
-#if DEBUG
-            this.AttachDevTools();
-#endif
-            // check current OS and change window presentation and padding
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                ExtendClientAreaToDecorationsHint = false;
-                Padding = new Thickness(0, 0, 0, 0);
-            }
-        }
+        InitializeComponent();
     }
 }

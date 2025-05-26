@@ -1,23 +1,11 @@
-using Avalonia;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using Olfactometer.Design.ViewModels;
+﻿using Avalonia.Controls;
 
-namespace Olfactometer.Design.Views
+namespace Harp.Olfactometer.Design.Views;
+
+public partial class About : Window
 {
-    public partial class About : ReactiveWindow<AboutViewModel>
+    public About()
     {
-        public About()
-        {
-            InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        InitializeComponent();
     }
 }
