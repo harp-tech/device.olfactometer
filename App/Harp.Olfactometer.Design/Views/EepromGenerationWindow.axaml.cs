@@ -1,12 +1,12 @@
-using System;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform.Storage;
 using Avalonia.ReactiveUI;
-using Olfactometer.Design.ViewModels;
+using Harp.Olfactometer.Design.ViewModels;
 using ReactiveUI;
 
 namespace Olfactometer.Design.Views;
@@ -20,8 +20,14 @@ public partial class EepromGenerationWindow : ReactiveWindow<EepromGenerationVie
         this.AttachDevTools();
 #endif
 
-        this.WhenActivated(d => d(ViewModel.ShowOpenFileDialog.RegisterHandler(DoShowOpenFileDialog)));
-        this.WhenActivated(d => d(ViewModel.ShowSaveFileDialog.RegisterHandler(DoShowSaveFileDialog)));
+        this.WhenActivated(disposables =>
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.ShowOpenFileDialog.RegisterHandler(async interaction => await DoShowOpenFileDialog(interaction)).DisposeWith(disposables);
+                ViewModel.ShowSaveFileDialog.RegisterHandler(async interaction => await DoShowSaveFileDialog(interaction)).DisposeWith(disposables);
+            }
+        });
     }
 
     private void InitializeComponent()
@@ -29,17 +35,34 @@ public partial class EepromGenerationWindow : ReactiveWindow<EepromGenerationVie
         AvaloniaXamlLoader.Load(this);
     }
 
-    private async Task DoShowOpenFileDialog(InteractionContext<Unit, string?> interaction)
+    private async Task DoShowOpenFileDialog(IInteractionContext<Unit, string?> interaction)
     {
-        var dialog = new OpenFileDialog();
-        var fileNames = await dialog.ShowAsync(this);
-        interaction.SetOutput((fileNames ?? Array.Empty<string>()).FirstOrDefault());
+        var storageProvider = this.StorageProvider;
+        if (storageProvider == null)
+        {
+            interaction.SetOutput(null);
+            return;
+        }
+
+        var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            AllowMultiple = false
+        });
+
+        interaction.SetOutput(files.FirstOrDefault()?.TryGetLocalPath());
     }
 
-    private async Task DoShowSaveFileDialog(InteractionContext<Unit, string> interaction)
+    private async Task DoShowSaveFileDialog(IInteractionContext<Unit, string?> interaction)
     {
-        var dialog = new SaveFileDialog();
-        var fileName = await dialog.ShowAsync(this);
-        interaction.SetOutput(fileName);
+        var storageProvider = this.StorageProvider;
+        if (storageProvider == null)
+        {
+            interaction.SetOutput(null);
+            return;
+        }
+
+        var files = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions());
+
+        interaction.SetOutput(files?.TryGetLocalPath());
     }
 }

@@ -1,13 +1,13 @@
-using System.Net;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using Olfactometer.Design.Models;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
-namespace Olfactometer.Design.ViewModels
+namespace Harp.Olfactometer.Design.ViewModels
 {
     public partial class EepromGenerationViewModel : ReactiveObject
     {
@@ -74,11 +74,11 @@ namespace Olfactometer.Design.ViewModels
             {
                 _manager.Save(fileName);
 
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
-                    .GetMessageBoxStandardWindow("File saved successfully",
+                var messageBoxStandardWindow = MessageBoxManager
+                    .GetMessageBoxStandard("File saved successfully",
                         "File saved successfully",
                         icon: Icon.Success);
-                await messageBoxStandardWindow.Show();
+                await messageBoxStandardWindow.ShowAsync();
             }
         }
     }
