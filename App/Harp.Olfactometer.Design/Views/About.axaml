@@ -5,7 +5,7 @@
         xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
         xmlns:vm="clr-namespace:Harp.Olfactometer.Design.ViewModels"
         mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="350"
-        Width="650" Height="350"
+        Width="650" Height="400"
         x:Class="Harp.Olfactometer.Design.Views.About"
         x:DataType="vm:AboutViewModel"
         Icon="/Assets/cf-logo.ico"
@@ -35,5 +35,6 @@
 
       As with other Harp devices, the Olfactometer can also be used in [Bonsai](https://bonsai-rx.org/).  
     </md:MarkdownScrollViewer>
+    <Button Content="Generate EEPROM" Command="{Binding GenerateEepromCommand}" HorizontalAlignment="Center" />
     </StackPanel>
 </Window>
