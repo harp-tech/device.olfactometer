@@ -9,7 +9,7 @@ using HexIO;
 
 #endregion
 
-namespace Olfactometer.Design.Models
+namespace Harp.Olfactometer.Design.Models
 {
     public class EepromManager
     {
@@ -76,7 +76,7 @@ namespace Olfactometer.Design.Models
                     for (int k = 0; k < dataSize; k++)
                     {
                         var data = Data[k];
-                        
+
                         // update data to add the temperature value
                         // we need to write the temperature value to the first byte of the second line on the last 'k' iteration
                         // each entry in data is in decimal format representing 2 bytes. convert it to hex
@@ -132,7 +132,7 @@ namespace Olfactometer.Design.Models
                         firstLine[4] = (byte)(serialShort >> 8);
                         // write the low byte of the serial number to the 5th byte of the first line
                         firstLine[5] = (byte)(serialShort & 0xFF);
-                        
+
                         writer.WriteDataRecord((ushort)(i * 0x10), firstLine);
                     }
                     else

@@ -1,9 +1,9 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Harp.Olfactometer.Design.Models;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
-using Olfactometer.Design.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
