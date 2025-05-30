@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F31A6476-857A-4421-8AF2-E6FCBD9D6AA2}") = "Harp.Olfactometer.App", "Harp.Olfactometer.App\Harp.Olfactometer.App.csproj", "{311EAEBB-D179-46DD-9D47-D29BD9AE4349}"
+EndProject
+Project("{F31A6476-857A-4421-8AF2-E6FCBD9D6AA2}") = "Harp.Olfactometer.Design", "Harp.Olfactometer.Design\Harp.Olfactometer.Design.csproj", "{44405016-C4CB-4969-81C3-3831A3CED550}"
+EndProject
+Project("{F31A6476-857A-4421-8AF2-E6FCBD9D6AA2}") = "Harp.Olfactometer", "..\Interface\Harp.Olfactometer\Harp.Olfactometer.csproj", "{F321D761-4F46-414B-B54A-BEC5F368CFDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C393EA7C-D61C-447D-92DF-D4024F818158}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Harp.Olfactometer.nsi = Harp.Olfactometer.nsi
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{311EAEBB-D179-46DD-9D47-D29BD9AE4349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311EAEBB-D179-46DD-9D47-D29BD9AE4349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311EAEBB-D179-46DD-9D47-D29BD9AE4349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{311EAEBB-D179-46DD-9D47-D29BD9AE4349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44405016-C4CB-4969-81C3-3831A3CED550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44405016-C4CB-4969-81C3-3831A3CED550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44405016-C4CB-4969-81C3-3831A3CED550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44405016-C4CB-4969-81C3-3831A3CED550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F321D761-4F46-414B-B54A-BEC5F368CFDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F321D761-4F46-414B-B54A-BEC5F368CFDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F321D761-4F46-414B-B54A-BEC5F368CFDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F321D761-4F46-414B-B54A-BEC5F368CFDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
