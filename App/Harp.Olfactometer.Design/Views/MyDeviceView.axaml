@@ -2,410 +2,1191 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+             xmlns:controls="clr-namespace:Harp.Olfactometer.Design.Controls"
+             xmlns:conv="clr-namespace:Harp.Olfactometer.Design.Converters"
+             xmlns:heroIcons="clr-namespace:HeroIconsAvalonia.Controls;assembly=HeroIconsAvalonia"
+             xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
+             xmlns:local="clr-namespace:Harp.Olfactometer;assembly=Harp.Olfactometer"
+             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:viewModels="clr-namespace:Olfactometer.Design.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="750"
-             x:Class="Olfactometer.Design.Views.OlfactometerView"
-             x:DataType="viewModels:OlfactometerViewModel"
-             FontFamily="resm:?assembly=Olfactometer.Design#Open Sans">
-    <DockPanel>
-        <Grid Margin="10" DockPanel.Dock="Top" ColumnDefinitions="Auto,Auto,*,Auto,Auto" RowDefinitions="30,25,*,*">
-            <TextBlock Grid.Row="0" Text="OLFACTOMETER" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                       FontWeight="Bold" FontSize="27" />
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="2">
-                <TextBlock Text="{Binding AppVersion}" HorizontalAlignment="Left"
-                           VerticalAlignment="Bottom" FontWeight="Bold" FontSize="18" Margin="5,0,0,0" />
-                <Button Grid.Column="1" Background="Transparent" Command="{Binding ShowAboutCommand}">
-                    <PathIcon Height="16"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Data="{StaticResource question_mark}">
-                    </PathIcon>
-                </Button>
-            </StackPanel>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Hardware &amp; Software Platform"
-                       HorizontalAlignment="Center"
-                       Foreground="#009CDF" MaxWidth="240" VerticalAlignment="Center" FontWeight="Bold"
-                       TextWrapping="WrapWithOverflow" FontSize="14" />
-            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,5,5,0"
-                   IsVisible="{Binding !ShowDarkTheme}">
-                <Image.Source>
-                    <svg:SvgImage Source="/Assets/cf-logo.svg" />
-                </Image.Source>
-            </Image>
-            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,5,5,0"
-                   IsVisible="{Binding ShowDarkTheme}">
-                <Image.Source>
-                    <svg:SvgImage Source="/Assets/cf-logo-white-lettering.svg" />
-                </Image.Source>
-            </Image>
-            <ToggleSwitch Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Margin="10,0,0,0" ToolTip.Tip="Change theme"
-                          Content="Theme"
-                          Command="{Binding ChangeThemeCommand}"
-                          IsChecked="{Binding ShowDarkTheme}">
-                <ToggleSwitch.OnContent>
-                    <PathIcon Data="{StaticResource weather_moon_regular}"></PathIcon>
-                </ToggleSwitch.OnContent>
-                <ToggleSwitch.OffContent>
-                    <PathIcon Data="{StaticResource weather_sunny_regular}"></PathIcon>
-                </ToggleSwitch.OffContent>
-            </ToggleSwitch>
+             xmlns:vm="clr-namespace:Harp.Olfactometer.Design.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="900"
+             x:Class="Harp.Olfactometer.Design.Views.OlfactometerView"
+             x:DataType="vm:OlfactometerViewModel">
+
+  <UserControl.Resources>
+    <conv:EnableFlagConverter x:Key="EnableFlagConverter"/>
+    <conv:PayloadFieldConverter x:Key="PayloadFieldConverter"/>
+  </UserControl.Resources>
+
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:OlfactometerViewModel />
+  </Design.DataContext>
+
+  <DockPanel>
+    <Grid Margin="10" DockPanel.Dock="Top"
+          ColumnDefinitions="Auto, Auto, *, Auto, Auto"
+          RowDefinitions="30,25,*,*">
+      <TextBlock Grid.Row="0"
+                 Text="Olfactometer"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Bottom"
+                 FontWeight="Bold"
+                 FontSize="17" />
+      <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="2">
+        <TextBlock Text="{Binding AppVersion}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   FontWeight="Bold"
+                   FontSize="17"
+                   Margin="5,0,0,0" />
+        <Button Background="Transparent" Command="{Binding ShowAboutCommand}">
+          <heroIcons:HeroIcon Foreground="{Binding IconColor}" Type="QuestionMarkCircle" Width="14"/>
+        </Button>
+      </StackPanel>
+      <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Hardware &amp; Software Platform" HorizontalAlignment="Left"
+                     Foreground="{StaticResource BlueAccentColor}" MaxWidth="240" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="WrapWithOverflow" FontSize="12" />
+      <ThemeVariantScope Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                               RequestedThemeVariant="Light">
+        <Image VerticalAlignment="Center"
+               HorizontalAlignment="Right"
+               Margin="0,5,5,0"
+               IsVisible="{Binding !IsDarkMode}"
+               Source="/Assets/cf-logo.png" />
+      </ThemeVariantScope>
+      <ThemeVariantScope Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                         RequestedThemeVariant="Dark">
+        <Image VerticalAlignment="Center"
+               HorizontalAlignment="Right"
+               Margin="0,5,5,0"
+               IsVisible="{Binding IsDarkMode}"
+               Source="/Assets/cf-logo-white-lettering.png" />
+      </ThemeVariantScope>
+      <ToggleSwitch Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Margin="10,0,0,0" ToolTip.Tip="Change theme"
+                          Content="Theme" FontWeight="Normal" FontSize="14"
+                          IsChecked="{Binding IsDarkMode}">
+        <ToggleSwitch.OnContent>
+          <heroIcons:HeroIcon Foreground="{Binding IconColor}" Type="Moon" Width="16" Height="16" />
+        </ToggleSwitch.OnContent>
+        <ToggleSwitch.OffContent>
+          <heroIcons:HeroIcon Foreground="{Binding IconColor}" Type="Sun" Width="16" Height="16" />
+        </ToggleSwitch.OffContent>
+      </ToggleSwitch>
+    </Grid>
+
+    <Grid DockPanel.Dock="Bottom" RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto,Auto" Margin="10">
+      <Button Grid.Row="0" Grid.Column="3"
+              Command="{Binding SaveConfigurationCommand}"
+              Content="Save configuration"
+              Margin="10,0,0,0"
+              Background="{StaticResource BlueAccentColor}"
+              Foreground="White">
+        <Button.CommandParameter>
+          <system:Boolean>false</system:Boolean>
+        </Button.CommandParameter>
+      </Button>
+      <Button Grid.Row="0" Grid.Column="2" Command="{Binding SaveConfigurationCommand}"
+              Content="Save configuration permanently">
+        <Button.CommandParameter>
+          <system:Boolean>true</system:Boolean>
+        </Button.CommandParameter>
+      </Button>
+      <Button Grid.Row="0" Grid.Column="0" Command="{Binding ResetConfigurationCommand}"
+              Content="Reset to defaults" />
+    </Grid>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0">
+      <StackPanel Spacing="12" Margin="0,20,0,0">
+        <Panel Height="36">
+          <TextBlock Text="Device connection" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold"
+                     Margin="10,0" />
+        </Panel>
+        <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*" Margin="0,0,50,0" MinHeight="60">
+          <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="10" Orientation="Horizontal"
+                      Spacing="20">
+            <TextBlock Text="Select a device" VerticalAlignment="Center" />
+            <ComboBox Name="Ports" ItemsSource="{Binding Ports}" SelectedItem="{Binding SelectedPort}"
+                      MinWidth="70" />
+            <Button Command="{Binding LoadDeviceInformation}">
+              <heroIcons:HeroIcon Foreground="{Binding IconColor}" Type="ArrowPath" Width="16" Height="16" />
+            </Button>
+            <Button Content="{Binding ConnectButtonText}"
+                    Command="{Binding ConnectAndGetBaseInfoCommand}" />
+            <ToggleButton Grid.Row="0" Grid.Column="2"
+                    Command="{Binding ShowMessagesCommand}">
+              <heroIcons:HeroIcon Foreground="{Binding IconColor}" Type="DocumentText" Width="16" Height="16" />
+            </ToggleButton>
+          </StackPanel>
+          <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="25,25,30,*" RowDefinitions="*,*,*"
+                Margin="20, 0, 0, 0" IsVisible="{Binding Connected}">
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center"
+                       HorizontalAlignment="Left" Text="{Binding DeviceName}" FontWeight="Bold"
+                       FontSize="24" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Hw " VerticalAlignment="Bottom" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}" FontWeight="Bold"
+                       VerticalAlignment="Bottom" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Fw " VerticalAlignment="Top" />
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FirmwareVersion}" FontWeight="Bold"
+                       VerticalAlignment="Top" />
+            <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="S/N " VerticalAlignment="Center" />
+            <TextBlock Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Text="{Binding SerialNumber}"
+                       FontWeight="Bold" VerticalAlignment="Center" />
+          </Grid>
         </Grid>
 
+        <TabControl>
+          <!-- Flow tab -->
+          <TabItem Header="Flow" FontWeight="SemiBold" FontSize="22">
+            <StackPanel>
+              <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*,*"
+                      Margin="0,0,40,0">
+                  <!-- Header -->
+                  <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Target"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="2" Text="Actual" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="3" Text="Range" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <!-- Channel 0 -->
+                  <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Channel 0"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
+                                 Maximum="100" MinWidth="110" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Channel0TargetFlow}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="1" Grid.Column="2"
+                             Text="{Binding Channel0ActualFlow, StringFormat={}{0:0.0}}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="1" Grid.Column="3" Text="0-100 ml/min"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Channel 1 -->
+                  <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Channel 1"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
+                                 Maximum="100" MinWidth="110" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Channel1TargetFlow}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="2" Grid.Column="2"
+                             Text="{Binding Channel1ActualFlow, StringFormat={}{0:0.0}}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="2" Grid.Column="3" Text="0-100 ml/min"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Channel 2 -->
+                  <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Channel 2"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
+                                 Maximum="100" MinWidth="110" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Channel2TargetFlow}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="3" Grid.Column="2"
+                             Text="{Binding Channel2ActualFlow, StringFormat={}{0:0.0}}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="3" Grid.Column="3" Text="0-100 ml/min"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Channel 3 -->
+                  <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Channel 3"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
+                                 Maximum="{Binding Channel3MaxValue}" MinWidth="110" Value="0"
+                                 ClipValueToMinMax="True" Text="{Binding Channel3TargetFlow}"
+                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="4" Grid.Column="2"
+                             Text="{Binding Channel3ActualFlow, StringFormat={}{0:0.0}}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ComboBox Grid.Row="4" Grid.Column="3" SelectedIndex="{Binding Path=Channel3Range}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBoxItem>0-100 ml/min</ComboBoxItem>
+                    <ComboBoxItem>0-1000 ml/min</ComboBoxItem>
+                  </ComboBox>
+                  <!-- Channel 4 -->
+                  <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
+                                 Maximum="1000" MinWidth="110" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Channel4TargetFlow}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="5" Grid.Column="2"
+                             Text="{Binding Channel4ActualFlow, StringFormat={}{0:0.0}}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="5" Grid.Column="3" Text="0-1000 ml/min"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-        <Grid DockPanel.Dock="Bottom" RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto,Auto" Margin="10">
-            <Button Grid.Row="0" Grid.Column="3"
-                    Command="{Binding SaveConfigurationCommand}"
-                    Content="Save configuration"
-                    Margin="10,0,0,0"
-                    Background="{StaticResource BlueAccentColor}"
-                    Foreground="White">
-                <Button.CommandParameter>
-                    <system:Boolean>false</system:Boolean>
-                </Button.CommandParameter>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="2" Command="{Binding SaveConfigurationCommand}"
-                    Content="Save configuration permanently">
-                <Button.CommandParameter>
-                    <system:Boolean>true</system:Boolean>
-                </Button.CommandParameter>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="0" Command="{Binding ResetConfigurationCommand}"
-                    Content="Reset to defaults" />
-        </Grid>
-
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0">
-            <StackPanel Spacing="12" Margin="0,20,0,0">
-                <Panel Height="36">
-                    <TextBlock Text="Device connection" VerticalAlignment="Center" FontSize="22" FontWeight="SemiBold"
-                               Margin="10,0" />
-                </Panel>
-                <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*" Margin="0,0,50,0" MinHeight="60">
-                    <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="10" Orientation="Horizontal"
-                                Spacing="20">
-                        <TextBlock Text="Select a device" VerticalAlignment="Center" />
-                        <ComboBox Name="Ports" Items="{Binding Ports}" SelectedItem="{Binding SelectedPort}"
-                                  MinWidth="70" />
-                        <Button Command="{Binding LoadDeviceInformation}">
-                            <PathIcon Margin="2"
-                                      Height="16"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Data="{StaticResource refresh}">
-                            </PathIcon>
-                        </Button>
-                        <Button Content="{Binding OlfactometerConnectButtonText}"
-                                Command="{Binding ConnectAndGetBaseInfoCommand}" />
-                    </StackPanel>
-                    <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="20,20,20,*" RowDefinitions="*,*,*"
-                          Margin="20, 0, 0, 0" IsVisible="{Binding Connected}">
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center"
-                                   HorizontalAlignment="Left" Text="{Binding DeviceName}" FontWeight="Bold"
-                                   FontSize="24" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Hw " VerticalAlignment="Bottom" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}" FontWeight="Bold"
-                                   VerticalAlignment="Bottom" />
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Fw " VerticalAlignment="Top" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FirmwareVersion}" FontWeight="Bold"
-                                   VerticalAlignment="Top" />
-                        <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="S/N " VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Text="{Binding SerialNumber}"
-                                   FontWeight="Bold" VerticalAlignment="Center" />
-                    </Grid>
-
+                  <!-- Change Content depending on EnableFlow value -->
+                  <Button Grid.Row="6" Grid.Column="0"
+                          Command="{Binding ToggleFlowCommand}"
+                          Margin="10"
+                          Background="{StaticResource BlueAccentColor}"
+                          Foreground="White"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Panel>
+                      <Label IsVisible="{Binding !RunningFlow}" Content="Start flow" />
+                      <Label IsVisible="{Binding RunningFlow}" Content="Stop flow" />
+                    </Panel>
+                  </Button>
                 </Grid>
 
-                <TabControl>
-                    <!-- Flow tab -->
-                    <TabItem Header="Flow" FontWeight="SemiBold" FontSize="22">
-                        <StackPanel>
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="*">
-                                <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*,*" Margin="0,0,40,0">
-                                    <!-- Header -->
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Target"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                                               FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Actual" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Range" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <!-- Channel 0 -->
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Channel 0"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
-                                                   Maximum="100" MinWidth="110" ClipValueToMinMax="True"
-                                                   Text="{Binding Channel0TargetFlow}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="2"
-                                               Text="{Binding Channel0ActualFlow, StringFormat={}{0:0.0}}"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="3" Text="0-100 ml/min"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Channel 1 -->
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Channel 1"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="2" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
-                                                   Maximum="100" MinWidth="110" ClipValueToMinMax="True"
-                                                   Text="{Binding Channel1TargetFlow}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="2" Grid.Column="2"
-                                               Text="{Binding Channel1ActualFlow, StringFormat={}{0:0.0}}"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="2" Grid.Column="3" Text="0-100 ml/min"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Channel 2 -->
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Channel 2"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="3" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
-                                                   Maximum="100" MinWidth="110" ClipValueToMinMax="True"
-                                                   Text="{Binding Channel2TargetFlow}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="3" Grid.Column="2"
-                                               Text="{Binding Channel2ActualFlow, StringFormat={}{0:0.0}}"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="3" Grid.Column="3" Text="0-100 ml/min"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Channel 3 -->
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Channel 3"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="4" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
-                                                   Maximum="{Binding Channel3MaxValue}" MinWidth="110"
-                                                   ClipValueToMinMax="True" Text="{Binding Channel3TargetFlow}"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="4" Grid.Column="2"
-                                               Text="{Binding Channel3ActualFlow, StringFormat={}{0:0.0}}"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ComboBox Grid.Row="4" Grid.Column="3" SelectedIndex="{Binding Path=Channel3Range}"
-                                              HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <ComboBoxItem>0-100 ml/min</ComboBoxItem>
-                                        <ComboBoxItem>0-1000 ml/min</ComboBoxItem>
-                                    </ComboBox>
-                                    <!-- Channel 4 -->
-                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="5" Grid.Column="1" Margin="10" Increment="1" Minimum="0"
-                                                   Maximum="1000" MinWidth="110" ClipValueToMinMax="True"
-                                                   Text="{Binding Channel4TargetFlow}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="5" Grid.Column="2"
-                                               Text="{Binding Channel4ActualFlow, StringFormat={}{0:0.0}}"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="5" Grid.Column="3" Text="0-1000 ml/min"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <!-- Valves grid with 6 columns and 7 rows -->
+                <Grid Grid.Row="0" Grid.Column="1" Margin="10" ColumnDefinitions="*,*,*,*,*,*"
+                      RowDefinitions="*,*,*,*,*,*,*">
+                  <!-- Header -->
+                  <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Status"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="Pulse" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="4" Text="TPulse" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="5" Text="Range" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <!-- Valve 0 -->
+                  <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Valve 0"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="1" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsValve0Enabled_OdorValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsValve0Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="1" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Valve0PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="1" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Valve 1 -->
+                  <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Valve 1"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="2" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsValve1Enabled_OdorValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsValve1Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="2" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Valve1PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="2" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Valve 2 -->
+                  <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Valve 2"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="3" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsValve2Enabled_OdorValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsValve2Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="3" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Valve2PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="3" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Valve 3 -->
+                  <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Valve 3"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="4" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsValve3Enabled_OdorValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsValve3Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="4" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding Valve3PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="4" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- End Valve 0 -->
+                  <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="End Valve 0"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="5" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsEndValve0Enabled_EndValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsEndValve0Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="5" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding EndValve0PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="5" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- End Valve 1 -->
+                  <TextBlock Grid.Row="6" Grid.Column="0" Margin="15" Text="End Valve 1"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="6" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsEndValve1Enabled_EndValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"
+                                IsChecked="{Binding IsEndValve1Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <NumericUpDown Grid.Row="6" Grid.Column="4" Margin="10" Increment="1" Minimum="1"
+                                 Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                 Text="{Binding EndValve1PulseDuration}" VerticalAlignment="Center"
+                                 HorizontalAlignment="Center" />
+                  <TextBlock Grid.Row="6" Grid.Column="5" Margin="10" Text="[1:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
 
-                                    <!-- Change Content depending on EnableFlow value -->
-                                    <Button Grid.Row="6" Grid.Column="0"
-                                            Command="{Binding ToggleFlowCommand}"
-                                            Margin="10"
-                                            Background="{StaticResource BlueAccentColor}"
-                                            Foreground="White"
-                                            VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                                        <Panel>
-                                            <Label IsVisible="{Binding !RunningFlow}" Content="Start flow" />
-                                            <Label IsVisible="{Binding RunningFlow}" Content="Stop flow" />
-                                        </Panel>
-                                    </Button>
-                                </Grid>
+                <!-- Check Valves grid with 6 columns and 5 rows -->
+                <Grid Grid.Row="1" Grid.Column="1" Margin="10" ColumnDefinitions="*,*,*,*,*,*"
+                      RowDefinitions="*,*,*,*,*"  IsVisible="{Binding ShowChecksFields}">
+                  <!-- TODO: find a way to separate this part so that we can hide it depending on the hw version -->
 
-                                <!-- Valves grid with 6 columns and 7 rows -->
-                                <Grid Grid.Row="0" Grid.Column="1" Margin="10" ColumnDefinitions="*,*,*,*,*"
-                                      RowDefinitions="*,*,*,*,*,*,*">
-                                    <!-- Header -->
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Status"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                                               FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Pulse" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="3" Text="TPulse" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Range" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" FontWeight="Bold" />
-                                    <!-- Valve 0 -->
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Valve 0"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="1" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=Valve0State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="1" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve0PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="1" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding Valve0PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Valve 1 -->
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Valve 1"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="2" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=Valve1State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="2" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve1PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="2" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding Valve1PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="2" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Valve 2 -->
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Valve 2"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="3" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=Valve2State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="3" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve2PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="3" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding Valve2PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="3" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- Valve 3 -->
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Valve 3"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="4" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=Valve3State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="4" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding Valve3PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="4" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding Valve3PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="4" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- End Valve 0 -->
-                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="End Valve 0"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="5" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=EndValve0State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="5" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding EndValve0PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="5" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding EndValve0PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="5" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <!-- End Valve 1 -->
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="15" Text="End Valve 1"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="6" Grid.Column="1" Margin="10"
-                                                  IsChecked="{Binding Path=EndValve1State}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <ToggleSwitch Grid.Row="6" Grid.Column="2" Margin="10"
-                                                  IsChecked="{Binding EndValve1PulseState}" VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
-                                    <NumericUpDown Grid.Row="6" Grid.Column="3" Margin="10" Increment="1" Minimum="1"
-                                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True"
-                                                   Text="{Binding EndValve1PulseDuration}" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="6" Grid.Column="4" Margin="10" Text="[1:65535] ms"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
-
-                                </Grid>
-                            </Grid>
-                        </StackPanel>
-                    </TabItem>
-                    <!-- Configuration tab -->
-                    <TabItem Header="Configuration" FontWeight="SemiBold" FontSize="22">
-                        <Grid Margin="10,0,0,0" ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="*,*,*,*">
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Events" FontSize="16" FontWeight="SemiBold" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Mimic Valves" FontSize="16"
-                                       FontWeight="SemiBold" />
-                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16"
-                                       FontWeight="SemiBold" />
-                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Other" FontSize="16" FontWeight="SemiBold" />
-                            <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,20,30,0">
-                                <CheckBox IsChecked="{Binding FlowmeterEvent}">Flowmeter state</CheckBox>
-                                <CheckBox IsChecked="{Binding DI0TriggerEvent}">Digital Input 0 Trigger state</CheckBox>
-                                <CheckBox IsChecked="{Binding ChannelActualFlowEvent}">Channels Actual Flow state</CheckBox>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,20,30,0">
-                                <TextBlock Text="Valve 0" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicValve0}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="Valve 1" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicValve1}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="Valve 2" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicValve2}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="Valve 3" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicValve3}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="End Valve 0" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicEndValve0}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="End Valve 1" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=MimicEndValve1}">
-                                    <ComboBoxItem>Do not mimic</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 0</ComboBoxItem>
-                                    <ComboBoxItem>Mimic to Digital Output 1</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="2" Spacing="5" Margin="0,20,30,0">
-                                <TextBlock Text="Digital output 0" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=DigitalOutput0Config}">
-                                    <ComboBoxItem>Digital output 0 controlled by software</ComboBoxItem>
-                                    <ComboBoxItem>Mimic Enable Flow</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="Digital output 1" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=DigitalOutput1Config}">
-                                    <ComboBoxItem>Digital output 1 controlled by software</ComboBoxItem>
-                                    <ComboBoxItem>Mimic Enable Flow</ComboBoxItem>
-                                </ComboBox>
-                                <TextBlock Text="Digital input" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=DigitalInput0Config}">
-                                    <ComboBoxItem>Use as a regular digital input</ComboBoxItem>
-                                    <ComboBoxItem>Start flowmeter on a rising edge, stop on a falling edge</ComboBoxItem>
-                                    <ComboBoxItem>Toggles the end valves with a rising and falling edge</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="3" Spacing="5" Margin="0,20,30,0">
-                                <TextBlock Text="External Control Valves" FontWeight="SemiBold" />
-                                <ComboBox SelectedIndex="{Binding Path=ValveExternalControl}">
-                                    <ComboBoxItem>Software control</ComboBoxItem>
-                                    <ComboBoxItem>External control via the screw terminals</ComboBoxItem>
-                                </ComboBox>
-                                <CheckBox IsChecked="{Binding TemperatureCompensation}" IsVisible="{Binding ShowTemperatureCompensation}">Temperature compensation</CheckBox>
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                </TabControl>
-
-
+                  <!-- Check Valves Header -->
+                  <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="Status"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="2" Text="Pulse" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="3" Text="Sync" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="4" Text="TPulse/Delay" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <TextBlock Grid.Row="0" Grid.Column="5" Text="Range" VerticalAlignment="Center"
+                             HorizontalAlignment="Center" FontWeight="Bold" />
+                  <!-- Check Valve 0 -->
+                  <TextBlock Grid.Row="1" Grid.Column="0" Margin="15" Text="Check Valve 0"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="1" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsCheckValve0Enabled_CheckValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="1" Grid.Column="2" Margin="10"
+                                IsChecked="{Binding IsCheckValve0Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="1" Grid.Column="3" Margin="10"
+                                IsChecked="{Binding IsCheckValve0Enabled_EnableCheckValveSync}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <StackPanel Grid.Row="1" Grid.Column="4" >
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding !IsCheckValve0Enabled_EnableCheckValveSync}">Duration</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding IsCheckValve0Enabled_EnableCheckValveSync}">Delay</TextBlock>
+                    <NumericUpDown Margin="10" Increment="1" Minimum="0"
+                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                   Text="{Binding CheckValve0DelayPulseDuration}" VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                  </StackPanel>
+                  <TextBlock Grid.Row="1" Grid.Column="5" Margin="10" Text="[0:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Check Valve 1 -->
+                  <TextBlock Grid.Row="2" Grid.Column="0" Margin="15" Text="Check Valve 1"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="2" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsCheckValve1Enabled_CheckValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="2" Grid.Column="2" Margin="10"
+                                IsChecked="{Binding IsCheckValve1Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="2" Grid.Column="3" Margin="10"
+                                IsChecked="{Binding IsCheckValve1Enabled_EnableCheckValveSync}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <StackPanel Grid.Row="2" Grid.Column="4" >
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding !IsCheckValve1Enabled_EnableCheckValveSync}">Duration</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding IsCheckValve1Enabled_EnableCheckValveSync}">Delay</TextBlock>
+                    <NumericUpDown Margin="10" Increment="1" Minimum="0"
+                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                   Text="{Binding CheckValve1DelayPulseDuration}" VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                  </StackPanel>
+                  <TextBlock Grid.Row="2" Grid.Column="5" Margin="10" Text="[0:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Check Valve 2 -->
+                  <TextBlock Grid.Row="3" Grid.Column="0" Margin="15" Text="Check Valve 2"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="3" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsCheckValve2Enabled_CheckValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="3" Grid.Column="2" Margin="10"
+                                IsChecked="{Binding IsCheckValve2Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="3" Grid.Column="3" Margin="10"
+                                IsChecked="{Binding IsCheckValve2Enabled_EnableCheckValveSync}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <StackPanel Grid.Row="3" Grid.Column="4" >
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding !IsCheckValve2Enabled_EnableCheckValveSync}">Duration</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding IsCheckValve2Enabled_EnableCheckValveSync}">Delay</TextBlock>
+                    <NumericUpDown Margin="10" Increment="1" Minimum="0"
+                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                   Text="{Binding CheckValve2DelayPulseDuration}" VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                  </StackPanel>
+                  <TextBlock Grid.Row="3" Grid.Column="5" Margin="10" Text="[0:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <!-- Check Valve 3 -->
+                  <TextBlock Grid.Row="4" Grid.Column="0" Margin="15" Text="Check Valve 3"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="4" Grid.Column="1" Margin="10"
+                                IsChecked="{Binding IsCheckValve3Enabled_CheckValveState}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="4" Grid.Column="2" Margin="10"
+                                IsChecked="{Binding IsCheckValve3Enabled_EnableValvePulse}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <ToggleSwitch Grid.Row="4" Grid.Column="3" Margin="10"
+                                IsChecked="{Binding IsCheckValve3Enabled_EnableCheckValveSync}" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                  <StackPanel Grid.Row="4" Grid.Column="4" >
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding !IsCheckValve3Enabled_EnableCheckValveSync}">Duration</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" IsVisible="{Binding IsCheckValve3Enabled_EnableCheckValveSync}">Delay</TextBlock>
+                    <NumericUpDown Margin="10" Increment="1" Minimum="0"
+                                   Maximum="65535" MinWidth="130" ClipValueToMinMax="True" Value="0"
+                                   Text="{Binding CheckValve3DelayPulseDuration}" VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                  </StackPanel>
+                  <TextBlock Grid.Row="4" Grid.Column="5" Margin="10" Text="[0:65535] ms"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
+              </Grid>
             </StackPanel>
-        </ScrollViewer>
-    </DockPanel>
+          </TabItem>
+          <!-- Configuration tab -->
+          <TabItem Header="Configuration" FontWeight="SemiBold" FontSize="22">
+            <StackPanel>
+              <Grid Margin="10,0,0,10" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" RowDefinitions="*,*,*,*">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Events" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Mimic Valves" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Input/Output" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="Other" FontSize="16" FontWeight="SemiBold" />
+
+                <!-- Events Column -->
+                <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,10,20,0">
+                  <!-- Register: EnableEvents (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">EnableEvents</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Specifies the active events in the device.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsFlowmeterEnabled}"
+                              IsEnabled="True">
+                      Flowmeter state
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsDI0TriggerEnabled}"
+                              IsEnabled="True">
+                      Digital Input 0 Trigger state
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsChannelActualFlowEnabled}"
+                              IsEnabled="True">
+                      Channels Actual Flow state
+                    </CheckBox>
+                  </StackPanel>
+                  <!-- Register: Flowmeter (Read-Only, Event) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">Flowmeter</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Value of single ADC read from all flowmeter channels.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                      <TextBlock Grid.Row="0" Grid.Column="0"
+                               Text="Channel0:"
+                               VerticalAlignment="Center"
+                               Margin="0,5,10,5" />
+                      <TextBlock Grid.Row="0" Grid.Column="1"
+                               Text="{Binding Flowmeter,
+                                          Converter={StaticResource PayloadFieldConverter},
+                                          ConverterParameter='Channel0'}"
+                               VerticalAlignment="Center"
+                               Margin="0,5,0,5"
+                               FontSize="14" />
+                      <TextBlock Grid.Row="1" Grid.Column="0"
+                               Text="Channel1:"
+                               VerticalAlignment="Center"
+                               Margin="0,5,10,5" />
+                      <TextBlock Grid.Row="1" Grid.Column="1"
+                               Text="{Binding Flowmeter,
+                                          Converter={StaticResource PayloadFieldConverter},
+                                          ConverterParameter='Channel1'}"
+                               VerticalAlignment="Center"
+                               Margin="0,5,0,5"
+                               FontSize="14" />
+                      <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="Channel2:"
+                               VerticalAlignment="Center"
+                               Margin="0,5,10,5" />
+                      <TextBlock Grid.Row="2" Grid.Column="1"
+                               Text="{Binding Flowmeter,
+                                          Converter={StaticResource PayloadFieldConverter},
+                                          ConverterParameter='Channel2'}"
+                               VerticalAlignment="Center"
+                               Margin="0,5,0,5"
+                               FontSize="14" />
+                      <TextBlock Grid.Row="3" Grid.Column="0"
+                               Text="Channel3:"
+                               VerticalAlignment="Center"
+                               Margin="0,5,10,5" />
+                      <TextBlock Grid.Row="3" Grid.Column="1"
+                               Text="{Binding Flowmeter,
+                                          Converter={StaticResource PayloadFieldConverter},
+                                          ConverterParameter='Channel3'}"
+                               VerticalAlignment="Center"
+                               Margin="0,5,0,5"
+                               FontSize="14" />
+                      <TextBlock Grid.Row="4" Grid.Column="0"
+                               Text="Channel4:"
+                               VerticalAlignment="Center"
+                               Margin="0,5,10,5" />
+                      <TextBlock Grid.Row="4" Grid.Column="1"
+                               Text="{Binding Flowmeter,
+                                          Converter={StaticResource PayloadFieldConverter},
+                                          ConverterParameter='Channel4'}"
+                               VerticalAlignment="Center"
+                               Margin="0,5,0,5"
+                               FontSize="14" />
+                    </Grid>
+                  </StackPanel>
+                  <!-- Register: DI0State (Read-Only, Event) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DI0State</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>State of the digital input pin 0.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding DI0State, Mode=TwoWay}"
+                              IsEnabled="False"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <x:Static Member="local:DigitalState.Low" />
+                      <x:Static Member="local:DigitalState.High" />
+                    </ComboBox>
+                  </StackPanel>
+                </StackPanel>
+
+                <!-- Mimic Valves Column -->
+                <StackPanel Grid.Row="1" Grid.Column="1" Spacing="20" Margin="0,10,20,0">
+                  <!-- Register: MimicValve0 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicValve0</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Valve0.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicValve0, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicValve1 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicValve1</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Valve1.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicValve1, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicValve2 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicValve2</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Valve2.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicValve2, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicValve3 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicValve3</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Valve3.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicValve3, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicEndValve0 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicEndValve0</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic EndValve0.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicEndValve0, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicEndValve1 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicEndValve1</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic EndValve1.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicEndValve1, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicCheckValve0 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve0</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Check Valve0.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicCheckValve0, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicCheckValve1 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve1</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Check Valve1.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicCheckValve1, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicCheckValve2 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve2</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Check Valve2.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicCheckValve2, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: MimicCheckValve3 (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve3</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Mimic Check Valve3.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding MimicCheckValve3, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Do not mimic</system:String>
+                            <system:String x:Key="DO0">Mimic to Digital Output 0</system:String>
+                            <system:String x:Key="DO1">Mimic to Digital Output 1</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:MimicOutputs.None" />
+                      <x:Static Member="local:MimicOutputs.DO0" />
+                      <x:Static Member="local:MimicOutputs.DO1" />
+                    </ComboBox>
+                  </StackPanel>
+                </StackPanel>
+
+                <!-- Input/Output Column -->
+                <StackPanel Grid.Row="1" Grid.Column="2" Spacing="20" Margin="0,10,20,0">
+                  <!-- Register: DO0Sync (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DO0Sync</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Configuration of the digital output 0 (DOUT0).</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding DO0Sync, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Digital output 0 controlled by software</system:String>
+                            <system:String x:Key="MimicEnableFlow">Mimic Enable Flow</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:DO0SyncConfig.None" />
+                      <x:Static Member="local:DO0SyncConfig.MimicEnableFlow" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: DO1Sync (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DO1Sync</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Configuration of the digital output 1 (DOUT1).</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding DO1Sync, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="None">Digital output 1 controlled by software</system:String>
+                            <system:String x:Key="MimicEnableFlow">Mimic Enable Flow</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:DO1SyncConfig.None" />
+                      <x:Static Member="local:DO1SyncConfig.MimicEnableFlow" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: DI0Trigger (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DI0Trigger</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Configuration of the digital input pin 0 (DIN0).</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding DI0Trigger, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="Sync">Use as regular digital input</system:String>
+                            <system:String x:Key="EnableFlowWhileHigh">Start flowmeter on a rising edge, stop on a falling edge</system:String>
+                            <system:String x:Key="ValveToggle">Toggles the end valves with a rising and falling edge</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="local:DI0TriggerConfig.Sync" />
+                      <x:Static Member="local:DI0TriggerConfig.EnableFlowWhileHigh" />
+                      <x:Static Member="local:DI0TriggerConfig.ValveToggle" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: DigitalOutputClear (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputClear</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Clears the specified digital output lines.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputClear}"
+                              IsEnabled="True">
+                      DO0
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputClear}"
+                              IsEnabled="True">
+                      DO1
+                    </CheckBox>
+                  </StackPanel>
+                  <!-- Register: DigitalOutputSet (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputSet</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Set the specified digital output lines.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputSet}"
+                              IsEnabled="True">
+                      DO0
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputSet}"
+                              IsEnabled="True">
+                      DO1
+                    </CheckBox>
+                  </StackPanel>
+                  <!-- Register: DigitalOutputState (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputState</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Write the state of all digital output lines.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputState}"
+                              IsEnabled="True">
+                      DO0
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputState}"
+                              IsEnabled="True">
+                      DO1
+                    </CheckBox>
+                  </StackPanel>
+                  <!-- Register: DigitalOutputToggle (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputToggle</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Toggles the specified digital output lines.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputToggle}"
+                              IsEnabled="True">
+                      DO0
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputToggle}"
+                              IsEnabled="True">
+                      DO1
+                    </CheckBox>
+                  </StackPanel>
+                </StackPanel>
+
+                <!-- Other Column -->
+                <StackPanel Grid.Row="1" Grid.Column="3" Spacing="20" Margin="0,10,20,0">
+                  <!-- Register: EnableValveExternalControl (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">EnableValveExternalControl</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Enable the valves control via low-level IO screw terminals.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding EnableValveExternalControl, Mode=TwoWay}"
+                              IsEnabled="True"
+                              Width="200"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left">
+                      <ComboBox.Resources>
+                        <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                          <conv:EnumDisplayConverter.Mappings>
+                            <system:String x:Key="Disabled">Software control</system:String>
+                            <system:String x:Key="Enabled">External control via the screw terminals</system:String>
+                          </conv:EnumDisplayConverter.Mappings>
+                        </conv:EnumDisplayConverter>
+                      </ComboBox.Resources>
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                      <x:Static Member="harp:EnableFlag.Disabled" />
+                      <x:Static Member="harp:EnableFlag.Enabled" />
+                    </ComboBox>
+                  </StackPanel>
+                  <!-- Register: TemperatureValue (Read-Only) -->
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowTemperatureValue}">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">TemperatureValue</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Temperature sensor reading value.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <TextBlock Text="{Binding TemperatureValue}"
+                               HorizontalAlignment="Left"
+                               Margin="0,5,0,0"
+                               FontSize="14" />
+                  </StackPanel>
+                  <!-- Register: EnableTemperatureCalibration (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowTemperatureFields}">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">EnableTemperatureCalibration</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Enable flow adjustment based on the temperature calibration.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <CheckBox IsChecked="{Binding EnableTemperatureCalibration,
+                            Mode=TwoWay,
+                            Converter={StaticResource EnableFlagConverter},
+                            ConverterParameter='EnableFlag'}"
+                            Content="Enable"
+                            IsEnabled="True"
+                            HorizontalAlignment="Left" />
+                  </StackPanel>
+                  <!-- Register: TemperatureCalibrationValue (Write) -->
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowTemperatureFields}">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">TemperatureCalibrationValue</Label>
+                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
+                                          Foreground="{Binding IconColor}"
+                                          VerticalAlignment="Top">
+                        <ToolTip.Tip>Temperature value measured during the device calibration.</ToolTip.Tip>
+                      </heroIcons:HeroIcon>
+                    </StackPanel>
+                    <NumericUpDown Value="{Binding TemperatureCalibrationValue}"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Increment="1"
+                                 FormatString="F0"
+                                 Width="200"
+                                 HorizontalAlignment="Left"
+                                 Margin="0,5,0,0" />
+                  </StackPanel>
+                </StackPanel>
+
+                <!-- Message Control -->
+                <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="2">
+                  <controls:WriteMessagesControl MinWidth="500" IsVisible="{Binding ShowWriteMessages}" />
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </TabItem>
+        </TabControl>
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
 </UserControl>
+
+

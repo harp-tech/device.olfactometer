@@ -1,14 +1,11 @@
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using Olfactometer.Design.ViewModels;
+﻿using Avalonia.Controls;
 
-namespace Olfactometer.Design.Views
+namespace Harp.Olfactometer.Design.Views;
+
+public partial class OlfactometerView : UserControl
 {
-    public partial class OlfactometerView : ReactiveUserControl<OlfactometerViewModel>
+    public OlfactometerView()
     {
-        public OlfactometerView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
