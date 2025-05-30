@@ -33,11 +33,11 @@ sudo usermod -a -G dialout <USERNAME>
 - Install NSIS 3 on your Windows machine
 - Build and publish the application using the .NET 6 SDK command-line tools
   ```
-    dotnet publish -r win-x64 /p:PublishSingleFile=false /p:IncludeNativeLibrariesInSingleFile=true /p:Configuration=Release
+      dotnet publish Harp.Olfactometer.App.sln -r win-x64 -f net8.0 --self-contained /p:Configuration=Release
   ```
 - Run makesis to generate the installer
     ```
-     makensis.exe /DVERSION_MAJOR=0 /DVERSION_MINOR=1 /DVERSION_BUILD=0 .\Olfactometer.nsi
+     makensis.exe /DVERSION_MAJOR=1 /DVERSION_MINOR=2 /DVERSION_BUILD=0 .\Harp.Olfactometer.nsi
     ```
 - The installer will be available at `.\bin\Release\net6.0\win-x64\SyringePump.vx.x.x-win-x64.self-contained.exe`
 
@@ -48,8 +48,8 @@ The project uses dotnet-bundle (https://github.com/egramtel/dotnet-bundle) to ge
 To build the .app image, run the following commands on the solution folder:
 
 ```sh
-dotnet restore -r osx-x64 -p:TargetFramework=net6.0
-dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:UseAppHost=true -p:TargetFramework=net6.0
+dotnet restore -r osx-x64 -p:TargetFramework=net8.0
+dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:UseAppHost=true -p:TargetFramework=net8.0
 ```
 
 ### Build tar.gz package for Linux (either in Linux or WSL)
@@ -67,8 +67,8 @@ dotnet tool install --global dotnet-tarball
 Then run the following commands to build the tar.gz package:
 
 ```sh
-dotnet restore -r linux-x64 -p:TargetFramework=net6.0
-dotnet msbuild -p:RuntimeIdentifier=linux-x64 -property:Configuration=Release -p:UseAppHost=true -p:TargetFramework=net6.0 /t:CreateTarball
+dotnet restore -r linux-x64 -p:TargetFramework=net8.0
+dotnet msbuild -p:RuntimeIdentifier=linux-x64 -property:Configuration=Release -p:UseAppHost=true -p:TargetFramework=net8.0 /t:CreateTarball
 ```
 
 ## Roadmap

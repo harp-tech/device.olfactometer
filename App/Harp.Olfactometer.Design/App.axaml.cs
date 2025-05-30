@@ -34,9 +34,9 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
     }
-    
+
     private void NativeMenuItem_OnClick(object sender, EventArgs e)
-    { 
+    {
         var about = new About() { DataContext = new AboutViewModel() };
         about.ShowDialog((Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
             .MainWindow);
