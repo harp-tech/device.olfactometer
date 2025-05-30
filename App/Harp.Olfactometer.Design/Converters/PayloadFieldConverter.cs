@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Reflection;
+using Avalonia;
 using Avalonia.Data.Converters;
 
 namespace Harp.Olfactometer.Design.Converters;
@@ -10,7 +11,7 @@ public class PayloadFieldConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value == null || parameter == null)
-            return null;
+            return AvaloniaProperty.UnsetValue;
 
         var fieldName = parameter.ToString();
         var valueType = value.GetType();
@@ -64,7 +65,7 @@ public class PayloadFieldConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value == null || parameter == null)
-            return null;
+            return AvaloniaProperty.UnsetValue;
 
         var fieldName = parameter.ToString();
 
