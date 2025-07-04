@@ -197,10 +197,26 @@
                   <TextBlock Grid.Row="4" Grid.Column="2"
                              Text="{Binding Channel3ActualFlow, StringFormat={}{0:0.0}}"
                              VerticalAlignment="Center" HorizontalAlignment="Center" />
-                  <ComboBox Grid.Row="4" Grid.Column="3" SelectedIndex="{Binding Path=Channel3Range}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ComboBoxItem>0-100 ml/min</ComboBoxItem>
-                    <ComboBoxItem>0-1000 ml/min</ComboBoxItem>
+                  <ComboBox Grid.Row="4" Grid.Column="3" SelectedItem="{Binding Channel3Range, Mode=TwoWay}"
+                                        IsEnabled="True"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                    <ComboBox.Resources>
+                      <conv:EnumDisplayConverter x:Key="EnumDisplayConverter">
+                        <conv:EnumDisplayConverter.Mappings>
+                          <system:String x:Key="FlowRate100">0-100 ml/min</system:String>
+                          <system:String x:Key="FlowRate1000">0-1000 ml/min</system:String>
+                        </conv:EnumDisplayConverter.Mappings>
+                      </conv:EnumDisplayConverter>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDisplayConverter}}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <x:Static Member="local:Channel3RangeConfig.FlowRate100" />
+                    <x:Static Member="local:Channel3RangeConfig.FlowRate1000" />
                   </ComboBox>
                   <!-- Channel 4 -->
                   <TextBlock Grid.Row="5" Grid.Column="0" Margin="15" Text="Channel 4"
