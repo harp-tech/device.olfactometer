@@ -24,6 +24,14 @@ This device supports the delivery of up to 4 odor stimuli and a carrier line wit
 * 1x 5V tolerant digital input [BNC connector] (front panel)
 
 
+## Compatibility Table
+
+| FW version  | App version   |  Interface version |  HW version   |         	                                     
+|-------------|---------------|--------------------|---------------|                                               
+| **<2.0**    | **<=1.1** 	  | **0.2.0**          |  **<= 1.1**   |                 	
+| **>=2.0**   | **1.2**       | **0.3.0**          |    Any        |
+
+
 ## Interface ##
 
 The interface with the Harp Olfactometer can be done through [Bonsai](https://bonsai-rx.org/) or the dedicated GUI.
