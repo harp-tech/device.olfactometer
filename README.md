@@ -29,7 +29,7 @@ This device supports the delivery of up to 4 odor stimuli and a carrier line wit
 | FW version  | App version   |  Interface version |  HW version   |         	                                     
 |-------------|---------------|--------------------|---------------|                                               
 | **<2.0**    | **<=1.1** 	  | **0.2.0**          |  **<= 1.1**   |                 	
-| **>=2.0**   | **1.2**       | **0.3.0**          |    Any        |
+| **>=2.0**   | **>=1.2**     | **0.3.0**          |    Any        |
 
 
 ## Interface ##
