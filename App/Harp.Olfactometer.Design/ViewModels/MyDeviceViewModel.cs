@@ -2691,6 +2691,9 @@ public class OlfactometerViewModel : ViewModelBase
                         Channel4ActualFlow = await device.ReadChannel4ActualFlowAsync(cancellationToken);
                         observer.OnNext($"Channel4ActualFlow: {Channel4ActualFlow}");
                     }
+                    
+                    DigitalOutputState = await _device.ReadDigitalOutputStateAsync(cancellationToken);
+                    observer.OnNext($"DigitalOutputState: {DigitalOutputState}");
 
                     // Wait a short while before polling again. Adjust delay as necessary.
                     await Task.Delay(TimeSpan.FromMilliseconds(10), cancellationToken);
