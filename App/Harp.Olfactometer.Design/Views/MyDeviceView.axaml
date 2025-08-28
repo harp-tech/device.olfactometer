@@ -7,7 +7,6 @@
              xmlns:heroIcons="clr-namespace:HeroIconsAvalonia.Controls;assembly=HeroIconsAvalonia"
              xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
              xmlns:local="clr-namespace:Harp.Olfactometer;assembly=Harp.Olfactometer"
-             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:vm="clr-namespace:Harp.Olfactometer.Design.ViewModels"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="900"
@@ -789,7 +788,7 @@
                     </ComboBox>
                   </StackPanel>
                   <!-- Register: MimicCheckValve0 (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowChecksFields}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                       <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve0</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
@@ -823,7 +822,7 @@
                     </ComboBox>
                   </StackPanel>
                   <!-- Register: MimicCheckValve1 (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowChecksFields}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                       <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve1</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
@@ -857,7 +856,7 @@
                     </ComboBox>
                   </StackPanel>
                   <!-- Register: MimicCheckValve2 (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowChecksFields}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                       <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve2</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
@@ -891,7 +890,7 @@
                     </ComboBox>
                   </StackPanel>
                   <!-- Register: MimicCheckValve3 (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
+                  <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{Binding ShowChecksFields}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                       <Label FontWeight="Bold" FontSize="14" Padding="0">MimicCheckValve3</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"

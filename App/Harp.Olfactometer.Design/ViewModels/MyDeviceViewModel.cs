@@ -2135,13 +2135,13 @@ public class OlfactometerViewModel : ViewModelBase
         this.WhenAnyValue(x => x.HardwareVersion)
             .Subscribe(version =>
             {
-                if (version != null)
-                {
-                    // show certain fields depending on the hardware version
-                    ShowChecksFields = version.Major >= 2;
-                    ShowTemperatureValue = (version.Major, version.Minor) is (2, 0) or (1, 1);
-                    ShowTemperatureFields = !((version.Major, version.Minor) is (2, 1) or (1, 0));
-                }
+                if (version == null)
+                    return;
+
+                // show certain fields depending on the hardware version
+                ShowChecksFields = version.Major >= 2;
+                ShowTemperatureValue = (version.Major, version.Minor) is (2, 0) or (1, 1);
+                ShowTemperatureFields = (version.Major, version.Minor) is not ((2, 1) or (1, 0));
             });
 
         this.WhenAnyValue(x => x.Connected)
