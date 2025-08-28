@@ -16,6 +16,8 @@
   <UserControl.Resources>
     <conv:EnableFlagConverter x:Key="EnableFlagConverter"/>
     <conv:PayloadFieldConverter x:Key="PayloadFieldConverter"/>
+    <system:Boolean x:Key="BoolTrue">True</system:Boolean>
+    <system:Boolean x:Key="BoolFalse">False</system:Boolean>
   </UserControl.Resources>
 
   <Design.DataContext>
@@ -1025,81 +1027,68 @@
                       <x:Static Member="local:DI0TriggerConfig.ValveToggle" />
                     </ComboBox>
                   </StackPanel>
-                  <!-- Register: DigitalOutputClear (Write) -->
+                  <!-- Registers: DigitalOutput0Set and DigitalOutput0Clear (Write) -->
                   <StackPanel Orientation="Vertical" Spacing="10">
                     <StackPanel Orientation="Horizontal" Spacing="5">
-                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputClear</Label>
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">Digital Output 0</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
                                           Foreground="{Binding IconColor}"
                                           VerticalAlignment="Top">
-                        <ToolTip.Tip>Clears the specified digital output lines.</ToolTip.Tip>
+                        <ToolTip.Tip>Sets or clears the digital output 0 line.</ToolTip.Tip>
                       </heroIcons:HeroIcon>
                     </StackPanel>
-                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputClear}"
-                              IsEnabled="True">
-                      DO0
-                    </CheckBox>
-                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputClear}"
-                              IsEnabled="True">
-                      DO1
-                    </CheckBox>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                      <StackPanel Orientation="Horizontal" Spacing="5">
+                        <controls:VisualStatus Status="{Binding IsDO0Enabled_DigitalOutputState}" Width="15"
+                                               Height="15" />
+                        <TextBlock Text="Active" FontSize="12" VerticalAlignment="Center" />
+                      </StackPanel>
+                      <ToggleButton
+                        IsChecked="{Binding IsDO0Enabled_DigitalOutputSet}"
+                        Command="{Binding DO0SetClearCommand}"
+                        CommandParameter="{StaticResource BoolTrue}"
+                        IsEnabled="True">
+                        Set
+                      </ToggleButton>
+                      <ToggleButton
+                        IsChecked="{Binding IsDO0Enabled_DigitalOutputClear}"
+                        Command="{Binding DO0SetClearCommand}"
+                        CommandParameter="{StaticResource BoolFalse}"
+                        IsEnabled="True">
+                        Clear
+                      </ToggleButton>
+                    </StackPanel>
                   </StackPanel>
-                  <!-- Register: DigitalOutputSet (Write) -->
+                  <!-- Registers: DigitalOutput1Set and DigitalOutput1Clear (Write) -->
                   <StackPanel Orientation="Vertical" Spacing="10">
                     <StackPanel Orientation="Horizontal" Spacing="5">
-                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputSet</Label>
+                      <Label FontWeight="Bold" FontSize="14" Padding="0">Digital Output 1</Label>
                       <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
                                           Foreground="{Binding IconColor}"
                                           VerticalAlignment="Top">
-                        <ToolTip.Tip>Set the specified digital output lines.</ToolTip.Tip>
+                        <ToolTip.Tip>Sets or clears the digital output 1 line.</ToolTip.Tip>
                       </heroIcons:HeroIcon>
                     </StackPanel>
-                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputSet}"
-                              IsEnabled="True">
-                      DO0
-                    </CheckBox>
-                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputSet}"
-                              IsEnabled="True">
-                      DO1
-                    </CheckBox>
-                  </StackPanel>
-                  <!-- Register: DigitalOutputState (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
-                    <StackPanel Orientation="Horizontal" Spacing="5">
-                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputState</Label>
-                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
-                                          Foreground="{Binding IconColor}"
-                                          VerticalAlignment="Top">
-                        <ToolTip.Tip>Write the state of all digital output lines.</ToolTip.Tip>
-                      </heroIcons:HeroIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                      <StackPanel Orientation="Horizontal" Spacing="5">
+                        <controls:VisualStatus Status="{Binding IsDO1Enabled_DigitalOutputState}" Width="15"
+                                               Height="15" />
+                        <TextBlock Text="Active" FontSize="12" VerticalAlignment="Center" /></StackPanel>
+                      <ToggleButton
+                        IsChecked="{Binding IsDO1Enabled_DigitalOutputSet}"
+                        Command="{Binding DO1SetClearCommand}"
+                        CommandParameter="{StaticResource BoolTrue}"
+                        IsEnabled="True">
+                        Set
+                      </ToggleButton>
+                      <ToggleButton
+                        IsChecked="{Binding IsDO1Enabled_DigitalOutputClear}"
+                        Command="{Binding DO1SetClearCommand}"
+                        CommandParameter="{StaticResource BoolFalse}"
+                        IsEnabled="True">
+                        Clear
+                      </ToggleButton>
                     </StackPanel>
-                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputState}"
-                              IsEnabled="True">
-                      DO0
-                    </CheckBox>
-                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputState}"
-                              IsEnabled="True">
-                      DO1
-                    </CheckBox>
-                  </StackPanel>
-                  <!-- Register: DigitalOutputToggle (Write) -->
-                  <StackPanel Orientation="Vertical" Spacing="10">
-                    <StackPanel Orientation="Horizontal" Spacing="5">
-                      <Label FontWeight="Bold" FontSize="14" Padding="0">DigitalOutputToggle</Label>
-                      <heroIcons:HeroIcon Type="InformationCircle" Width="14" Height="14"
-                                          Foreground="{Binding IconColor}"
-                                          VerticalAlignment="Top">
-                        <ToolTip.Tip>Toggles the specified digital output lines.</ToolTip.Tip>
-                      </heroIcons:HeroIcon>
-                    </StackPanel>
-                    <CheckBox IsChecked="{Binding IsDO0Enabled_DigitalOutputToggle}"
-                              IsEnabled="True">
-                      DO0
-                    </CheckBox>
-                    <CheckBox IsChecked="{Binding IsDO1Enabled_DigitalOutputToggle}"
-                              IsEnabled="True">
-                      DO1
-                    </CheckBox>
                   </StackPanel>
                 </StackPanel>
 
