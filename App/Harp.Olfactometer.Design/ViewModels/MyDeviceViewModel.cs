@@ -2059,6 +2059,8 @@ public class OlfactometerViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ClearMessagesCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> ShowMessagesCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> ToggleFlowCommand { get; }
+    public ReactiveCommand<bool, Unit> DO0SetClearCommand { get; }
+    public ReactiveCommand<bool, Unit> DO1SetClearCommand { get; }
 
     [Reactive] public int Channel3MaxValue { get; set; }
     [Reactive] public bool RunningFlow { get; set; }
@@ -2131,17 +2133,30 @@ public class OlfactometerViewModel : ViewModelBase
         ToggleFlowCommand.ThrownExceptions.Subscribe(ex =>
             //Log.Error(ex, "Error starting protocol with error: {Exception}", ex));
             Console.WriteLine($"Error starting protocol with error: {ex}"));
+        
+        DO0SetClearCommand = ReactiveCommand.CreateFromObservable<bool, Unit>(DO0SetClear, canChangeConfig);
+        DO0SetClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsSaving);
+        DO0SetClearCommand.ThrownExceptions.Subscribe(ex =>
+            //Log.Error(ex, "Error setting/clearing DO0 with error: {Exception}", ex));
+            Console.WriteLine($"Error setting/clearing DO0 with error: {ex}"));
+        
+        DO1SetClearCommand = ReactiveCommand.CreateFromObservable<bool, Unit>(DO1SetClear, canChangeConfig);
+        DO1SetClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsSaving);
+        DO1SetClearCommand.ThrownExceptions.Subscribe(ex =>
+            //Log.Error(ex, "Error setting/clearing DO1 with error: {Exception}", ex));
+            Console.WriteLine($"Error setting/clearing DO1 with error: {ex}"));
+        
 
         this.WhenAnyValue(x => x.HardwareVersion)
             .Subscribe(version =>
             {
-                if (version != null)
-                {
-                    // show certain fields depending on the hardware version
-                    ShowChecksFields = version.Major >= 2;
-                    ShowTemperatureValue = (version.Major, version.Minor) is (2, 0) or (1, 1);
-                    ShowTemperatureFields = !((version.Major, version.Minor) is (2, 1) or (1, 0));
-                }
+                if (version == null)
+                    return;
+
+                // show certain fields depending on the hardware version
+                ShowChecksFields = version.Major >= 2;
+                ShowTemperatureValue = (version.Major, version.Minor) is (2, 0) or (1, 1);
+                ShowTemperatureFields = (version.Major, version.Minor) is not ((2, 1) or (1, 0));
             });
 
         this.WhenAnyValue(x => x.Connected)
@@ -2424,6 +2439,50 @@ public class OlfactometerViewModel : ViewModelBase
         LoadUsbInformation();
     }
 
+    private IObservable<Unit> DO0SetClear(bool arg)
+    {
+        return Observable.StartAsync(async () =>
+        {
+            if (_device == null)
+                throw new Exception("Device not connected");
+
+            IsDO0Enabled_DigitalOutputSet = arg;
+            IsDO0Enabled_DigitalOutputClear = !arg;
+
+            await WriteAndLogAsync(
+                value => _device.WriteDigitalOutputSetAsync(value),
+                DigitalOutputSet,
+                "DigitalOutputSet");
+
+            await WriteAndLogAsync(
+                value => _device.WriteDigitalOutputClearAsync(value),
+                DigitalOutputClear,
+                "DigitalOutputClear");
+        });
+    }
+
+    private IObservable<Unit> DO1SetClear(bool arg)
+    {
+        return Observable.StartAsync(async () =>
+        {
+            if (_device == null)
+                throw new Exception("Device not connected");
+
+            IsDO1Enabled_DigitalOutputSet = arg;
+            IsDO1Enabled_DigitalOutputClear = !arg;
+
+            await WriteAndLogAsync(
+                value => _device.WriteDigitalOutputSetAsync(value),
+                DigitalOutputSet,
+                "DigitalOutputSet");
+
+            await WriteAndLogAsync(
+                value => _device.WriteDigitalOutputClearAsync(value),
+                DigitalOutputClear,
+                "DigitalOutputClear");
+        });
+    }
+
     private IObservable<Unit> LoadUsbInformation()
     {
         return Observable.Start(() =>
@@ -2691,6 +2750,9 @@ public class OlfactometerViewModel : ViewModelBase
                         Channel4ActualFlow = await device.ReadChannel4ActualFlowAsync(cancellationToken);
                         observer.OnNext($"Channel4ActualFlow: {Channel4ActualFlow}");
                     }
+                    
+                    DigitalOutputState = await _device.ReadDigitalOutputStateAsync(cancellationToken);
+                    observer.OnNext($"DigitalOutputState: {DigitalOutputState}");
 
                     // Wait a short while before polling again. Adjust delay as necessary.
                     await Task.Delay(TimeSpan.FromMilliseconds(10), cancellationToken);
