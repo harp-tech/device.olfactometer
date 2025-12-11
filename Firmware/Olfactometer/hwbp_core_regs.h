@@ -25,6 +25,7 @@ struct CommonBank
 	uint8_t R_UID[16];
 	uint8_t R_TAG[8];
 	uint16_t R_HEARTBEAT;
+	uint8_t R_VERSION[32];
 };
 
 /************************************************************************/
@@ -50,9 +51,10 @@ struct CommonBank
 #define ADD_R_UID               0x10    // U8[16]
 #define ADD_R_TAG               0x11    // U8[8]
 #define ADD_R_HEARTBEAT         0x12    // U16
+#define ADD_R_VERSION           0x13    // U8[32]
 
 /* Memory limits */
-#define COMMON_BANK_ADD_MAX             0x12
+#define COMMON_BANK_ADD_MAX             0x13
 #define COMMON_BANK_ABSOLUTE_ADD_MAX    0x1C
 
 /* R_OPERATION_CTRL */
@@ -77,6 +79,7 @@ struct CommonBank
 
 #define B_NAME_TO_DEFAULT   (1<<3)
 
+#define B_BOOT              (1<<5)
 #define B_BOOT_DEF          (1<<6)
 #define B_BOOT_EE           (1<<7)
 
