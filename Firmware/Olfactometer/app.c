@@ -62,7 +62,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 2;
     uint8_t hwL = 1;
     uint8_t fwH = 2;
-    uint8_t fwL = 3;
+    uint8_t fwL = 4;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -482,7 +482,7 @@ void init_calibration_values(void)
 /* Closed Loop Control - aux Interpolate function                       */
 /************************************************************************/
 
-float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y)
+/*float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y)
 {
 	
 	float slope = (float)(upper_y - lower_y) / (upper_x - lower_x) * 1.0;
@@ -495,6 +495,22 @@ float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lowe
 		return upper_y*1.0;
 	}
 	
+	return interpolated;
+}*/
+
+
+static inline float interpolate_aux(uint16_t inValue, float lower_x, float upper_x, float lower_y, float upper_y)
+{
+	float slope = (upper_y - lower_y) / (upper_x - lower_x);
+	float interpolated = (inValue - lower_x) * slope + lower_y;
+
+	if (interpolated < lower_y){
+		return lower_y;
+	}
+	if (interpolated > upper_y){
+		return upper_y;
+	}
+
 	return interpolated;
 }
 
@@ -563,13 +579,20 @@ void set_flowrate_mfc(uint8_t mfc_id,float target_flow)
 
 void closed_loop_control(uint8_t flow)
 {
+
+
+	static const uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
+	static const uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
+	static uint16_t calibration_values [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,500};
+	static uint16_t calibration_values_1000 [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,3000};
+
 	
-	uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
-	uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
+	//uint16_t CH100_flows [] = {0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 100};
+	//uint16_t CH1000_flows [] = {0, 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000};
 		
-	/* Takes 350 us */
-	uint16_t calibration_values [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,500};
-	uint16_t calibration_values_1000 [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,3000};
+	/* Takes 190 us */
+	//uint16_t calibration_values [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,500};
+	//uint16_t calibration_values_1000 [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768,3000};
 	float flow_real = 0;
 	float calc_dutycycle = 0;
 	float low_limit_dc = 1.0;
@@ -581,7 +604,9 @@ void closed_loop_control(uint8_t flow)
 	uint8_t index = 0;
 	uint8_t user_calibration = 0;
 	user_calibration = app_regs.REG_USER_CALIBRATION_ENABLE;
-	
+	uint8_t  is_range_100 = 0;
+	uint16_t temp_correction_u16 = 0;
+
 	switch (flowmeter)
 	{
 		case 0:
@@ -619,8 +644,11 @@ void closed_loop_control(uint8_t flow)
 			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
-			while(!(flow_real < calibration_values[index])){
-				index = index + 2;
+			//while(!(flow_real < calibration_values[index])){
+			//	index = index + 2;
+			//}
+			while(index < 24 && !(flow_real < calibration_values[index])){
+ 			   index = index + 2;
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			
@@ -631,7 +659,8 @@ void closed_loop_control(uint8_t flow)
 			
 			// P control
 			error = (app_regs.REG_CHANNEL0_TARGET_FLOW-app_regs.REG_CHANNEL0_ACTUAL_FLOW);
-			calc_dutycycle = app_regs.REG_CHANNEL0_DUTY_CYCLE + error/32; 
+			//calc_dutycycle = app_regs.REG_CHANNEL0_DUTY_CYCLE + error/32;
+			calc_dutycycle = app_regs.REG_CHANNEL0_DUTY_CYCLE + error * (1.0f/32.0f);   
 			
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL0_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL0_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL0_DUTY_CYCLE(&calc_dutycycle); }
@@ -670,8 +699,11 @@ void closed_loop_control(uint8_t flow)
 			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
-			while(!(flow_real < calibration_values[index])){
-				index = index + 2;
+			//while(!(flow_real < calibration_values[index])){
+			//	index = index + 2;
+			//}
+			while(index < 24 && !(flow_real < calibration_values[index])){
+    			index = index + 2;
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			
@@ -682,7 +714,8 @@ void closed_loop_control(uint8_t flow)
 						
 			// P control
 			error = (app_regs.REG_CHANNEL1_TARGET_FLOW-app_regs.REG_CHANNEL1_ACTUAL_FLOW);
-			calc_dutycycle = app_regs.REG_CHANNEL1_DUTY_CYCLE + error/32; 
+			//calc_dutycycle = app_regs.REG_CHANNEL1_DUTY_CYCLE + error/32; 
+			calc_dutycycle = app_regs.REG_CHANNEL1_DUTY_CYCLE + error * (1.0f/32.0f);  
 			
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL1_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL1_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL1_DUTY_CYCLE(&calc_dutycycle); }
@@ -721,8 +754,11 @@ void closed_loop_control(uint8_t flow)
 		
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
-			while(!(flow_real < calibration_values[index])){
-				index = index + 2;
+			//while(!(flow_real < calibration_values[index])){
+			//	index = index + 2;
+			//}
+			while(index < 24 && !(flow_real < calibration_values[index])){
+ 			   index = index + 2;
 			}
 			flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 				
@@ -733,7 +769,8 @@ void closed_loop_control(uint8_t flow)
 		
 			// P control
 			error = (app_regs.REG_CHANNEL2_TARGET_FLOW-app_regs.REG_CHANNEL2_ACTUAL_FLOW);
-			calc_dutycycle = app_regs.REG_CHANNEL2_DUTY_CYCLE + error/32; 
+			//calc_dutycycle = app_regs.REG_CHANNEL2_DUTY_CYCLE + error/32; 
+			calc_dutycycle = app_regs.REG_CHANNEL2_DUTY_CYCLE + error * (1.0f/32.0f);  
 						
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL2_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL2_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL2_DUTY_CYCLE(&calc_dutycycle); }
@@ -754,7 +791,7 @@ void closed_loop_control(uint8_t flow)
 			
 			
 			// create calibration array
-			index = 0;
+			/*index = 0;
 			while(index < calibration_size){
 				if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
 					temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
@@ -784,27 +821,73 @@ void closed_loop_control(uint8_t flow)
 					}
 				}
 				index = index + 1;
+			}*/
+
+			// create calibration array
+			is_range_100 = ((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100);
+
+			if(app_regs.REG_TEMPERATURE_VALUE != 0 && app_regs.REG_ENABLE_TEMP_CALIBRATION != 0){
+				temp_correction = app_regs.REG_TEMPERATURE_VALUE - app_regs.REG_TEMP_USER_CALIBRATION;
+				temp_correction = temp_correction * (is_range_100 ? 2.5 : 5);
+			}
+			temp_correction_u16 = (uint16_t)temp_correction;
+
+			index = 0;
+			while(index < calibration_size){
+				if(!user_calibration){
+					if(is_range_100){
+						calibration_values[index*2+2] = CH3_calibration_values[index]-temp_correction_u16;
+						calibration_values[index*2+3] = CH100_flows[index+1];
+					}
+					else{
+						calibration_values_1000[index*2+2] = CH3_calibration_values[index]-temp_correction_u16;
+						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+					}
+				}
+				else{
+					if(is_range_100){
+						calibration_values[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION[index]-temp_correction_u16;
+						calibration_values[index*2+3] = CH100_flows[index+1];
+					}
+					else{
+						calibration_values_1000[index*2+2] = app_regs.REG_CHANNEL3_USER_CALIBRATION_AUX[index]-temp_correction_u16;
+						calibration_values_1000[index*2+3] = CH1000_flows[index+1];
+					}
+				}
+				index = index + 1;
 			}
 		
 			// determine real flow rate by interpolation of calibration values
-			index = 0;
-			while(!(flow_real < calibration_values[index])){
-				index = index + 2;
-			}
+			//index = 0;
+			//while(!(flow_real < calibration_values[index])){
+			//	index = index + 2;
+			//}
+			//while(index < 24 && !(flow_real < calibration_values[index])){
+   			//	index = index + 2;
+			//}
+
 			
 			if((app_regs.REG_CHANNEL3_RANGE & MSK_CHANNEL3_RANGE_CONFIG) == GM_FLOW_100){
 				// determine real flow rate by interpolation of calibration values
 				index = 0;
-				while(!(flow_real < calibration_values[index])){
-					index = index + 2;
+				//while(!(flow_real < calibration_values[index])){
+				//	index = index + 2;
+				//}
+				while(index < 24 && !(flow_real < calibration_values[index])){
+    				index = index + 2;
 				}
+
+
 				flow_real = interpolate_aux(flow_real, calibration_values[index-2], calibration_values[index], calibration_values[index-1], calibration_values[index+1]);
 			}
 			else {
 				// determine real flow rate by interpolation of calibration values
 				index = 0;
-				while(!(flow_real < calibration_values_1000[index])){
-					index = index + 2;
+				//while(!(flow_real < calibration_values_1000[index])){
+				//	index = index + 2;
+				//}
+				while(index < 24 && !(flow_real < calibration_values_1000[index])){
+    				index = index + 2;
 				}
 				flow_real = interpolate_aux(flow_real, calibration_values_1000[index-2], calibration_values_1000[index], calibration_values_1000[index-1], calibration_values_1000[index+1]);
 			
@@ -817,7 +900,8 @@ void closed_loop_control(uint8_t flow)
 		
 			// P control
 			error = (app_regs.REG_CHANNEL3_TARGET_FLOW-app_regs.REG_CHANNEL3_ACTUAL_FLOW);
-			calc_dutycycle = app_regs.REG_CHANNEL3_DUTY_CYCLE + error/256; 
+			//calc_dutycycle = app_regs.REG_CHANNEL3_DUTY_CYCLE + error/256;
+			calc_dutycycle = app_regs.REG_CHANNEL3_DUTY_CYCLE + error * (1.0f/256.0f);   
 						
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL3_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL3_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL3_DUTY_CYCLE(&calc_dutycycle); }
@@ -856,9 +940,13 @@ void closed_loop_control(uint8_t flow)
 			
 			// determine real flow rate by interpolation of calibration values
 			index = 0;
-			while(!(flow_real < calibration_values_1000[index])){
-				index = index + 2;
+			//while(!(flow_real < calibration_values_1000[index])){
+			//	index = index + 2;
+			//}
+			while(index < 24 && !(flow_real < calibration_values_1000[index])){
+    			index = index + 2;
 			}
+
 			flow_real = interpolate_aux(flow_real, calibration_values_1000[index-2], calibration_values_1000[index], calibration_values_1000[index-1], calibration_values_1000[index+1]);
 				
 			app_regs.REG_CHANNEL4_ACTUAL_FLOW = flow_real;
@@ -868,7 +956,8 @@ void closed_loop_control(uint8_t flow)
 		
 			// P control
 			error = (app_regs.REG_CHANNEL4_TARGET_FLOW-app_regs.REG_CHANNEL4_ACTUAL_FLOW);
-			calc_dutycycle = app_regs.REG_CHANNEL4_DUTY_CYCLE + error/256; 
+			//calc_dutycycle = app_regs.REG_CHANNEL4_DUTY_CYCLE + error/256; 
+			calc_dutycycle = app_regs.REG_CHANNEL4_DUTY_CYCLE + error * (1.0f/256.0f);  
 	
 			if (calc_dutycycle <= 1) { app_write_REG_CHANNEL4_DUTY_CYCLE(&low_limit_dc); } else if (calc_dutycycle >= 99) {
 				app_write_REG_CHANNEL4_DUTY_CYCLE(&high_limit_dc); } else { app_write_REG_CHANNEL4_DUTY_CYCLE(&calc_dutycycle); }
@@ -1176,11 +1265,13 @@ void core_callback_t_500us(void) {
 
 void core_callback_t_1ms(void) {
 
-	
+	//set_OUT0;
 	if(++temp_sampling_counter >= TEMP_SAMPLING_DIVIDER){	
+		//set_OUT0;
 		if (app_regs.REG_TEMPERATURE_VALUE != 0)
 			read_temperature();
 		temp_sampling_counter = 0;
+		//clr_OUT1;
 	}
 	
 	// if flowmeter is running then each ms
@@ -1193,6 +1284,7 @@ void core_callback_t_1ms(void) {
 			ADC_sampling_counter = 0;
 		    
 			// go over each flow controller
+			//set_OUT0;
 			if(++close_loop_counter_ms >= CLOSE_LOOP_TIMING){
 				if(++close_loop_case >= 5)
 					close_loop_case = 0;
@@ -1200,9 +1292,11 @@ void core_callback_t_1ms(void) {
 				if(standby_mfcs)
 					standby_mfcs--;	
 				close_loop_counter_ms = 0;
-			}				
+			}
+			//clr_OUT0;				
 		}
 	}
+	//clr_OUT0;
 }
 
 
